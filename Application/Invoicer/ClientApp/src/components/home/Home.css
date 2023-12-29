@@ -1,0 +1,62 @@
+﻿.company-top-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+select {
+    font-size: 20px;
+}
+
+.remaining-balance {
+    font-weight: 600;
+}
+
+.remaining-balance-container {
+    display: block;
+}
+
+.remaining-balance-container span {
+    display: block;
+}
+
+.remaining-balance {
+    padding-left: 20px;
+}
+
+.transactions-container {
+    margin-top: 100px;
+}
+
+.transactions-actions-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.transactions-actions-container a {
+    margin-right: 10px;
+    padding: 5px;
+    color: rgba(0, 200, 255,1);
+}
+
+.transactions-info-container {
+    display: flex;
+    justify-content: center;
+}
+
+.transactions-table table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.transactions-table th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+.transactions tr:nth-child(even) {
+    background-color: #D6EEEE;
+}
+
+@media (max-width: 500px) {
+}

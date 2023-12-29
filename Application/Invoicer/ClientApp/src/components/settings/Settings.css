@@ -1,0 +1,21 @@
+﻿.settings-container {
+    display: flex;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.settings-menu {
+    padding: 50px 10px;
+}
+
+    .settings-menu a {
+        margin-bottom: 20px;
+        display: block;
+        color: rgba(0, 200, 255,1);
+    }
+
+.settings-app {
+    margin:20px;
+    min-width:50%;
+}

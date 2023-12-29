@@ -1,0 +1,68 @@
+USE invoicer;
+
+CREATE TABLE companies (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(256) NOT NULL,
+  phone VARCHAR(20) NOT NULL,
+  email VARCHAR(256) DEFAULT NULL,
+  address VARCHAR(256) NOT NULL,
+  city VARCHAR(256) NOT NULL,
+  country VARCHAR(256) NOT NULL,
+  zip VARCHAR(256) NOT NULL,
+  is_visible BOOLEAN DEFAULT TRUE,
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE remaining_balance (
+  id INT NOT NULL AUTO_INCREMENT,
+  company_id INT NOT NULL,
+  total DECIMAL(8, 2) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT remaining_balance_fk_company_id FOREIGN KEY (company_id) REFERENCES companies(id)
+);
+
+CREATE TABLE transactions (
+  id INT NOT NULL AUTO_INCREMENT,
+  type ENUM('invoice', 'payment'),
+  company_id INT NOT NULL,
+  created_date DATETIME NOT NULL,
+  due_payment_date DATETIME DEFAULT NULL,
+  check_number VARCHAR(20) DEFAULT NULL,
+  total DECIMAL(7,2) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT invoices_fk_company_id FOREIGN KEY (company_id) REFERENCES companies(id)
+);
+
+CREATE TABLE invoice_data (
+  id INT NOT NULL AUTO_INCREMENT,
+  invoice_id INT NOT NULL,
+  type VARCHAR(256) DEFAULT NULL,
+  ticket_number VARCHAR(256) DEFAULT NULL,
+  total DECIMAL(6, 2) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT invoice_data_fk_invoice_id FOREIGN KEY (invoice_id) REFERENCES transactions(id)
+);
+
+CREATE TABLE users (
+  id INT NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(256) NOT NULL,
+  last_name VARCHAR(256) NOT NULL,
+  email VARCHAR(256) NOT NULL,
+  username VARCHAR(256) NOT NULL,
+  password VARCHAR(256) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE user_access (
+  id INT NOT NULL AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  company_id INT NOT NULL,
+  can_view BOOLEAN DEFAULT FALSE,
+  can_create BOOLEAN DEFAULT FALSE,
+  can_edit BOOLEAN DEFAULT FALSE,
+  can_delete BOOLEAN DEFAULT FALSE,
+  can_provide_access BOOLEAN DEFAULT FALSE,
+  PRIMARY KEY (id),
+  CONSTRAINT user_access_fk_user_id FOREIGN KEY (user_id) REFERENCES users(id),
+  CONSTRAINT user_access_fk_company_id FOREIGN KEY (company_id) REFERENCES companies(id)
+);
