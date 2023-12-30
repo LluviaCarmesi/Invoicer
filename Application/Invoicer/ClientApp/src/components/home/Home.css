@@ -12,6 +12,10 @@ select {
     margin-bottom: 10px;
 }
 
+.company-dropdown-container select {
+    min-width: 200px;
+}
+
 .remaining-balance {
     font-weight: 600;
 }

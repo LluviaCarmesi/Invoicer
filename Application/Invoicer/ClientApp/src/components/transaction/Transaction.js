@@ -30,7 +30,7 @@ export default class Transaction extends Component {
 
     async loadCompanies(transactionID) {
         const companyInformation = await getCompanies();
-        const firstCompany = companyInformation.companies.length > 0 ? companyInformation.companies[0] : {id: 0, name: ""};
+        const firstCompany = companyInformation.companies.length > 0 ? companyInformation.companies[0] : { id: 0, name: "" };
         if (!!transactionID) {
             this.loadTransaction(transactionID);
         }
@@ -91,8 +91,8 @@ export default class Transaction extends Component {
         }
 
         return (
-            <div className="main-container">
-                <div className="company-dropdown-container">
+            <div className="transaction-container">
+                <div className="transaction-company-dropdown-container">
                     <div id="loading-companies-container" hidden={!this.state.isLoadingCompanies}>
                         <span>{this.state.loadingMessageCompanies}</span>
                     </div>
@@ -117,33 +117,54 @@ export default class Transaction extends Component {
                     </div>
                     {!this.state.isLoadingTransaction && !this.state.errorTransaction &&
                         <React.Fragment>
-                            <div className="field-container">
-                                <span className="field-label">Choose Type</span>
-                                <select id="type-dropdown" onChange={(control) => changeType(control.target.value)} value={this.state.currentType}>
-                                    <option value="invoice">Invoice</option>
-                                    <option value="payment">Payment</option>
-                                </select>
-                            </div>
-                            <div className="field-container">
-                                <span className="field-label">{this.state.currentType !== "invoice" ? "Payment Date" : "Due Date"}</span>
-                                <span>
-                                    <input type="date" id="due-payment-date" name="due-date" />
-                                </span>
-                            </div>
-                            <div className="field-container" hidden={this.state.currentType !== "payment"}>
-                                <span className="field-label">Check Number</span>
-                                <input type="text" id="check-number" name="check-number" />
-                            </div>
-                            <div className="field-container">
-                                <span className="field-label">Total</span>
-                                <span>
-                                    $<input type="text" id="total" name="total" />
-                                </span>
+                            <table className="transaction-information-table">
+                                <tr className="field-container">
+                                    <td>
+                                        <span className="field-label">Choose Type</span>
+                                    </td>
+                                    <td>
+                                        <select id="type-dropdown" onChange={(control) => changeType(control.target.value)} value={this.state.currentType}>
+                                            <option value="invoice">Invoice</option>
+                                            <option value="payment">Payment</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr className="field-container">
+                                    <td>
+                                        <span className="field-label">{this.state.currentType !== "invoice" ? "Payment Date" : "Due Date"}</span>
+                                    </td>
+                                    <td>
+                                        <span>
+                                            <input type="date" id="due-payment-date" name="due-date" />
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr className="field-container" hidden={this.state.currentType !== "payment"}>
+                                    <td>
+                                        <span className="field-label">Check Number</span>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="check-number" name="check-number" />
+                                    </td>
+                                </tr>
+                                <tr className="field-container">
+                                    <td>
+                                        <span className="field-label">Total: $</span>
+                                    </td>
+                                    <td>
+                                        <span>
+                                            <input type="text" id="total" name="total" />
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div className="buttons-container">
+                                <button className="primary-button">Submit Transaction</button>
                             </div>
                         </React.Fragment>
                     }
                 </div>
-            </div>
+            </div >
         );
     }
 }
