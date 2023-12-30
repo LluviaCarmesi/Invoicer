@@ -26,7 +26,7 @@ CREATE TABLE transactions (
   type ENUM('invoice', 'payment'),
   company_id INT NOT NULL,
   created_date DATETIME NOT NULL,
-  due_payment_date DATETIME DEFAULT NULL,
+  due_date DATETIME DEFAULT NULL,
   check_number VARCHAR(20) DEFAULT NULL,
   total DECIMAL(7,2) NOT NULL,
   PRIMARY KEY (id),

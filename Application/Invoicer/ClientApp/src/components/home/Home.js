@@ -31,12 +31,12 @@ export class Home extends Component {
     }
 
     async loadCompanies() {
-        const companyInformation = await getCompanies();
-        const firstCompany = companyInformation.companies.length > 0 ? companyInformation.companies[0] : { id: 0 };
+        const companiesInformation = await getCompanies();
+        const firstCompany = companiesInformation.companies.length > 0 ? companiesInformation.companies[0] : { id: 0 };
         this.setState({
             currentCompanyID: firstCompany.id,
-            companies: companyInformation.companies,
-            errorCompanies: companyInformation.error,
+            companies: companiesInformation.companies,
+            errorCompanies: companiesInformation.error,
             isLoadingCompanies: false
         });
         this.loadCompanyTransactions(firstCompany.id);
@@ -44,7 +44,13 @@ export class Home extends Component {
     }
 
     async loadCompanyTransactions(companyID) {
-        const transactionInformation = await getCompanyTransactions(companyID);
+        let transactionInformation = {
+            transactions: [],
+            error: ""
+        };
+        if (!!companyID) {
+            transactionInformation = await getCompanyTransactions(companyID);
+        }
         this.setState({
             transactions: transactionInformation.transactions,
             errorTransactions: transactionInformation.error,
@@ -53,7 +59,13 @@ export class Home extends Component {
     }
 
     async loadRemainingBalance(companyID) {
-        const remainingBalanceInformation = await getRemainingBalance(companyID);
+        let remainingBalanceInformation = {
+            balance: 0,
+            error: ""
+        };
+        if (!!companyID) {
+            remainingBalanceInformation = await getRemainingBalance(companyID);
+        }
         this.setState({
             remainingBalance: remainingBalanceInformation.balance,
             errorRemainingBalance: remainingBalanceInformation.error,
@@ -98,8 +110,8 @@ export class Home extends Component {
                 transactions.push(
                     <React.Fragment>
                         <tr>
-                            <th>type</th>
-                            <th>amount</th>
+                            <th>Type</th>
+                            <th>Amount</th>
                         </tr>
                     </React.Fragment>
                 );
@@ -110,7 +122,7 @@ export class Home extends Component {
                     <React.Fragment>
                         <tr>
                             <td>{CurrentTransaction.type}</td>
-                            <td>{CurrentTransaction.amount}</td>
+                            <td>{CurrentTransaction.total}</td>
                         </tr>
                     </React.Fragment>
                 );
@@ -138,9 +150,12 @@ export class Home extends Component {
                             <span>{this.state.errorCompanies}</span>
                         </div>
                         {!this.state.errorCompanies && !this.state.isLoadingCompanies &&
-                            <select id="company-dropdown" onChange={(control) => changeCompany(control.target.value)}>
-                                {showCompanyOptions()}
-                            </select>
+                            <React.Fragment>
+                                <span>Companies</span>
+                                <select id="company-dropdown" onChange={(control) => changeCompany(control.target.value)}>
+                                    {showCompanyOptions()}
+                                </select>
+                            </React.Fragment>
                         }
                     </div>
                     <div className="company-info-container" hidden={!!this.state.errorCompanies}>
@@ -162,7 +177,7 @@ export class Home extends Component {
                 </div>
                 <div className="transactions-container" hidden={!!this.state.errorCompanies}>
                     <div className="transactions-actions-container">
-                        <div className="transactions-actions">
+                        <div className="transactions-actions" hidden={this.state.isLoadingCompanies}>
                             <span>
                                 <a href={`/transaction?type=invoice&companyID=${this.state.currentCompanyID}`}>Make Invoice</a>
                             </span>

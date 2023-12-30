@@ -7,6 +7,11 @@ select {
     font-size: 20px;
 }
 
+.company-dropdown-container span {
+    display: block;
+    margin-bottom: 10px;
+}
+
 .remaining-balance {
     font-weight: 600;
 }
@@ -17,6 +22,7 @@ select {
 
 .remaining-balance-container span {
     display: block;
+    margin-bottom: 10px;
 }
 
 .remaining-balance {
@@ -33,11 +39,11 @@ select {
     justify-content: center;
 }
 
-.transactions-actions-container a {
-    margin-right: 10px;
-    padding: 5px;
-    color: rgba(0, 200, 255,1);
-}
+    .transactions-actions-container a {
+        margin-right: 10px;
+        padding: 5px;
+        color: rgba(0, 200, 255,1);
+    }
 
 .transactions-info-container {
     display: flex;
@@ -45,6 +51,7 @@ select {
 }
 
 .transactions-table table {
+    border: solid 2px black;
     border-collapse: collapse;
     width: 100%;
 }

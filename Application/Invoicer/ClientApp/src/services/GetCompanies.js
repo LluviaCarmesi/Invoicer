@@ -3,7 +3,7 @@
 export default async function getCompanies() {
     let companies = [];
     let error = "";
-    await fetch(`${SETTINGS.GET_COMPANIES_URI}`)
+    /*await fetch(`${SETTINGS.GET_COMPANIES_URI}`)
         .then((response) => {
             return response.json();
         })
@@ -11,12 +11,9 @@ export default async function getCompanies() {
             companies = result;
         })
         .catch((returnedError) => {
-            error = returnedError;
-        });
-    companies = [{
-        id: 2,
-        name: "Test"
-    }];
+            error = returnedError.message;
+        });*/
+    companies = [{id: 1, name: "Test"}];
     if (companies.length === 0 && !error) {
         error = "No companies exist.";
     }

@@ -9,7 +9,7 @@
             else {
                 string += ".";
             }
-            loadingElement.innerHTML = <span>{string}</span>;
+            loadingElement.innerHTML = "<span>" + string + "<span>";
             loadingMessage(loadingMessageID, initialMessage, string);
         }
     }, 500);

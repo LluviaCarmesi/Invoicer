@@ -57,6 +57,17 @@ export default class CompanySettings extends Component {
             });
         };
 
+        const validateSimpleText = (value, labelText, errorProperty) => {
+            if (this.state.isSubmissionAttempted) {
+                if (!!value) {
+                    this.setState({ [errorProperty]: "" });
+                }
+                else {
+                    this.setState({ [errorProperty]: labelText + ENUSStrings.BlankErrorMessage });
+                }
+            }
+        }
+
         const createCompanyOnClick = () => {
             const validation = companyFormValidation(submissionItem);
             this.setState({
@@ -91,7 +102,10 @@ export default class CompanySettings extends Component {
                                         id="companyName"
                                         type="text"
                                         value={this.state.companyName}
-                                        onChange={(control) => { changeTextValue(control.target.value, control.target.id) }}
+                                        onChange={(control) => {
+                                            changeTextValue(control.target.value, control.target.id);
+                                            validateSimpleText(control.target.value, ENUSStrings.CompanyNameLabel, "companyNameError");
+                                        }}
                                     />
                                 </div>
                                 <span className="field-error" hidden={!this.state.companyNameError || !this.state.isSubmissionAttempted}>{this.state.companyNameError}</span>
