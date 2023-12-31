@@ -5,6 +5,7 @@ import getCompanies from "../../services/GetCompanies";
 import checkQueryParameter from "../../utilities/CheckQueryParameter";
 import changeQueryParameter from "../../utilities/ChangeQueryParameter";
 import loadingMessage from "../../utilities/LoadingMessage";
+import ENUSStrings from '../../strings/ENUSStrings';
 
 export default class Transaction extends Component {
     constructor(props) {
@@ -90,6 +91,28 @@ export default class Transaction extends Component {
             return options;
         }
 
+        const changeTextValue = (value, id) => {
+            console.log(value + " " + id);
+            this.setState({
+                [id]: value
+            });
+        };
+
+        const validateSimpleText = (value, labelText, errorProperty) => {
+            if (this.state.isSubmissionAttempted) {
+                if (!!value) {
+                    this.setState({ [errorProperty]: "" });
+                }
+                else {
+                    this.setState({ [errorProperty]: labelText + ENUSStrings.BlankErrorMessage });
+                }
+            }
+        }
+
+        const submitTransaction = () => {
+            
+        }
+
         return (
             <div className="transaction-container">
                 <div className="transaction-company-dropdown-container">
@@ -135,7 +158,12 @@ export default class Transaction extends Component {
                                     </td>
                                     <td>
                                         <span>
-                                            <input type="date" id="due-payment-date" name="due-date" />
+                                            <input
+                                                type="date"
+                                                id="due-payment-date"
+                                                name="due-date"
+                                                onChange={(control) => { changeTextValue(control.target.value, control.target.id) }}
+                                            />
                                         </span>
                                     </td>
                                 </tr>
@@ -144,7 +172,12 @@ export default class Transaction extends Component {
                                         <span className="field-label">Check Number</span>
                                     </td>
                                     <td>
-                                        <input type="text" id="check-number" name="check-number" />
+                                        <input
+                                            type="text"
+                                            id="check-number"
+                                            name="check-number"
+                                            onChange={(control) => { changeTextValue(control.target.value, control.target.id) }}
+                                        />
                                     </td>
                                 </tr>
                                 <tr className="field-container">
@@ -153,7 +186,12 @@ export default class Transaction extends Component {
                                     </td>
                                     <td>
                                         <span>
-                                            <input type="text" id="total" name="total" />
+                                            <input
+                                                type="text"
+                                                id="total"
+                                                name="total"
+                                                onChange={(control) => { changeTextValue(control.target.value, control.target.id) }}
+                                            />
                                         </span>
                                     </td>
                                 </tr>
