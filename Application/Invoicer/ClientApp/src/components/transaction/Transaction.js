@@ -1,11 +1,12 @@
-﻿import React, { Component } from 'react';
-import SETTINGS from '../../AppSettings';
+﻿import React, { Component } from "react";
+import SETTINGS from "../../AppSettings";
 import "./Transaction.css";
 import getCompanies from "../../services/GetCompanies";
 import checkQueryParameter from "../../utilities/CheckQueryParameter";
 import changeQueryParameter from "../../utilities/ChangeQueryParameter";
 import loadingMessage from "../../utilities/LoadingMessage";
-import ENUSStrings from '../../strings/ENUSStrings';
+import ENUSStrings from "../../strings/ENUSStrings";
+import transactionFormValidation from "../../utilities/validation/TransactionFormValidation";
 
 export default class Transaction extends Component {
     constructor(props) {
@@ -22,6 +23,10 @@ export default class Transaction extends Component {
             isLoadingTransaction: true,
             errorTransaction: "",
             errorCompanies: "",
+            paymentDate: null,
+            dueDate: null,
+            checkNumber: "",
+            total: "",
             dueDateError: "",
             paymentDateError: "",
             checkNumberError: "",
@@ -104,8 +109,7 @@ export default class Transaction extends Component {
             return options;
         }
 
-        const changeTextValue = (value, id) => {
-            console.log(value + " " + id);
+        const changeValue = (value, id) => {
             this.setState({
                 [id]: value
             });
@@ -122,20 +126,18 @@ export default class Transaction extends Component {
             }
         }
 
-        const createTransactionOnClick = () => {
+        const createTransactionOnClick = (event) => {
+            event.preventDefault();
             const validation = transactionFormValidation(submissionItem);
             this.setState({
-                dueDateError: "",
-                paymentDateError: "",
-                checkNumberError: "",
-                totalError: "",
+                dueDateError: validation.errors.dueDateError,
+                paymentDateError: validation.errors.paymentDateError,
+                checkNumberError: validation.errors.checkNumberError,
+                totalError: validation.errors.totalError,
                 isSubmissionAttempted: true
             });
             if (validation.isValid) {
-                addCompany({
-                    name: "howdy",
-                    email: ""
-                });
+
             }
         };
 
@@ -166,11 +168,11 @@ export default class Transaction extends Component {
                     </div>
                     {!this.state.isLoadingTransaction && !this.state.errorTransaction &&
                         <React.Fragment>
-                            <form action={createTransactionOnClick}>
+                            <form onSubmit={createTransactionOnClick}>
                                 <table className="transaction-information-table">
                                     <tr className="field-container">
                                         <td>
-                                            <span className="field-label">{ENUSStrings.ChooseCompanyLabel}</span>
+                                            <span className="field-label">{ENUSStrings.ChooseTypeLabel}</span>
                                         </td>
                                         <td>
                                             <select id="type-dropdown" onChange={(control) => changeType(control.target.value)} value={this.state.currentType}>
@@ -190,14 +192,14 @@ export default class Transaction extends Component {
                                                     id="due-payment-date"
                                                     name="due-date"
                                                     onChange={(control) => {
-                                                        changeTextValue(control.target.value, control.target.id);
+                                                        changeValue(control.target.value, control.target.id);
 
                                                     }}
                                                 />
                                             </span>
+                                            <span className="field-error">{this.state.currentType !== "invoice" ? this.state.paymentDateError : this.state.dueDateError}</span>
                                         </td>
                                         <td hidden={this.state.currentType !== "invoice" ? (!this.state.paymentDateError || !this.state.isSubmissionAttempted) : (!this.state.dueDateError || !this.state.isSubmissionAttempted)}>
-                                            <span className="field-error">{this.state.companyNameError}</span>
                                         </td>
                                     </tr>
                                     <tr className="field-container" hidden={this.state.currentType !== "payment"}>
@@ -210,7 +212,7 @@ export default class Transaction extends Component {
                                                 id="check-number"
                                                 name="check-number"
                                                 onChange={(control) => {
-                                                    changeTextValue(control.target.value, control.target.id);
+                                                    changeValue(control.target.value, control.target.id);
                                                     validateSimpleText(control.target.value, ENUSStrings.CheckNumberLabel, "checkNumberError")
                                                 }}
                                             />
@@ -230,7 +232,7 @@ export default class Transaction extends Component {
                                                     id="total"
                                                     name="total"
                                                     onChange={(control) => {
-                                                        changeTextValue(control.target.value, control.target.id)
+                                                        changeValue(control.target.value, control.target.id)
                                                     }}
                                                 />
                                             </span>
@@ -241,7 +243,7 @@ export default class Transaction extends Component {
                                     </tr>
                                 </table>
                                 <div className="buttons-container">
-                                    <button className="primary-button" type="submit">Submit Transaction</button>
+                                    <button className="primary-button" type="submit">{ENUSStrings.SubmitTransactionLabel}</button>
                                 </div>
                             </form>
                         </React.Fragment>

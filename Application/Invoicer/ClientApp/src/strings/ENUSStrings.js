@@ -16,10 +16,12 @@
     PaymentDateLabel: "Payment Date",
     DueDateLabel: "Due Date",
     TotalLabel: "Total in $",
+    SubmitTransactionLabel: "Submit Transaction",
     // Error Strings
     BlankErrorMessage: " is required",
     NumberErrorMessage: " must be a number",
     PhoneFormatErrorMessage: " must be a phone number",
+    DateFormatErrorMessage: " must be a date"
 };
 
 export default ENUSStrings;

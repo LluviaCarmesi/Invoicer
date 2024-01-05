@@ -1,4 +1,5 @@
 ﻿import ENUSStrings from "../../strings/ENUSStrings";
+import doErrorsExist from "./DoErrorsExist";
 
 export default function companyFormValidation(fields) {
     let isValid = true;
@@ -30,13 +31,7 @@ export default function companyFormValidation(fields) {
         errors.companyZipError = ENUSStrings.CompanyZipLabel + ENUSStrings.BlankErrorMessage;
     }
 
-    const errorKeys = Object.keys(errors);
-    for (let i = 0; i < errorKeys.length; i++) {
-        if (!!errors[errorKeys[i]]) {
-            isValid = false;
-            break;
-        }
-    }
+    isValid = !doErrorsExist(errors);
 
     return { isValid, errors };
 }
