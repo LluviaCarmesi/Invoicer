@@ -1,6 +1,6 @@
 ﻿import ENUSStrings from "../../strings/ENUSStrings";
 
-export default function (fields) {
+export default function companyFormValidation(fields) {
     let isValid = true;
     let errors = {
         companyNameError: "",
