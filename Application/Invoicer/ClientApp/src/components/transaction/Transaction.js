@@ -169,79 +169,72 @@ export default class Transaction extends Component {
                     {!this.state.isLoadingTransaction && !this.state.errorTransaction &&
                         <React.Fragment>
                             <form onSubmit={createTransactionOnClick}>
-                                <table className="transaction-information-table">
-                                    <tr className="field-container">
-                                        <td>
-                                            <span className="field-label">{ENUSStrings.ChooseTypeLabel}</span>
-                                        </td>
-                                        <td>
-                                            <select id="type-dropdown" onChange={(control) => changeType(control.target.value)} value={this.state.currentType}>
-                                                <option value="invoice">{ENUSStrings.InvoiceLabel}</option>
-                                                <option value="payment">{ENUSStrings.PaymentLabel}</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr className="field-container">
-                                        <td>
-                                            <span className="field-label">{this.state.currentType !== "invoice" ? ENUSStrings.PaymentDateLabel : ENUSStrings.DueDateLabel}</span>
-                                        </td>
-                                        <td>
-                                            <span>
-                                                <input
-                                                    type="date"
-                                                    id="due-payment-date"
-                                                    name="due-date"
-                                                    onChange={(control) => {
-                                                        changeValue(control.target.value, control.target.id);
+                                <div id="company-name-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.ChooseTypeLabel}</span>
+                                        <select id="type-dropdown" onChange={(control) => changeType(control.target.value)} value={this.state.currentType}>
+                                            <option value="invoice">{ENUSStrings.InvoiceLabel}</option>
+                                            <option value="payment">{ENUSStrings.PaymentLabel}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="company-name-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.ChooseTypeLabel}</span>
+                                        <input
+                                            type="date"
+                                            id="due-payment-date"
+                                            name="due-date"
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
 
-                                                    }}
-                                                />
-                                            </span>
-                                            <span className="field-error">{this.state.currentType !== "invoice" ? this.state.paymentDateError : this.state.dueDateError}</span>
-                                        </td>
-                                        <td hidden={this.state.currentType !== "invoice" ? (!this.state.paymentDateError || !this.state.isSubmissionAttempted) : (!this.state.dueDateError || !this.state.isSubmissionAttempted)}>
-                                        </td>
-                                    </tr>
-                                    <tr className="field-container" hidden={this.state.currentType !== "payment"}>
-                                        <td>
-                                            <span className="field-label">{ENUSStrings.CheckNumberLabel}</span>
-                                        </td>
-                                        <td>
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.companyAddressError || !this.state.isSubmissionAttempted}>{this.state.companyAddressError}</span>
+                                </div>
+                                <tr>
+                                    <span className="field-error">{this.state.currentType !== "invoice" ? this.state.paymentDateError : this.state.dueDateError}</span>
+                                </tr>
+                                <tr className="field-container" hidden={this.state.currentType !== "payment"}>
+                                    <td>
+                                        <span className="field-label">{ENUSStrings.CheckNumberLabel}</span>
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            id="check-number"
+                                            name="check-number"
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                validateSimpleText(control.target.value, ENUSStrings.CheckNumberLabel, "checkNumberError")
+                                            }}
+                                        />
+                                    </td>
+                                    <td hidden={!this.state.checkNumberError || !this.state.isSubmissionAttempted}>
+                                        <span className="field-error">{this.state.checkNumberError}</span>
+                                    </td>
+                                </tr>
+                                <tr className="field-container">
+                                    <td>
+                                        <span className="field-label">{ENUSStrings.TotalLabel}</span>
+                                    </td>
+                                    <td>
+                                        <span>
                                             <input
                                                 type="text"
-                                                id="check-number"
-                                                name="check-number"
+                                                id="total"
+                                                name="total"
                                                 onChange={(control) => {
-                                                    changeValue(control.target.value, control.target.id);
-                                                    validateSimpleText(control.target.value, ENUSStrings.CheckNumberLabel, "checkNumberError")
+                                                    changeValue(control.target.value, control.target.id)
                                                 }}
                                             />
-                                        </td>
-                                        <td hidden={!this.state.checkNumberError || !this.state.isSubmissionAttempted}>
-                                            <span className="field-error">{this.state.checkNumberError}</span>
-                                        </td>
-                                    </tr>
-                                    <tr className="field-container">
-                                        <td>
-                                            <span className="field-label">{ENUSStrings.TotalLabel}</span>
-                                        </td>
-                                        <td>
-                                            <span>
-                                                <input
-                                                    type="text"
-                                                    id="total"
-                                                    name="total"
-                                                    onChange={(control) => {
-                                                        changeValue(control.target.value, control.target.id)
-                                                    }}
-                                                />
-                                            </span>
-                                        </td>
-                                        <td hidden={!this.state.totalError || !this.state.isSubmissionAttempted}>
-                                            <span className="field-error">{this.state.totalError}</span>
-                                        </td>
-                                    </tr>
-                                </table>
+                                        </span>
+                                    </td>
+                                    <td hidden={!this.state.totalError || !this.state.isSubmissionAttempted}>
+                                        <span className="field-error">{this.state.totalError}</span>
+                                    </td>
+                                </tr>
                                 <div className="buttons-container">
                                     <button className="primary-button" type="submit">{ENUSStrings.SubmitTransactionLabel}</button>
                                 </div>
