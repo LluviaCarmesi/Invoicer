@@ -1,8 +1,7 @@
 Used for Gas Station House accounts
 
 TODO
-Fix errors placement in transaction fields
-Convert add company form to use form element
 Show accounts menu
 Show edit companies menu
+Show rows for invoice data when making an invoice
 Make buttons functional

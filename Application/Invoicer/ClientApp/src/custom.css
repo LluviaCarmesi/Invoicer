@@ -27,6 +27,14 @@ span {
     font-size: 20px;
 }
 
+select {
+    min-width: 200px;
+}
+
+input[type="date"] {
+    min-width: 200px;
+}
+
 .field-whole-container {
     margin-bottom: 20px;
     max-width: 600px;
@@ -35,8 +43,13 @@ span {
 }
 
 .field-label-input-container {
+    font-size: 20px;
     display: flex;
     justify-content: space-evenly;
+}
+
+.field-label-input-container input {
+    font-size: 20px;
 }
 
 .field-whole-container .field-label {

@@ -7,10 +7,13 @@ import changeQueryParameter from "../../utilities/ChangeQueryParameter";
 import loadingMessage from "../../utilities/LoadingMessage";
 import ENUSStrings from "../../strings/ENUSStrings";
 import transactionFormValidation from "../../utilities/validation/TransactionFormValidation";
+import isValueNumber from "../../utilities/validation/IsValueNumber";
+import getTodaysDate from "../../utilities/GetTodaysDate";
 
 export default class Transaction extends Component {
     constructor(props) {
         super(props);
+        const todaysDate = getTodaysDate();
         this.state = {
             currentType: "invoice",
             companies: [],
@@ -23,8 +26,8 @@ export default class Transaction extends Component {
             isLoadingTransaction: true,
             errorTransaction: "",
             errorCompanies: "",
-            paymentDate: null,
-            dueDate: null,
+            paymentDate: todaysDate,
+            dueDate: todaysDate,
             checkNumber: "",
             total: "",
             dueDateError: "",
@@ -91,7 +94,8 @@ export default class Transaction extends Component {
             type: this.state.currentType,
             createdDate: new Date(),
             dueDate: this.state.dueDate,
-            checkNumber: this.state.checkNumberError,
+            paymentDate: this.state.paymentDate,
+            checkNumber: this.state.checkNumber,
             total: this.state.total,
         };
 
@@ -115,35 +119,45 @@ export default class Transaction extends Component {
             });
         };
 
-        const validateSimpleText = (value, labelText, errorProperty) => {
-            if (this.state.isSubmissionAttempted) {
-                if (!!value) {
-                    this.setState({ [errorProperty]: "" });
-                }
-                else {
-                    this.setState({ [errorProperty]: labelText + ENUSStrings.BlankErrorMessage });
-                }
+        const changeValueToDecimal = (value, id) => {
+            console.log(parseFloat(value).toFixed(2))
+            this.setState({
+                [id]: parseFloat(value).toFixed(2)
+            })
+        }
+
+        const validateForm = (isSubmissionAttempted) => {
+            const validation = transactionFormValidation(submissionItem);
+            if (isSubmissionAttempted) {
+                this.setState({
+                    dueDateError: validation.errors.dueDateError,
+                    paymentDateError: validation.errors.paymentDateError,
+                    checkNumberError: validation.errors.checkNumberError,
+                    totalError: validation.errors.totalError,
+                    isSubmissionAttempted: isSubmissionAttempted
+                });
             }
+            else {
+                this.setState({
+                    dueDateError: validation.errors.dueDateError,
+                    paymentDateError: validation.errors.paymentDateError,
+                    checkNumberError: validation.errors.checkNumberError,
+                    totalError: validation.errors.totalError
+                });
+            }
+            return validation.isValid;
         }
 
         const createTransactionOnClick = (event) => {
             event.preventDefault();
-            const validation = transactionFormValidation(submissionItem);
-            this.setState({
-                dueDateError: validation.errors.dueDateError,
-                paymentDateError: validation.errors.paymentDateError,
-                checkNumberError: validation.errors.checkNumberError,
-                totalError: validation.errors.totalError,
-                isSubmissionAttempted: true
-            });
-            if (validation.isValid) {
+            if (validateForm(true)) {
 
             }
         };
 
         return (
             <div className="transaction-container">
-                <div className="transaction-company-dropdown-container">
+                <div>
                     <div id="loading-companies-container" hidden={!this.state.isLoadingCompanies}>
                         <span>{this.state.loadingMessageCompanies}</span>
                     </div>
@@ -151,11 +165,13 @@ export default class Transaction extends Component {
                         <span>{this.state.errorCompanies}</span>
                     </div>
                     {!this.state.errorCompanies && !this.state.isLoadingCompanies &&
-                        <div className="field-container">
-                            <span className="field-label">{ENUSStrings.ChooseCompanyLabel}</span>
-                            <select id="company-dropdown" onChange={(control) => changeCompany(control.target.value)} value={this.state.currentCompanyID}>
-                                {showCompanyOptions()}
-                            </select>
+                        <div id="transaction-company-container" className="field-whole-container">
+                            <div className="field-label-input-container">
+                                <span className="field-label">{ENUSStrings.ChooseCompanyLabel}</span>
+                                <select id="company-dropdown" onChange={(control) => changeCompany(control.target.value)} value={this.state.currentCompanyID}>
+                                    {showCompanyOptions()}
+                                </select>
+                            </div>
                         </div>
                     }
                 </div>
@@ -169,72 +185,69 @@ export default class Transaction extends Component {
                     {!this.state.isLoadingTransaction && !this.state.errorTransaction &&
                         <React.Fragment>
                             <form onSubmit={createTransactionOnClick}>
-                                <div id="company-name-container" className="field-whole-container">
+                                <div id="transaction-type-container" className="field-whole-container">
                                     <div className="field-label-input-container">
                                         <span className="field-label field-required">{ENUSStrings.ChooseTypeLabel}</span>
                                         <select id="type-dropdown" onChange={(control) => changeType(control.target.value)} value={this.state.currentType}>
-                                            <option value="invoice">{ENUSStrings.InvoiceLabel}</option>
-                                            <option value="payment">{ENUSStrings.PaymentLabel}</option>
+                                            <option value={SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE}>{ENUSStrings.InvoiceLabel}</option>
+                                            <option value={SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT}>{ENUSStrings.PaymentLabel}</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div id="company-name-container" className="field-whole-container">
+                                <div id="transaction-due-payment-date-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.ChooseTypeLabel}</span>
+                                        <span className="field-label">{this.state.currentType !== "invoice" ? ENUSStrings.PaymentDateLabel : ENUSStrings.DueDateLabel}</span>
                                         <input
                                             type="date"
-                                            id="due-payment-date"
+                                            id="duePaymentDate"
                                             name="due-date"
+                                            value={this.state.currentType !== "invoice" ? this.state.paymentDate : this.state.dueDate}
+                                            onChange={(control) => {changeValue(control.target.value, control.target.id);}}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={this.state.currentType !== "invoice" ? (!this.state.paymentDateError || !this.state.isSubmissionAttempted) : (!this.state.dueDateError || !this.state.isSubmissionAttempted)}>
+                                        {this.state.currentType !== "invoice" ? this.state.paymentDateError : this.state.dueDateError}
+                                    </span>
+                                </div>
+                                <div id="transaction-check-number-container" className="field-whole-container" hidden={this.state.currentType !== "payment"} >
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CheckNumberLabel}</span>
+                                        <input
+                                            type="text"
+                                            id="checkNumber"
+                                            name="check-number"
+                                            value={this.state.checkNumber}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
-
+                                                submissionItem.checkNumber = control.target.value;
+                                                validateForm();
                                             }}
                                         />
                                     </div>
-                                    <span className="field-error" hidden={!this.state.companyAddressError || !this.state.isSubmissionAttempted}>{this.state.companyAddressError}</span>
+                                    <span className="field-error" hidden={!this.state.checkNumberError || !this.state.isSubmissionAttempted}>{this.state.checkNumberError}</span>
                                 </div>
-                                <tr>
-                                    <span className="field-error">{this.state.currentType !== "invoice" ? this.state.paymentDateError : this.state.dueDateError}</span>
-                                </tr>
-                                <tr className="field-container" hidden={this.state.currentType !== "payment"}>
-                                    <td>
-                                        <span className="field-label">{ENUSStrings.CheckNumberLabel}</span>
-                                    </td>
-                                    <td>
+                                <div id="transaction-total-container" className="field-whole-container" >
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.TotalLabel}</span>
                                         <input
                                             type="text"
-                                            id="check-number"
-                                            name="check-number"
+                                            id="total"
+                                            name="total"
+                                            value={this.state.total}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
-                                                validateSimpleText(control.target.value, ENUSStrings.CheckNumberLabel, "checkNumberError")
+                                                submissionItem.total = control.target.value;
+                                                validateForm();
+                                            }}
+                                            onBlur={(control) => {
+                                                if (isValueNumber(control.target.value)) {
+                                                    changeValueToDecimal(control.target.value, control.target.id);
+                                                }
                                             }}
                                         />
-                                    </td>
-                                    <td hidden={!this.state.checkNumberError || !this.state.isSubmissionAttempted}>
-                                        <span className="field-error">{this.state.checkNumberError}</span>
-                                    </td>
-                                </tr>
-                                <tr className="field-container">
-                                    <td>
-                                        <span className="field-label">{ENUSStrings.TotalLabel}</span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            <input
-                                                type="text"
-                                                id="total"
-                                                name="total"
-                                                onChange={(control) => {
-                                                    changeValue(control.target.value, control.target.id)
-                                                }}
-                                            />
-                                        </span>
-                                    </td>
-                                    <td hidden={!this.state.totalError || !this.state.isSubmissionAttempted}>
-                                        <span className="field-error">{this.state.totalError}</span>
-                                    </td>
-                                </tr>
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.totalError || !this.state.isSubmissionAttempted}>{this.state.totalError}</span>
+                                </div>
                                 <div className="buttons-container">
                                     <button className="primary-button" type="submit">{ENUSStrings.SubmitTransactionLabel}</button>
                                 </div>

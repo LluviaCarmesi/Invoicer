@@ -9,7 +9,10 @@
     REMAININGBALANCE_URL: "/remaining-balance",
     ADD_COMPANY_URI: "/add-company",
     //query parameters
-    TRANSACTION_TYPE_CHOICES: ["invoice", "payment"],
+    TRANSACTION_TYPE_CHOICES: {
+        INVOICE: "invoice",
+        PAYMENT: "payment"
+    },
     TYPE_QUERY_PARAMETER: "type",
     NEW_QUERY_PARAMETER: "new",
     COMPANY_ID_QUERY_PARAMETER: "companyID",

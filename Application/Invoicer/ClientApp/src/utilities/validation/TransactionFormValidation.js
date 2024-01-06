@@ -1,6 +1,7 @@
 ﻿import ENUSStrings from "../../strings/ENUSStrings"
 import isValueNumber from "./IsValueNumber";
 import doErrorsExist from "./CompanyFormValidation";
+import SETTINGS from "../../AppSettings";
 
 export default function transactionFormValidation(fields) {
     let isValid = true;
@@ -10,7 +11,7 @@ export default function transactionFormValidation(fields) {
         checkNumberError: "",
         totalError: "",
     };
-    if (fields.type === ENUSStrings.InvoiceLabel) {
+    if (fields.type === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE) {
         if (!fields.dueDate) {
             errors.dueDateError = ENUSStrings.DueDateLabel + ENUSStrings.BlankErrorMessage;
         }

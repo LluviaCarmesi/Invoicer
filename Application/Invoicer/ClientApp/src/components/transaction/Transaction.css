@@ -2,18 +2,9 @@
     font-size: 20px;
 }
 
-.transaction-company-dropdown-container {
-    justify-content: center;
-    display: flex;
-}
-
 .transaction-company-dropdown-container span {
     display: block;
     margin-bottom: 20px;
-}
-
-.transaction-company-dropdown-container select {
-    min-width: 200px;
 }
 
 #due-payment-date {
@@ -22,12 +13,6 @@
 
 .field-container {
     padding: 20px 0px;
-}
-
-.info-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
 }
 
 .transaction-information-table {
