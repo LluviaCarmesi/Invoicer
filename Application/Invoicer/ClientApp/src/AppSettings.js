@@ -13,6 +13,10 @@
         INVOICE: "invoice",
         PAYMENT: "payment"
     },
+    NEW_EDIT_CHOICES: {
+        NEW: "new",
+        EDIT: "edit"
+    },
     TYPE_QUERY_PARAMETER: "type",
     NEW_QUERY_PARAMETER: "new",
     COMPANY_ID_QUERY_PARAMETER: "companyID",

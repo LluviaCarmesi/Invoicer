@@ -34,9 +34,12 @@ export default class Settings extends Component {
                     <span>
                         <a href="/settings?type=addCompany">Add a Company</a>
                     </span>
-                    <h3>Account</h3>
+                    <h3>Accounts</h3>
                     <span>
-                        <a href="/settings?type=account">Accounts</a>
+                        <a href="/settings?type=editAccounts">Edit Accounts</a>
+                    </span>
+                    <span>
+                        <a href="/settings?type=addAccount">Add an Account</a>
                     </span>
                 </div>
                 <div className="settings-app">

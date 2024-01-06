@@ -9,6 +9,7 @@ import ENUSStrings from "../../strings/ENUSStrings";
 import transactionFormValidation from "../../utilities/validation/TransactionFormValidation";
 import isValueNumber from "../../utilities/validation/IsValueNumber";
 import getTodaysDate from "../../utilities/GetTodaysDate";
+import createCompanyOptions from "../../utilities/CreateCompanyOptions";
 
 export default class Transaction extends Component {
     constructor(props) {
@@ -104,15 +105,6 @@ export default class Transaction extends Component {
             changeQueryParameter(SETTINGS.TYPE_QUERY_PARAMETER, value);
         };
 
-        const showCompanyOptions = () => {
-            let options = [];
-            for (let i = 0; i < this.state.companies.length; i++) {
-                const CurrentCompany = this.state.companies[i];
-                options.push(<option key={CurrentCompany.id} value={CurrentCompany.id}>{CurrentCompany.name}</option>);
-            }
-            return options;
-        }
-
         const changeValue = (value, id) => {
             this.setState({
                 [id]: value
@@ -165,11 +157,11 @@ export default class Transaction extends Component {
                         <span>{this.state.errorCompanies}</span>
                     </div>
                     {!this.state.errorCompanies && !this.state.isLoadingCompanies &&
-                        <div id="transaction-company-container" className="field-whole-container">
+                        <div id="transaction-companies-container" className="field-whole-container">
                             <div className="field-label-input-container">
                                 <span className="field-label">{ENUSStrings.ChooseCompanyLabel}</span>
                                 <select id="company-dropdown" onChange={(control) => changeCompany(control.target.value)} value={this.state.currentCompanyID}>
-                                    {showCompanyOptions()}
+                                    {createCompanyOptions(this.state.companies)}
                                 </select>
                             </div>
                         </div>

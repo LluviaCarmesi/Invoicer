@@ -1,12 +1,17 @@
 ﻿import React, { Component } from 'react';
+import SETTINGS from '../../AppSettings';
 import addCompany from '../../services/AddCompany';
+import getCompanies from '../../services/GetCompanies';
 import ENUSStrings from '../../strings/ENUSStrings';
 import companyFormValidation from '../../utilities/validation/CompanyFormValidation';
+import createCompanyOptions from "../../utilities/CreateCompanyOptions";
+import loadingMessage from '../../utilities/LoadingMessage';
 
 export default class CompanySettings extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            companies: [],
             currentType: "",
             currentCompanyID: 0,
             companyName: "",
@@ -16,6 +21,7 @@ export default class CompanySettings extends Component {
             companyCity: "",
             companyCountry: "",
             companyZip: "",
+            isCompanyVisible: true,
             companyNameError: "",
             companyPhoneError: "",
             companyEmailError: "",
@@ -24,16 +30,41 @@ export default class CompanySettings extends Component {
             companyCountryError: "",
             companyZipError: "",
             isSubmissionAttempted: false,
-            isCompanyChosen: false
+            isLoadingCompanies: true,
+            errorCompanies: "",
+            loadingMessageCompanies: "Loading Companies",
         };
+    }
+
+    async loadCompanies() {
+        let firstCompanyInformation = {}; // use this when updating state
+
+        const companiesInformation = await getCompanies();
+        const firstCompany = companiesInformation.companies.length > 0 ? companiesInformation.companies[0] : { id: 0 };
+        if (!!firstCompany.id) {
+
+        }
+        this.setState({
+            companies: companiesInformation.companies,
+            errorCompanies: companiesInformation.error,
+            isLoadingCompanies: false
+        });
     }
 
     componentDidMount() {
         const { type } = this.props;
         this.setState({
-            currentType: type,
-            isCompanyChosen: type === "new" ? true : false
+            currentType: type
         });
+        if (type === SETTINGS.NEW_EDIT_CHOICES.EDIT) {
+            loadingMessage("loading-companies-container", this.state.loadingMessageCompanies, this.state.loadingMessageCompanies);
+            this.loadCompanies();
+        }
+        else {
+            this.setState({
+                isLoadingCompanies: false
+            });
+        }
     }
 
     componentDidUpdate(previousProps, previousState) {
@@ -50,23 +81,19 @@ export default class CompanySettings extends Component {
             companyCountry: this.state.companyCountry,
             companyZip: this.state.companyZip
         };
+
+        const changeCompany = (value) => {
+            this.setState({
+                currentCompanyID: value
+            });
+        };
+
         const changeTextValue = (value, id) => {
             console.log(value + " " + id);
             this.setState({
                 [id]: value
             });
         };
-
-        const validateSimpleText = (value, labelText, errorProperty) => {
-            if (this.state.isSubmissionAttempted) {
-                if (!!value) {
-                    this.setState({ [errorProperty]: "" });
-                }
-                else {
-                    this.setState({ [errorProperty]: labelText + ENUSStrings.BlankErrorMessage });
-                }
-            }
-        }
 
         const validateForm = (isSubmissionAttempted) => {
             const validation = companyFormValidation(submissionItem);
@@ -100,137 +127,157 @@ export default class CompanySettings extends Component {
             event.preventDefault();
             if (validateForm(true)) {
                 addCompany({
-                    name: "howdy",
-                    email: ""
+                    name: this.state.companyName,
+                    phone: this.state.companyPhone,
+                    email: this.state.companyEmail,
+
                 });
             }
         };
 
         return (
             <div className="company-settings-container">
-                {this.state.isCompanyChosen &&
-                    <form onSubmit={createCompanyOnClick}>
-                        <h3 hidden={this.state.currentType !== "new"}>Create a New Company</h3>
-                        <h3 hidden={this.state.currentType !== "edit"}>Edit the Company</h3>
-                        <div>
-                            <div id="company-name-container" className="field-whole-container">
-                                <div className="field-label-input-container">
-                                    <span className="field-label field-required">{ENUSStrings.CompanyNameLabel}</span>
-                                    <input
-                                        id="companyName"
-                                        type="text"
-                                        value={this.state.companyName}
-                                        onChange={(control) => {
-                                            changeTextValue(control.target.value, control.target.id);
-                                            submissionItem.companyName = this.state.companyName;
-                                            validateForm();
-                                        }}
-                                    />
+                <React.Fragment>
+                    <div id="loading-companies-container" hidden={!this.state.isLoadingCompanies}>
+                        <span>{this.state.loadingMessageCompanies}</span>
+                    </div>
+                    <div hidden={!this.state.errorCompanies}>
+                        <span>{this.state.errorCompanies}</span>
+                    </div>
+                    {!this.state.isLoadingCompanies && !this.state.errorCompanies &&
+                        <form onSubmit={createCompanyOnClick}>
+                            <h3 hidden={this.state.currentType !== "new"}>Create a New Company</h3>
+                            <h3 hidden={this.state.currentType !== "edit"}>Edit the Company</h3>
+                            <div>
+                                {this.state.currentType === SETTINGS.NEW_EDIT_CHOICES.EDIT &&
+                                    <div id="company-companies-container" className="field-whole-container">
+                                        <div className="field-label-input-container">
+                                            <span className="field-label">{ENUSStrings.ChooseCompanyLabel}</span>
+                                            <select id="company-dropdown" onChange={(control) => changeCompany(control.target.value)} value={this.state.currentCompanyID}>
+                                                {createCompanyOptions(this.state.companies)}
+                                            </select>
+                                        </div>
+                                    </div>
+                                }
+                                <div id="company-name-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CompanyNameLabel}</span>
+                                        <input
+                                            id="companyName"
+                                            type="text"
+                                            value={this.state.companyName}
+                                            onChange={(control) => {
+                                                changeTextValue(control.target.value, control.target.id);
+                                                submissionItem.companyName = this.state.companyName;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.companyNameError || !this.state.isSubmissionAttempted}>{this.state.companyNameError}</span>
                                 </div>
-                                <span className="field-error" hidden={!this.state.companyNameError || !this.state.isSubmissionAttempted}>{this.state.companyNameError}</span>
-                            </div>
-                            <div id="company-phone-container" className="field-whole-container">
-                                <div className="field-label-input-container">
-                                    <span className="field-label field-required">{ENUSStrings.CompanyPhoneLabel}</span>
-                                    <input
-                                        id="companyPhone"
-                                        type="text"
-                                        value={this.state.companyPhone}
-                                        onChange={(control) => {
-                                            changeTextValue(control.target.value, control.target.id);
-                                            submissionItem.companyPhone = this.state.companyPhone;
-                                            validateForm();
-                                        }}
-                                    />
+                                <div id="company-phone-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CompanyPhoneLabel}</span>
+                                        <input
+                                            id="companyPhone"
+                                            type="text"
+                                            value={this.state.companyPhone}
+                                            onChange={(control) => {
+                                                changeTextValue(control.target.value, control.target.id);
+                                                submissionItem.companyPhone = this.state.companyPhone;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.companyPhoneError || !this.state.isSubmissionAttempted}>{this.state.companyPhoneError}</span>
                                 </div>
-                                <span className="field-error" hidden={!this.state.companyPhoneError || !this.state.isSubmissionAttempted}>{this.state.companyPhoneError}</span>
-                            </div>
-                            <div id="company-email-container" className="field-whole-container">
-                                <div className="field-label-input-container">
-                                    <span className="field-label">{ENUSStrings.CompanyEmailLabel}</span>
-                                    <input
-                                        id="companyEmail"
-                                        type="text"
-                                        value={this.state.companyEmail}
-                                        onChange={(control) => {
-                                            changeTextValue(control.target.value, control.target.id);
-                                            submissionItem.companyEmail= this.state.companyEmail;
-                                            validateForm();
-                                        }}
-                                    />
+                                <div id="company-email-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label">{ENUSStrings.CompanyEmailLabel}</span>
+                                        <input
+                                            id="companyEmail"
+                                            type="text"
+                                            value={this.state.companyEmail}
+                                            onChange={(control) => {
+                                                changeTextValue(control.target.value, control.target.id);
+                                                submissionItem.companyEmail = this.state.companyEmail;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.companyEmailError || !this.state.isSubmissionAttempted}>{this.state.companyEmailError}</span>
                                 </div>
-                                <span className="field-error" hidden={!this.state.companyEmailError || !this.state.isSubmissionAttempted}>{this.state.companyEmailError}</span>
-                            </div>
-                            <div id="company-address-container" className="field-whole-container">
-                                <div className="field-label-input-container">
-                                    <span className="field-label field-required">{ENUSStrings.CompanyAddressLabel}</span>
-                                    <input
-                                        id="companyAddress"
-                                        type="text"
-                                        value={this.state.companyAddress}
-                                        onChange={(control) => {
-                                            changeTextValue(control.target.value, control.target.id);
-                                            submissionItem.companyAddress = this.state.companyAddress;
-                                            validateForm();
-                                        }}
-                                    />
+                                <div id="company-address-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CompanyAddressLabel}</span>
+                                        <input
+                                            id="companyAddress"
+                                            type="text"
+                                            value={this.state.companyAddress}
+                                            onChange={(control) => {
+                                                changeTextValue(control.target.value, control.target.id);
+                                                submissionItem.companyAddress = this.state.companyAddress;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.companyAddressError || !this.state.isSubmissionAttempted}>{this.state.companyAddressError}</span>
                                 </div>
-                                <span className="field-error" hidden={!this.state.companyAddressError || !this.state.isSubmissionAttempted}>{this.state.companyAddressError}</span>
-                            </div>
-                            <div id="company-city-container" className="field-whole-container">
-                                <div className="field-label-input-container">
-                                    <span className="field-label field-required">{ENUSStrings.CompanyCityLabel}</span>
-                                    <input
-                                        id="companyCity"
-                                        type="text"
-                                        value={this.state.companyCity}
-                                        onChange={(control) => {
-                                            changeTextValue(control.target.value, control.target.id);
-                                            submissionItem.companyCity = this.state.companyCity;
-                                            validateForm();
-                                        }}
-                                    />
+                                <div id="company-city-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CompanyCityLabel}</span>
+                                        <input
+                                            id="companyCity"
+                                            type="text"
+                                            value={this.state.companyCity}
+                                            onChange={(control) => {
+                                                changeTextValue(control.target.value, control.target.id);
+                                                submissionItem.companyCity = this.state.companyCity;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.companyCityError || !this.state.isSubmissionAttempted}>{this.state.companyCityError}</span>
                                 </div>
-                                <span className="field-error" hidden={!this.state.companyCityError || !this.state.isSubmissionAttempted}>{this.state.companyCityError}</span>
-                            </div>
-                            <div id="company-country-container" className="field-whole-container">
-                                <div className="field-label-input-container">
-                                    <span className="field-label field-required">{ENUSStrings.CompanyCountryLabel}</span>
-                                    <input
-                                        id="companyCountry"
-                                        type="text"
-                                        value={this.state.companyCountry}
-                                        onChange={(control) => {
-                                            changeTextValue(control.target.value, control.target.id);
-                                            submissionItem.companyCountry = this.state.companyCountry;
-                                            validateForm();
-                                        }}
-                                    />
+                                <div id="company-country-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CompanyCountryLabel}</span>
+                                        <input
+                                            id="companyCountry"
+                                            type="text"
+                                            value={this.state.companyCountry}
+                                            onChange={(control) => {
+                                                changeTextValue(control.target.value, control.target.id);
+                                                submissionItem.companyCountry = this.state.companyCountry;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.companyCountryError || !this.state.isSubmissionAttempted}>{this.state.companyCountryError}</span>
                                 </div>
-                                <span className="field-error" hidden={!this.state.companyCountryError || !this.state.isSubmissionAttempted}>{this.state.companyCountryError}</span>
-                            </div>
-                            <div id="company-zip-container" className="field-whole-container">
-                                <div className="field-label-input-container">
-                                    <span className="field-label field-required">{ENUSStrings.CompanyZipLabel}</span>
-                                    <input
-                                        id="companyZip"
-                                        type="text"
-                                        value={this.state.companyZip}
-                                        onChange={(control) => {
-                                            changeTextValue(control.target.value, control.target.id);
-                                            submissionItem.companyZip = this.state.companyZip;
-                                            validateForm();
-                                        }}
-                                    />
+                                <div id="company-zip-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CompanyZipLabel}</span>
+                                        <input
+                                            id="companyZip"
+                                            type="text"
+                                            value={this.state.companyZip}
+                                            onChange={(control) => {
+                                                changeTextValue(control.target.value, control.target.id);
+                                                submissionItem.companyZip = this.state.companyZip;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.companyZipError || !this.state.isSubmissionAttempted}>{this.state.companyZipError}</span>
                                 </div>
-                                <span className="field-error" hidden={!this.state.companyZipError || !this.state.isSubmissionAttempted}>{this.state.companyZipError}</span>
+                                <div className="buttons-container">
+                                    <button className="primary-button" type="submit">Create Company</button>
+                                </div>
                             </div>
-                            <div className="buttons-container">
-                                <button className="primary-button" type="submit">Create Company</button>
-                            </div>
-                        </div>
-                    </form>
-                }
+                        </form>
+                    }
+                </React.Fragment>
             </div>
         );
     }
