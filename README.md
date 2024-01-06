@@ -1,4 +1,4 @@
-Used for Gas Station House accounts
+Used for invoicing needs
 
 TODO
 Show accounts menu
