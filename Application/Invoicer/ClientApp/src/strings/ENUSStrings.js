@@ -21,6 +21,7 @@
     BlankErrorMessage: " is required",
     NumberErrorMessage: " must be a number",
     PhoneFormatErrorMessage: " must be a phone number",
+    EmailFormatErrorMessage: " must be an email address",
     DateFormatErrorMessage: " must be a date"
 };
 

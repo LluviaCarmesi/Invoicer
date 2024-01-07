@@ -1,7 +1,7 @@
 ﻿const SETTINGS = {
     //regular expressions
-    PHONE_REG_EXPRESSION: /phone/g,
-    EMAIL_REG_EXPRESSION: /email/g,
+    PHONE_REG_EXPRESSION: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g,
+    EMAIL_REG_EXPRESSION: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/ig,
     //uris
     GET_TRANSACTIONS_URI: "/api/transactions/",
     GET_COMPANIES_URI: "/api/companies",

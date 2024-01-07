@@ -168,7 +168,7 @@ export default class CompanySettings extends Component {
                                             value={this.state.companyName}
                                             onChange={(control) => {
                                                 changeTextValue(control.target.value, control.target.id);
-                                                submissionItem.companyName = this.state.companyName;
+                                                submissionItem.companyName = control.target.value;
                                                 validateForm();
                                             }}
                                         />
@@ -184,7 +184,7 @@ export default class CompanySettings extends Component {
                                             value={this.state.companyPhone}
                                             onChange={(control) => {
                                                 changeTextValue(control.target.value, control.target.id);
-                                                submissionItem.companyPhone = this.state.companyPhone;
+                                                submissionItem.companyPhone = control.target.value;
                                                 validateForm();
                                             }}
                                         />
@@ -200,7 +200,7 @@ export default class CompanySettings extends Component {
                                             value={this.state.companyEmail}
                                             onChange={(control) => {
                                                 changeTextValue(control.target.value, control.target.id);
-                                                submissionItem.companyEmail = this.state.companyEmail;
+                                                submissionItem.companyEmail = control.target.value;
                                                 validateForm();
                                             }}
                                         />
@@ -216,7 +216,7 @@ export default class CompanySettings extends Component {
                                             value={this.state.companyAddress}
                                             onChange={(control) => {
                                                 changeTextValue(control.target.value, control.target.id);
-                                                submissionItem.companyAddress = this.state.companyAddress;
+                                                submissionItem.companyAddress = control.target.value;
                                                 validateForm();
                                             }}
                                         />
@@ -232,7 +232,7 @@ export default class CompanySettings extends Component {
                                             value={this.state.companyCity}
                                             onChange={(control) => {
                                                 changeTextValue(control.target.value, control.target.id);
-                                                submissionItem.companyCity = this.state.companyCity;
+                                                submissionItem.companyCity = control.target.value;
                                                 validateForm();
                                             }}
                                         />
@@ -248,7 +248,7 @@ export default class CompanySettings extends Component {
                                             value={this.state.companyCountry}
                                             onChange={(control) => {
                                                 changeTextValue(control.target.value, control.target.id);
-                                                submissionItem.companyCountry = this.state.companyCountry;
+                                                submissionItem.companyCountry = control.target.value;
                                                 validateForm();
                                             }}
                                         />
@@ -264,7 +264,7 @@ export default class CompanySettings extends Component {
                                             value={this.state.companyZip}
                                             onChange={(control) => {
                                                 changeTextValue(control.target.value, control.target.id);
-                                                submissionItem.companyZip = this.state.companyZip;
+                                                submissionItem.companyZip = control.target.value;
                                                 validateForm();
                                             }}
                                         />

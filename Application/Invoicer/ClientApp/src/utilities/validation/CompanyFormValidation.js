@@ -1,4 +1,5 @@
-﻿import ENUSStrings from "../../strings/ENUSStrings";
+﻿import SETTINGS from "../../AppSettings";
+import ENUSStrings from "../../strings/ENUSStrings";
 import doErrorsExist from "./DoErrorsExist";
 
 export default function companyFormValidation(fields) {
@@ -17,6 +18,13 @@ export default function companyFormValidation(fields) {
     }
     if (!fields.companyPhone) {
         errors.companyPhoneError = ENUSStrings.CompanyPhoneLabel + ENUSStrings.BlankErrorMessage;
+    }
+    else if (!fields.companyPhone.match(SETTINGS.PHONE_REG_EXPRESSION)) {
+        errors.companyPhoneError = ENUSStrings.CompanyPhoneLabel + ENUSStrings.PhoneFormatErrorMessage;
+    }
+    if (!fields.companyEmail) { }
+    else if (!fields.companyEmail.match(SETTINGS.EMAIL_REG_EXPRESSION)) {
+        errors.companyEmailError = ENUSStrings.CompanyEmailLabel + ENUSStrings.EmailFormatErrorMessage
     }
     if (!fields.companyAddress) {
         errors.companyAddressError = ENUSStrings.CompanyAddressLabel + ENUSStrings.BlankErrorMessage;
