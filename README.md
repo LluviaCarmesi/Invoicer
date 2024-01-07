@@ -4,4 +4,5 @@ TODO
 Include validation for email and phone number
 Show accounts menu
 Show rows for invoice data when making an invoice
+Connect mysql db with form
 Make buttons functional
