@@ -4,7 +4,7 @@ import addCompany from '../../services/AddCompany';
 import getCompanies from '../../services/GetCompanies';
 import ENUSStrings from '../../strings/ENUSStrings';
 import companyFormValidation from '../../utilities/validation/CompanyFormValidation';
-import createCompanyOptions from "../../utilities/CreateCompanyOptions";
+import createHTMLOptions from "../../utilities/CreateHTMLOptions";
 import loadingMessage from '../../utilities/LoadingMessage';
 
 export default class CompanySettings extends Component {
@@ -21,7 +21,7 @@ export default class CompanySettings extends Component {
             companyCity: "",
             companyCountry: "",
             companyZip: "",
-            isCompanyVisible: true,
+            isCompanyAccountActive: true,
             companyNameError: "",
             companyPhoneError: "",
             companyEmailError: "",
@@ -62,7 +62,7 @@ export default class CompanySettings extends Component {
         }
         else {
             this.setState({
-                isLoadingCompanies: false
+                isLoadingCompanies: false,
             });
         }
     }
@@ -79,7 +79,8 @@ export default class CompanySettings extends Component {
             companyAddress: this.state.companyAddress,
             companyCity: this.state.companyCity,
             companyCountry: this.state.companyCountry,
-            companyZip: this.state.companyZip
+            companyZip: this.state.companyZip,
+            isCompanyAccountActive: this.state.isCompanyAccountActive
         };
 
         const changeCompany = (value) => {
@@ -88,8 +89,7 @@ export default class CompanySettings extends Component {
             });
         };
 
-        const changeTextValue = (value, id) => {
-            console.log(value + " " + id);
+        const changeValue = (value, id) => {
             this.setState({
                 [id]: value
             });
@@ -146,15 +146,15 @@ export default class CompanySettings extends Component {
                     </div>
                     {!this.state.isLoadingCompanies && !this.state.errorCompanies &&
                         <form onSubmit={createCompanyOnClick}>
-                            <h3 hidden={this.state.currentType !== "new"}>Create a New Company</h3>
-                            <h3 hidden={this.state.currentType !== "edit"}>Edit the Company</h3>
+                            <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.NEW}>Create a New Company</h3>
+                            <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.EDIT}>Edit a Company</h3>
                             <div>
                                 {this.state.currentType === SETTINGS.NEW_EDIT_CHOICES.EDIT &&
                                     <div id="company-companies-container" className="field-whole-container">
                                         <div className="field-label-input-container">
                                             <span className="field-label">{ENUSStrings.ChooseCompanyLabel}</span>
                                             <select id="company-dropdown" onChange={(control) => changeCompany(control.target.value)} value={this.state.currentCompanyID}>
-                                                {createCompanyOptions(this.state.companies)}
+                                                {createHTMLOptions(this.state.companies)}
                                             </select>
                                         </div>
                                     </div>
@@ -167,7 +167,7 @@ export default class CompanySettings extends Component {
                                             type="text"
                                             value={this.state.companyName}
                                             onChange={(control) => {
-                                                changeTextValue(control.target.value, control.target.id);
+                                                changeValue(control.target.value, control.target.id);
                                                 submissionItem.companyName = control.target.value;
                                                 validateForm();
                                             }}
@@ -183,7 +183,7 @@ export default class CompanySettings extends Component {
                                             type="text"
                                             value={this.state.companyPhone}
                                             onChange={(control) => {
-                                                changeTextValue(control.target.value, control.target.id);
+                                                changeValue(control.target.value, control.target.id);
                                                 submissionItem.companyPhone = control.target.value;
                                                 validateForm();
                                             }}
@@ -199,7 +199,7 @@ export default class CompanySettings extends Component {
                                             type="text"
                                             value={this.state.companyEmail}
                                             onChange={(control) => {
-                                                changeTextValue(control.target.value, control.target.id);
+                                                changeValue(control.target.value, control.target.id);
                                                 submissionItem.companyEmail = control.target.value;
                                                 validateForm();
                                             }}
@@ -215,7 +215,7 @@ export default class CompanySettings extends Component {
                                             type="text"
                                             value={this.state.companyAddress}
                                             onChange={(control) => {
-                                                changeTextValue(control.target.value, control.target.id);
+                                                changeValue(control.target.value, control.target.id);
                                                 submissionItem.companyAddress = control.target.value;
                                                 validateForm();
                                             }}
@@ -231,7 +231,7 @@ export default class CompanySettings extends Component {
                                             type="text"
                                             value={this.state.companyCity}
                                             onChange={(control) => {
-                                                changeTextValue(control.target.value, control.target.id);
+                                                changeValue(control.target.value, control.target.id);
                                                 submissionItem.companyCity = control.target.value;
                                                 validateForm();
                                             }}
@@ -247,7 +247,7 @@ export default class CompanySettings extends Component {
                                             type="text"
                                             value={this.state.companyCountry}
                                             onChange={(control) => {
-                                                changeTextValue(control.target.value, control.target.id);
+                                                changeValue(control.target.value, control.target.id);
                                                 submissionItem.companyCountry = control.target.value;
                                                 validateForm();
                                             }}
@@ -263,13 +263,28 @@ export default class CompanySettings extends Component {
                                             type="text"
                                             value={this.state.companyZip}
                                             onChange={(control) => {
-                                                changeTextValue(control.target.value, control.target.id);
+                                                changeValue(control.target.value, control.target.id);
                                                 submissionItem.companyZip = control.target.value;
                                                 validateForm();
                                             }}
                                         />
                                     </div>
                                     <span className="field-error" hidden={!this.state.companyZipError || !this.state.isSubmissionAttempted}>{this.state.companyZipError}</span>
+                                </div>
+                                <div id="company-zip-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.IsCompanyActiveLabel}</span>
+                                        <input
+                                            id="isCompanyAccountActive"
+                                            type="checkbox"
+                                            checked={this.state.companyAccountActive}
+                                            onChange={(control) => {
+                                                changeValue(control.target.checked, control.target.id);
+                                                submissionItem.isCompanyAccountActive = control.target.checked;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                                 <div className="buttons-container">
                                     <button className="primary-button" type="submit">Create Company</button>

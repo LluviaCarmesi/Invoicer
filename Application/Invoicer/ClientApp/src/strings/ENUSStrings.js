@@ -7,6 +7,7 @@
     CompanyCityLabel: "Company City",
     CompanyCountryLabel: "Company Country",
     CompanyZipLabel: "Company Zip Code",
+    IsCompanyActiveLabel: "Is this company account active?",
     // Transaction Strings
     InvoiceLabel: "Invoice",
     PaymentLabel: "Payment",
@@ -17,6 +18,8 @@
     DueDateLabel: "Due Date",
     TotalLabel: "Total in $",
     SubmitTransactionLabel: "Submit Transaction",
+    // User Strings
+    FirstNameLabel: "First Name",
     // Error Strings
     BlankErrorMessage: " is required",
     NumberErrorMessage: " must be a number",

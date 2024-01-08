@@ -17,6 +17,12 @@
         NEW: "new",
         EDIT: "edit"
     },
+    APPLICATION_SETTINGS_MENUS: {
+        ADD_COMPANY: "addCompany",
+        EDIT_COMPANIES: "editCompanies",
+        ADD_USER: "addUser",
+        EDIT_USERS: "editUsers"
+    },
     TYPE_QUERY_PARAMETER: "type",
     NEW_QUERY_PARAMETER: "new",
     COMPANY_ID_QUERY_PARAMETER: "companyID",

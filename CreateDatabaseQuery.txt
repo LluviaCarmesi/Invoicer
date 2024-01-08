@@ -9,7 +9,7 @@ CREATE TABLE companies (
   city VARCHAR(256) NOT NULL,
   country VARCHAR(256) NOT NULL,
   zip VARCHAR(256) NOT NULL,
-  is_visible BOOLEAN DEFAULT TRUE,
+  is_account_active BOOLEAN DEFAULT TRUE,
   PRIMARY KEY(id)
 );
 

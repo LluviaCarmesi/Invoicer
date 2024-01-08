@@ -3,6 +3,7 @@ import SETTINGS from '../../AppSettings';
 import checkQueryParameter from '../../utilities/CheckQueryParameter';
 import CompanySettings from './CompanySettings';
 import "./Settings.css";
+import UserSettings from './UserSettings';
 export default class Settings extends Component {
     constructor(props) {
         super(props);
@@ -29,27 +30,35 @@ export default class Settings extends Component {
                 <div className="settings-menu">
                     <h3>Companies</h3>
                     <span>
-                        <a href="/settings?type=editCompanies">Edit Companies</a>
+                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_COMPANY}>Add a Company</a>
                     </span>
                     <span>
-                        <a href="/settings?type=addCompany">Add a Company</a>
+                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_COMPANIES}>Edit Companies</a>
                     </span>
                     <h3>Accounts</h3>
                     <span>
-                        <a href="/settings?type=editAccounts">Edit Accounts</a>
+                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_USER}>Add an Account</a>
                     </span>
                     <span>
-                        <a href="/settings?type=addAccount">Add an Account</a>
+                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_USERS}>Edit Accounts</a>
                     </span>
                 </div>
                 <div className="settings-app">
                     {
-                        this.state.currentSetting === "editCompanies" &&
-                        <CompanySettings type="edit"/>
+                        this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_COMPANY &&
+                        <CompanySettings type={SETTINGS.NEW_EDIT_CHOICES.NEW} />
                     }
                     {
-                        this.state.currentSetting === "addCompany" &&
-                        <CompanySettings type="new"/>
+                        this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_COMPANIES &&
+                        <CompanySettings type={SETTINGS.NEW_EDIT_CHOICES.EDIT} />
+                    }
+                    {
+                        this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_USER &&
+                        <UserSettings type={SETTINGS.NEW_EDIT_CHOICES.NEW} />
+                    }
+                    {
+                        this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_USERS &&
+                        <UserSettings type={SETTINGS.NEW_EDIT_CHOICES.EDIT} />
                     }
                 </div>
             </div>

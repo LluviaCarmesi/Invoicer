@@ -9,7 +9,7 @@ import ENUSStrings from "../../strings/ENUSStrings";
 import transactionFormValidation from "../../utilities/validation/TransactionFormValidation";
 import isValueNumber from "../../utilities/validation/IsValueNumber";
 import getTodaysDate from "../../utilities/GetTodaysDate";
-import createCompanyOptions from "../../utilities/CreateCompanyOptions";
+import createCompanyOptions from "../../utilities/CreateHTMLOptions";
 
 export default class Transaction extends Component {
     constructor(props) {
@@ -192,7 +192,6 @@ export default class Transaction extends Component {
                                         <input
                                             type="date"
                                             id="duePaymentDate"
-                                            name="due-date"
                                             value={this.state.currentType !== "invoice" ? this.state.paymentDate : this.state.dueDate}
                                             onChange={(control) => {changeValue(control.target.value, control.target.id);}}
                                         />
@@ -207,7 +206,6 @@ export default class Transaction extends Component {
                                         <input
                                             type="text"
                                             id="checkNumber"
-                                            name="check-number"
                                             value={this.state.checkNumber}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -224,7 +222,6 @@ export default class Transaction extends Component {
                                         <input
                                             type="text"
                                             id="total"
-                                            name="total"
                                             value={this.state.total}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
