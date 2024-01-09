@@ -14,9 +14,14 @@ export default class UserSettings extends Component {
             currentUserID: 0,
             firstName: "",
             lastName: "",
-            email: "",
+            userEmail: "",
             username: "",
             password: "",
+            firstNameError: "",
+            lastNameError: "",
+            userEmailError: "",
+            usernameError: "",
+            passwordError: "",
             loadingUsersMessage: "Loading Users"
         }
     }
@@ -40,7 +45,7 @@ export default class UserSettings extends Component {
         const submissionItem = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
-            email: this.state.email,
+            userEmail: this.state.userEmail,
             username: this.state.username,
             password: this.state.password
         }
@@ -55,6 +60,23 @@ export default class UserSettings extends Component {
             this.setState({
                 [id]: value
             });
+        };
+
+        const validateForm = (isSubmissionAttempted) => {
+            const validation = null; //Need to implement validation function
+            if (isSubmissionAttempted) {
+
+            }
+            else {
+
+            }
+        }
+
+        const createUserOnClick = (event) => {
+            event.preventDefault();
+            if (validateForm(true)) {
+
+            }
         };
 
         return (
@@ -74,8 +96,8 @@ export default class UserSettings extends Component {
                                 {this.state.currentType === SETTINGS.NEW_EDIT_CHOICES.EDIT &&
                                     <div id="user-users-container" className="field-whole-container">
                                         <div className="field-label-input-container">
-                                            <span className="field-label">{ENUSStrings.ChooseCompanyLabel}</span>
-                                            <select id="user-dropdown" onChange={(control) => changeUser(control.target.value)} value={this.state.currentCompanyID}>
+                                            <span className="field-label">{ENUSStrings.ChooseUserLabel}</span>
+                                            <select id="user-dropdown" onChange={(control) => changeUser(control.target.value)} value={this.state.currentUserID}>
                                                 {createHTMLOptions(this.state.users)}
                                             </select>
                                         </div>
@@ -94,7 +116,70 @@ export default class UserSettings extends Component {
                                             }}
                                         />
                                     </div>
-                                    <span className="field-error" hidden={!this.state.companyNameError || !this.state.isSubmissionAttempted}>{this.state.companyNameError}</span>
+                                    <span className="field-error" hidden={!this.state.firstNameError || !this.state.isSubmissionAttempted}>{this.state.firstNameError}</span>
+                                </div>
+                                <div id="user-last-name-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.LastNameLabel}</span>
+                                        <input
+                                            id="lastName"
+                                            type="text"
+                                            value={this.state.lastName}
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                submissionItem.companyName = control.target.value;
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.lastNameError || !this.state.isSubmissionAttempted}>{this.state.lastNameError}</span>
+                                </div>
+                                <div id="user-email-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.UserEmailLabel}</span>
+                                        <input
+                                            id="userEmail"
+                                            type="text"
+                                            value={this.state.userEmail}
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                submissionItem.companyName = control.target.value;
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.userEmailError || !this.state.isSubmissionAttempted}>{this.state.userEmailError}</span>
+                                </div>
+                                <div id="user-username-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.UsernameLabel}</span>
+                                        <input
+                                            id="username"
+                                            type="text"
+                                            value={this.state.username}
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                submissionItem.companyName = control.target.value;
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.usernameError || !this.state.isSubmissionAttempted}>{this.state.usernameError}</span>
+                                </div>
+                                <div id="user-password-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.PasswordLabel}</span>
+                                        <input
+                                            id="password"
+                                            type="text"
+                                            value={this.state.password}
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                submissionItem.companyName = control.target.value;
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.passwordError || !this.state.isSubmissionAttempted}>{this.state.passwordError}</span>
+                                </div>
+                                <div className="buttons-container">
+                                    <button className="primary-button" type="submit">{ENUSStrings.SubmitUserLabel}</button>
                                 </div>
                             </div>
                         </form>

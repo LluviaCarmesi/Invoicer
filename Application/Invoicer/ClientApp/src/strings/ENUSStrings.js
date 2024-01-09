@@ -8,6 +8,7 @@
     CompanyCountryLabel: "Company Country",
     CompanyZipLabel: "Company Zip Code",
     IsCompanyActiveLabel: "Is this company account active?",
+    SubmitCompanyLabel: "Submit Company Details",
     // Transaction Strings
     InvoiceLabel: "Invoice",
     PaymentLabel: "Payment",
@@ -17,9 +18,15 @@
     PaymentDateLabel: "Payment Date",
     DueDateLabel: "Due Date",
     TotalLabel: "Total in $",
-    SubmitTransactionLabel: "Submit Transaction",
+    SubmitTransactionLabel: "Submit Transaction Details",
     // User Strings
+    ChooseUserLabel: "Choose User",
     FirstNameLabel: "First Name",
+    LastNameLabel: "Last Name",
+    UserEmailLabel: "User Email",
+    UsernameLabel: "Username",
+    PasswordLabel: "Password",
+    SubmitUserLabel: "Submit User Details",
     // Error Strings
     BlankErrorMessage: " is required",
     NumberErrorMessage: " must be a number",

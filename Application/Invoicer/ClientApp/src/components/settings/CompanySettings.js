@@ -287,7 +287,7 @@ export default class CompanySettings extends Component {
                                     </div>
                                 </div>
                                 <div className="buttons-container">
-                                    <button className="primary-button" type="submit">Create Company</button>
+                                    <button className="primary-button" type="submit">{ENUSStrings.SubmitCompanyLabel}</button>
                                 </div>
                             </div>
                         </form>
