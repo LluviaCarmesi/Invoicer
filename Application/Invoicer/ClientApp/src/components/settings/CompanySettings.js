@@ -156,8 +156,8 @@ export default class CompanySettings extends Component {
                                             <select
                                                 id="company-dropdown"
                                                 onChange={(control) => changeCompany(control.target.value)}
-                                                value={this.state.currentCompanyID}
                                                 title={ENUSStrings.ChooseCompanyLabel}
+                                                value={this.state.currentCompanyID}
                                             >
                                                 {createHTMLOptions(this.state.companies)}
                                             </select>

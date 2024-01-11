@@ -1,4 +1,10 @@
 ﻿const ENUSStrings = {
+    // Home
+    RemainingTransactonLabel: "Remaining Transaction",
+    MakeInvoiceLabel: "Make Invoice",
+    MakePaymentLabel: "Make Payment",
+    TypeLabel: "Type",
+    AmountLabel: "Amount",
     // Company Strings
     CompanyNameLabel: "Company Name",
     CompanyPhoneLabel: "Company Phone Number",

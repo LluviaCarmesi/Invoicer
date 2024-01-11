@@ -160,7 +160,12 @@ export default class Transaction extends Component {
                         <div id="transaction-companies-container" className="field-whole-container">
                             <div className="field-label-input-container">
                                 <span className="field-label">{ENUSStrings.ChooseCompanyLabel}</span>
-                                <select id="company-dropdown" onChange={(control) => changeCompany(control.target.value)} value={this.state.currentCompanyID}>
+                                <select
+                                    id="company-dropdown"
+                                    onChange={(control) => changeCompany(control.target.value)}
+                                    title={ENUSStrings.ChooseCompanyLabel}
+                                    value={this.state.currentCompanyID}
+                                >
                                     {createCompanyOptions(this.state.companies)}
                                 </select>
                             </div>
@@ -180,7 +185,12 @@ export default class Transaction extends Component {
                                 <div id="transaction-type-container" className="field-whole-container">
                                     <div className="field-label-input-container">
                                         <span className="field-label field-required">{ENUSStrings.ChooseTypeLabel}</span>
-                                        <select id="type-dropdown" onChange={(control) => changeType(control.target.value)} value={this.state.currentType}>
+                                        <select
+                                            id="type-dropdown"
+                                            title={ENUSStrings.ChooseTypeLabel}
+                                            onChange={(control) => changeType(control.target.value)}
+                                            value={this.state.currentType}
+                                        >
                                             <option value={SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE}>{ENUSStrings.InvoiceLabel}</option>
                                             <option value={SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT}>{ENUSStrings.PaymentLabel}</option>
                                         </select>
@@ -192,6 +202,7 @@ export default class Transaction extends Component {
                                         <input
                                             type="date"
                                             id="duePaymentDate"
+                                            title={this.state.currentType !== "invoice" ? ENUSStrings.PaymentDateLabel : ENUSStrings.DueDateLabel}
                                             value={this.state.currentType !== "invoice" ? this.state.paymentDate : this.state.dueDate}
                                             onChange={(control) => {changeValue(control.target.value, control.target.id);}}
                                         />
@@ -206,6 +217,7 @@ export default class Transaction extends Component {
                                         <input
                                             type="text"
                                             id="checkNumber"
+                                            title={ENUSStrings.CheckNumberLabel}
                                             value={this.state.checkNumber}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -222,6 +234,7 @@ export default class Transaction extends Component {
                                         <input
                                             type="text"
                                             id="total"
+                                            title={ENUSStrings.TotalLabel}
                                             value={this.state.total}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);

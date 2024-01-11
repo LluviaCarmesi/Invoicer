@@ -4,6 +4,7 @@ import getCompanies from "../../services/GetCompanies";
 import getCompanyTransactions from "../../services/GetCompanyTransactions";
 import getRemainingBalance from "../../services/GetRemainingBalance";
 import "./Home.css";
+import ENUSStrings from '../../strings/ENUSStrings';
 
 async function getAccess() {
     await (() => { return true; });
@@ -110,8 +111,8 @@ export class Home extends Component {
                 transactions.push(
                     <React.Fragment>
                         <tr>
-                            <th>Type</th>
-                            <th>Amount</th>
+                            <th>{ENUSStrings.TypeLabel}</th>
+                            <th>{ENUSStrings.AmountLabel}</th>
                         </tr>
                     </React.Fragment>
                 );
@@ -151,8 +152,12 @@ export class Home extends Component {
                         </div>
                         {!this.state.errorCompanies && !this.state.isLoadingCompanies &&
                             <React.Fragment>
-                                <span>Companies</span>
-                                <select id="company-dropdown" onChange={(control) => changeCompany(control.target.value)}>
+                                <span>{ENUSStrings.ChooseCompanyLabel}</span>
+                                <select
+                                    id="company-dropdown"
+                                    onChange={(control) => changeCompany(control.target.value)}
+                                    title={ENUSStrings.ChooseCompanyLabel}
+                                >
                                     {showCompanyOptions()}
                                 </select>
                             </React.Fragment>
@@ -168,7 +173,7 @@ export class Home extends Component {
                             </div>
                             {!this.state.errorRemainingBalance && !this.state.isLoadingRemainingBalance &&
                                 <React.Fragment>
-                                    <span>Remaining Balance</span>
+                                    <span>{ENUSStrings.RemainingTransactonLabel}</span>
                                     <span className="remaining-balance">{showRemainingBalance()}</span>
                                 </React.Fragment>
                             }
@@ -179,10 +184,10 @@ export class Home extends Component {
                     <div className="transactions-actions-container">
                         <div className="transactions-actions" hidden={this.state.isLoadingCompanies}>
                             <span>
-                                <a href={`/transaction?type=invoice&companyID=${this.state.currentCompanyID}`}>Make Invoice</a>
+                                <a href={`/transaction?type=invoice&companyID=${this.state.currentCompanyID}`}>{ENUSStrings.MakeInvoiceLabel}</a>
                             </span>
                             <span>
-                                <a href={`/transaction?type=payment&companyID=${this.state.currentCompanyID}`}>Make Payment</a>
+                                <a href={`/transaction?type=payment&companyID=${this.state.currentCompanyID}`}>{ENUSStrings.MakePaymentLabel}</a>
                             </span>
                         </div>
                     </div>
