@@ -153,7 +153,12 @@ export default class CompanySettings extends Component {
                                     <div id="company-companies-container" className="field-whole-container">
                                         <div className="field-label-input-container">
                                             <span className="field-label">{ENUSStrings.ChooseCompanyLabel}</span>
-                                            <select id="company-dropdown" onChange={(control) => changeCompany(control.target.value)} value={this.state.currentCompanyID}>
+                                            <select
+                                                id="company-dropdown"
+                                                onChange={(control) => changeCompany(control.target.value)}
+                                                value={this.state.currentCompanyID}
+                                                title={ENUSStrings.ChooseCompanyLabel}
+                                            >
                                                 {createHTMLOptions(this.state.companies)}
                                             </select>
                                         </div>
@@ -165,6 +170,7 @@ export default class CompanySettings extends Component {
                                         <input
                                             id="companyName"
                                             type="text"
+                                            title={ENUSStrings.CompanyNameLabel}
                                             value={this.state.companyName}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -181,6 +187,7 @@ export default class CompanySettings extends Component {
                                         <input
                                             id="companyPhone"
                                             type="text"
+                                            title={ENUSStrings.CompanyPhoneLabel}
                                             value={this.state.companyPhone}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -197,6 +204,7 @@ export default class CompanySettings extends Component {
                                         <input
                                             id="companyEmail"
                                             type="text"
+                                            title={ENUSStrings.CompanyEmailLabel}
                                             value={this.state.companyEmail}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -213,6 +221,7 @@ export default class CompanySettings extends Component {
                                         <input
                                             id="companyAddress"
                                             type="text"
+                                            title={ENUSStrings.CompanyAddressLabel}
                                             value={this.state.companyAddress}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -229,6 +238,7 @@ export default class CompanySettings extends Component {
                                         <input
                                             id="companyCity"
                                             type="text"
+                                            title={ENUSStrings.CompanyCityLabel}
                                             value={this.state.companyCity}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -245,6 +255,7 @@ export default class CompanySettings extends Component {
                                         <input
                                             id="companyCountry"
                                             type="text"
+                                            title={ENUSStrings.CompanyCountryLabel}
                                             value={this.state.companyCountry}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -261,6 +272,7 @@ export default class CompanySettings extends Component {
                                         <input
                                             id="companyZip"
                                             type="text"
+                                            title={ENUSStrings.CompanyZipLabel}
                                             value={this.state.companyZip}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -277,6 +289,7 @@ export default class CompanySettings extends Component {
                                         <input
                                             id="isCompanyAccountActive"
                                             type="checkbox"
+                                            title={ENUSStrings.IsCompanyActiveLabel}
                                             checked={this.state.companyAccountActive}
                                             onChange={(control) => {
                                                 changeValue(control.target.checked, control.target.id);
@@ -287,7 +300,13 @@ export default class CompanySettings extends Component {
                                     </div>
                                 </div>
                                 <div className="buttons-container">
-                                    <button className="primary-button" type="submit">{ENUSStrings.SubmitCompanyLabel}</button>
+                                    <button
+                                        className="primary-button"
+                                        type="submit"
+                                        title={ENUSStrings.SubmitCompanyLabel}
+                                    >
+                                        {ENUSStrings.SubmitCompanyLabel}
+                                    </button>
                                 </div>
                             </div>
                         </form>

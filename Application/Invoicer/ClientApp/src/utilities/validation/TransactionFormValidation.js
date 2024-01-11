@@ -3,7 +3,7 @@ import isValueNumber from "./IsValueNumber";
 import doErrorsExist from "./CompanyFormValidation";
 import SETTINGS from "../../AppSettings";
 
-export default function transactionFormValidation(fields) {
+export default function transactionFormValidation(values) {
     let isValid = true;
     let errors = {
         dueDateError: "",
@@ -11,24 +11,24 @@ export default function transactionFormValidation(fields) {
         checkNumberError: "",
         totalError: "",
     };
-    if (fields.type === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE) {
-        if (!fields.dueDate) {
+    if (values.type === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE) {
+        if (!values.dueDate) {
             errors.dueDateError = ENUSStrings.DueDateLabel + ENUSStrings.BlankErrorMessage;
         }
     }
     else {
-        if (!fields.checkNumber) {
+        if (!values.checkNumber) {
             errors.checkNumberError = ENUSStrings.CheckNumberLabel + ENUSStrings.BlankErrorMessage;
         }
-        if (!fields.paymentDate) {
+        if (!values.paymentDate) {
             errors.paymentDateError = ENUSStrings.PaymentDateLabel + ENUSStrings.BlankErrorMessage;
         }
     }
 
-    if (!fields.total) {
+    if (!values.total) {
         errors.totalError = ENUSStrings.TotalLabel + ENUSStrings.BlankErrorMessage;
     }
-    else if (!isValueNumber(fields.total)) {
+    else if (!isValueNumber(values.total)) {
         errors.totalError = ENUSStrings.TotalLabel + ENUSStrings.NumberErrorMessage;
     }
 

@@ -5,9 +5,12 @@
     //uris
     GET_TRANSACTIONS_URI: "/api/transactions/",
     GET_COMPANIES_URI: "/api/companies",
+    GET_USERS_URI: "/api/users",
     TRANSACTIONS_URI: "/transactions",
-    REMAININGBALANCE_URL: "/remaining-balance",
+    REMAINING_BALANCE_URL: "/remaining-balance",
     ADD_COMPANY_URI: "/add-company",
+    ADD_USER__URI: "add-user",
+    ADD_TRANSACTION: "add-transaction",
     //query parameters
     TRANSACTION_TYPE_CHOICES: {
         INVOICE: "invoice",

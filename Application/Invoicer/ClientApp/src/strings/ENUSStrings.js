@@ -24,8 +24,11 @@
     FirstNameLabel: "First Name",
     LastNameLabel: "Last Name",
     UserEmailLabel: "User Email",
+    UserPhoneLabel: "User Phone Number",
     UsernameLabel: "Username",
     PasswordLabel: "Password",
+    ConfirmPasswordLabel: "Confirm Password",
+    PasswordNotMatchingLabel: "Passwords do not match",
     SubmitUserLabel: "Submit User Details",
     // Error Strings
     BlankErrorMessage: " is required",
