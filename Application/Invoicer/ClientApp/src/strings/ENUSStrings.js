@@ -27,7 +27,7 @@
     DueDateLabel: "Due Date",
     TotalLabel: "Total",
     TicketNumberLabel: "Ticket Number",
-    TransactionTotlaLabel: "Total in $",
+    TransactionTotalLabel: "Total in $",
     SubmitTransactionLabel: "Submit Transaction Details",
     // User Strings
     ChooseUserLabel: "Choose User",

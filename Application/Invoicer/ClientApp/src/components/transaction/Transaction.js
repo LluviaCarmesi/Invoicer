@@ -103,27 +103,57 @@ export default class Transaction extends Component {
             changeQueryParameter(SETTINGS.COMPANY_ID_QUERY_PARAMETER, value);
         };
 
-        const deleteInvoiceDataRow = () => {
-
-        }
-
-        const appendInvoiceDataRow = () => {
-
+        const calculateTotal = (currentInvoiceData) => {
+            let total = 0;
+            for (let i = 0; i < currentInvoiceData.length; i++) {
+                total += parseFloat(currentInvoiceData[i].total);
+            }
+            return total;
         }
 
         const editInvoiceDataRow = (value, id, currentInvoiceData) => {
+            let currentTotal = this.state.total;
             const idSplitted = id.split(":");
+            const lastItemInInvoiceData = currentInvoiceData[currentInvoiceData.length - 1];
+            const secondToLastItemInInvoiceData = currentInvoiceData[currentInvoiceData.length - 2];
             currentInvoiceData[idSplitted[1]][idSplitted[0]] = value;
+            if (
+                !!lastItemInInvoiceData.ticketNumber ||
+                (!!lastItemInInvoiceData.total && lastItemInInvoiceData.total !== "0")
+            ) {
+                currentInvoiceData.push({
+                    type: "fuel",
+                    ticketNumber: "",
+                    total: 0
+                });
+            }
+            else if (
+                !!secondToLastItemInInvoiceData &&
+                (
+                    !lastItemInInvoiceData.ticketNumber &&
+                    (!lastItemInInvoiceData.total || lastItemInInvoiceData.total === "0")
+                ) &&
+                (
+                    !secondToLastItemInInvoiceData.ticketNumber &&
+                    (!secondToLastItemInInvoiceData.total || secondToLastItemInInvoiceData.total === "0")
+                )
+            ) {
+                currentInvoiceData.splice(currentInvoiceData.length - 1, 1);
+            }
+            if (idSplitted[0] === "total") {
+                currentTotal = calculateTotal(currentInvoiceData);
+            }
             this.setState({
-                invoiceData: currentInvoiceData
-            })
+                invoiceData: currentInvoiceData,
+                total: currentTotal
+            });
         }
 
         const createInvoiceDataRows = () => {
             let rows = [];
             const currentNumberofRows = this.state.invoiceData.length;
             console.log(this.state.invoiceData);
-            const currentInvoiceData = [ ...this.state.invoiceData ];
+            const currentInvoiceData = [...this.state.invoiceData];
             for (let i = 0; i < currentNumberofRows; i++) {
                 rows.push(
                     <tr key={i + 1}>
@@ -297,8 +327,8 @@ export default class Transaction extends Component {
                                 </div>
                                 <div id="transaction-total-container" className="field-whole-container" >
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.TransactionTotalLabel}</span>
-                                        <span>{this.state.total}</span>
+                                        <span className="field-label"></span>
+                                        <span className="total">{ENUSStrings.TransactionTotalLabel} {this.state.total}</span>
                                     </div>
                                 </div>
                                 {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE &&
