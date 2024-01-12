@@ -4,7 +4,6 @@ Used for invoicing needs. This is a personal project so that I can learn how to 
 
 ### TODO
 
-- Show accounts menu
-- Show rows for invoice data when making an invoice
+- Make rows dynamic (When one has data in either ticketNumber or total, make another one appear)
 - Connect mysql db with form
 - Make buttons functional

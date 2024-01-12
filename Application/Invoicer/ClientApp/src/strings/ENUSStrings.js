@@ -1,9 +1,11 @@
 ﻿const ENUSStrings = {
+    // General
+    TypeLabel: "Type",
+    FuelLabel: "Fuel",
     // Home
     RemainingTransactonLabel: "Remaining Transaction",
     MakeInvoiceLabel: "Make Invoice",
     MakePaymentLabel: "Make Payment",
-    TypeLabel: "Type",
     AmountLabel: "Amount",
     // Company Strings
     CompanyNameLabel: "Company Name",
@@ -23,7 +25,9 @@
     CheckNumberLabel: "Check Number",
     PaymentDateLabel: "Payment Date",
     DueDateLabel: "Due Date",
-    TotalLabel: "Total in $",
+    TotalLabel: "Total",
+    TicketNumberLabel: "Ticket Number",
+    TransactionTotlaLabel: "Total in $",
     SubmitTransactionLabel: "Submit Transaction Details",
     // User Strings
     ChooseUserLabel: "Choose User",

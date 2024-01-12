@@ -25,13 +25,6 @@ export default function transactionFormValidation(values) {
         }
     }
 
-    if (!values.total) {
-        errors.totalError = ENUSStrings.TotalLabel + ENUSStrings.BlankErrorMessage;
-    }
-    else if (!isValueNumber(values.total)) {
-        errors.totalError = ENUSStrings.TotalLabel + ENUSStrings.NumberErrorMessage;
-    }
-
     isValid = !doErrorsExist(errors);
 
     return { isValid, errors };

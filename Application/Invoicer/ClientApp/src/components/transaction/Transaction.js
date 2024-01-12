@@ -7,7 +7,6 @@ import changeQueryParameter from "../../utilities/ChangeQueryParameter";
 import loadingMessage from "../../utilities/LoadingMessage";
 import ENUSStrings from "../../strings/ENUSStrings";
 import transactionFormValidation from "../../utilities/validation/TransactionFormValidation";
-import isValueNumber from "../../utilities/validation/IsValueNumber";
 import getTodaysDate from "../../utilities/GetTodaysDate";
 import createCompanyOptions from "../../utilities/CreateHTMLOptions";
 
@@ -34,7 +33,11 @@ export default class Transaction extends Component {
             dueDateError: "",
             paymentDateError: "",
             checkNumberError: "",
-            totalError: "",
+            invoiceData: [{
+                type: "fuel",
+                ticketNumber: "",
+                total: 0
+            }],
             isSubmissionAttempted: false
         };
     }
@@ -84,13 +87,6 @@ export default class Transaction extends Component {
         console.log(this.state);
     }
     render() {
-        const changeCompany = (value) => {
-            this.setState({
-                currentCompanyID: value
-            });
-            changeQueryParameter(SETTINGS.COMPANY_ID_QUERY_PARAMETER, value);
-        };
-
         const submissionItem = {
             type: this.state.currentType,
             createdDate: new Date(),
@@ -99,6 +95,79 @@ export default class Transaction extends Component {
             checkNumber: this.state.checkNumber,
             total: this.state.total,
         };
+
+        const changeCompany = (value) => {
+            this.setState({
+                currentCompanyID: value
+            });
+            changeQueryParameter(SETTINGS.COMPANY_ID_QUERY_PARAMETER, value);
+        };
+
+        const deleteInvoiceDataRow = () => {
+
+        }
+
+        const appendInvoiceDataRow = () => {
+
+        }
+
+        const editInvoiceDataRow = (value, id, currentInvoiceData) => {
+            const idSplitted = id.split(":");
+            currentInvoiceData[idSplitted[1]][idSplitted[0]] = value;
+            this.setState({
+                invoiceData: currentInvoiceData
+            })
+        }
+
+        const createInvoiceDataRows = () => {
+            let rows = [];
+            const currentNumberofRows = this.state.invoiceData.length;
+            console.log(this.state.invoiceData);
+            const currentInvoiceData = [ ...this.state.invoiceData ];
+            for (let i = 0; i < currentNumberofRows; i++) {
+                rows.push(
+                    <tr key={i + 1}>
+                        <td>
+                            <select
+                                id={"type:" + i}
+                                title={ENUSStrings.TypeLabel + ": " + i}
+                                value={this.state.invoiceData[i].type}
+                                onChange={(control) => {
+                                    editInvoiceDataRow(control.target.value, control.target.id, currentInvoiceData)
+                                }}
+                            >
+                                <option value={SETTINGS.INVOICE_DATA_TYPE_CHOICES.FUEL}>{ENUSStrings.FuelLabel}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input
+                                id={"ticketNumber:" + i}
+                                type="text"
+                                title={ENUSStrings.TicketNumberLabel + ": " + i}
+                                value={this.state.invoiceData[i].ticketNumber}
+                                onChange={(control) => {
+                                    editInvoiceDataRow(control.target.value, control.target.id, currentInvoiceData)
+                                }}
+                            >
+                            </input>
+                        </td>
+                        <td>
+                            <input
+                                id={"total:" + i}
+                                type="number"
+                                title={ENUSStrings.TotalLabel + ": " + i}
+                                value={this.state.invoiceData[i].total}
+                                onChange={(control) => {
+                                    editInvoiceDataRow(control.target.value, control.target.id, currentInvoiceData)
+                                }}
+                            >
+                            </input>
+                        </td>
+                    </tr>
+                )
+            }
+            return rows;
+        }
 
         const changeType = (value) => {
             this.setState({ currentType: value })
@@ -125,7 +194,6 @@ export default class Transaction extends Component {
                     dueDateError: validation.errors.dueDateError,
                     paymentDateError: validation.errors.paymentDateError,
                     checkNumberError: validation.errors.checkNumberError,
-                    totalError: validation.errors.totalError,
                     isSubmissionAttempted: isSubmissionAttempted
                 });
             }
@@ -134,7 +202,6 @@ export default class Transaction extends Component {
                     dueDateError: validation.errors.dueDateError,
                     paymentDateError: validation.errors.paymentDateError,
                     checkNumberError: validation.errors.checkNumberError,
-                    totalError: validation.errors.totalError
                 });
             }
             return validation.isValid;
@@ -204,7 +271,7 @@ export default class Transaction extends Component {
                                             id="duePaymentDate"
                                             title={this.state.currentType !== "invoice" ? ENUSStrings.PaymentDateLabel : ENUSStrings.DueDateLabel}
                                             value={this.state.currentType !== "invoice" ? this.state.paymentDate : this.state.dueDate}
-                                            onChange={(control) => {changeValue(control.target.value, control.target.id);}}
+                                            onChange={(control) => { changeValue(control.target.value, control.target.id); }}
                                         />
                                     </div>
                                     <span className="field-error" hidden={this.state.currentType !== "invoice" ? (!this.state.paymentDateError || !this.state.isSubmissionAttempted) : (!this.state.dueDateError || !this.state.isSubmissionAttempted)}>
@@ -230,26 +297,28 @@ export default class Transaction extends Component {
                                 </div>
                                 <div id="transaction-total-container" className="field-whole-container" >
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.TotalLabel}</span>
-                                        <input
-                                            type="text"
-                                            id="total"
-                                            title={ENUSStrings.TotalLabel}
-                                            value={this.state.total}
-                                            onChange={(control) => {
-                                                changeValue(control.target.value, control.target.id);
-                                                submissionItem.total = control.target.value;
-                                                validateForm();
-                                            }}
-                                            onBlur={(control) => {
-                                                if (isValueNumber(control.target.value)) {
-                                                    changeValueToDecimal(control.target.value, control.target.id);
-                                                }
-                                            }}
-                                        />
+                                        <span className="field-label field-required">{ENUSStrings.TransactionTotalLabel}</span>
+                                        <span>{this.state.total}</span>
                                     </div>
-                                    <span className="field-error" hidden={!this.state.totalError || !this.state.isSubmissionAttempted}>{this.state.totalError}</span>
                                 </div>
+                                {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE &&
+                                    <div id="transaction-invoice-data-container" className="field-whole-container" >
+                                        <div className="field-label-input-container">
+                                            <table>
+                                                <thead>
+                                                    <tr key={0}>
+                                                        <th>{ENUSStrings.TypeLabel}</th>
+                                                        <th>{ENUSStrings.TicketNumberLabel}</th>
+                                                        <th>{ENUSStrings.TotalLabel}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {createInvoiceDataRows()}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
                                 <div className="buttons-container">
                                     <button className="primary-button" type="submit">{ENUSStrings.SubmitTransactionLabel}</button>
                                 </div>

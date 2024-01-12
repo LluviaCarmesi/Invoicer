@@ -16,6 +16,9 @@
         INVOICE: "invoice",
         PAYMENT: "payment"
     },
+    INVOICE_DATA_TYPE_CHOICES: {
+        FUEL: "fuel"
+    },
     NEW_EDIT_CHOICES: {
         NEW: "new",
         EDIT: "edit"
