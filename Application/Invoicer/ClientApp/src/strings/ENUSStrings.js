@@ -18,6 +18,7 @@
     IsCompanyActiveLabel: "Is this company account active?",
     SubmitCompanyLabel: "Submit Company Details",
     // Transaction Strings
+    RemoveLabel: "Remove",
     InvoiceLabel: "Invoice",
     PaymentLabel: "Payment",
     ChooseCompanyLabel: "Choose a Company",

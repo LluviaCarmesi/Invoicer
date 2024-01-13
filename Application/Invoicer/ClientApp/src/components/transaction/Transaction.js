@@ -9,6 +9,7 @@ import ENUSStrings from "../../strings/ENUSStrings";
 import transactionFormValidation from "../../utilities/validation/TransactionFormValidation";
 import getTodaysDate from "../../utilities/GetTodaysDate";
 import createCompanyOptions from "../../utilities/CreateHTMLOptions";
+import isValueNumber from "../../utilities/validation/IsValueNumber";
 
 export default class Transaction extends Component {
     constructor(props) {
@@ -29,14 +30,14 @@ export default class Transaction extends Component {
             paymentDate: todaysDate,
             dueDate: todaysDate,
             checkNumber: "",
-            total: "",
+            total: "0",
             dueDateError: "",
             paymentDateError: "",
             checkNumberError: "",
             invoiceData: [{
                 type: "fuel",
                 ticketNumber: "",
-                total: 0
+                total: "0"
             }],
             isSubmissionAttempted: false
         };
@@ -106,9 +107,21 @@ export default class Transaction extends Component {
         const calculateTotal = (currentInvoiceData) => {
             let total = 0;
             for (let i = 0; i < currentInvoiceData.length; i++) {
-                total += parseFloat(currentInvoiceData[i].total);
+                const currentIteration = currentInvoiceData[i];
+                if (isValueNumber(currentIteration.total)) {
+                    total += parseFloat(currentIteration.total);
+                }
             }
             return total;
+        }
+
+        const removeInvoiceDataRow = (position, currentInvoiceData) => {
+            currentInvoiceData.splice(position, 1);
+            const currentTotal = calculateTotal(currentInvoiceData);
+            this.setState({
+                invoiceData: currentInvoiceData,
+                total: currentTotal
+            });
         }
 
         const editInvoiceDataRow = (value, id, currentInvoiceData) => {
@@ -124,7 +137,7 @@ export default class Transaction extends Component {
                 currentInvoiceData.push({
                     type: "fuel",
                     ticketNumber: "",
-                    total: 0
+                    total: "0"
                 });
             }
             else if (
@@ -193,6 +206,18 @@ export default class Transaction extends Component {
                             >
                             </input>
                         </td>
+                        <td>
+                            { !!i &&
+                                <button
+                                    className="remove-button"
+                                    onClick={() => {
+                                        removeInvoiceDataRow(i, currentInvoiceData)
+                                    }}
+                                >
+                                    {ENUSStrings.RemoveLabel}
+                                </button>
+                            }
+                        </td>
                     </tr>
                 )
             }
@@ -240,7 +265,6 @@ export default class Transaction extends Component {
         const createTransactionOnClick = (event) => {
             event.preventDefault();
             if (validateForm(true)) {
-
             }
         };
 

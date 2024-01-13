@@ -4,6 +4,6 @@ Used for invoicing needs. This is a personal project so that I can learn how to 
 
 ### TODO
 
-- Make rows dynamic (When one has data in either ticketNumber or total, make another one appear)
-- Connect mysql db with form
+- Finish Transactions Controller connection to db
+- Finish Companies Controller connection to db
 - Make buttons functional
