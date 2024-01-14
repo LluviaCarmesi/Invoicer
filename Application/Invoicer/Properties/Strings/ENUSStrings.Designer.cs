@@ -61,6 +61,24 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to isAccountActive.
+        /// </summary>
+        public static string AccountActivePropertyLabel {
+            get {
+                return ResourceManager.GetString("AccountActivePropertyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to address.
+        /// </summary>
+        public static string AddressPropertyLabel {
+            get {
+                return ResourceManager.GetString("AddressPropertyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  is required.
         /// </summary>
         public static string BlankError {
@@ -70,11 +88,29 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to city.
+        /// </summary>
+        public static string CityPropertyLabel {
+            get {
+                return ResourceManager.GetString("CityPropertyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to companyID.
         /// </summary>
         public static string CompanyIDLabel {
             get {
                 return ResourceManager.GetString("CompanyIDLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to country.
+        /// </summary>
+        public static string CountryPropertyLabel {
+            get {
+                return ResourceManager.GetString("CountryPropertyLabel", resourceCulture);
             }
         }
         
@@ -156,6 +192,15 @@ namespace Invoicer.Properties.Strings {
         public static string TransactionIDLabel {
             get {
                 return ResourceManager.GetString("TransactionIDLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to zip.
+        /// </summary>
+        public static string ZipPropertyLabel {
+            get {
+                return ResourceManager.GetString("ZipPropertyLabel", resourceCulture);
             }
         }
     }

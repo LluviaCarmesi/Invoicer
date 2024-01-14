@@ -62,13 +62,14 @@ namespace Invoicer.Controllers
         [HttpPost("add-company")]
         public IActionResult AddCompany()
         {
-            Task<CompaniesServiceRequest> companyValidation = CompaniesServicesValidation.CheckCompanyModel(Request);
-            CompaniesServiceRequest companyValidationResult = companyValidation.Result;
-            if (!companyValidationResult.IsSuccessful)
+            Task<CompaniesServiceRequest> companyModelValidation = CompaniesServicesValidation.CheckCompanyModel(Request);
+            CompaniesServiceRequest companyModelValidationResult = companyModelValidation.Result;
+            if (!companyModelValidationResult.IsSuccessful)
             {
-                return BadRequest(companyValidationResult.Result);
+                return BadRequest(companyModelValidationResult.Result);
             }
-            return Ok(companyValidationResult.Company);
+            IActionResult companyAddValidation = CompaniesServices.AddCompany();
+            return Ok(companyAddValidation);
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Invoicer.Services
     public static class CompaniesServices
     {
         private static MySqlConnection mySqlConnection = new MySqlConnection(AppSettings.SQL_CONNECTION_STRING);
+        // Gets
         internal static IActionResult GetCompany(string companyID)
         {
             Company company = new Company();
@@ -88,6 +89,12 @@ namespace Invoicer.Services
                 mySqlConnection.Close();
             }
             return new OkObjectResult(companiesList);
+        }
+
+        // Posts
+        internal static IActionResult AddCompany()
+        {
+            return new OkObjectResult("");
         }
     }
 }

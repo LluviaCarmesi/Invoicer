@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountActivePropertyLabel" xml:space="preserve">
+    <value>isAccountActive</value>
+  </data>
+  <data name="AddressPropertyLabel" xml:space="preserve">
+    <value>address</value>
+  </data>
   <data name="BlankError" xml:space="preserve">
     <value> is required</value>
   </data>
+  <data name="CityPropertyLabel" xml:space="preserve">
+    <value>city</value>
+  </data>
   <data name="CompanyIDLabel" xml:space="preserve">
     <value>companyID</value>
+  </data>
+  <data name="CountryPropertyLabel" xml:space="preserve">
+    <value>country</value>
   </data>
   <data name="ForgotError" xml:space="preserve">
     <value>How can you forget the </value>
@@ -149,5 +161,8 @@
   </data>
   <data name="TransactionIDLabel" xml:space="preserve">
     <value>transactionID</value>
+  </data>
+  <data name="ZipPropertyLabel" xml:space="preserve">
+    <value>zip</value>
   </data>
 </root>

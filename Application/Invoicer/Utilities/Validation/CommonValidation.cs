@@ -27,7 +27,7 @@ namespace Invoicer.Utilities.Validation
             propertyValue = null;
             try
             {
-                propertyValue = obj.GetType().GetProperty(propertyName)?.GetValue(obj);
+                propertyValue = obj.GetType().GetProperty(propertyName).GetValue(obj);
                 return true;
             }
             catch
