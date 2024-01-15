@@ -1,4 +1,5 @@
-﻿using Invoicer.Models;
+﻿using Invoicer.Enums;
+using Invoicer.Models;
 using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
 using Newtonsoft.Json;
@@ -8,9 +9,10 @@ namespace Invoicer.Utilities.Validation
 {
     public class TransactionsServicesValidation
     {
-        public static async Task<TransactionsServiceRequest> CheckTransactionModel(HttpRequest request)
+        public static async Task<TransactionsServiceRequest> CheckTransactionModel(HttpRequest request, int companyID)
         {
-            Transaction transaction= new Transaction();
+            Transaction transaction = new Transaction();
+            transaction.CompanyID = companyID;
             bool isValid = true;
             string result = string.Empty;
             if (request.Body == null)
@@ -25,21 +27,112 @@ namespace Invoicer.Utilities.Validation
             dynamic requestData = JsonConvert.DeserializeObject(requestBody);
 
             // type validation
-            object nameObject;
-            string name = string.Empty;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.NamePropertyLabel, out nameObject))
+            object typeObject;
+            string type = string.Empty;
+            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.TypePropertyLabel, out typeObject))
             {
                 isValid = false;
-                result = ENUSStrings.NamePropertyLabel + ENUSStrings.MissingError;
+                result = ENUSStrings.TypePropertyLabel + ENUSStrings.MissingError;
             }
-            else if (!CommonValidation.TryGetStringValue(nameObject, out name))
+            else if (!CommonValidation.TryGetStringValue(typeObject, out type))
             {
                 isValid = false;
-                result = ENUSStrings.NamePropertyLabel + ENUSStrings.BlankError;
+                result = ENUSStrings.TypePropertyLabel + ENUSStrings.BlankError;
             }
             else
             {
-                company.Name = name;
+                transaction.Type = type;
+            }
+
+            // createdDate validation
+            object createdDateObject;
+            DateTime createdDate;
+            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.CreatedDatePropertyLabel, out createdDateObject))
+            {
+                isValid = false;
+                result = ENUSStrings.CreatedDatePropertyLabel + ENUSStrings.MissingError;
+            }
+            else if (!CommonValidation.TryGetDateValue(createdDateObject, out createdDate))
+            {
+                isValid = false;
+                result = ENUSStrings.CreatedDatePropertyLabel + ENUSStrings.BlankError;
+            }
+            else
+            {
+                transaction.CreatedDate = createdDate;
+            }
+            // dueDate validation
+            object dueDateObject;
+            DateTime dueDate;
+            if (type == TransactionTypes.toFriendlyString(TransactionTypesDefinitions.Invoice))
+            {
+                if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.DueDatePropertyLabel, out dueDateObject))
+                {
+                    isValid = false;
+                    result = ENUSStrings.DueDatePropertyLabel + ENUSStrings.MissingError;
+                }
+                else if (!CommonValidation.TryGetDateValue(dueDateObject, out dueDate))
+                {
+                    isValid = false;
+                    result = ENUSStrings.DueDatePropertyLabel + ENUSStrings.BlankError;
+                }
+                else
+                {
+                    transaction.DueDate = dueDate;
+                }
+            }
+            // createdDate and checkNumber validation
+            object paymentDateObject;
+            DateTime paymentDate;
+            object checkNumberObject;
+            string checkNumber = string.Empty;
+            if (type == TransactionTypes.toFriendlyString(TransactionTypesDefinitions.Payment))
+            {
+                if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.PaymentDatePropertyLabel, out paymentDateObject))
+                {
+                    isValid = false;
+                    result = ENUSStrings.PaymentDatePropertyLabel + ENUSStrings.MissingError;
+                }
+                else if (!CommonValidation.TryGetDateValue(createdDateObject, out paymentDate))
+                {
+                    isValid = false;
+                    result = ENUSStrings.PaymentDatePropertyLabel + ENUSStrings.BlankError;
+                }
+                else
+                {
+                    transaction.PaymentDate = paymentDate;
+                }
+                if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.CheckNumberPropertyLabel, out checkNumberObject))
+                {
+                    isValid = false;
+                    result = ENUSStrings.CheckNumberPropertyLabel + ENUSStrings.MissingError;
+                }
+                else if (!CommonValidation.TryGetStringValue(checkNumberObject, out checkNumber))
+                {
+                    isValid = false;
+                    result = ENUSStrings.CheckNumberPropertyLabel + ENUSStrings.BlankError;
+                }
+                else
+                {
+                    transaction.CheckNumber = checkNumber;
+                }
+            }
+            // total validation
+            object totalObject;
+            decimal total = decimal.MinValue;
+            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.TotalPropertyLabel, out totalObject))
+            {
+                isValid = false;
+                result = ENUSStrings.TotalPropertyLabel + ENUSStrings.MissingError;
+            }
+            else if (!CommonValidation.TryGetDecimalValue(totalObject, out total))
+            {
+                isValid = false;
+                result = ENUSStrings.TotalPropertyLabel + ENUSStrings.BlankError;
+            }
+            else
+            {
+                transaction.Total = total;
             }
             return new TransactionsServiceRequest(isValid, result, transaction);
         }

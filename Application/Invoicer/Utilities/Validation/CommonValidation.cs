@@ -49,7 +49,32 @@ namespace Invoicer.Utilities.Validation
                 return false;
             }
         }
-
+        public static bool TryGetDecimalValue(object obj, out decimal value)
+        {
+            value = decimal.MinValue;
+            try
+            {
+                value = decimal.Parse(obj.ToString());
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static bool TryGetDateValue(object obj, out DateTime value)
+        {
+            value = new DateTime();
+            try
+            {
+                value = DateTime.Parse(obj.ToString());
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public static bool TryGetBoolValue(object obj, out bool value)
         {
             value = false;
@@ -57,7 +82,7 @@ namespace Invoicer.Utilities.Validation
             {
                 if (obj.GetType() is bool)
                 {
-                    value = (bool) obj;
+                    value = (bool)obj;
                 }
             }
             catch

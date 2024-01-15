@@ -88,6 +88,15 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to checkNumber.
+        /// </summary>
+        public static string CheckNumberPropertyLabel {
+            get {
+                return ResourceManager.GetString("CheckNumberPropertyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to city.
         /// </summary>
         public static string CityPropertyLabel {
@@ -111,6 +120,24 @@ namespace Invoicer.Properties.Strings {
         public static string CountryPropertyLabel {
             get {
                 return ResourceManager.GetString("CountryPropertyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to createdDate.
+        /// </summary>
+        public static string CreatedDatePropertyLabel {
+            get {
+                return ResourceManager.GetString("CreatedDatePropertyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dueDate.
+        /// </summary>
+        public static string DueDatePropertyLabel {
+            get {
+                return ResourceManager.GetString("DueDatePropertyLabel", resourceCulture);
             }
         }
         
@@ -187,6 +214,15 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to paymentDate.
+        /// </summary>
+        public static string PaymentDatePropertyLabel {
+            get {
+                return ResourceManager.GetString("PaymentDatePropertyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to phone.
         /// </summary>
         public static string PhonePropertyLabel {
@@ -196,11 +232,29 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to total.
+        /// </summary>
+        public static string TotalPropertyLabel {
+            get {
+                return ResourceManager.GetString("TotalPropertyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to transactionID.
         /// </summary>
         public static string TransactionIDLabel {
             get {
                 return ResourceManager.GetString("TransactionIDLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to type.
+        /// </summary>
+        public static string TypePropertyLabel {
+            get {
+                return ResourceManager.GetString("TypePropertyLabel", resourceCulture);
             }
         }
         

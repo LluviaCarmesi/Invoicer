@@ -58,7 +58,6 @@ namespace Invoicer.Controllers
             return TransactionsServices.GetTransactions(Request.Query[AppSettings.LIMIT_QUERY_PARAMETER], Request.Query[AppSettings.OFFSET_QUERY_PARAMETER], companyID);
         }
         //POST Methods
-        [Route("add-company")]
         [HttpPost("add-company")]
         public IActionResult AddCompany()
         {

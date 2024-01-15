@@ -126,6 +126,9 @@
   <data name="BlankError" xml:space="preserve">
     <value> is required</value>
   </data>
+  <data name="CheckNumberPropertyLabel" xml:space="preserve">
+    <value>checkNumber</value>
+  </data>
   <data name="CityPropertyLabel" xml:space="preserve">
     <value>city</value>
   </data>
@@ -134,6 +137,12 @@
   </data>
   <data name="CountryPropertyLabel" xml:space="preserve">
     <value>country</value>
+  </data>
+  <data name="CreatedDatePropertyLabel" xml:space="preserve">
+    <value>createdDate</value>
+  </data>
+  <data name="DueDatePropertyLabel" xml:space="preserve">
+    <value>dueDate</value>
   </data>
   <data name="EmailPropertyLabel" xml:space="preserve">
     <value>email</value>
@@ -159,11 +168,20 @@
   <data name="OffsetLabel" xml:space="preserve">
     <value>offset</value>
   </data>
+  <data name="PaymentDatePropertyLabel" xml:space="preserve">
+    <value>paymentDate</value>
+  </data>
   <data name="PhonePropertyLabel" xml:space="preserve">
     <value>phone</value>
   </data>
+  <data name="TotalPropertyLabel" xml:space="preserve">
+    <value>total</value>
+  </data>
   <data name="TransactionIDLabel" xml:space="preserve">
     <value>transactionID</value>
+  </data>
+  <data name="TypePropertyLabel" xml:space="preserve">
+    <value>type</value>
   </data>
   <data name="ZipPropertyLabel" xml:space="preserve">
     <value>zip</value>
