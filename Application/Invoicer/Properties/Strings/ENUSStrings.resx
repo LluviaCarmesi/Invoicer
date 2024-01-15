@@ -135,6 +135,9 @@
   <data name="CountryPropertyLabel" xml:space="preserve">
     <value>country</value>
   </data>
+  <data name="EmailPropertyLabel" xml:space="preserve">
+    <value>email</value>
+  </data>
   <data name="ForgotError" xml:space="preserve">
     <value>How can you forget the </value>
   </data>

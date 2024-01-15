@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Invoicer.models
+namespace Invoicer.Models
 {
     public class Company
     {

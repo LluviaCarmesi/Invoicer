@@ -1,6 +1,7 @@
 ﻿using Invoicer.Models;
 using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
+using System.Threading.Tasks.Dataflow;
 
 namespace Invoicer.Utilities.Validation
 {
@@ -47,6 +48,22 @@ namespace Invoicer.Utilities.Validation
             {
                 return false;
             }
+        }
+
+        public static bool TryGetBoolValue(object obj, out bool value)
+        {
+            value = false;
+            try
+            {
+                if (obj.GetType() is bool)
+                {
+                    value = (bool) obj;
+                }
+            }
+            catch
+            {
+            }
+            return value;
         }
     }
 }

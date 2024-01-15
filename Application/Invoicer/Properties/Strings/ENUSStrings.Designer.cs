@@ -115,6 +115,15 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to email.
+        /// </summary>
+        public static string EmailPropertyLabel {
+            get {
+                return ResourceManager.GetString("EmailPropertyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to How can you forget the .
         /// </summary>
         public static string ForgotError {
