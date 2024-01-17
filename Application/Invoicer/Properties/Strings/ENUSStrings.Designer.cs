@@ -106,6 +106,15 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The company was successfully added.
+        /// </summary>
+        public static string CompanyAddedSuccessMessage {
+            get {
+                return ResourceManager.GetString("CompanyAddedSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to companyID.
         /// </summary>
         public static string CompanyIDLabel {

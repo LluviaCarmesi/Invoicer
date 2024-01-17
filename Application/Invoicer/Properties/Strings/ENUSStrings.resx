@@ -132,6 +132,9 @@
   <data name="CityPropertyLabel" xml:space="preserve">
     <value>city</value>
   </data>
+  <data name="CompanyAddedSuccessMessage" xml:space="preserve">
+    <value>The company was successfully added</value>
+  </data>
   <data name="CompanyIDLabel" xml:space="preserve">
     <value>companyID</value>
   </data>

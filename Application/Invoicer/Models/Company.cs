@@ -16,7 +16,7 @@ namespace Invoicer.Models
         private string city = string.Empty;
         private string country = string.Empty;
         private string zip = string.Empty;
-        private bool IsActive = true;
+        private bool isActive = true;
 
         public Company()
         {
@@ -131,11 +131,11 @@ namespace Invoicer.Models
         {
             get
             {
-                return IsActive;
+                return isActive;
             }
             set
             {
-                IsActive = value;
+                isActive = value;
             }
         }
     }

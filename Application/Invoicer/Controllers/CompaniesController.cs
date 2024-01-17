@@ -67,8 +67,12 @@ namespace Invoicer.Controllers
             {
                 return BadRequest(companyModelValidationResult.Result);
             }
-            IActionResult companyAddValidation = CompaniesServices.AddCompany();
-            return Ok(companyAddValidation);
+            CommonServiceRequest companyAddValidation = CompaniesServices.AddCompany(companyModelValidation.Result.Company);
+            if (!companyAddValidation.IsSuccessful)
+            {
+                return BadRequest(companyAddValidation.Result);
+            }
+            return Ok(companyAddValidation.Result);
         }
     }
 }

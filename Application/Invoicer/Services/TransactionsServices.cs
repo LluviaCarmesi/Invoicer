@@ -1,5 +1,6 @@
 ﻿using Invoicer.models;
 using Invoicer.Models;
+using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
@@ -88,10 +89,38 @@ namespace Invoicer.Services
             }
             return new OkObjectResult(transactionsList);
         }
-        internal static IActionResult AddTransaction(Transaction transaction)
+        internal static CommonServiceRequest AddTransaction(Transaction transaction)
         {
+            bool isSuccessful = true;
+            string result = string.Empty;
+            mySqlConnection.Open();
+            MySqlCommand mySqlCommand;
+            mySqlCommand = new MySqlCommand($"INSERT INTO {AppSettings.TRANSACTIONS_TABLE} ({AppSettings.ADD_TRANSACTION_COLUMNS}) VALUES (@type, @company_id, @created_date, @due_date, @payment_date, @check_number, @total)", mySqlConnection);
+            try
+            {
+                mySqlCommand.Parameters.Add("@name", MySqlDbType.VarChar).Value = company.Name;
+                mySqlCommand.Parameters.Add("@phone", MySqlDbType.VarChar).Value = company.Phone;
+                mySqlCommand.Parameters.Add("@email", MySqlDbType.VarChar).Value = company.Email;
+                mySqlCommand.Parameters.Add("@address", MySqlDbType.VarChar).Value = company.Address;
+                mySqlCommand.Parameters.Add("@city", MySqlDbType.VarChar).Value = company.City;
+                mySqlCommand.Parameters.Add("@country", MySqlDbType.VarChar).Value = company.Country;
+                mySqlCommand.Parameters.Add("zip", MySqlDbType.VarChar).Value = company.Zip;
+                mySqlCommand.Parameters.Add("is_account_active", MySqlDbType.Bit).Value = company.IsActive;
+                mySqlCommand.Connection = mySqlConnection;
+                mySqlCommand.ExecuteNonQuery();
+                isSuccessful = true;
+            }
+            catch (Exception e)
+            {
+                result = "Couldn't add company for the following reason: " + e.Message;
+                isSuccessful = false;
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
 
-            return new OkObjectResult("");
+            return new CommonServiceRequest(isSuccessful, result);
         }
     }
 }
