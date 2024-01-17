@@ -10,6 +10,7 @@
         public DateTime PaymentDate { get; set; } = new DateTime();
         public string CheckNumber { get; set; } = string.Empty;
         public decimal Total { get; set; } = 0;
+        public List<InvoiceData> InvoiceData { get; set; } = new List<InvoiceData>();
 
         public Transaction(int id, int companyID, string type, DateTime createdDate, DateTime dueDate, string checkNumber, decimal total)
         {

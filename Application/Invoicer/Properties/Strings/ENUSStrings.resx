@@ -153,6 +153,9 @@
   <data name="ForgotError" xml:space="preserve">
     <value>How can you forget the </value>
   </data>
+  <data name="InvoiceDataLabel" xml:space="preserve">
+    <value>invoiceData</value>
+  </data>
   <data name="LimitLabel" xml:space="preserve">
     <value>limit</value>
   </data>

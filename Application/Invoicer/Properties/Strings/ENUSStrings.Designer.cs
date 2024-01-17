@@ -169,6 +169,15 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to invoiceData.
+        /// </summary>
+        public static string InvoiceDataLabel {
+            get {
+                return ResourceManager.GetString("InvoiceDataLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to limit.
         /// </summary>
         public static string LimitLabel {

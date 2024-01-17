@@ -98,28 +98,26 @@ namespace Invoicer.Services
             mySqlCommand = new MySqlCommand($"INSERT INTO {AppSettings.TRANSACTIONS_TABLE} ({AppSettings.ADD_TRANSACTION_COLUMNS}) VALUES (@type, @company_id, @created_date, @due_date, @payment_date, @check_number, @total)", mySqlConnection);
             try
             {
-                mySqlCommand.Parameters.Add("@name", MySqlDbType.VarChar).Value = company.Name;
-                mySqlCommand.Parameters.Add("@phone", MySqlDbType.VarChar).Value = company.Phone;
-                mySqlCommand.Parameters.Add("@email", MySqlDbType.VarChar).Value = company.Email;
-                mySqlCommand.Parameters.Add("@address", MySqlDbType.VarChar).Value = company.Address;
-                mySqlCommand.Parameters.Add("@city", MySqlDbType.VarChar).Value = company.City;
-                mySqlCommand.Parameters.Add("@country", MySqlDbType.VarChar).Value = company.Country;
-                mySqlCommand.Parameters.Add("zip", MySqlDbType.VarChar).Value = company.Zip;
-                mySqlCommand.Parameters.Add("is_account_active", MySqlDbType.Bit).Value = company.IsActive;
+                mySqlCommand.Parameters.Add("@type", MySqlDbType.VarChar).Value = transaction.Type;
+                mySqlCommand.Parameters.Add("@company_id", MySqlDbType.Int32).Value = transaction.CompanyID;
+                mySqlCommand.Parameters.Add("@created_date", MySqlDbType.DateTime).Value = transaction.CreatedDate;
+                mySqlCommand.Parameters.Add("@due_date", MySqlDbType.DateTime).Value = transaction.DueDate;
+                mySqlCommand.Parameters.Add("@payment_date", MySqlDbType.DateTime).Value = transaction.PaymentDate;
+                mySqlCommand.Parameters.Add("@check_number", MySqlDbType.VarChar).Value = transaction.CheckNumber;
+                mySqlCommand.Parameters.Add("@total", MySqlDbType.Decimal).Value = transaction.Total;
                 mySqlCommand.Connection = mySqlConnection;
                 mySqlCommand.ExecuteNonQuery();
                 isSuccessful = true;
             }
             catch (Exception e)
             {
-                result = "Couldn't add company for the following reason: " + e.Message;
+                result = "Couldn't add the transaction for the following reason: " + e.Message;
                 isSuccessful = false;
             }
             finally
             {
                 mySqlConnection.Close();
             }
-
             return new CommonServiceRequest(isSuccessful, result);
         }
     }

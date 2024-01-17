@@ -117,6 +117,23 @@ namespace Invoicer.Utilities.Validation
                     transaction.CheckNumber = checkNumber;
                 }
             }
+            // invoiceData validation
+            object invoiceDataObject;
+            List<InvoiceData> invoiceData;
+            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.InvoiceDataLabel, out invoiceDataObject))
+            {
+                isValid = false;
+                result = ENUSStrings.InvoiceDataLabel + ENUSStrings.MissingError;
+            }
+            else if (!TryGetInvoiceData(invoiceDataObject, out invoiceData))
+            {
+                isValid = false;
+                result = ENUSStrings.TotalPropertyLabel + ENUSStrings.BlankError;
+            }
+            else
+            {
+
+            }
             // total validation
             object totalObject;
             decimal total = decimal.MinValue;
@@ -151,6 +168,18 @@ namespace Invoicer.Utilities.Validation
                 result = ENUSStrings.TransactionIDLabel + ENUSStrings.NumberError;
             }
             return new CommonServiceRequest(isValid, result);
+        }
+        public static bool TryGetInvoiceData(object obj, out List<InvoiceData> value)
+        {
+            value = new List<InvoiceData>();
+            try
+            {
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
         public static CommonServiceRequest CheckLimitandOffsetParameters(HttpRequest request)
         {
