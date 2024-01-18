@@ -9,8 +9,8 @@
     TRANSACTIONS_URI: "/transactions",
     REMAINING_BALANCE_URL: "/remaining-balance",
     ADD_COMPANY_URI: "/add-company",
-    ADD_USER__URI: "add-user",
-    ADD_TRANSACTION: "add-transaction",
+    ADD_USER__URI: "/add-user",
+    ADD_TRANSACTION: "/add-transaction",
     //query parameters
     TRANSACTION_TYPE_CHOICES: {
         INVOICE: "invoice",

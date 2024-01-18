@@ -30,23 +30,5 @@ namespace Invoicer.Controllers
             }
             return TransactionsServices.GetTransaction(transactionID);
         }
-        [Route("companies/{companyID}/add-transaction")]
-        [HttpPost("companies/{companyID}/add-transaction")]
-        public IActionResult AddTransaction(string companyID)
-        {
-            CommonServiceRequest companyIDValidation = CommonValidation.CheckCompanyIDParameter(companyID);
-            if (!companyIDValidation.IsSuccessful)
-            {
-                return BadRequest(companyIDValidation.Result);
-            }
-            Task<TransactionsServiceRequest> transactionModelValidation = TransactionsServicesValidation.CheckTransactionModel(Request, int.Parse(companyID));
-            TransactionsServiceRequest transactionModelValidationResult = transactionModelValidation.Result;
-            if (!transactionModelValidationResult.IsSuccessful)
-            {
-                return BadRequest(transactionModelValidationResult.Result);
-            }
-            IActionResult transactionAddValidation = TransactionsServices.AddTransaction(transactionModelValidationResult.Transaction);
-            return Ok(transactionAddValidation);
-        }
     }
 }

@@ -44,6 +44,7 @@
     // Error Strings
     BlankErrorMessage: " is required",
     NumberErrorMessage: " must be a number",
+    PositiveNumberErrorMessage: " must be a positive number",
     PhoneFormatErrorMessage: " must be a phone number",
     EmailFormatErrorMessage: " must be an email address",
     DateFormatErrorMessage: " must be a date"

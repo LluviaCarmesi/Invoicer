@@ -1,5 +1,4 @@
-﻿using Invoicer.models;
-using Invoicer.Models;
+﻿using Invoicer.Models;
 using Invoicer.Models.ServiceRequests;
 using Invoicer.Services;
 using Invoicer.Utilities.Validation;
@@ -73,6 +72,28 @@ namespace Invoicer.Controllers
                 return BadRequest(companyAddValidation.Result);
             }
             return Ok(companyAddValidation.Result);
+        }
+        [Route("{companyID}/add-transaction")]
+        [HttpPost("{companyID}/add-transaction")]
+        public IActionResult AddTransaction(string companyID)
+        {
+            CommonServiceRequest companyIDValidation = CommonValidation.CheckCompanyIDParameter(companyID);
+            if (!companyIDValidation.IsSuccessful)
+            {
+                return BadRequest(companyIDValidation.Result);
+            }
+            Task<TransactionsServiceRequest> transactionModelValidation = TransactionsServicesValidation.CheckTransactionModel(Request, int.Parse(companyID));
+            TransactionsServiceRequest transactionModelValidationResult = transactionModelValidation.Result;
+            if (!transactionModelValidationResult.IsSuccessful)
+            {
+                return BadRequest(transactionModelValidationResult.Result);
+            }
+            CommonServiceRequest transactionAddValidation = TransactionsServices.AddTransaction(transactionModelValidationResult.Transaction);
+            if (!transactionAddValidation.IsSuccessful)
+            {
+                return BadRequest(transactionAddValidation.Result);
+            }
+            return Ok(transactionAddValidation.Result);
         }
     }
 }

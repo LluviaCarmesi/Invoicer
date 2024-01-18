@@ -3,6 +3,7 @@ using Invoicer.Models;
 using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
 using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Text;
 
 namespace Invoicer.Utilities.Validation
@@ -24,7 +25,7 @@ namespace Invoicer.Utilities.Validation
 
             StreamReader reader = new StreamReader(request.Body, Encoding.UTF8);
             string requestBody = await reader.ReadToEndAsync();
-            dynamic requestData = JsonConvert.DeserializeObject(requestBody);
+            Transaction requestData = JsonConvert.DeserializeObject<Transaction>(requestBody);
 
             // type validation
             object typeObject;
@@ -139,6 +140,7 @@ namespace Invoicer.Utilities.Validation
             decimal total = decimal.MinValue;
             if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.TotalPropertyLabel, out totalObject))
             {
+                Debug.WriteLine(totalObject);
                 isValid = false;
                 result = ENUSStrings.TotalPropertyLabel + ENUSStrings.MissingError;
             }
@@ -169,12 +171,28 @@ namespace Invoicer.Utilities.Validation
             }
             return new CommonServiceRequest(isValid, result);
         }
-        public static bool TryGetInvoiceData(object obj, out List<InvoiceData> value)
+        private static bool ConvertInvoiceDataStringToModel(List<string> invoiceDataString, out List<InvoiceData> value )
         {
+            List<InvoiceData> invoiceData = new List<InvoiceData>();
             value = new List<InvoiceData>();
             try
             {
+
                 return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static bool TryGetInvoiceData(object obj, out List<InvoiceData> value)
+        {
+            value = new List<InvoiceData>();
+            List<string> invoiceDataString = new List<string>();
+            try
+            {
+                invoiceDataString = obj.ToString().Split(",").ToList();
+                return ConvertInvoiceDataStringToModel(invoiceDataString, out value);
             }
             catch
             {

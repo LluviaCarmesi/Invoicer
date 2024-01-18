@@ -1,6 +1,6 @@
 ﻿import ENUSStrings from "../../strings/ENUSStrings"
 import isValueNumber from "./IsValueNumber";
-import doErrorsExist from "./CompanyFormValidation";
+import doErrorsExist from "./DoErrorsExist";
 import SETTINGS from "../../AppSettings";
 
 export default function transactionFormValidation(values) {
@@ -22,6 +22,12 @@ export default function transactionFormValidation(values) {
         }
         if (!values.paymentDate) {
             errors.paymentDateError = ENUSStrings.PaymentDateLabel + ENUSStrings.BlankErrorMessage;
+        }
+        if (!values.total) {
+            errors.totalError = ENUSStrings.TotalLabel + ENUSStrings.BlankErrorMessage;
+        }
+        else if (parseInt(values.total) <= 0) {
+            errors.totalError = ENUSStrings.TotalLabel + ENUSStrings.PositiveNumberErrorMessage;
         }
     }
 

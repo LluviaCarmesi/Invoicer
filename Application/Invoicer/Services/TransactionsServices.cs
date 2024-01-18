@@ -1,5 +1,4 @@
-﻿using Invoicer.models;
-using Invoicer.Models;
+﻿using Invoicer.Models;
 using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
 using Microsoft.AspNetCore.Mvc;

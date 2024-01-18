@@ -4,7 +4,7 @@ Used for invoicing needs. This is a personal project so that I can learn how to 
 
 ### TODO
 
-- Work on error messages if SQL Insert query fails
+- Redo the transaction and company validation with JsonConvert.DeserializeObject<Class> method
 - Finish Transactions Controller connection to db
 - Finish Companies Controller connection to db
 - Make buttons functional
