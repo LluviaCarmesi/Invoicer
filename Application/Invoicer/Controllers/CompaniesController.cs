@@ -23,7 +23,7 @@ namespace Invoicer.Controllers
             CommonServiceRequest companyIDValidation = CommonValidation.CheckCompanyIDParameter(companyID);
             if (!companyIDValidation.IsSuccessful)
             {
-                return BadRequest(companyIDValidation.Result);
+                return BadRequest(new { response = companyIDValidation.Result });
             }
             return CompaniesServices.GetCompany(companyID);
         }
@@ -35,7 +35,7 @@ namespace Invoicer.Controllers
             CommonServiceRequest companyIDValidation = CommonValidation.CheckCompanyIDParameter(companyID);
             if (!companyIDValidation.IsSuccessful)
             {
-                return BadRequest(companyIDValidation.Result);
+                return BadRequest(new { response = companyIDValidation.Result });
             }
             return RemainingBalancesServices.GetRemainingBalance(companyID);
         }
@@ -48,11 +48,11 @@ namespace Invoicer.Controllers
             CommonServiceRequest limitandOffsetValidation = TransactionsServicesValidation.CheckLimitandOffsetParameters(Request);
             if (!companyIDValidation.IsSuccessful)
             {
-                return BadRequest(companyIDValidation.Result);
+                return BadRequest(new { response = companyIDValidation.Result });
             }
             if (!limitandOffsetValidation.IsSuccessful)
             {
-                return BadRequest(limitandOffsetValidation.Result);
+                return BadRequest(new { response = limitandOffsetValidation.Result });
             }
             return TransactionsServices.GetTransactions(Request.Query[AppSettings.LIMIT_QUERY_PARAMETER], Request.Query[AppSettings.OFFSET_QUERY_PARAMETER], companyID);
         }
@@ -64,14 +64,14 @@ namespace Invoicer.Controllers
             CompaniesServiceRequest companyModelValidationResult = companyModelValidation.Result;
             if (!companyModelValidationResult.IsSuccessful)
             {
-                return BadRequest(companyModelValidationResult.Result);
+                return BadRequest(new { response = companyModelValidationResult.Result });
             }
             CommonServiceRequest companyAddValidation = CompaniesServices.AddCompany(companyModelValidation.Result.Company);
             if (!companyAddValidation.IsSuccessful)
             {
-                return BadRequest(companyAddValidation.Result);
+                return BadRequest(new { response = companyAddValidation.Result });
             }
-            return Ok(companyAddValidation.Result);
+            return Ok(new { response = companyAddValidation.Result });
         }
         [Route("{companyID}/add-transaction")]
         [HttpPost("{companyID}/add-transaction")]
@@ -80,20 +80,20 @@ namespace Invoicer.Controllers
             CommonServiceRequest companyIDValidation = CommonValidation.CheckCompanyIDParameter(companyID);
             if (!companyIDValidation.IsSuccessful)
             {
-                return BadRequest(companyIDValidation.Result);
+                return BadRequest(new { response = companyIDValidation.Result });
             }
             Task<TransactionsServiceRequest> transactionModelValidation = TransactionsServicesValidation.CheckTransactionModel(Request, int.Parse(companyID));
             TransactionsServiceRequest transactionModelValidationResult = transactionModelValidation.Result;
             if (!transactionModelValidationResult.IsSuccessful)
             {
-                return BadRequest(transactionModelValidationResult.Result);
+                return BadRequest(new { response = transactionModelValidationResult.Result });
             }
             CommonServiceRequest transactionAddValidation = TransactionsServices.AddTransaction(transactionModelValidationResult.Transaction);
             if (!transactionAddValidation.IsSuccessful)
             {
-                return BadRequest(transactionAddValidation.Result);
+                return BadRequest(new { response = transactionAddValidation.Result });
             }
-            return Ok(transactionAddValidation.Result);
+            return Ok(new { response = "Howdy" });
         }
     }
 }

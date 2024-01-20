@@ -10,6 +10,7 @@ export default async function addCompany(item) {
         body: JSON.stringify(item)
         })
         .then((response) => {
+            console.log(response);
             return response.json();
         })
         .then((result) => {

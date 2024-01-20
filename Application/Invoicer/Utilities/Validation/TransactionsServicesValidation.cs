@@ -103,10 +103,16 @@ namespace Invoicer.Utilities.Validation
             }
             // total validation
             decimal total = requestData.Total;
+            Debug.WriteLine(total);
             if (total == decimal.MinValue)
             {
                 isValid = false;
                 result = ENUSStrings.TotalPropertyLabel + ENUSStrings.MissingError;
+            }
+            else if (total == 0)
+            {
+                isValid = false;
+                result = ENUSStrings.TotalPropertyLabel + ENUSStrings.ZeroError;
             }
             else
             {
@@ -137,7 +143,7 @@ namespace Invoicer.Utilities.Validation
                 for (int i = 0; i < invoiceData.Count; i++)
                 {
                     InvoiceData currentInvoiceData = invoiceData[i];
-                    if ((currentInvoiceData.Total == decimal.MinValue) && string.IsNullOrEmpty(currentInvoiceData.Type))
+                    if (currentInvoiceData.Total == decimal.MinValue || currentInvoiceData.Total == 0 || string.IsNullOrEmpty(currentInvoiceData.Type))
                     {
                         return false;
                     }

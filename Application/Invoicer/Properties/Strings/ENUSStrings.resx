@@ -192,6 +192,9 @@
   <data name="TypePropertyLabel" xml:space="preserve">
     <value>type</value>
   </data>
+  <data name="ZeroError" xml:space="preserve">
+    <value> can't be 0</value>
+  </data>
   <data name="ZipPropertyLabel" xml:space="preserve">
     <value>zip</value>
   </data>

@@ -146,7 +146,7 @@ namespace Invoicer.Services
                 for (int i = 0; i < invoiceDataFails; i++)
                 {
                     InvoiceData currentInvoiceData = invoiceDataNotAdded[i];
-                    result += "Type: " + currentInvoiceData.Type +  ", Ticket Number: " + currentInvoiceData.TicketNumber + ", Total: " + currentInvoiceData.Total;
+                    result += "Type: " + currentInvoiceData.Type +  ", Ticket Number: " + currentInvoiceData.TicketNumber + ", Total: " + currentInvoiceData.Total + "\n";
                 }
                 isSuccessful = false;
             }

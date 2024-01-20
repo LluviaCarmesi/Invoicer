@@ -4,7 +4,7 @@ Used for invoicing needs. This is a personal project so that I can learn how to 
 
 ### TODO
 
-- Redo the transaction and company validation with JsonConvert.DeserializeObject<Class> method
+- Show proper error/success messages when submission is successful
 - Finish Transactions Controller connection to db
 - Finish Companies Controller connection to db
 - Make buttons functional

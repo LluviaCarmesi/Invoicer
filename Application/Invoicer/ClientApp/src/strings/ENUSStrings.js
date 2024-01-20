@@ -30,6 +30,9 @@
     TicketNumberLabel: "Ticket Number",
     TransactionTotalLabel: "Total in $",
     SubmitTransactionLabel: "Submit Transaction Details",
+    TransactionSubmissionFailedMessage: "Transaction submission failed. Please try submitting it again.",
+    TransactionSubmissionInvoiceDataFailedMessage: "Some invoice data couldn't be submitted. Please see specific ones below.",
+    TransactionSubmissionSuccessMessage: "Transaction was submitted successfully!",
     // User Strings
     ChooseUserLabel: "Choose User",
     FirstNameLabel: "First Name",

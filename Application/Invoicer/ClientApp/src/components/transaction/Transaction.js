@@ -41,7 +41,9 @@ export default class Transaction extends Component {
                 ticketNumber: "",
                 total: "0"
             }],
-            isSubmissionAttempted: false
+            isSubmissionAttempted: false,
+            wasSubmissionFailure: false,
+            wasSubmissionSuccessful: false
         };
     }
 
@@ -282,6 +284,12 @@ export default class Transaction extends Component {
                     </div>
                     <div hidden={!this.state.errorCompanies}>
                         <span>{this.state.errorCompanies}</span>
+                    </div>
+                    <div className="" hidden={!this.state.wasSubmissionFailure}>
+                        <span></span>
+                    </div>
+                    <div className="" hidden={!this.state.wasSubmissionSuccessful}>
+                        <span>{ENUSStrings.}</span>
                     </div>
                     {!this.state.errorCompanies && !this.state.isLoadingCompanies &&
                         <div id="transaction-companies-container" className="field-whole-container">

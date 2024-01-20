@@ -286,6 +286,15 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  can&apos;t be 0.
+        /// </summary>
+        public static string ZeroError {
+            get {
+                return ResourceManager.GetString("ZeroError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to zip.
         /// </summary>
         public static string ZipPropertyLabel {
