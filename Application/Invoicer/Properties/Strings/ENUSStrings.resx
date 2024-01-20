@@ -153,6 +153,9 @@
   <data name="ForgotError" xml:space="preserve">
     <value>How can you forget the </value>
   </data>
+  <data name="HasAnIssueError" xml:space="preserve">
+    <value> has an issue in the data.</value>
+  </data>
   <data name="InvoiceDataLabel" xml:space="preserve">
     <value>invoiceData</value>
   </data>

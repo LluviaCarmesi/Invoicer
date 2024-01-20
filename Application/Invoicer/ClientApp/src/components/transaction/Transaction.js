@@ -96,6 +96,7 @@ export default class Transaction extends Component {
             dueDate: this.state.dueDate,
             paymentDate: this.state.paymentDate,
             checkNumber: this.state.checkNumber,
+            invoiceData: this.state.invoiceData,
             total: this.state.total,
         };
 

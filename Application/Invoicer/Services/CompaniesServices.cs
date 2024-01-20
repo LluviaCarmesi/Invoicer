@@ -109,8 +109,8 @@ namespace Invoicer.Services
                 mySqlCommand.Parameters.Add("@address", MySqlDbType.VarChar).Value = company.Address;
                 mySqlCommand.Parameters.Add("@city", MySqlDbType.VarChar).Value = company.City;
                 mySqlCommand.Parameters.Add("@country", MySqlDbType.VarChar).Value = company.Country;
-                mySqlCommand.Parameters.Add("zip", MySqlDbType.VarChar).Value = company.Zip;
-                mySqlCommand.Parameters.Add("is_account_active", MySqlDbType.Bit).Value = company.IsActive;
+                mySqlCommand.Parameters.Add("@zip", MySqlDbType.VarChar).Value = company.Zip;
+                mySqlCommand.Parameters.Add("@is_account_active", MySqlDbType.Bit).Value = company.IsActive;
                 mySqlCommand.Connection = mySqlConnection;
                 mySqlCommand.ExecuteNonQuery();
                 isSuccessful = true;

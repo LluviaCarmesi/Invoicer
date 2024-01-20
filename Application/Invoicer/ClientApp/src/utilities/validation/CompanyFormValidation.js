@@ -5,38 +5,38 @@ import doErrorsExist from "./DoErrorsExist";
 export default function companyFormValidation(values) {
     let isValid = true;
     let errors = {
-        companyNameError: "",
-        companyPhoneError: "",
-        companyEmailError: "",
-        companyAddressError: "",
-        companyCityError: "",
-        companyCountryError: "",
-        companyZipError: "",
+        nameError: "",
+        phoneError: "",
+        emailError: "",
+        addressError: "",
+        cityError: "",
+        countryError: "",
+        zipError: "",
     };
-    if (!values.companyName) {
-        errors.companyNameError = ENUSStrings.CompanyNameLabel + ENUSStrings.BlankErrorMessage;
+    if (!values.name) {
+        errors.nameError = ENUSStrings.CompanyNameLabel + ENUSStrings.BlankErrorMessage;
     }
-    if (!values.companyPhone) {
-        errors.companyPhoneError = ENUSStrings.CompanyPhoneLabel + ENUSStrings.BlankErrorMessage;
+    if (!values.phone) {
+        errors.phoneError = ENUSStrings.CompanyPhoneLabel + ENUSStrings.BlankErrorMessage;
     }
-    else if (!values.companyPhone.match(SETTINGS.PHONE_REG_EXPRESSION)) {
-        errors.companyPhoneError = ENUSStrings.CompanyPhoneLabel + ENUSStrings.PhoneFormatErrorMessage;
+    else if (!values.phone.match(SETTINGS.PHONE_REG_EXPRESSION)) {
+        errors.phoneError = ENUSStrings.CompanyPhoneLabel + ENUSStrings.PhoneFormatErrorMessage;
     }
-    if (!values.companyEmail) { }
-    else if (!values.companyEmail.match(SETTINGS.EMAIL_REG_EXPRESSION)) {
-        errors.companyEmailError = ENUSStrings.CompanyEmailLabel + ENUSStrings.EmailFormatErrorMessage
+    if (!values.email) { }
+    else if (!values.email.match(SETTINGS.EMAIL_REG_EXPRESSION)) {
+        errors.emailError = ENUSStrings.CompanyEmailLabel + ENUSStrings.EmailFormatErrorMessage
     }
-    if (!values.companyAddress) {
-        errors.companyAddressError = ENUSStrings.CompanyAddressLabel + ENUSStrings.BlankErrorMessage;
+    if (!values.address) {
+        errors.addressError = ENUSStrings.CompanyAddressLabel + ENUSStrings.BlankErrorMessage;
     }
-    if (!values.companyCity) {
-        errors.companyCityError = ENUSStrings.CompanyCityLabel + ENUSStrings.BlankErrorMessage;
+    if (!values.city) {
+        errors.cityError = ENUSStrings.CompanyCityLabel + ENUSStrings.BlankErrorMessage;
     }
-    if (!values.companyCountry) {
-        errors.companyCountryError = ENUSStrings.CompanyCountryLabel + ENUSStrings.BlankErrorMessage;
+    if (!values.country) {
+        errors.countryError = ENUSStrings.CompanyCountryLabel + ENUSStrings.BlankErrorMessage;
     }
-    if (!values.companyZip) {
-        errors.companyZipError = ENUSStrings.CompanyZipLabel + ENUSStrings.BlankErrorMessage;
+    if (!values.zip) {
+        errors.zipError = ENUSStrings.CompanyZipLabel + ENUSStrings.BlankErrorMessage;
     }
 
     isValid = !doErrorsExist(errors);

@@ -169,6 +169,15 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  has an issue in the data..
+        /// </summary>
+        public static string HasAnIssueError {
+            get {
+                return ResourceManager.GetString("HasAnIssueError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to invoiceData.
         /// </summary>
         public static string InvoiceDataLabel {

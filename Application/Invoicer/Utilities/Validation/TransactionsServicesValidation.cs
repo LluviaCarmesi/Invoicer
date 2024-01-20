@@ -28,14 +28,8 @@ namespace Invoicer.Utilities.Validation
             Transaction requestData = JsonConvert.DeserializeObject<Transaction>(requestBody);
 
             // type validation
-            object typeObject;
-            string type = string.Empty;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.TypePropertyLabel, out typeObject))
-            {
-                isValid = false;
-                result = ENUSStrings.TypePropertyLabel + ENUSStrings.MissingError;
-            }
-            else if (!CommonValidation.TryGetStringValue(typeObject, out type))
+            string type = requestData.Type;
+            if (string.IsNullOrEmpty(type))
             {
                 isValid = false;
                 result = ENUSStrings.TypePropertyLabel + ENUSStrings.BlankError;
@@ -46,14 +40,8 @@ namespace Invoicer.Utilities.Validation
             }
 
             // createdDate validation
-            object createdDateObject;
-            DateTime createdDate;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.CreatedDatePropertyLabel, out createdDateObject))
-            {
-                isValid = false;
-                result = ENUSStrings.CreatedDatePropertyLabel + ENUSStrings.MissingError;
-            }
-            else if (!CommonValidation.TryGetDateValue(createdDateObject, out createdDate))
+            DateTime createdDate = requestData.CreatedDate;
+            if (createdDate == DateTime.MinValue)
             {
                 isValid = false;
                 result = ENUSStrings.CreatedDatePropertyLabel + ENUSStrings.BlankError;
@@ -62,17 +50,13 @@ namespace Invoicer.Utilities.Validation
             {
                 transaction.CreatedDate = createdDate;
             }
-            // dueDate validation
-            object dueDateObject;
-            DateTime dueDate;
+
+            // dueDate and invoiceData validation
+            DateTime dueDate = requestData.DueDate;
+            List<InvoiceData> invoiceData = requestData.InvoiceData;
             if (type == TransactionTypes.toFriendlyString(TransactionTypesDefinitions.Invoice))
             {
-                if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.DueDatePropertyLabel, out dueDateObject))
-                {
-                    isValid = false;
-                    result = ENUSStrings.DueDatePropertyLabel + ENUSStrings.MissingError;
-                }
-                else if (!CommonValidation.TryGetDateValue(dueDateObject, out dueDate))
+                if (dueDate == DateTime.MinValue)
                 {
                     isValid = false;
                     result = ENUSStrings.DueDatePropertyLabel + ENUSStrings.BlankError;
@@ -81,20 +65,23 @@ namespace Invoicer.Utilities.Validation
                 {
                     transaction.DueDate = dueDate;
                 }
-            }
-            // createdDate and checkNumber validation
-            object paymentDateObject;
-            DateTime paymentDate;
-            object checkNumberObject;
-            string checkNumber = string.Empty;
-            if (type == TransactionTypes.toFriendlyString(TransactionTypesDefinitions.Payment))
-            {
-                if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.PaymentDatePropertyLabel, out paymentDateObject))
+
+                if (!CheckInvoiceData(invoiceData))
                 {
                     isValid = false;
-                    result = ENUSStrings.PaymentDatePropertyLabel + ENUSStrings.MissingError;
+                    result = ENUSStrings.InvoiceDataLabel + ENUSStrings.HasAnIssueError;
                 }
-                else if (!CommonValidation.TryGetDateValue(createdDateObject, out paymentDate))
+                else
+                {
+                    transaction.InvoiceData = invoiceData;
+                }
+            }
+            // createdDate and checkNumber validation
+            DateTime paymentDate = requestData.PaymentDate;
+            string checkNumber = requestData.CheckNumber;
+            if (type == TransactionTypes.toFriendlyString(TransactionTypesDefinitions.Payment))
+            {
+                if (paymentDate == DateTime.MinValue)
                 {
                     isValid = false;
                     result = ENUSStrings.PaymentDatePropertyLabel + ENUSStrings.BlankError;
@@ -103,12 +90,8 @@ namespace Invoicer.Utilities.Validation
                 {
                     transaction.PaymentDate = paymentDate;
                 }
-                if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.CheckNumberPropertyLabel, out checkNumberObject))
-                {
-                    isValid = false;
-                    result = ENUSStrings.CheckNumberPropertyLabel + ENUSStrings.MissingError;
-                }
-                else if (!CommonValidation.TryGetStringValue(checkNumberObject, out checkNumber))
+
+                if (string.IsNullOrEmpty(checkNumber))
                 {
                     isValid = false;
                     result = ENUSStrings.CheckNumberPropertyLabel + ENUSStrings.BlankError;
@@ -118,36 +101,12 @@ namespace Invoicer.Utilities.Validation
                     transaction.CheckNumber = checkNumber;
                 }
             }
-            // invoiceData validation
-            object invoiceDataObject;
-            List<InvoiceData> invoiceData;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.InvoiceDataLabel, out invoiceDataObject))
-            {
-                isValid = false;
-                result = ENUSStrings.InvoiceDataLabel + ENUSStrings.MissingError;
-            }
-            else if (!TryGetInvoiceData(invoiceDataObject, out invoiceData))
-            {
-                isValid = false;
-                result = ENUSStrings.TotalPropertyLabel + ENUSStrings.BlankError;
-            }
-            else
-            {
-
-            }
             // total validation
-            object totalObject;
-            decimal total = decimal.MinValue;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.TotalPropertyLabel, out totalObject))
+            decimal total = requestData.Total;
+            if (total == decimal.MinValue)
             {
-                Debug.WriteLine(totalObject);
                 isValid = false;
                 result = ENUSStrings.TotalPropertyLabel + ENUSStrings.MissingError;
-            }
-            else if (!CommonValidation.TryGetDecimalValue(totalObject, out total))
-            {
-                isValid = false;
-                result = ENUSStrings.TotalPropertyLabel + ENUSStrings.BlankError;
             }
             else
             {
@@ -171,28 +130,19 @@ namespace Invoicer.Utilities.Validation
             }
             return new CommonServiceRequest(isValid, result);
         }
-        private static bool ConvertInvoiceDataStringToModel(List<string> invoiceDataString, out List<InvoiceData> value )
+        public static bool CheckInvoiceData(List<InvoiceData> invoiceData)
         {
-            List<InvoiceData> invoiceData = new List<InvoiceData>();
-            value = new List<InvoiceData>();
             try
             {
-
+                for (int i = 0; i < invoiceData.Count; i++)
+                {
+                    InvoiceData currentInvoiceData = invoiceData[i];
+                    if ((currentInvoiceData.Total == decimal.MinValue) && string.IsNullOrEmpty(currentInvoiceData.Type))
+                    {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public static bool TryGetInvoiceData(object obj, out List<InvoiceData> value)
-        {
-            value = new List<InvoiceData>();
-            List<string> invoiceDataString = new List<string>();
-            try
-            {
-                invoiceDataString = obj.ToString().Split(",").ToList();
-                return ConvertInvoiceDataStringToModel(invoiceDataString, out value);
             }
             catch
             {

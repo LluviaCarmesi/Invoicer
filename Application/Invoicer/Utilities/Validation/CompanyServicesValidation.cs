@@ -23,17 +23,11 @@ namespace Invoicer.Utilities.Validation
 
             StreamReader reader = new StreamReader(request.Body, Encoding.UTF8);
             string requestBody = await reader.ReadToEndAsync();
-            dynamic requestData = JsonConvert.DeserializeObject(requestBody);
+            Company requestData = JsonConvert.DeserializeObject<Company>(requestBody);
 
             // name validation
-            object nameObject;
-            string name = string.Empty;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.NamePropertyLabel, out nameObject))
-            {
-                isValid = false;
-                result = ENUSStrings.NamePropertyLabel + ENUSStrings.MissingError;
-            }
-            else if (!CommonValidation.TryGetStringValue(nameObject, out name))
+            string name = requestData.Name;
+            if (string.IsNullOrEmpty(name))
             {
                 isValid = false;
                 result = ENUSStrings.NamePropertyLabel + ENUSStrings.BlankError;
@@ -43,14 +37,8 @@ namespace Invoicer.Utilities.Validation
                 company.Name = name;
             }
             // phone validation
-            object phoneObject;
-            string phone = string.Empty;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.PhonePropertyLabel, out phoneObject))
-            {
-                isValid = false;
-                result = ENUSStrings.PhonePropertyLabel + ENUSStrings.MissingError;
-            }
-            else if (!CommonValidation.TryGetStringValue(phoneObject, out phone))
+            string phone = requestData.Phone;
+            if (string.IsNullOrEmpty(phone))
             {
                 isValid = false;
                 result = ENUSStrings.PhonePropertyLabel + ENUSStrings.BlankError;
@@ -60,14 +48,8 @@ namespace Invoicer.Utilities.Validation
                 company.Phone = phone;
             }
             // email validation
-            object emailObject;
-            string email = string.Empty;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.EmailPropertyLabel, out emailObject))
-            {
-                isValid = false;
-                result = ENUSStrings.EmailPropertyLabel + ENUSStrings.MissingError;
-            }
-            else if (!CommonValidation.TryGetStringValue(emailObject, out email))
+            string email = requestData.Email;
+            if (string.IsNullOrEmpty(email))
             {
                 isValid = false;
                 result = ENUSStrings.EmailPropertyLabel + ENUSStrings.BlankError;
@@ -77,14 +59,8 @@ namespace Invoicer.Utilities.Validation
                 company.Email = email;
             }
             // address validation
-            object addressObject;
-            string address = string.Empty;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.AddressPropertyLabel, out addressObject))
-            {
-                isValid = false;
-                result = ENUSStrings.AddressPropertyLabel + ENUSStrings.MissingError;
-            }
-            else if (!CommonValidation.TryGetStringValue(addressObject, out address))
+            string address = requestData.Address;
+            if (string.IsNullOrEmpty(address))
             {
                 isValid = false;
                 result = ENUSStrings.AddressPropertyLabel + ENUSStrings.BlankError;
@@ -94,14 +70,8 @@ namespace Invoicer.Utilities.Validation
                 company.Address = address;
             }
             // city validation
-            object cityObject;
-            string city = string.Empty;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.CityPropertyLabel, out cityObject))
-            {
-                isValid = false;
-                result = ENUSStrings.CityPropertyLabel + ENUSStrings.MissingError;
-            }
-            else if (!CommonValidation.TryGetStringValue(cityObject, out city))
+            string city = requestData.City;
+            if (string.IsNullOrEmpty(city))
             {
                 isValid = false;
                 result = ENUSStrings.CityPropertyLabel + ENUSStrings.BlankError;
@@ -111,14 +81,8 @@ namespace Invoicer.Utilities.Validation
                 company.City = city;
             }
             // country validation
-            object countryObject;
-            string country = string.Empty;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.CountryPropertyLabel, out countryObject))
-            {
-                isValid = false;
-                result = ENUSStrings.CountryPropertyLabel + ENUSStrings.MissingError;
-            }
-            else if (!CommonValidation.TryGetStringValue(countryObject, out country))
+            string country = requestData.Country;
+            if (string.IsNullOrEmpty(country))
             {
                 isValid = false;
                 result = ENUSStrings.CountryPropertyLabel + ENUSStrings.BlankError;
@@ -128,14 +92,8 @@ namespace Invoicer.Utilities.Validation
                 company.Country = country;
             }
             // zip validation
-            object zipObject;
-            string zip = string.Empty;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.ZipPropertyLabel, out zipObject))
-            {
-                isValid = false;
-                result = ENUSStrings.ZipPropertyLabel + ENUSStrings.MissingError;
-            }
-            else if (!CommonValidation.TryGetStringValue(zipObject, out zip))
+            string zip = requestData.Zip;
+            if (string.IsNullOrEmpty(zip))
             {
                 isValid = false;
                 result = ENUSStrings.ZipPropertyLabel + ENUSStrings.BlankError;
@@ -145,22 +103,8 @@ namespace Invoicer.Utilities.Validation
                 company.Zip = zip;
             }
             //  is_account_active validation
-            object isAccountActiveObject;
-            bool isAccountActive = false;
-            if (!CommonValidation.TryGetPropertyValue(requestData, ENUSStrings.AccountActivePropertyLabel, out isAccountActiveObject))
-            {
-                isValid = false;
-                result = ENUSStrings.AccountActivePropertyLabel + ENUSStrings.MissingError;
-            }
-            else if (!CommonValidation.TryGetBoolValue(isAccountActiveObject, out isAccountActive))
-            {
-                isValid = false;
-                result = ENUSStrings.AccountActivePropertyLabel + ENUSStrings.BlankError;
-            }
-            else
-            {
-                company.IsActive = isAccountActive;
-            }
+            bool isAccountActive = requestData.IsActive;
+            company.IsActive = isAccountActive;
             return new CompaniesServiceRequest(isValid, result, company);
         }
     }

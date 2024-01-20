@@ -4,6 +4,7 @@ using Invoicer.Properties.Strings;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 
 namespace Invoicer.Services
 {
@@ -93,19 +94,41 @@ namespace Invoicer.Services
             bool isSuccessful = true;
             string result = string.Empty;
             mySqlConnection.Open();
-            MySqlCommand mySqlCommand;
-            mySqlCommand = new MySqlCommand($"INSERT INTO {AppSettings.TRANSACTIONS_TABLE} ({AppSettings.ADD_TRANSACTION_COLUMNS}) VALUES (@type, @company_id, @created_date, @due_date, @payment_date, @check_number, @total)", mySqlConnection);
+            MySqlCommand mySqlAddTransactionCommand;
+            MySqlCommand mySqlAddInvoiceDataCommand;
+            int invoiceDataFails = 0;
+            List<InvoiceData> invoiceDataNotAdded = new List<InvoiceData>();
+            mySqlAddTransactionCommand = new MySqlCommand($"INSERT INTO {AppSettings.TRANSACTIONS_TABLE} ({AppSettings.ADD_TRANSACTION_COLUMNS}) VALUES (@type, @company_id, @created_date, @due_date, @payment_date, @check_number, @total)", mySqlConnection);
             try
             {
-                mySqlCommand.Parameters.Add("@type", MySqlDbType.VarChar).Value = transaction.Type;
-                mySqlCommand.Parameters.Add("@company_id", MySqlDbType.Int32).Value = transaction.CompanyID;
-                mySqlCommand.Parameters.Add("@created_date", MySqlDbType.DateTime).Value = transaction.CreatedDate;
-                mySqlCommand.Parameters.Add("@due_date", MySqlDbType.DateTime).Value = transaction.DueDate;
-                mySqlCommand.Parameters.Add("@payment_date", MySqlDbType.DateTime).Value = transaction.PaymentDate;
-                mySqlCommand.Parameters.Add("@check_number", MySqlDbType.VarChar).Value = transaction.CheckNumber;
-                mySqlCommand.Parameters.Add("@total", MySqlDbType.Decimal).Value = transaction.Total;
-                mySqlCommand.Connection = mySqlConnection;
-                mySqlCommand.ExecuteNonQuery();
+                mySqlAddTransactionCommand.Parameters.Add("@type", MySqlDbType.VarChar).Value = transaction.Type;
+                mySqlAddTransactionCommand.Parameters.Add("@company_id", MySqlDbType.Int32).Value = transaction.CompanyID;
+                mySqlAddTransactionCommand.Parameters.Add("@created_date", MySqlDbType.DateTime).Value = transaction.CreatedDate;
+                mySqlAddTransactionCommand.Parameters.Add("@due_date", MySqlDbType.DateTime).Value = transaction.DueDate;
+                mySqlAddTransactionCommand.Parameters.Add("@payment_date", MySqlDbType.DateTime).Value = transaction.PaymentDate;
+                mySqlAddTransactionCommand.Parameters.Add("@check_number", MySqlDbType.VarChar).Value = transaction.CheckNumber;
+                mySqlAddTransactionCommand.Parameters.Add("@total", MySqlDbType.Decimal).Value = transaction.Total;
+                mySqlAddTransactionCommand.Connection = mySqlConnection;
+                mySqlAddTransactionCommand.ExecuteNonQuery();
+
+                for (int i = 0; i < transaction.InvoiceData.Count; i++)
+                {
+                    InvoiceData currentInvoiceData = transaction.InvoiceData[i];
+                    try
+                    {
+                        mySqlAddInvoiceDataCommand = new MySqlCommand($"INSERT INTO {AppSettings.INVOICE_DATA_TABLE} ({AppSettings.ADD_INVOICE_DATA_COLUMNS}) VALUES (@invoice_id, @type, @ticket_number, @total)", mySqlConnection);
+                        mySqlAddInvoiceDataCommand.Parameters.Add("@invoice_id", MySqlDbType.Int32).Value = mySqlAddTransactionCommand.LastInsertedId;
+                        mySqlAddInvoiceDataCommand.Parameters.Add("@type", MySqlDbType.VarChar).Value = currentInvoiceData.Type;
+                        mySqlAddInvoiceDataCommand.Parameters.Add("@ticket_number", MySqlDbType.VarChar).Value = currentInvoiceData.TicketNumber;
+                        mySqlAddInvoiceDataCommand.Parameters.Add("@total", MySqlDbType.Decimal).Value = currentInvoiceData.Total;
+                        mySqlAddInvoiceDataCommand.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        invoiceDataFails++;
+                        invoiceDataNotAdded.Add(transaction.InvoiceData[i]);
+                    }
+                }
                 isSuccessful = true;
             }
             catch (Exception e)
@@ -116,6 +139,16 @@ namespace Invoicer.Services
             finally
             {
                 mySqlConnection.Close();
+            }
+            if (invoiceDataFails > 0)
+            {
+                result = invoiceDataFails + " invoice data couldn't be added. They are below";
+                for (int i = 0; i < invoiceDataFails; i++)
+                {
+                    InvoiceData currentInvoiceData = invoiceDataNotAdded[i];
+                    result += "Type: " + currentInvoiceData.Type +  ", Ticket Number: " + currentInvoiceData.TicketNumber + ", Total: " + currentInvoiceData.Total;
+                }
+                isSuccessful = false;
             }
             return new CommonServiceRequest(isSuccessful, result);
         }
