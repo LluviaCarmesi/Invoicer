@@ -43,7 +43,10 @@ export default class Transaction extends Component {
             }],
             isSubmissionAttempted: false,
             wasSubmissionFailure: false,
-            wasSubmissionSuccessful: false
+            wasSubmissionSuccessful: false,
+            submissionErrorMessage: "",
+            isSuccessFailureMessageClosed: false,
+            isTransactionSubmitted: false
         };
     }
 
@@ -271,9 +274,23 @@ export default class Transaction extends Component {
 
         const createTransactionOnClick = (event) => {
             event.preventDefault();
+            let isSuccessful = false;
+            let errorMessage = "";
             if (validateForm(true)) {
-                addTransaction(submissionItem, 1)
+                this.setState({
+                    isTransactionSubmitted: true
+                });
+                const transactionAddition = addTransaction(submissionItem, 1);
+                isSuccessful = !transactionAddition.doesErrorExist;
+                errorMessage = transactionAddition.errorMessage;
             }
+            this.setState({
+                wasSubmissionSuccessful: isSuccessful,
+                wasSubmissionFailure: !isSuccessful,
+                submissionErrorMessage: errorMessage,
+                isSuccessFailureMessageClosed: false,
+                isTransactionSubmitted: false
+            })
         };
 
         return (
@@ -285,11 +302,17 @@ export default class Transaction extends Component {
                     <div hidden={!this.state.errorCompanies}>
                         <span>{this.state.errorCompanies}</span>
                     </div>
-                    <div className="" hidden={!this.state.wasSubmissionFailure}>
-                        <span></span>
+                    <div className="submission-loading-overlay" hidden={!this.state.isTransactionSubmitted}>
+                        <span>{ENUSStrings.TransactionIsSubmittedMessage}</span>
                     </div>
-                    <div className="" hidden={!this.state.wasSubmissionSuccessful}>
-                        <span>{ENUSStrings.}</span>
+                    <div hidden={this.state.isSuccessFailureMessageClosed}>
+                        <div className="" hidden={!this.state.wasSubmissionFailure}>
+                            <span></span>
+                        </div>
+                        <div className="" hidden={!this.state.wasSubmissionSuccessful}>
+                            <span>{ENUSStrings.TransactionSubmissionSuccessMessage}</span>
+                        </div>
+                        <button className="remove-button" onclick={null}>{ENUSStrings.CloseLabel}</button>
                     </div>
                     {!this.state.errorCompanies && !this.state.isLoadingCompanies &&
                         <div id="transaction-companies-container" className="field-whole-container">
@@ -409,7 +432,12 @@ export default class Transaction extends Component {
                                     </div>
                                 }
                                 <div className="buttons-container">
-                                    <button className="primary-button" type="submit">{ENUSStrings.SubmitTransactionLabel}</button>
+                                    <button
+                                        disabled={this.state.isTransactionSubmitted}
+                                        className="primary-button"
+                                        type="submit"
+                                    >{ENUSStrings.SubmitTransactionLabel}
+                                    </button>
                                 </div>
                             </form>
                         </React.Fragment>

@@ -2,6 +2,7 @@
     // General
     TypeLabel: "Type",
     FuelLabel: "Fuel",
+    CloseLabel: "Close",
     // Home
     RemainingTransactonLabel: "Remaining Transaction",
     MakeInvoiceLabel: "Make Invoice",
@@ -30,6 +31,7 @@
     TicketNumberLabel: "Ticket Number",
     TransactionTotalLabel: "Total in $",
     SubmitTransactionLabel: "Submit Transaction Details",
+    TransactionIsSubmittedMessage: "Transaction is currently processing. Please wait",
     TransactionSubmissionFailedMessage: "Transaction submission failed. Please try submitting it again.",
     TransactionSubmissionInvoiceDataFailedMessage: "Some invoice data couldn't be submitted. Please see specific ones below.",
     TransactionSubmissionSuccessMessage: "Transaction was submitted successfully!",

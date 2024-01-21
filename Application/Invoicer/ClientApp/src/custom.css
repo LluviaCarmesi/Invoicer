@@ -73,14 +73,19 @@ input[type="date"] {
     color: rgba(255,0,0,1);
 }
 
+.submission-loading-overlay {
+    z-index: 10;
+    background-color: rgba(0,0,0,0.5);
+}
+
 a {
     text-decoration: none;
     transition: opacity 0.7s ease-out;
 }
 
-    a:hover {
-        opacity: 0.5
-    }
+a:hover {
+    opacity: 0.5
+}
 
 [hidden] {
     display: none;
