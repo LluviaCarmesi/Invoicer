@@ -32,7 +32,7 @@
     TransactionTotalLabel: "Total in $",
     SubmitTransactionLabel: "Submit Transaction Details",
     TransactionIsSubmittedMessage: "Transaction is currently processing. Please wait",
-    TransactionSubmissionFailedMessage: "Transaction submission failed. Please try submitting it again.",
+    TransactionSubmissionFailedMessage: "Transaction submission failed. Please look at the error to the right and try submitting it again: ",
     TransactionSubmissionInvoiceDataFailedMessage: "Some invoice data couldn't be submitted. Please see specific ones below.",
     TransactionSubmissionSuccessMessage: "Transaction was submitted successfully!",
     // User Strings

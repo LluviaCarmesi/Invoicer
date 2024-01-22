@@ -12,13 +12,16 @@ export default async function addTransaction(item, companyID) {
         body: JSON.stringify(item)
     })
         .then((response) => {
-            doesErrorExist = isStatusGood(response.status);
+            doesErrorExist = !isStatusGood(response.status);
             return response.json();
         })
         .then((result) => {
-            console.log(result);
+            if (doesErrorExist) {
+                errorMessage = result.response;
+            }
         })
         .catch((error) => {
+            doesErrorExist = true;
             errorMessage = error;
             console.log(error);
         });

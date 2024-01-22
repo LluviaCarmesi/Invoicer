@@ -45,7 +45,7 @@ export default class Transaction extends Component {
             wasSubmissionFailure: false,
             wasSubmissionSuccessful: false,
             submissionErrorMessage: "",
-            isSuccessFailureMessageClosed: false,
+            isSuccessFailureMessageClosed: true,
             isSubmissionButtonClicked: false
         };
     }
@@ -278,7 +278,7 @@ export default class Transaction extends Component {
             return validation.isValid;
         }
 
-        const createTransactionOnClick = (event) => {
+        const createTransactionOnClick = async (event) => {
             event.preventDefault();
             let isSuccessful = false;
             let errorMessage = "";
@@ -286,17 +286,17 @@ export default class Transaction extends Component {
                 this.setState({
                     isSubmissionButtonClicked: true
                 });
-                const transactionAddition = addTransaction(submissionItem, 1);
+                const transactionAddition = await addTransaction(submissionItem, 1);
                 isSuccessful = !transactionAddition.doesErrorExist;
                 errorMessage = transactionAddition.errorMessage;
+                this.setState({
+                    wasSubmissionSuccessful: isSuccessful,
+                    wasSubmissionFailure: !isSuccessful,
+                    submissionErrorMessage: errorMessage,
+                    isSuccessFailureMessageClosed: false,
+                    isSubmissionButtonClicked: false
+                });
             }
-            this.setState({
-                wasSubmissionSuccessful: isSuccessful,
-                wasSubmissionFailure: !isSuccessful,
-                submissionErrorMessage: errorMessage,
-                isSuccessFailureMessageClosed: false,
-                isSubmissionButtonClicked: false
-            });
         };
 
         return (
@@ -313,12 +313,13 @@ export default class Transaction extends Component {
                     </div>
                     <div hidden={this.state.isSuccessFailureMessageClosed}>
                         <div className="error-background" hidden={!this.state.wasSubmissionFailure}>
-                            <span></span>
+                            <span>{ENUSStrings.TransactionSubmissionFailedMessage}</span>
+                            <span>{this.state.submissionErrorMessage}</span>
                         </div>
                         <div className="success-background" hidden={!this.state.wasSubmissionSuccessful}>
                             <span>{ENUSStrings.TransactionSubmissionSuccessMessage}</span>
                         </div>
-                        <button className="remove-button" onclick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
+                        <button className="remove-button" onClick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
                     </div>
                     {!this.state.errorCompanies && !this.state.isLoadingCompanies &&
                         <div id="transaction-companies-container" className="field-whole-container">
