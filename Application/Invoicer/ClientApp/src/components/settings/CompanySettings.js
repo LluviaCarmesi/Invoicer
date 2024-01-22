@@ -29,10 +29,15 @@ export default class CompanySettings extends Component {
             cityError: "",
             countryError: "",
             zipError: "",
-            isSubmissionAttempted: false,
             isLoadingCompanies: true,
             errorCompanies: "",
             loadingMessageCompanies: "Loading Companies",
+            isSubmissionAttempted: false,
+            wasSubmissionFailure: false,
+            wasSubmissionSuccessful: false,
+            submissionErrorMessage: "",
+            isSuccessFailureMessageClosed: false,
+            isSubmissionButtonClicked: false
         };
     }
 
@@ -95,6 +100,12 @@ export default class CompanySettings extends Component {
             });
         };
 
+        const closeSuccessFailureMessage = () => {
+            this.setState({
+                isSuccessFailureMessageClosed: true
+            });
+        }
+
         const validateForm = (isSubmissionAttempted) => {
             const validation = companyFormValidation(submissionItem);
             if (isSubmissionAttempted) {
@@ -125,9 +136,23 @@ export default class CompanySettings extends Component {
 
         const createCompanyOnClick = (event) => {
             event.preventDefault();
+            let isSuccessful = false;
+            let errorMessage = "";
             if (validateForm(true)) {
-                addCompany(submissionItem);
+                this.setState({
+                    isSubmissionButtonClicked: true
+                });
+                const transactionAddition = addCompany(submissionItem, 1);
+                isSuccessful = !transactionAddition.doesErrorExist;
+                errorMessage = transactionAddition.errorMessage;
             }
+            this.setState({
+                wasSubmissionSuccessful: isSuccessful,
+                wasSubmissionFailure: !isSuccessful,
+                submissionErrorMessage: errorMessage,
+                isSuccessFailureMessageClosed: false,
+                isSubmissionButtonClicked: false
+            });
         };
 
         return (
@@ -138,6 +163,18 @@ export default class CompanySettings extends Component {
                     </div>
                     <div hidden={!this.state.errorCompanies}>
                         <span>{this.state.errorCompanies}</span>
+                    </div>
+                    <div className="submission-loading-overlay" hidden={!this.state.isSubmissionButtonClicked}>
+                        <span>{ENUSStrings.TransactionIsSubmittedMessage}</span>
+                    </div>
+                    <div hidden={this.state.isSuccessFailureMessageClosed}>
+                        <div className="error-background" hidden={!this.state.wasSubmissionFailure}>
+                            <span></span>
+                        </div>
+                        <div className="success-background" hidden={!this.state.wasSubmissionSuccessful}>
+                            <span>{ENUSStrings.TransactionSubmissionSuccessMessage}</span>
+                        </div>
+                        <button className="remove-button" onclick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
                     </div>
                     {!this.state.isLoadingCompanies && !this.state.errorCompanies &&
                         <form onSubmit={createCompanyOnClick}>

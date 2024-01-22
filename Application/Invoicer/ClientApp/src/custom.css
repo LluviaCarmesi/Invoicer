@@ -78,6 +78,14 @@ input[type="date"] {
     background-color: rgba(0,0,0,0.5);
 }
 
+.success-background {
+    background-color: rgb(128, 255, 128);
+}
+
+.error-background {
+    background-color: rgb(255, 128, 128);
+}
+
 a {
     text-decoration: none;
     transition: opacity 0.7s ease-out;
