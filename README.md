@@ -4,7 +4,7 @@ Used for invoicing needs. This is a personal project so that I can learn how to 
 
 ### TODO
 
-- Show proper error/success messages when submission is successful
+- Work on editing transaction/companies
 - Finish Transactions Controller connection to db
 - Finish Companies Controller connection to db
 - Make buttons functional

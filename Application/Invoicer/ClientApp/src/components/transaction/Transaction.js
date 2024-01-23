@@ -11,6 +11,7 @@ import getTodaysDate from "../../utilities/GetTodaysDate";
 import createCompanyOptions from "../../utilities/CreateHTMLOptions";
 import isValueNumber from "../../utilities/validation/IsValueNumber";
 import addTransaction from "../../services/AddTransaction";
+import editTransaction from "../../services/EditTransaction";
 
 export default class Transaction extends Component {
     constructor(props) {
@@ -278,17 +279,25 @@ export default class Transaction extends Component {
             return validation.isValid;
         }
 
-        const createTransactionOnClick = async (event) => {
+        const submitTransactionOnClick = async (event) => {
             event.preventDefault();
             let isSuccessful = false;
             let errorMessage = "";
             if (validateForm(true)) {
                 this.setState({
-                    isSubmissionButtonClicked: true
+                    isSubmissionButtonClicked: true,
+                    isSuccessFailureMessageClosed: true
                 });
-                const transactionAddition = await addTransaction(submissionItem, 1);
-                isSuccessful = !transactionAddition.doesErrorExist;
-                errorMessage = transactionAddition.errorMessage;
+                if (!this.state.currentTransactionID) {
+                    const transactionAddition = await addTransaction(submissionItem, 1);
+                    isSuccessful = !transactionAddition.doesErrorExist;
+                    errorMessage = transactionAddition.errorMessage;
+                }
+                else {
+                    const transactionAddition = await editTransaction(submissionItem, 1);
+                    isSuccessful = !transactionAddition.doesErrorExist;
+                    errorMessage = transactionAddition.errorMessage;
+                }
                 this.setState({
                     wasSubmissionSuccessful: isSuccessful,
                     wasSubmissionFailure: !isSuccessful,
@@ -346,7 +355,7 @@ export default class Transaction extends Component {
                     </div>
                     {!this.state.isLoadingTransaction && !this.state.errorTransaction &&
                         <React.Fragment>
-                            <form onSubmit={createTransactionOnClick}>
+                            <form onSubmit={submitTransactionOnClick}>
                                 <div id="transaction-type-container" className="field-whole-container">
                                     <div className="field-label-input-container">
                                         <span className="field-label field-required">{ENUSStrings.ChooseTypeLabel}</span>

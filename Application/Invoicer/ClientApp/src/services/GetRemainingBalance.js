@@ -4,7 +4,7 @@ export default async function getRemainingBalance(companyID) {
     let balance = 0;
     let error = "";
     if (companyID !== 0) {
-       /* await fetch(`${SETTINGS.GET_COMPANIES_URI}/${companyID}${SETTINGS.REMAININGBALANCE_URL}`)
+       /* await fetch(`${SETTINGS.GET_COMPANIES_URI}/${companyID}${SETTINGS.REMAINING_BALANCE_URI}`)
             .then((response) => {
                 return response.json();
             })

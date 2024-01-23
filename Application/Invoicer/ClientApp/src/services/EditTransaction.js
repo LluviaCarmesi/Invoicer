@@ -1,11 +1,11 @@
 ﻿import SETTINGS from "../AppSettings";
 import isStatusGood from "../utilities/IsStatusGood";
 
-export default async function addUser(item) {
+export default async function editTransaction(item, transactionID) {
     let doesErrorExist = false;
     let errorMessage = "";
-    await fetch(`${SETTINGS.GET_USERS_API}${SETTINGS.ADD_USER_API}`, {
-        method: "POST",
+    await fetch(`${SETTINGS.TRANSACTIONS_URI}${SETTINGS.EDIT_TRANSACTION_URI}/${transactionID}`, {
+        method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },

@@ -11,6 +11,7 @@ namespace Invoicer.Controllers
     [Route("api/[controller]")]
     public class CompaniesController : ControllerBase
     {
+        // GET Methods
         [HttpGet]
         public IActionResult GetCompanies()
         {
@@ -56,7 +57,8 @@ namespace Invoicer.Controllers
             }
             return TransactionsServices.GetTransactions(Request.Query[AppSettings.LIMIT_QUERY_PARAMETER], Request.Query[AppSettings.OFFSET_QUERY_PARAMETER], companyID);
         }
-        //POST Methods
+
+        // POST Methods
         [HttpPost("add-company")]
         public IActionResult AddCompany()
         {
@@ -94,6 +96,19 @@ namespace Invoicer.Controllers
                 return BadRequest(new { response = transactionAddValidation.Result });
             }
             return Ok(new { response = "Howdy" });
+        }
+
+        // PUT Methods
+        [Route("edit-company/{companyID}")]
+        [HttpPut("edit-company/{companyID}")]
+        public IActionResult EditCompany(string companyID)
+        {
+            CommonServiceRequest companyIDValidation = CommonValidation.CheckCompanyIDParameter(companyID);
+            if (!companyIDValidation.IsSuccessful)
+            {
+                return BadRequest(new { response = companyIDValidation.Result });
+            }
+            return Ok(new {response = "API succesfully called."});
         }
     }
 }

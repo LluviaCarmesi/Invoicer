@@ -4,7 +4,7 @@ import isStatusGood from "../utilities/IsStatusGood";
 export default async function addTransaction(item, companyID) {
     let doesErrorExist = false;
     let errorMessage = "";
-    await fetch(`${SETTINGS.GET_COMPANIES_URI}/${companyID}${SETTINGS.ADD_TRANSACTION}`, {
+    await fetch(`${SETTINGS.GET_COMPANIES_URI}/${companyID}${SETTINGS.ADD_TRANSACTION_URI}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

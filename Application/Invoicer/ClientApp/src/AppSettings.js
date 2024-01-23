@@ -3,14 +3,18 @@
     PHONE_REG_EXPRESSION: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g,
     EMAIL_REG_EXPRESSION: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/ig,
     //uris
-    GET_TRANSACTIONS_URI: "/api/transactions/",
+    GET_TRANSACTIONS_URI: "/api/transactions",
     GET_COMPANIES_URI: "/api/companies",
     GET_USERS_URI: "/api/users",
     TRANSACTIONS_URI: "/transactions",
-    REMAINING_BALANCE_URL: "/remaining-balance",
+    REMAINING_BALANCE_URI: "/remaining-balance",
     ADD_COMPANY_URI: "/add-company",
+    EDIT_COMPANY_URI: "/edit-company",
     ADD_USER__URI: "/add-user",
-    ADD_TRANSACTION: "/add-transaction",
+    EDIT_USER_URI: "/edit-user",
+    ADD_TRANSACTION_URI: "/add-transaction",
+    EDIT_TRANSACTION_URI: "/edit-transaction",
+
     //query parameters
     TRANSACTION_TYPE_CHOICES: {
         INVOICE: "invoice",

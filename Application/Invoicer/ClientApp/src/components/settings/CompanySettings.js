@@ -134,25 +134,33 @@ export default class CompanySettings extends Component {
             return validation.isValid;
         }
 
-        const createCompanyOnClick = async (event) => {
+        const submitCompanyOnClick = async (event) => {
             event.preventDefault();
             let isSuccessful = false;
             let errorMessage = "";
             if (validateForm(true)) {
                 this.setState({
-                    isSubmissionButtonClicked: true
+                    isSubmissionButtonClicked: true,
+                    isSuccessFailureMessageClosed: true
                 });
-                const transactionAddition = await addCompany(submissionItem, 1);
-                isSuccessful = !transactionAddition.doesErrorExist;
-                errorMessage = transactionAddition.errorMessage;
+                if (!this.state.currentCompanyID) {
+                    const companyAddition = await addCompany(submissionItem);
+                    isSuccessful = !companyAddition.doesErrorExist;
+                    errorMessage = companyAddition.errorMessage;
+                }
+                else {
+                    const companyAddition = await editCompany(submissionItem, 1);
+                    isSuccessful = !companyAddition.doesErrorExist;
+                    errorMessage = companyAddition.errorMessage;
+                }
+                this.setState({
+                    wasSubmissionSuccessful: isSuccessful,
+                    wasSubmissionFailure: !isSuccessful,
+                    submissionErrorMessage: errorMessage,
+                    isSuccessFailureMessageClosed: false,
+                    isSubmissionButtonClicked: false
+                });
             }
-            this.setState({
-                wasSubmissionSuccessful: isSuccessful,
-                wasSubmissionFailure: !isSuccessful,
-                submissionErrorMessage: errorMessage,
-                isSuccessFailureMessageClosed: false,
-                isSubmissionButtonClicked: false
-            });
         };
 
         return (
@@ -165,7 +173,7 @@ export default class CompanySettings extends Component {
                         <span>{this.state.errorCompanies}</span>
                     </div>
                     <div className="submission-loading-overlay" hidden={!this.state.isSubmissionButtonClicked}>
-                        <span>{ENUSStrings.TransactionIsSubmittedMessage}</span>
+                        <span>{ENUSStrings.CompanyIsSubmittedMessage}</span>
                     </div>
                     <div hidden={this.state.isSuccessFailureMessageClosed}>
                         <div className="error-background" hidden={!this.state.wasSubmissionFailure}>
@@ -175,10 +183,10 @@ export default class CompanySettings extends Component {
                         <div className="success-background" hidden={!this.state.wasSubmissionSuccessful}>
                             <span>{ENUSStrings.CompanySubmissionSuccessMessage}</span>
                         </div>
-                        <button className="remove-button" onclick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
+                        <button className="remove-button" onClick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
                     </div>
                     {!this.state.isLoadingCompanies && !this.state.errorCompanies &&
-                        <form onSubmit={createCompanyOnClick}>
+                        <form onSubmit={submitCompanyOnClick}>
                             <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.NEW}>Create a New Company</h3>
                             <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.EDIT}>Edit a Company</h3>
                             <div>

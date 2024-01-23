@@ -18,6 +18,9 @@
     CompanyZipLabel: "Company Zip Code",
     IsCompanyActiveLabel: "Is this company account active?",
     SubmitCompanyLabel: "Submit Company Details",
+    CompanyIsSubmittedMessage: "Company is currently processing. Please wait",
+    CompanySubmissionFailedMessage: "Company submission failed. Please look at the error to the right and try submitting it again: ",
+    CompanySubmissionSuccessMessage: "Company was submitted successfully",
     // Transaction Strings
     RemoveLabel: "Remove",
     InvoiceLabel: "Invoice",
