@@ -36,7 +36,7 @@ export default class CompanySettings extends Component {
             wasSubmissionFailure: false,
             wasSubmissionSuccessful: false,
             submissionErrorMessage: "",
-            isSuccessFailureMessageClosed: false,
+            isSuccessFailureMessageClosed: true,
             isSubmissionButtonClicked: false
         };
     }
@@ -134,7 +134,7 @@ export default class CompanySettings extends Component {
             return validation.isValid;
         }
 
-        const createCompanyOnClick = (event) => {
+        const createCompanyOnClick = async (event) => {
             event.preventDefault();
             let isSuccessful = false;
             let errorMessage = "";
@@ -142,7 +142,7 @@ export default class CompanySettings extends Component {
                 this.setState({
                     isSubmissionButtonClicked: true
                 });
-                const transactionAddition = addCompany(submissionItem, 1);
+                const transactionAddition = await addCompany(submissionItem, 1);
                 isSuccessful = !transactionAddition.doesErrorExist;
                 errorMessage = transactionAddition.errorMessage;
             }
@@ -169,10 +169,11 @@ export default class CompanySettings extends Component {
                     </div>
                     <div hidden={this.state.isSuccessFailureMessageClosed}>
                         <div className="error-background" hidden={!this.state.wasSubmissionFailure}>
-                            <span></span>
+                            <span>{ENUSStrings.CompanySubmissionFailedMessage}</span>
+                            <span>{this.state.submissionErrorMessage}</span>
                         </div>
                         <div className="success-background" hidden={!this.state.wasSubmissionSuccessful}>
-                            <span>{ENUSStrings.TransactionSubmissionSuccessMessage}</span>
+                            <span>{ENUSStrings.CompanySubmissionSuccessMessage}</span>
                         </div>
                         <button className="remove-button" onclick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
                     </div>
