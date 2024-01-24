@@ -45,16 +45,19 @@ export class Home extends Component {
     }
 
     async loadCompanyTransactions(companyID) {
-        let transactionInformation = {
-            transactions: [],
-            error: ""
-        };
+        let transactions = [];
         if (!!companyID) {
-            transactionInformation = await getCompanyTransactions(companyID);
+            const transactionsInformation = await getCompanyTransactions(companyID);
+            if (transactionsInformation.doesErrorExist) {
+                this.setState({
+                    errorTransactions: transactionsInformation.errorMessage,
+                    isLoadingTransactions: false
+                });
+                return;
+            }
         }
         this.setState({
-            transactions: transactionInformation.transactions,
-            errorTransactions: transactionInformation.error,
+            transactions: transactions,
             isLoadingTransactions: false
         });
     }
@@ -113,6 +116,7 @@ export class Home extends Component {
                         <tr>
                             <th>{ENUSStrings.TypeLabel}</th>
                             <th>{ENUSStrings.AmountLabel}</th>
+                            <th>{ENUSStrings.ViewTransactionLabel}</th>
                         </tr>
                     </React.Fragment>
                 );
@@ -124,6 +128,15 @@ export class Home extends Component {
                         <tr>
                             <td>{CurrentTransaction.type}</td>
                             <td>{CurrentTransaction.total}</td>
+                            <td>
+                                <a
+                                    href={`/transaction?id=${CurrentTransaction.id}&type=invoice&companyID=${this.state.currentCompanyID}`}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    {ENUSStrings.ViewTransactionLabel}
+                                </a>
+                            </td>
                         </tr>
                     </React.Fragment>
                 );

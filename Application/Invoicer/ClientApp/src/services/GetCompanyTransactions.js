@@ -1,30 +1,32 @@
 ﻿import SETTINGS from "../AppSettings";
+import isStatusGood from "../utilities/IsStatusGood";
 
 export default async function getCompanyTransactions(companyID) {
     let transactions = [];
-    let error = "";
+    let doesErrorExist = false;
+    let errorMessage = "";
     if (companyID !== 0) {
-        /*await fetch(`${SETTINGS.GET_COMPANIES_URI}/${companyID}${SETTINGS.TRANSACTIONS_URI}`)
+        await fetch(`${SETTINGS.GET_COMPANIES_URI}/${companyID}${SETTINGS.TRANSACTIONS_URI}`)
             .then((response) => {
+                doesErrorExist = !isStatusGood(response.status);
                 return response.json();
             })
             .then((result) => {
-                transactions = result;
+                if (doesErrorExist) {
+                    errorMessage = result.response;
+                }
+                else {
+                    transactions = result;
+                }
             })
-            .catch((returnedError) => {
-                error = returnedError;
-            });*/
+            .catch((error) => {
+                doesErrorExist = true;
+                errorMessage = error;
+                console.log(error);
+            });
     }
-    transactions = [{
-        id: 1,
-        type: "fuel",
-        createdDate: new Date("12/30/2023"),
-        dueDate: new Date("01/30/2024"),
-        checkNumber: "4",
-        total: 42
-    }];
-    if (transactions.length === 0 && !error) {
-        error = "No transactions exist for this company";
+    if (transactions.length === 0 && !errorMessage) {
+        errorMessage = "No transactions exist for this company";
     }
-    return { transactions, error };
+    return { transactions, doesErrorExist, errorMessage };
 }

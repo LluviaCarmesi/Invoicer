@@ -112,7 +112,7 @@ export default class Transaction extends Component {
         const type = typeQueryParamValue === "payment" ? typeQueryParamValue : "invoice";
         const transactionID = isNaN(idQueryParamValue) ? 0 : parseInt(idQueryParamValue);
         const companyID = isNaN(companyIDQueryParamValue) ? 0 : parseInt(companyIDQueryParamValue);
-        this.loadCompanies(idQueryParamValue, companyID);
+        this.loadCompanies(transactionID, companyID);
 
         this.setState({
             currentType: type,
@@ -309,31 +309,45 @@ export default class Transaction extends Component {
 
         const submitTransactionOnClick = async (event) => {
             event.preventDefault();
+            let currentInformation = submissionItem;
             let isSuccessful = false;
             let errorMessage = "";
-            if (validateForm(true)) {
-                this.setState({
-                    isSubmissionButtonClicked: true,
-                    isSuccessFailureMessageClosed: true
-                });
-                if (!this.state.currentTransactionID) {
-                    const transactionAddition = await addTransaction(submissionItem, 1);
-                    isSuccessful = !transactionAddition.doesErrorExist;
-                    errorMessage = transactionAddition.errorMessage;
-                }
-                else {
-                    const transactionAddition = await editTransaction(submissionItem, 1);
-                    isSuccessful = !transactionAddition.doesErrorExist;
-                    errorMessage = transactionAddition.errorMessage;
-                }
-                this.setState({
-                    wasSubmissionSuccessful: isSuccessful,
-                    wasSubmissionFailure: !isSuccessful,
-                    submissionErrorMessage: errorMessage,
-                    isSuccessFailureMessageClosed: false,
-                    isSubmissionButtonClicked: false
-                });
+            if (!validateForm(true)) {
+                return;
             }
+            this.setState({
+                isSubmissionButtonClicked: true,
+                isSuccessFailureMessageClosed: true
+            });
+            if (!this.state.currentTransactionID) {
+                const transactionAddition = await addTransaction(currentInformation, 1);
+                isSuccessful = !transactionAddition.doesErrorExist;
+                errorMessage = transactionAddition.errorMessage;
+                if (isSuccessful) {
+                    currentInformation.checkNumber = "";
+                    currentInformation.invoiceData = [{
+                        type: "fuel",
+                        ticketNumber: "",
+                        total: "0"
+                    }];
+                    currentInformation.total = "";
+                }
+            }
+            else {
+                const transactionAddition = await editTransaction(currentInformation, 1);
+                isSuccessful = !transactionAddition.doesErrorExist;
+                errorMessage = transactionAddition.errorMessage;
+            }
+            this.setState({
+                checkNumber: currentInformation.checkNumber,
+                invoiceData: currentInformation.invoiceData,
+                total = currentInformation.total,
+                wasSubmissionSuccessful: isSuccessful,
+                wasSubmissionFailure: !isSuccessful,
+                submissionErrorMessage: errorMessage,
+                isSuccessFailureMessageClosed: false,
+                isSubmissionButtonClicked: false
+            });
         };
 
         return (

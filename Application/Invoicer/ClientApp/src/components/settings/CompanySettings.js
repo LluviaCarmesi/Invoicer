@@ -177,6 +177,7 @@ export default class CompanySettings extends Component {
 
         const submitCompanyOnClick = async (event) => {
             event.preventDefault();
+            let currentInformation = submissionItem;
             let isSuccessful = false;
             let errorMessage = "";
             if (validateForm(true)) {
@@ -185,16 +186,34 @@ export default class CompanySettings extends Component {
                     isSuccessFailureMessageClosed: true
                 });
                 if (!this.state.currentCompanyID) {
-                    const companyAddition = await addCompany(submissionItem);
+                    const companyAddition = await addCompany(currentInformation);
                     isSuccessful = !companyAddition.doesErrorExist;
                     errorMessage = companyAddition.errorMessage;
+                    if (isSuccessful) {
+                        currentInformation.name = "";
+                        currentInformation.phone = "";
+                        currentInformation.email = "";
+                        currentInformation.address = "";
+                        currentInformation.city = "";
+                        currentInformation.country = "";
+                        currentInformation.zip = "";
+                        currentInformation.isActive = true;
+                    }
                 }
                 else {
-                    const companyAddition = await editCompany(submissionItem, 1);
+                    const companyAddition = await editCompany(currentInformation, 1);
                     isSuccessful = !companyAddition.doesErrorExist;
                     errorMessage = companyAddition.errorMessage;
                 }
                 this.setState({
+                    name: currentInformation.name,
+                    phone: currentInformation.phone,
+                    email: currentInformation.email,
+                    address: currentInformation.address,
+                    city: currentInformation.city,
+                    country: currentInformation.country,
+                    zip: currentInformation.zip,
+                    isActive: currentInformation.isActive,
                     wasSubmissionSuccessful: isSuccessful,
                     wasSubmissionFailure: !isSuccessful,
                     submissionErrorMessage: errorMessage,

@@ -3,6 +3,7 @@
     TypeLabel: "Type",
     FuelLabel: "Fuel",
     CloseLabel: "Close",
+    LinkLabel: "Link",
     // Home
     RemainingTransactonLabel: "Remaining Transaction",
     MakeInvoiceLabel: "Make Invoice",
@@ -38,6 +39,7 @@
     TransactionSubmissionFailedMessage: "Transaction submission failed. Please look at the error to the right and try submitting it again: ",
     TransactionSubmissionInvoiceDataFailedMessage: "Some invoice data couldn't be submitted. Please see specific ones below.",
     TransactionSubmissionSuccessMessage: "Transaction was submitted successfully!",
+    ViewTransactionLabel: "View Transaction",
     // User Strings
     ChooseUserLabel: "Choose User",
     FirstNameLabel: "First Name",
