@@ -1,11 +1,11 @@
 ﻿import SETTINGS from "../AppSettings";
 import isStatusGood from "../utilities/IsStatusGood";
 
-export default async function getCompanies() {
-    let companies = [];
+export default async function getTransaction(transactionID) {
+    let transaction = {};
     let doesErrorExist = false;
     let errorMessage = "";
-    await fetch(`${SETTINGS.GET_COMPANIES_URI}`)
+    await fetch(`${SETTINGS.TRANSACTIONS_URI}/${transactionID}`)
         .then((response) => {
             doesErrorExist = !isStatusGood(response.status);
             return response.json();
@@ -15,7 +15,7 @@ export default async function getCompanies() {
                 errorMessage = result.response;
             }
             else {
-                companies = result;
+                transaction = result;
             }
         })
         .catch((error) => {
@@ -23,8 +23,5 @@ export default async function getCompanies() {
             errorMessage = error;
             console.log(error);
         });
-    if (companies.length === 0 && !errorMessage) {
-        errorMessage = "No companies exist.";
-    }
-    return { companies, doesErrorExist, errorMessage };
+    return { transaction, doesErrorExist, errorMessage };
 }

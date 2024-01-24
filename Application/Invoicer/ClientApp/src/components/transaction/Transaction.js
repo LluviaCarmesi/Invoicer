@@ -12,6 +12,7 @@ import createCompanyOptions from "../../utilities/CreateHTMLOptions";
 import isValueNumber from "../../utilities/validation/IsValueNumber";
 import addTransaction from "../../services/AddTransaction";
 import editTransaction from "../../services/EditTransaction";
+import getTransaction from "../../services/GetTransaction";
 
 export default class Transaction extends Component {
     constructor(props) {
@@ -22,7 +23,6 @@ export default class Transaction extends Component {
             companies: [],
             currentCompanyID: 0,
             currentTransactionID: 0,
-            transaction: {},
             loadingMessageCompanies: "Loading Companies",
             loadingMessageTransaction: "Loading Transaction",
             isLoadingCompanies: true,
@@ -52,21 +52,54 @@ export default class Transaction extends Component {
     }
 
     async loadTransaction(transactionID) {
-
+        let transaction = {};
+        if (!!transactionID) {
+            const transactionInformation = await getTransaction(transactionID);
+            if (transactionInformation.doesErrorExist) {
+                this.setState({
+                    errorTransaction: transactionInformation.errorMessage,
+                    isLoadingTransaction: false
+                })
+                return;
+            }
+            transaction = transactionInformation.transaction;
+        }
+        this.setState({
+            currentType: transaction.type,
+            paymentDate: transaction.paymentDate,
+            dueDate: transaction.dueDate,
+            checkNumber: transaction.checkNumber,
+            total: transaction.total,
+            invoiceData: transaction.invoiceData
+        })
     }
 
-    async loadCompanies(transactionID) {
-        const companyInformation = await getCompanies();
-        const firstCompany = companyInformation.companies.length > 0 ? companyInformation.companies[0] : { id: 0, name: "" };
+    async loadCompanies(transactionID, companyID) {
+        const companiesInformation = await getCompanies();
+        const filteredCompaniesByID = companiesInformation.companies.filter((company) => company.id === companyID);
+        let currentCompany = 0;
+        if (companiesInformation.doesErrorExist) {
+            this.setState({
+                errorCompanies: companiesInformation.errorMessage,
+                isLoadingCompanies: false,
+                isLoadingTransaction: false
+            });
+            return;
+        }
+        if (!!companyID && filteredCompaniesByID.length > 0) {
+            currentCompany = filteredCompaniesByID[0];
+        }
+        else {
+            currentCompany = companiesInformation.companies.length > 0 ? companiesInformation.companies[0] : { id: 0, name: "" };
+        }
         if (!!transactionID) {
             this.loadTransaction(transactionID);
         }
         this.setState({
-            currentCompanyID: firstCompany.id,
-            companies: companyInformation.companies,
-            errorCompanies: companyInformation.error,
+            currentCompanyID: currentCompany.id,
+            companies: companiesInformation.companies,
             isLoadingCompanies: false,
-            isLoadingTransaction: false
+            isLoadingTransaction: !!transactionID ? true : false
         });
     }
 
@@ -76,19 +109,15 @@ export default class Transaction extends Component {
         const idQueryParamValue = checkQueryParameter(SETTINGS.ID_QUERY_PARAMETER);
         const typeQueryParamValue = checkQueryParameter(SETTINGS.TYPE_QUERY_PARAMETER);
         const companyIDQueryParamValue = checkQueryParameter(SETTINGS.COMPANY_ID_QUERY_PARAMETER);
-        this.loadCompanies(idQueryParamValue);
-        if (!!idQueryParamValue) {
+        const type = typeQueryParamValue === "payment" ? typeQueryParamValue : "invoice";
+        const transactionID = isNaN(idQueryParamValue) ? 0 : parseInt(idQueryParamValue);
+        const companyID = isNaN(companyIDQueryParamValue) ? 0 : parseInt(companyIDQueryParamValue);
+        this.loadCompanies(idQueryParamValue, companyID);
 
-        }
-        else {
-            const type = typeQueryParamValue === "payment" ? typeQueryParamValue : "invoice";
-            const companyID = isNaN(companyIDQueryParamValue) ? 0 : parseInt(companyIDQueryParamValue);
-
-            this.setState({
-                currentType: type,
-                currentCompanyID: companyID,
-            });
-        }
+        this.setState({
+            currentType: type,
+            currentCompanyID: companyID,
+        });
     }
 
     componentDidUpdate(previousProps, previousState) {
@@ -174,7 +203,6 @@ export default class Transaction extends Component {
         const createInvoiceDataRows = () => {
             let rows = [];
             const currentNumberofRows = this.state.invoiceData.length;
-            console.log(this.state.invoiceData);
             const currentInvoiceData = [...this.state.invoiceData];
             for (let i = 0; i < currentNumberofRows; i++) {
                 rows.push(

@@ -6,6 +6,7 @@ import ENUSStrings from '../../strings/ENUSStrings';
 import companyFormValidation from '../../utilities/validation/CompanyFormValidation';
 import createHTMLOptions from "../../utilities/CreateHTMLOptions";
 import loadingMessage from '../../utilities/LoadingMessage';
+import editCompany from "../../services/EditCompany";
 
 export default class CompanySettings extends Component {
     constructor(props) {
@@ -42,16 +43,46 @@ export default class CompanySettings extends Component {
     }
 
     async loadCompanies() {
-        let firstCompanyInformation = {}; // use this when updating state
+        let currentCompanyInformation = {
+            name: "",
+            phone: "",
+            email: "",
+            address: "",
+            city: "",
+            country: "",
+            zip: "",
+            isActive: true
+        }; // use this when updating state
 
         const companiesInformation = await getCompanies();
-        const firstCompany = companiesInformation.companies.length > 0 ? companiesInformation.companies[0] : { id: 0 };
-        if (!!firstCompany.id) {
-
+        if (companiesInformation.doesErrorExist) {
+            this.setState({
+                errorCompanies: companiesInformation.errorMessage,
+                isLoadingCompanies: false
+            });
+            return;
+        }
+        const currentCompany = companiesInformation.companies.length > 0 ? companiesInformation.companies[0] : { id: 0 };
+        if (!!currentCompany.id) {
+            currentCompanyInformation.name = currentCompany.name;
+            currentCompanyInformation.phone = currentCompany.phone;
+            currentCompanyInformation.email = currentCompany.email;
+            currentCompanyInformation.address = currentCompany.address;
+            currentCompanyInformation.city = currentCompany.city;
+            currentCompanyInformation.country = currentCompany.country;
+            currentCompanyInformation.zip = currentCompany.zip;
+            currentCompanyInformation.isActive = currentCompany.isActive;
         }
         this.setState({
             companies: companiesInformation.companies,
-            errorCompanies: companiesInformation.error,
+            name: currentCompanyInformation.name,
+            phone: currentCompanyInformation.phone,
+            email: currentCompanyInformation.email,
+            address: currentCompanyInformation.address,
+            city: currentCompanyInformation.city,
+            country: currentCompanyInformation.country,
+            zip: currentCompanyInformation.zip,
+            isActive: currentCompanyInformation.isActive,
             isLoadingCompanies: false
         });
     }
@@ -89,12 +120,22 @@ export default class CompanySettings extends Component {
         };
 
         const changeCompany = (value) => {
+            const company = this.state.companies.filter((company) => company.id === parseInt(value))[0];
             this.setState({
-                currentCompanyID: value
+                currentCompanyID: value,
+                name: company.name,
+                phone: company.phone,
+                email: company.email,
+                address: company.address,
+                city: company.city,
+                country: company.country,
+                zip: company.zip,
+                isActive: company.isActive
             });
         };
 
         const changeValue = (value, id) => {
+
             this.setState({
                 [id]: value
             });
