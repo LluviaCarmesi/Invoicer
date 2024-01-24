@@ -42,7 +42,18 @@ namespace Invoicer.Controllers
             {
                 return BadRequest(new { response = transactionIDValidation.Result });
             }
-            return Ok(new { response = "API succesfully called" });
+            Task<TransactionsServiceRequest> transactionModelValidation = TransactionsServicesValidation.CheckTransactionModel(Request);
+            TransactionsServiceRequest transactionModelValidationResult = transactionModelValidation.Result;
+            if (!transactionModelValidationResult.IsSuccessful)
+            {
+                return BadRequest(new { response = transactionModelValidationResult.Result });
+            }
+            CommonServiceRequest transactionAddValidation = TransactionsServices.EditTransaction(transactionModelValidationResult.Transaction);
+            if (!transactionAddValidation.IsSuccessful)
+            {
+                return BadRequest(new { response = transactionAddValidation.Result });
+            }
+            return Ok(new { response = transactionAddValidation.Result });
         }
     }
 }

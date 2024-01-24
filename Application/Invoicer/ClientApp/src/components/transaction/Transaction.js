@@ -71,7 +71,7 @@ export default class Transaction extends Component {
             checkNumber: transaction.checkNumber,
             total: transaction.total,
             invoiceData: transaction.invoiceData
-        })
+        });
     }
 
     async loadCompanies(transactionID, companyID) {
@@ -126,6 +126,7 @@ export default class Transaction extends Component {
     }
     render() {
         const submissionItem = {
+            companyID: this.state.currentCompanyID,
             type: this.state.currentType,
             createdDate: new Date(),
             dueDate: this.state.dueDate,
@@ -341,7 +342,7 @@ export default class Transaction extends Component {
             this.setState({
                 checkNumber: currentInformation.checkNumber,
                 invoiceData: currentInformation.invoiceData,
-                total = currentInformation.total,
+                total: currentInformation.total,
                 wasSubmissionSuccessful: isSuccessful,
                 wasSubmissionFailure: !isSuccessful,
                 submissionErrorMessage: errorMessage,

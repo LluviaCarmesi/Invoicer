@@ -95,7 +95,7 @@ namespace Invoicer.Controllers
             {
                 return BadRequest(new { response = transactionAddValidation.Result });
             }
-            return Ok(new { response = "Howdy" });
+            return Ok(new { response = transactionAddValidation.Result });
         }
 
         // PUT Methods

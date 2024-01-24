@@ -10,6 +10,133 @@ namespace Invoicer.Utilities.Validation
 {
     public class TransactionsServicesValidation
     {
+        public static async Task<TransactionsServiceRequest> CheckTransactionModel(HttpRequest request)
+        {
+            Transaction transaction = new Transaction();
+            bool isValid = true;
+            string result = string.Empty;
+            if (request.Body == null)
+            {
+                isValid = false;
+                result = ENUSStrings.NoBodyError;
+                return new TransactionsServiceRequest(isValid, result, transaction);
+            }
+
+            StreamReader reader = new StreamReader(request.Body, Encoding.UTF8);
+            string requestBody = await reader.ReadToEndAsync();
+            Transaction requestData = JsonConvert.DeserializeObject<Transaction>(requestBody);
+
+            // company validation
+            int companyID = requestData.CompanyID;
+            if (companyID == int.MinValue)
+            {
+                isValid = false;
+                result = ENUSStrings.CompanyIDLabel + ENUSStrings.BlankError;
+            }
+            else if (companyID == 0)
+            {
+                isValid = false;
+                result = ENUSStrings.CompanyIDLabel + ENUSStrings.ZeroError;
+            }
+            else
+            {
+                transaction.CompanyID = companyID;
+            }
+
+            // type validation
+            string type = requestData.Type;
+            if (string.IsNullOrEmpty(type))
+            {
+                isValid = false;
+                result = ENUSStrings.TypePropertyLabel + ENUSStrings.BlankError;
+            }
+            else
+            {
+                transaction.Type = type;
+            }
+
+            // createdDate validation
+            DateTime createdDate = requestData.CreatedDate;
+            if (createdDate == DateTime.MinValue)
+            {
+                isValid = false;
+                result = ENUSStrings.CreatedDatePropertyLabel + ENUSStrings.BlankError;
+            }
+            else
+            {
+                transaction.CreatedDate = createdDate;
+            }
+
+            // dueDate and invoiceData validation
+            DateTime dueDate = requestData.DueDate;
+            List<InvoiceData> invoiceData = requestData.InvoiceData;
+            if (type == TransactionTypes.toFriendlyString(TransactionTypesDefinitions.Invoice))
+            {
+                if (dueDate == DateTime.MinValue)
+                {
+                    isValid = false;
+                    result = ENUSStrings.DueDatePropertyLabel + ENUSStrings.BlankError;
+                }
+                else
+                {
+                    transaction.DueDate = dueDate;
+                }
+
+                if (!CheckInvoiceData(invoiceData))
+                {
+                    isValid = false;
+                    result = ENUSStrings.InvoiceDataLabel + ENUSStrings.HasAnIssueError;
+                }
+                else
+                {
+                    transaction.InvoiceData = invoiceData;
+                }
+            }
+            // createdDate and checkNumber validation
+            DateTime paymentDate = requestData.PaymentDate;
+            string checkNumber = requestData.CheckNumber;
+            if (type == TransactionTypes.toFriendlyString(TransactionTypesDefinitions.Payment))
+            {
+                if (paymentDate == DateTime.MinValue)
+                {
+                    isValid = false;
+                    result = ENUSStrings.PaymentDatePropertyLabel + ENUSStrings.BlankError;
+                }
+                else
+                {
+                    transaction.PaymentDate = paymentDate;
+                }
+
+                if (string.IsNullOrEmpty(checkNumber))
+                {
+                    isValid = false;
+                    result = ENUSStrings.CheckNumberPropertyLabel + ENUSStrings.BlankError;
+                }
+                else
+                {
+                    transaction.CheckNumber = checkNumber;
+                }
+            }
+            // total validation
+            decimal total = requestData.Total;
+            Debug.WriteLine(total);
+            if (total == decimal.MinValue)
+            {
+                isValid = false;
+                result = ENUSStrings.TotalPropertyLabel + ENUSStrings.MissingError;
+            }
+            else if (total == 0)
+            {
+                isValid = false;
+                result = ENUSStrings.TotalPropertyLabel + ENUSStrings.ZeroError;
+            }
+            else
+            {
+                transaction.Total = total;
+            }
+            return new TransactionsServiceRequest(isValid, result, transaction);
+        }
+
         public static async Task<TransactionsServiceRequest> CheckTransactionModel(HttpRequest request, int companyID)
         {
             Transaction transaction = new Transaction();
