@@ -2,6 +2,7 @@
 using Invoicer.Models;
 using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
+using Invoicer.Utilities.NewFolder;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
@@ -27,11 +28,13 @@ namespace Invoicer.Services
                     transaction = new Transaction
                                 (
                                     reader.GetInt32(0),
-                                    reader.GetString(1),
-                                    reader.GetDateTime(2),
+                                    reader.GetInt32(1),
+                                    reader.GetString(2),
                                     reader.GetDateTime(3),
-                                    reader.GetString(4),
-                                    reader.GetDecimal(5)
+                                    reader.GetDateTime(4),
+                                    reader.GetDateTime(5),
+                                    reader.GetString(6),
+                                    reader.GetDecimal(7)
                                 );
                 }
             }
@@ -72,11 +75,13 @@ namespace Invoicer.Services
                             new Transaction
                                 (
                                     reader.GetInt32(0),
-                                    reader.GetString(1),
-                                    reader.GetDateTime(2),
+                                    reader.GetInt32(1),
+                                    reader.GetString(2),
                                     reader.GetDateTime(3),
-                                    reader.GetString(4),
-                                    reader.GetDecimal(5)
+                                    reader.GetDateTime(4),
+                                    reader.GetDateTime(5),
+                                    reader.GetString(6),
+                                    reader.GetDecimal(7)
                                 )
                         );
                 }
@@ -144,12 +149,7 @@ namespace Invoicer.Services
             }
             if (invoiceDataFails > 0)
             {
-                result = invoiceDataFails + " invoice data couldn't be added. They are below";
-                for (int i = 0; i < invoiceDataFails; i++)
-                {
-                    InvoiceData currentInvoiceData = invoiceDataNotAdded[i];
-                    result += "Type: " + currentInvoiceData.Type + ", Ticket Number: " + currentInvoiceData.TicketNumber + ", Total: " + currentInvoiceData.Total + "\n";
-                }
+                result = TransactionServicesErrors.ConstructInvoiceDataErrors(invoiceDataNotAdded);
                 isSuccessful = false;
             }
             return new CommonServiceRequest(isSuccessful, result);
@@ -215,12 +215,7 @@ namespace Invoicer.Services
             }
             if (invoiceDataFails > 0)
             {
-                result = invoiceDataFails + " invoice data couldn't be added. They are below";
-                for (int i = 0; i < invoiceDataFails; i++)
-                {
-                    InvoiceData currentInvoiceData = invoiceDataNotAdded[i];
-                    result += "Type: " + currentInvoiceData.Type + ", Ticket Number: " + currentInvoiceData.TicketNumber + ", Total: " + currentInvoiceData.Total + "\n";
-                }
+                result = TransactionServicesErrors.ConstructInvoiceDataErrors(invoiceDataNotAdded);
                 isSuccessful = false;
             }
             return new CommonServiceRequest(isSuccessful, result);

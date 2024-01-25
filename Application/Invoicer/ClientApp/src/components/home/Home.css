@@ -54,16 +54,28 @@ select {
     justify-content: center;
 }
 
-.transactions-table table {
+.invoice-row {
+    color: rgba(155, 0, 0, 1);
+}
+
+.payment-row {
+    color: rgba(0, 155, 0, 1);
+}
+
+.transactions-table {
     border: solid 2px black;
     border-collapse: collapse;
-    width: 100%;
+    width: 50%;
+}
+
+.transactions-table tr {
+    border: solid 2px black;
 }
 
 .transactions-table th, td {
-    text-align: left;
-    padding: 8px;
-}
+        text-align: center;
+        padding: 10px;
+    }
 
 .transactions tr:nth-child(even) {
     background-color: #D6EEEE;

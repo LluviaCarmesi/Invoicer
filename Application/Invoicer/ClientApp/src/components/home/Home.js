@@ -5,6 +5,7 @@ import getCompanyTransactions from "../../services/GetCompanyTransactions";
 import getRemainingBalance from "../../services/GetRemainingBalance";
 import "./Home.css";
 import ENUSStrings from '../../strings/ENUSStrings';
+import SETTINGS from '../../AppSettings';
 
 async function getAccess() {
     await (() => { return true; });
@@ -55,6 +56,7 @@ export class Home extends Component {
                 });
                 return;
             }
+            transactions = transactionsInformation.transactions;
         }
         this.setState({
             transactions: transactions,
@@ -123,23 +125,44 @@ export class Home extends Component {
             }
             for (let i = 0; i < this.state.transactions.length; i++) {
                 const CurrentTransaction = this.state.transactions[i];
-                transactions.push(
-                    <React.Fragment>
-                        <tr>
-                            <td>{CurrentTransaction.type}</td>
-                            <td>{CurrentTransaction.total}</td>
-                            <td>
-                                <a
-                                    href={`/transaction?id=${CurrentTransaction.id}&type=invoice&companyID=${this.state.currentCompanyID}`}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    {ENUSStrings.ViewTransactionLabel}
-                                </a>
-                            </td>
-                        </tr>
-                    </React.Fragment>
-                );
+                if (CurrentTransaction.type === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE) {
+                    transactions.push(
+                        <React.Fragment>
+                            <tr className="invoice-row">
+                                <td>{CurrentTransaction.type}</td>
+                                <td>{CurrentTransaction.total}</td>
+                                <td>
+                                    <a
+                                        href={`/transaction?id=${CurrentTransaction.id}&type=invoice&companyID=${this.state.currentCompanyID}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        {ENUSStrings.ViewTransactionLabel}
+                                    </a>
+                                </td>
+                            </tr>
+                        </React.Fragment>
+                    );
+                }
+                else {
+                    transactions.push(
+                        <React.Fragment>
+                            <tr className="payment-row">
+                                <td>{CurrentTransaction.type}</td>
+                                <td>{CurrentTransaction.total}</td>
+                                <td>
+                                    <a
+                                        href={`/transaction?id=${CurrentTransaction.id}&type=invoice&companyID=${this.state.currentCompanyID}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        {ENUSStrings.ViewTransactionLabel}
+                                    </a>
+                                </td>
+                            </tr>
+                        </React.Fragment>
+                    );
+                }
             }
             return transactions;
         }

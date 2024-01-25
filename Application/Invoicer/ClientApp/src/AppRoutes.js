@@ -1,4 +1,3 @@
-import { Counter } from "./components/Counter";
 import { Home } from "./components/home/Home";
 import Login from "./components/login/Login";
 import Transaction from "./components/transaction/Transaction";
@@ -8,10 +7,6 @@ const AppRoutes = [
     {
         index: true,
         element: <Home />
-    },
-    {
-        path: "/counter",
-        element: <Counter />
     },
     {
         path: "/login",

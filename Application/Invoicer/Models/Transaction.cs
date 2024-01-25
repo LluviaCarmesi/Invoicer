@@ -12,22 +12,24 @@
         public decimal Total { get; set; } = 0;
         public List<InvoiceData> InvoiceData { get; set; } = new List<InvoiceData>();
 
-        public Transaction(int id, int companyID, string type, DateTime createdDate, DateTime dueDate, string checkNumber, decimal total)
+        public Transaction(int id, int companyID, string type, DateTime createdDate, DateTime dueDate, DateTime paymentDate, string checkNumber, decimal total)
         {
             Id = id;
             CompanyID = companyID;
             Type = type;
             CreatedDate = createdDate;
             DueDate = dueDate;
+            PaymentDate = paymentDate;
             CheckNumber = checkNumber;
             Total = total;
         }
-        public Transaction(int companyID, string type, DateTime createdDate, DateTime dueDate, string checkNumber, decimal total)
+        public Transaction(int companyID, string type, DateTime createdDate, DateTime dueDate, DateTime paymentDate, string checkNumber, decimal total)
         {
             CompanyID = companyID;
             Type = type;
             CreatedDate = createdDate;
             DueDate = dueDate;
+            PaymentDate = paymentDate;
             CheckNumber = checkNumber;
             Total = total;
         }
