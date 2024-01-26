@@ -10,9 +10,10 @@ namespace Invoicer.Utilities.Validation
 {
     public class TransactionsServicesValidation
     {
-        public static async Task<TransactionsServiceRequest> CheckTransactionModel(HttpRequest request)
+        public static async Task<TransactionsServiceRequest> CheckTransactionModelWithTransactionID(HttpRequest request, int id)
         {
             Transaction transaction = new Transaction();
+            transaction.Id = id;
             bool isValid = true;
             string result = string.Empty;
             if (request.Body == null)
@@ -25,23 +26,6 @@ namespace Invoicer.Utilities.Validation
             StreamReader reader = new StreamReader(request.Body, Encoding.UTF8);
             string requestBody = await reader.ReadToEndAsync();
             Transaction requestData = JsonConvert.DeserializeObject<Transaction>(requestBody);
-
-            // id validation
-            int id = requestData.Id;
-            if (id == int.MinValue)
-            {
-                isValid = false;
-                result = ENUSStrings.IDLabel + ENUSStrings.BlankError;
-            }
-            else if (id == 0)
-            {
-                isValid = false;
-                result = ENUSStrings.IDLabel + ENUSStrings.ZeroError;
-            }
-            else
-            {
-                transaction.Id = id;
-            }
 
             // company validation
             int companyID = requestData.CompanyID;
@@ -154,10 +138,10 @@ namespace Invoicer.Utilities.Validation
             return new TransactionsServiceRequest(isValid, result, transaction);
         }
 
-        public static async Task<TransactionsServiceRequest> CheckTransactionModel(HttpRequest request, int companyID)
+        public static async Task<TransactionsServiceRequest> CheckTransactionModelWithCompanyID(HttpRequest request, int id)
         {
             Transaction transaction = new Transaction();
-            transaction.CompanyID = companyID;
+            transaction.CompanyID = id;
             bool isValid = true;
             string result = string.Empty;
             if (request.Body == null)
