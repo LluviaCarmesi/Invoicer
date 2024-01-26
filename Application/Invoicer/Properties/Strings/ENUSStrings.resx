@@ -156,6 +156,9 @@
   <data name="HasAnIssueError" xml:space="preserve">
     <value> has an issue in the data.</value>
   </data>
+  <data name="IDLabel" xml:space="preserve">
+    <value>id</value>
+  </data>
   <data name="InvoiceDataLabel" xml:space="preserve">
     <value>invoiceData</value>
   </data>
