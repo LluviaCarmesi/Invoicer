@@ -178,6 +178,15 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to id.
+        /// </summary>
+        public static string IDLabel {
+            get {
+                return ResourceManager.GetString("IDLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to invoiceData.
         /// </summary>
         public static string InvoiceDataLabel {

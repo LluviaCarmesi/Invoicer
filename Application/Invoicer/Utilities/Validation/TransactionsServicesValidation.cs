@@ -26,6 +26,23 @@ namespace Invoicer.Utilities.Validation
             string requestBody = await reader.ReadToEndAsync();
             Transaction requestData = JsonConvert.DeserializeObject<Transaction>(requestBody);
 
+            // id validation
+            int id = requestData.Id;
+            if (id == int.MinValue)
+            {
+                isValid = false;
+                result = ENUSStrings.IDLabel + ENUSStrings.BlankError;
+            }
+            else if (id == 0)
+            {
+                isValid = false;
+                result = ENUSStrings.IDLabel + ENUSStrings.ZeroError;
+            }
+            else
+            {
+                transaction.Id = id;
+            }
+
             // company validation
             int companyID = requestData.CompanyID;
             if (companyID == int.MinValue)

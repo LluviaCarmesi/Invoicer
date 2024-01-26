@@ -164,7 +164,7 @@ namespace Invoicer.Services
             MySqlCommand mySqlAddInvoiceDataCommand;
             int invoiceDataFails = 0;
             List<InvoiceData> invoiceDataNotAdded = new List<InvoiceData>();
-            mySqlAddTransactionCommand = new MySqlCommand($"UPDATE {AppSettings.TRANSACTIONS_TABLE} SET type = @type, company_id = @company_id, created_date = @created_date, due_date = @due_date, payment_date = @payment_date, check_number = @check_number, total = @total)", mySqlConnection);
+            mySqlAddTransactionCommand = new MySqlCommand($"UPDATE {AppSettings.TRANSACTIONS_TABLE} SET type = @type, company_id = @company_id, created_date = @created_date, due_date = @due_date, payment_date = @payment_date, check_number = @check_number, total = @total WHERE id = @id)", mySqlConnection);
             try
             {
                 mySqlAddTransactionCommand.Parameters.Add("@type", MySqlDbType.VarChar).Value = transaction.Type;
@@ -174,6 +174,7 @@ namespace Invoicer.Services
                 mySqlAddTransactionCommand.Parameters.Add("@payment_date", MySqlDbType.DateTime).Value = transaction.PaymentDate;
                 mySqlAddTransactionCommand.Parameters.Add("@check_number", MySqlDbType.VarChar).Value = transaction.CheckNumber;
                 mySqlAddTransactionCommand.Parameters.Add("@total", MySqlDbType.Decimal).Value = transaction.Total;
+                mySqlAddTransactionCommand.Parameters.Add("@id", MySqlDbType.Int32).Value = transaction.Id;
                 mySqlAddTransactionCommand.Connection = mySqlConnection;
                 mySqlAddTransactionCommand.ExecuteNonQuery();
 

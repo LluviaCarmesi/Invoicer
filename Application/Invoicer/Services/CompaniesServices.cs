@@ -128,5 +128,9 @@ namespace Invoicer.Services
 
             return new CommonServiceRequest(isSuccessful, result);
         }
+        internal static CommonServiceRequest EditCompany(Company company)
+        {
+
+        }
     }
 }
