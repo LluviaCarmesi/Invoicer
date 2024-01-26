@@ -43,11 +43,15 @@ namespace Invoicer.Models
             this.country = country;
             this.zip = zip;
         }
-        public int ID
+        public int Id
         {
             get
             {
                 return id;
+            }
+            set
+            {
+                id = value;
             }
         }
         public string Name

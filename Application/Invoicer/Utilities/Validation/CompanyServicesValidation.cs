@@ -9,7 +9,7 @@ namespace Invoicer.Utilities.Validation
 {
     public static class CompaniesServicesValidation
     {
-        public static async Task<CompaniesServiceRequest> CheckCompanyModel(HttpRequest request)
+        public static async Task<CompaniesServiceRequest> CheckCompanyModel(HttpRequest request, bool isEditing)
         {
             Company company = new Company();
             bool isValid = true;
@@ -24,6 +24,26 @@ namespace Invoicer.Utilities.Validation
             StreamReader reader = new StreamReader(request.Body, Encoding.UTF8);
             string requestBody = await reader.ReadToEndAsync();
             Company requestData = JsonConvert.DeserializeObject<Company>(requestBody);
+
+            // id validation
+            int id = requestData.Id;
+            if (isEditing)
+            {
+                if (id == int.MinValue)
+                {
+                    isValid = false;
+                    result = ENUSStrings.i + ENUSStrings.ZeroError;
+                }
+                else if (id == 0)
+                {
+                    isValid = false;
+                    result = ENUSStrings.CompanyIDLabel + ENUSStrings.ZeroError;
+                }
+                else
+                {
+                    company.Id = id;
+                }
+            }
 
             // name validation
             string name = requestData.Name;
