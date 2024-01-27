@@ -29,6 +29,7 @@
     ChooseCompanyLabel: "Choose a Company",
     ChooseTypeLabel: "Choose Type",
     CheckNumberLabel: "Check Number",
+    CreatedDateLabel: "Created Date",
     PaymentDateLabel: "Payment Date",
     DueDateLabel: "Due Date",
     TotalLabel: "Total",

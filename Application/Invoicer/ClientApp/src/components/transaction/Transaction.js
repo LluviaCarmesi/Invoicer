@@ -65,9 +65,8 @@ export default class Transaction extends Component {
             }
             transaction = transactionInformation.transaction;
         }
-        console.log(transaction.paymentDate);
-        console.log(new Date(transaction.paymentDate))
         this.setState({
+            currentTransactionID: transaction.id,
             currentType: transaction.type,
             createdDate: new Date(transaction.createdDate),
             paymentDate: formatDate(new Date(transaction.paymentDate)),
@@ -133,7 +132,7 @@ export default class Transaction extends Component {
         const submissionItem = {
             companyID: this.state.currentCompanyID,
             type: this.state.currentType,
-            createdDate: !!this.state.createdDate ? this.state.createdDate: new Date(),
+            createdDate: !!this.state.createdDate ? this.state.createdDate : new Date(),
             dueDate: this.state.dueDate,
             paymentDate: this.state.paymentDate,
             checkNumber: this.state.checkNumber,
@@ -404,6 +403,12 @@ export default class Transaction extends Component {
                     {!this.state.isLoadingTransaction && !this.state.errorTransaction &&
                         <React.Fragment>
                             <form onSubmit={submitTransactionOnClick}>
+                                <div id="transaction-due-date-container" className="field-whole-container" hidden={!this.state.createdDate}>
+                                    <div className="field-label-input-container">
+                                        <span className="field-label">{ENUSStrings.CreatedDateLabel}</span>
+                                        <span>{formatDate(this.state.createdDate)}</span>
+                                    </div>
+                                </div>
                                 <div id="transaction-type-container" className="field-whole-container">
                                     <div className="field-label-input-container">
                                         <span className="field-label field-required">{ENUSStrings.ChooseTypeLabel}</span>

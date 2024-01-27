@@ -5,9 +5,6 @@ using Invoicer.Properties.Strings;
 using Invoicer.Utilities.NewFolder;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
-using System.ComponentModel.Design;
-using System.Diagnostics;
 
 namespace Invoicer.Services
 {
@@ -50,7 +47,10 @@ namespace Invoicer.Services
         }
         internal static IActionResult GetTransactions(string limitString, string offsetString, string companyID)
         {
-            List<Transaction> transactionsList = new List<Transaction>();
+            List<Transaction> transactions = new List<Transaction>();
+            decimal remainingBalance = 0;
+            decimal invoiceTotal = 0;
+            decimal paymentTotal = 0;
             try
             {
                 mySqlConnection.Open();
@@ -70,7 +70,7 @@ namespace Invoicer.Services
                 MySqlDataReader reader = mySqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    transactionsList.Add
+                    transactions.Add
                         (
                             new Transaction
                                 (
@@ -94,7 +94,21 @@ namespace Invoicer.Services
             {
                 mySqlConnection.Close();
             }
-            return new OkObjectResult(transactionsList);
+            for (int i = 0; i < transactions.Count; i++)
+            {
+                Transaction currentTransaction = transactions[i];
+                if (currentTransaction.Type == TransactionTypes.toFriendlyString(TransactionTypesDefinitions.Invoice))
+                {
+                    invoiceTotal += currentTransaction.Total;
+                }
+                else
+                {
+                    paymentTotal += currentTransaction.Total;
+                }
+            }
+            remainingBalance = invoiceTotal - paymentTotal;
+
+            return new OkObjectResult(new TransactionsWithBalance(transactions, remainingBalance));
         }
         internal static CommonServiceRequest AddTransaction(Transaction transaction)
         {
@@ -165,7 +179,7 @@ namespace Invoicer.Services
             MySqlCommand mySqlAddInvoiceDataCommand;
             int invoiceDataFails = 0;
             List<InvoiceData> invoiceDataNotAdded = new List<InvoiceData>();
-            mySqlAddTransactionCommand = new MySqlCommand($"UPDATE {AppSettings.TRANSACTIONS_TABLE} SET type = @type, company_id = @company_id, created_date = @created_date, due_date = @due_date, payment_date = @payment_date, check_number = @check_number, total = @total WHERE id = @id)", mySqlConnection);
+            mySqlAddTransactionCommand = new MySqlCommand($"UPDATE {AppSettings.TRANSACTIONS_TABLE} SET type = @type, company_id = @company_id, created_date = @created_date, due_date = @due_date, payment_date = @payment_date, check_number = @check_number, total = @total WHERE id = @id", mySqlConnection);
             try
             {
                 mySqlAddTransactionCommand.Parameters.Add("@type", MySqlDbType.VarChar).Value = transaction.Type;
