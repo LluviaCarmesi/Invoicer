@@ -4,7 +4,7 @@ import isStatusGood from "../utilities/IsStatusGood";
 export default async function addUser(item) {
     let doesErrorExist = false;
     let errorMessage = "";
-    await fetch(`${SETTINGS.GET_USERS_API}${SETTINGS.ADD_USER_API}`, {
+    await fetch(`${SETTINGS.USERS_API_URI}${SETTINGS.ADD_USER_URI}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

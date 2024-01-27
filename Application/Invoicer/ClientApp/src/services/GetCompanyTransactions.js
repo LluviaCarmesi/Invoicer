@@ -6,7 +6,7 @@ export default async function getCompanyTransactions(companyID) {
     let doesErrorExist = false;
     let errorMessage = "";
     if (companyID !== 0) {
-        await fetch(`${SETTINGS.GET_COMPANIES_URI}/${companyID}${SETTINGS.TRANSACTIONS_URI}`)
+        await fetch(`${SETTINGS.COMPANIES_API_URI}/${companyID}${SETTINGS.TRANSACTIONS_URI}`)
             .then((response) => {
                 doesErrorExist = !isStatusGood(response.status);
                 return response.json();

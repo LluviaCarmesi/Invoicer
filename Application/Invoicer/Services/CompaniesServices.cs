@@ -130,7 +130,38 @@ namespace Invoicer.Services
         }
         internal static CommonServiceRequest EditCompany(Company company)
         {
+            bool isSuccessful = true;
+            string result = string.Empty;
+            mySqlConnection.Open();
+            MySqlCommand mySqlCommand;
+            mySqlCommand = new MySqlCommand($"UPDATE {AppSettings.COMPANIES_TABLE} SET name = @name, phone = @phone, email = @email, address = @address, city = @city, country = @country, zip = @zip, is_account_active = @is_account_active WHERE id = @id", mySqlConnection);
+            try
+            {
+                mySqlCommand.Parameters.Add("@id", MySqlDbType.Int32).Value = company.Id;
+                mySqlCommand.Parameters.Add("@name", MySqlDbType.VarChar).Value = company.Name;
+                mySqlCommand.Parameters.Add("@phone", MySqlDbType.VarChar).Value = company.Phone;
+                mySqlCommand.Parameters.Add("@email", MySqlDbType.VarChar).Value = company.Email;
+                mySqlCommand.Parameters.Add("@address", MySqlDbType.VarChar).Value = company.Address;
+                mySqlCommand.Parameters.Add("@city", MySqlDbType.VarChar).Value = company.City;
+                mySqlCommand.Parameters.Add("@country", MySqlDbType.VarChar).Value = company.Country;
+                mySqlCommand.Parameters.Add("@zip", MySqlDbType.VarChar).Value = company.Zip;
+                mySqlCommand.Parameters.Add("@is_account_active", MySqlDbType.Bit).Value = company.IsActive;
+                mySqlCommand.Connection = mySqlConnection;
+                mySqlCommand.ExecuteNonQuery();
+                isSuccessful = true;
+                result = ENUSStrings.CompanyEditedSuccessMessage;
+            }
+            catch (Exception e)
+            {
+                result = "Couldn't add company for the following reason: " + e.Message;
+                isSuccessful = false;
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
 
+            return new CommonServiceRequest(isSuccessful, result);
         }
     }
 }

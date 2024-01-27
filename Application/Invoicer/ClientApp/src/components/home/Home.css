@@ -68,6 +68,11 @@ select {
     width: 50%;
 }
 
+.transactions-table a {
+    color: rgba(0, 200, 255,1);
+    text-decoration: none;
+}
+
 .transactions-table tr {
     border: solid 2px black;
 }

@@ -137,6 +137,7 @@ namespace Invoicer.Services
                     }
                 }
                 isSuccessful = true;
+                result = ENUSStrings.InvoiceAddedSuccessMessage;
             }
             catch (Exception e)
             {
@@ -204,6 +205,7 @@ namespace Invoicer.Services
                     }
                 }
                 isSuccessful = true;
+                result = ENUSStrings.InvoiceEditedSuccessMessage;
             }
             catch (Exception e)
             {

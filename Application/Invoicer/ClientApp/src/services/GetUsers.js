@@ -3,7 +3,7 @@
 export default async function getUsers() {
     let users = [];
     let error = "";
-    /*await fetch(`${SETTINGS.GET_USERS_URI}`)
+    /*await fetch(`${SETTINGS.USERS_API_URI}`)
         .then((response) => {
             return response.json();
         })

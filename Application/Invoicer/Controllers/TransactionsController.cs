@@ -11,16 +11,6 @@ namespace Invoicer.Controllers
     public class TransactionsController : ControllerBase
     {
         // GET methods
-        [HttpGet("{companyID}")]
-        public IActionResult GetCompanyTransactions(string companyID)
-        {
-            CommonServiceRequest companyIDValidation = CommonValidation.CheckCompanyIDParameter(companyID);
-            if (!companyIDValidation.IsSuccessful)
-            {
-                return BadRequest(new { response = companyIDValidation.Result });
-            }
-            return TransactionsServices.GetTransactions("", "", companyID);
-        }
         [HttpGet("{transactionID}")]
         public IActionResult GetTransaction(string transactionID)
         {
