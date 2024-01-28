@@ -4,6 +4,7 @@
     FuelLabel: "Fuel",
     CloseLabel: "Close",
     LinkLabel: "Link",
+    PrintLabel: "Print",
     // Home
     RemainingTransactonLabel: "Remaining Transaction",
     MakeInvoiceLabel: "Make Invoice",
@@ -41,6 +42,7 @@
     TransactionSubmissionInvoiceDataFailedMessage: "Some invoice data couldn't be submitted. Please see specific ones below.",
     TransactionSubmissionSuccessMessage: "Transaction was submitted successfully!",
     ViewTransactionLabel: "View Transaction",
+    AddInvoiceDataLabel: "Add Invoice Row",
     // User Strings
     ChooseUserLabel: "Choose User",
     FirstNameLabel: "First Name",

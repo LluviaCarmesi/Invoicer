@@ -19,6 +19,14 @@ code {
     border: none;
 }
 
+.add-button {
+    color: rgba(0,0,0,1);
+    background-color: rgba(158, 255, 158);
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+}
+
 button {
     transition: opacity 0.7s ease-out;
 }

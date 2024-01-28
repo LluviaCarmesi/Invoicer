@@ -155,7 +155,24 @@ export default class Transaction extends Component {
                     total += parseFloat(currentIteration.total);
                 }
             }
+            total = parseFloat(total.toFixed(2));
             return total;
+        }
+
+        const cleanInvoiceData = () => {
+            let modifiedInvoiceData = this.state.invoiceData;
+            let currentPositionChange = 0;
+            for (let i = 0; i < this.state.invoiceData.length; i++) {
+                if (
+                    !modifiedInvoiceData.total ||
+                    !modifiedInvoiceData.type ||
+                    !modifiedInvoiceData.ticketNumber
+                ) {
+                    modifiedInvoiceData.splice(i - currentPositionChange, 1);
+                    currentPositionChange++;
+                }
+            }
+            return modifiedInvoiceData;
         }
 
         const removeInvoiceDataRow = (position, currentInvoiceData) => {
@@ -208,6 +225,25 @@ export default class Transaction extends Component {
         const createInvoiceDataRows = () => {
             let rows = [];
             const currentNumberofRows = this.state.invoiceData.length;
+            if (currentNumberofRows < 1) {
+                rows.push(
+                    <button
+                        className="add-button"
+                        onClick={() => {
+                            this.setState({
+                                invoiceData: [{
+                                    type: "fuel",
+                                    ticketNumber: "",
+                                    total: "0"
+                                }]
+                            });
+                        }}
+                    >
+                        {ENUSStrings.AddInvoiceDataLabel}
+                    </button>
+                );
+                return rows;
+            }
             const currentInvoiceData = [...this.state.invoiceData];
             for (let i = 0; i < currentNumberofRows; i++) {
                 rows.push(
@@ -315,6 +351,7 @@ export default class Transaction extends Component {
         const submitTransactionOnClick = async (event) => {
             event.preventDefault();
             let currentInformation = submissionItem;
+            currentInformation.invoiceData = cleanInvoiceData();
             let isSuccessful = false;
             let errorMessage = "";
             if (!validateForm(true)) {
@@ -472,7 +509,7 @@ export default class Transaction extends Component {
                                 </div>
                                 <div id="transaction-total-container" className="field-whole-container" >
                                     {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE &&
-                                        < div className="field-label-input-container">
+                                        <div className="field-label-input-container">
                                             <span className="field-label"></span>
                                             <span className="total">{ENUSStrings.TransactionTotalLabel} {this.state.total}</span>
                                         </div>
@@ -487,7 +524,7 @@ export default class Transaction extends Component {
                                                     title={ENUSStrings.TotalLabel}
                                                     value={this.state.total}
                                                     onChange={(control) => {
-                                                        changeValue(control.target.value, control.target.id);
+                                                        changeValueToDecimal(control.target.value, control.target.id);
                                                         submissionItem.total = control.target.value;
                                                         validateForm();
                                                     }}
@@ -496,6 +533,18 @@ export default class Transaction extends Component {
                                             <span className="field-error" hidden={!this.state.totalError || !this.state.isSubmissionAttempted}>{this.state.totalError}</span>
                                         </React.Fragment>
                                     }
+                                </div>
+                                <div id="print-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label"></span>
+                                        <span><a
+                                            href={`/print-transaction?id=${this.state.currentTransactionID}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            {ENUSStrings.PrintLabel}</a>
+                                        </span>
+                                    </div>
                                 </div>
                                 {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE &&
                                     <div id="transaction-invoice-data-container" className="field-whole-container" >

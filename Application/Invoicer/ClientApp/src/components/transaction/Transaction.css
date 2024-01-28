@@ -18,3 +18,7 @@
 .transaction-information-table {
     margin-bottom: 20px;
 }
+
+#print-container a {
+    color: rgba(0, 200, 255, 1);
+}
