@@ -2,7 +2,7 @@
     let string = currentMessage;
     setTimeout(() => {
         const loadingElement = document.getElementById(loadingMessageID);
-        if (loadingElement.getAttribute("hidden") !== "") {
+        if (!!loadingElement && loadingElement.getAttribute("hidden") !== "") {
             if (string.indexOf("...") !== -1) {
                 string = initialMessage;
             }

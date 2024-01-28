@@ -44,6 +44,7 @@ export default class CompanySettings extends Component {
 
     async loadCompanies() {
         let currentCompanyInformation = {
+            id: 0,
             name: "",
             phone: "",
             email: "",
@@ -64,6 +65,7 @@ export default class CompanySettings extends Component {
         }
         const currentCompany = companiesInformation.companies.length > 0 ? companiesInformation.companies[0] : { id: 0 };
         if (!!currentCompany.id) {
+            currentCompanyInformation.id = currentCompany.id;
             currentCompanyInformation.name = currentCompany.name;
             currentCompanyInformation.phone = currentCompany.phone;
             currentCompanyInformation.email = currentCompany.email;
@@ -74,6 +76,7 @@ export default class CompanySettings extends Component {
             currentCompanyInformation.isActive = currentCompany.isActive;
         }
         this.setState({
+            currentCompanyID: currentCompanyInformation.id,
             companies: companiesInformation.companies,
             name: currentCompanyInformation.name,
             phone: currentCompanyInformation.phone,
@@ -120,9 +123,10 @@ export default class CompanySettings extends Component {
         };
 
         const changeCompany = (value) => {
-            const company = this.state.companies.filter((company) => company.id === parseInt(value))[0];
+            const valueToInt = parseInt(value);
+            const company = this.state.companies.filter((company) => company.id === valueToInt)[0];
             this.setState({
-                currentCompanyID: value,
+                currentCompanyID: valueToInt,
                 name: company.name,
                 phone: company.phone,
                 email: company.email,
@@ -201,7 +205,7 @@ export default class CompanySettings extends Component {
                     }
                 }
                 else {
-                    const companyAddition = await editCompany(currentInformation, 1);
+                    const companyAddition = await editCompany(currentInformation, this.state.currentCompanyID);
                     isSuccessful = !companyAddition.doesErrorExist;
                     errorMessage = companyAddition.errorMessage;
                 }

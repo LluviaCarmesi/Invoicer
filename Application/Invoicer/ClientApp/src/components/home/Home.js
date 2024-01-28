@@ -81,9 +81,10 @@ export class Home extends Component {
 
     render() {
         const changeCompany = (value) => {
-            this.loadCompanyTransactions(value);
+            const valueToInt = parseInt(value);
+            this.loadCompanyTransactions(valueToInt);
             this.setState({
-                currentCompanyID: value
+                currentCompanyID: parseInt(valueToInt)
             });
         }
 
