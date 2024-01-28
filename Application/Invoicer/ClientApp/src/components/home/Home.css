@@ -36,7 +36,7 @@ select {
 .transactions-container {
     margin-top: 100px;
 }
-
+    
 .transactions-actions-container {
     margin-bottom: 20px;
     display: flex;
@@ -66,6 +66,11 @@ select {
     border: solid 2px black;
     border-collapse: collapse;
     width: 50%;
+}
+
+.transactions-table a {
+    color: rgba(0, 200, 255,1);
+    text-decoration: none;
 }
 
 .transactions-table tr {

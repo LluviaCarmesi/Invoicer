@@ -7,7 +7,7 @@ import changeQueryParameter from "../../utilities/ChangeQueryParameter";
 import loadingMessage from "../../utilities/LoadingMessage";
 import ENUSStrings from "../../strings/ENUSStrings";
 import transactionFormValidation from "../../utilities/validation/TransactionFormValidation";
-import getTodaysDate from "../../utilities/GetTodaysDate";
+import formatDate from "../../utilities/FormatDate";
 import createCompanyOptions from "../../utilities/CreateHTMLOptions";
 import isValueNumber from "../../utilities/validation/IsValueNumber";
 import addTransaction from "../../services/AddTransaction";
@@ -17,7 +17,7 @@ import getTransaction from "../../services/GetTransaction";
 export default class Transaction extends Component {
     constructor(props) {
         super(props);
-        const todaysDate = getTodaysDate();
+        const todaysDate = formatDate(new Date());
         this.state = {
             currentType: "invoice",
             companies: [],
@@ -29,6 +29,7 @@ export default class Transaction extends Component {
             isLoadingTransaction: true,
             errorTransaction: "",
             errorCompanies: "",
+            createdDate: null,
             paymentDate: todaysDate,
             dueDate: todaysDate,
             checkNumber: "",
@@ -65,12 +66,15 @@ export default class Transaction extends Component {
             transaction = transactionInformation.transaction;
         }
         this.setState({
+            currentTransactionID: transaction.id,
             currentType: transaction.type,
-            paymentDate: transaction.paymentDate,
-            dueDate: transaction.dueDate,
+            createdDate: new Date(transaction.createdDate),
+            paymentDate: formatDate(new Date(transaction.paymentDate)),
+            dueDate: formatDate(new Date(transaction.dueDate)),
             checkNumber: transaction.checkNumber,
             total: transaction.total,
-            invoiceData: transaction.invoiceData
+            invoiceData: transaction.invoiceData,
+            isLoadingTransaction: false
         });
     }
 
@@ -128,7 +132,7 @@ export default class Transaction extends Component {
         const submissionItem = {
             companyID: this.state.currentCompanyID,
             type: this.state.currentType,
-            createdDate: new Date(),
+            createdDate: !!this.state.createdDate ? this.state.createdDate : new Date(),
             dueDate: this.state.dueDate,
             paymentDate: this.state.paymentDate,
             checkNumber: this.state.checkNumber,
@@ -399,6 +403,12 @@ export default class Transaction extends Component {
                     {!this.state.isLoadingTransaction && !this.state.errorTransaction &&
                         <React.Fragment>
                             <form onSubmit={submitTransactionOnClick}>
+                                <div id="transaction-due-date-container" className="field-whole-container" hidden={!this.state.createdDate}>
+                                    <div className="field-label-input-container">
+                                        <span className="field-label">{ENUSStrings.CreatedDateLabel}</span>
+                                        <span>{formatDate(this.state.createdDate)}</span>
+                                    </div>
+                                </div>
                                 <div id="transaction-type-container" className="field-whole-container">
                                     <div className="field-label-input-container">
                                         <span className="field-label field-required">{ENUSStrings.ChooseTypeLabel}</span>
@@ -413,19 +423,34 @@ export default class Transaction extends Component {
                                         </select>
                                     </div>
                                 </div>
-                                <div id="transaction-due-payment-date-container" className="field-whole-container">
+                                <div id="transaction-due-date-container" className="field-whole-container" hidden={this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT}>
                                     <div className="field-label-input-container">
-                                        <span className="field-label">{this.state.currentType !== SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE ? ENUSStrings.PaymentDateLabel : ENUSStrings.DueDateLabel}</span>
+                                        <span className="field-label">{ENUSStrings.DueDateLabel}</span>
                                         <input
                                             type="date"
-                                            id="duePaymentDate"
-                                            title={this.state.currentType !== SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE ? ENUSStrings.PaymentDateLabel : ENUSStrings.DueDateLabel}
-                                            value={this.state.currentType !== SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE ? this.state.paymentDate : this.state.dueDate}
+                                            id="dueDate"
+                                            title={ENUSStrings.DueDateLabel}
+                                            value={this.state.dueDate}
                                             onChange={(control) => { changeValue(control.target.value, control.target.id); }}
                                         />
                                     </div>
-                                    <span className="field-error" hidden={this.state.currentType !== SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE ? (!this.state.paymentDateError || !this.state.isSubmissionAttempted) : (!this.state.dueDateError || !this.state.isSubmissionAttempted)}>
-                                        {this.state.currentType !== SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE ? this.state.paymentDateError : this.state.dueDateError}
+                                    <span className="field-error" hidden={!this.state.dueDateError || !this.state.isSubmissionAttempted}>
+                                        {this.state.dueDateError}
+                                    </span>
+                                </div>
+                                <div id="transaction-due-payment-date-container" className="field-whole-container" hidden={this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE}>
+                                    <div className="field-label-input-container">
+                                        <span className="field-label">{ENUSStrings.PaymentDateLabel}</span>
+                                        <input
+                                            type="date"
+                                            id="paymentDate"
+                                            title={ENUSStrings.PaymentDateLabel}
+                                            value={this.state.paymentDate}
+                                            onChange={(control) => { changeValue(control.target.value, control.target.id); }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.paymentDateError || !this.state.isSubmissionAttempted}>
+                                        {this.state.paymentDateError}
                                     </span>
                                 </div>
                                 <div id="transaction-check-number-container" className="field-whole-container" hidden={this.state.currentType !== "payment"} >

@@ -19,7 +19,7 @@ export class Home extends Component {
             currentCompanyID: 0,
             companies: [],
             transactions: [],
-            remainingBalance: 0,
+            remainingBalance: 0.00,
             errorCompanies: "",
             errorRemainingBalance: "",
             errorTransactions: "",
@@ -27,7 +27,6 @@ export class Home extends Component {
             loadingMessageRemainingBalance: "Loading Balance",
             loadingMessageTransactions: "Loading Transactions",
             isLoadingCompanies: true,
-            isLoadingRemainingBalance: true,
             isLoadingTransactions: true
         };
     }
@@ -38,15 +37,15 @@ export class Home extends Component {
         this.setState({
             currentCompanyID: firstCompany.id,
             companies: companiesInformation.companies,
-            errorCompanies: companiesInformation.error,
+            errorCompanies: companiesInformation.errorMessage,
             isLoadingCompanies: false
         });
         this.loadCompanyTransactions(firstCompany.id);
-        this.loadRemainingBalance(firstCompany.id);
     }
 
     async loadCompanyTransactions(companyID) {
         let transactions = [];
+        let remainingBalance = 0;
         if (!!companyID) {
             const transactionsInformation = await getCompanyTransactions(companyID);
             if (transactionsInformation.doesErrorExist) {
@@ -57,26 +56,13 @@ export class Home extends Component {
                 return;
             }
             transactions = transactionsInformation.transactions;
+            remainingBalance = transactionsInformation.remainingBalance;
         }
         this.setState({
+            remainingBalance: remainingBalance.toFixed(2),
             transactions: transactions,
             isLoadingTransactions: false
         });
-    }
-
-    async loadRemainingBalance(companyID) {
-        let remainingBalanceInformation = {
-            balance: 0,
-            error: ""
-        };
-        if (!!companyID) {
-            remainingBalanceInformation = await getRemainingBalance(companyID);
-        }
-        this.setState({
-            remainingBalance: remainingBalanceInformation.balance,
-            errorRemainingBalance: remainingBalanceInformation.error,
-            isLoadingRemainingBalance: false
-        })
     }
 
     componentDidMount() {
@@ -152,7 +138,7 @@ export class Home extends Component {
                                 <td>{CurrentTransaction.total}</td>
                                 <td>
                                     <a
-                                        href={`/transaction?id=${CurrentTransaction.id}&type=invoice&companyID=${this.state.currentCompanyID}`}
+                                        href={`/transaction?id=${CurrentTransaction.id}&type=payment&companyID=${this.state.currentCompanyID}`}
                                         target="_blank"
                                         rel="noreferrer"
                                     >
@@ -168,12 +154,7 @@ export class Home extends Component {
         }
 
         const showRemainingBalance = () => {
-            if (this.state.remainingBalance < 0) {
-                return `-$${this.state.remainingBalance}`;
-            }
-            else {
                 return `$${this.state.remainingBalance}`;
-            }
         }
 
         return (
@@ -201,13 +182,13 @@ export class Home extends Component {
                     </div>
                     <div className="company-info-container" hidden={!!this.state.errorCompanies}>
                         <div className="remaining-balance-container">
-                            <div id="loading-remaining-balance-container" hidden={!this.state.isLoadingRemainingBalance}>
+                            <div id="loading-remaining-balance-container" hidden={!this.state.isLoadingTransactions}>
                                 <span>{this.state.loadingMessageRemainingBalance}</span>
                             </div>
                             <div hidden={!this.state.errorRemainingBalance}>
                                 <span>{this.state.errorRemainingBalance}</span>
                             </div>
-                            {!this.state.errorRemainingBalance && !this.state.isLoadingRemainingBalance &&
+                            {!this.state.errorRemainingBalance && !this.state.isLoadingTransactions &&
                                 <React.Fragment>
                                     <span>{ENUSStrings.RemainingTransactonLabel}</span>
                                     <span className="remaining-balance">{showRemainingBalance()}</span>

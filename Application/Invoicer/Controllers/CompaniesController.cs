@@ -84,7 +84,7 @@ namespace Invoicer.Controllers
             {
                 return BadRequest(new { response = companyIDValidation.Result });
             }
-            Task<TransactionsServiceRequest> transactionModelValidation = TransactionsServicesValidation.CheckTransactionModel(Request, int.Parse(companyID));
+            Task<TransactionsServiceRequest> transactionModelValidation = TransactionsServicesValidation.CheckTransactionModelWithCompanyID(Request, int.Parse(companyID));
             TransactionsServiceRequest transactionModelValidationResult = transactionModelValidation.Result;
             if (!transactionModelValidationResult.IsSuccessful)
             {
@@ -108,7 +108,18 @@ namespace Invoicer.Controllers
             {
                 return BadRequest(new { response = companyIDValidation.Result });
             }
-            return Ok(new {response = "API succesfully called."});
+            Task<CompaniesServiceRequest> companyModelValidation = CompaniesServicesValidation.CheckCompanyModel(Request, int.Parse(companyID));
+            CompaniesServiceRequest companyModelValidationResult = companyModelValidation.Result;
+            if (!companyModelValidationResult.IsSuccessful)
+            {
+                return BadRequest(new { response = companyModelValidationResult.Result });
+            }
+            CommonServiceRequest companyEditValidation = CompaniesServices.EditCompany(companyModelValidationResult.Company);
+            if (!companyEditValidation.IsSuccessful)
+            {
+                return BadRequest(new { response = companyEditValidation.Result });
+            }
+            return Ok(new { response = companyEditValidation.Result });
         }
     }
 }

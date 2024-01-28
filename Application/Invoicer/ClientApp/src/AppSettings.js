@@ -3,9 +3,9 @@
     PHONE_REG_EXPRESSION: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g,
     EMAIL_REG_EXPRESSION: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/ig,
     //uris
-    GET_TRANSACTIONS_URI: "/api/transactions",
-    GET_COMPANIES_URI: "/api/companies",
-    GET_USERS_URI: "/api/users",
+    TRANSACTIONS_API_URI: "/api/transactions",
+    COMPANIES_API_URI: "/api/companies",
+    USERS_API_URI: "/api/users",
     TRANSACTIONS_URI: "/transactions",
     REMAINING_BALANCE_URI: "/remaining-balance",
     ADD_COMPANY_URI: "/add-company",

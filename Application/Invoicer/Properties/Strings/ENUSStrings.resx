@@ -135,6 +135,9 @@
   <data name="CompanyAddedSuccessMessage" xml:space="preserve">
     <value>The company was successfully added</value>
   </data>
+  <data name="CompanyEditedSuccessMessage" xml:space="preserve">
+    <value>The company was successfully edited</value>
+  </data>
   <data name="CompanyIDLabel" xml:space="preserve">
     <value>companyID</value>
   </data>
@@ -159,8 +162,14 @@
   <data name="IDLabel" xml:space="preserve">
     <value>id</value>
   </data>
+  <data name="InvoiceAddedSuccessMessage" xml:space="preserve">
+    <value>The invoice was successfully added</value>
+  </data>
   <data name="InvoiceDataLabel" xml:space="preserve">
     <value>invoiceData</value>
+  </data>
+  <data name="InvoiceEditedSuccessMessage" xml:space="preserve">
+    <value>The invoice was successfully edited</value>
   </data>
   <data name="LimitLabel" xml:space="preserve">
     <value>limit</value>

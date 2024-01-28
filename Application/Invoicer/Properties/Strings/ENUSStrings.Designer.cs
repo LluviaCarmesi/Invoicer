@@ -115,6 +115,15 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The company was successfully edited.
+        /// </summary>
+        public static string CompanyEditedSuccessMessage {
+            get {
+                return ResourceManager.GetString("CompanyEditedSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to companyID.
         /// </summary>
         public static string CompanyIDLabel {
@@ -187,11 +196,29 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The invoice was successfully added.
+        /// </summary>
+        public static string InvoiceAddedSuccessMessage {
+            get {
+                return ResourceManager.GetString("InvoiceAddedSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to invoiceData.
         /// </summary>
         public static string InvoiceDataLabel {
             get {
                 return ResourceManager.GetString("InvoiceDataLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The invoice was successfully edited.
+        /// </summary>
+        public static string InvoiceEditedSuccessMessage {
+            get {
+                return ResourceManager.GetString("InvoiceEditedSuccessMessage", resourceCulture);
             }
         }
         

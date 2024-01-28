@@ -3,10 +3,11 @@ import isStatusGood from "../utilities/IsStatusGood";
 
 export default async function getCompanyTransactions(companyID) {
     let transactions = [];
+    let remainingBalance = 0;
     let doesErrorExist = false;
     let errorMessage = "";
     if (companyID !== 0) {
-        await fetch(`${SETTINGS.GET_COMPANIES_URI}/${companyID}${SETTINGS.TRANSACTIONS_URI}`)
+        await fetch(`${SETTINGS.COMPANIES_API_URI}/${companyID}${SETTINGS.TRANSACTIONS_URI}`)
             .then((response) => {
                 doesErrorExist = !isStatusGood(response.status);
                 return response.json();
@@ -16,7 +17,8 @@ export default async function getCompanyTransactions(companyID) {
                     errorMessage = result.response;
                 }
                 else {
-                    transactions = result;
+                    transactions = result.transactions;
+                    remainingBalance = result.remainingBalance;
                 }
             })
             .catch((error) => {
@@ -28,5 +30,5 @@ export default async function getCompanyTransactions(companyID) {
     if (transactions.length === 0 && !errorMessage) {
         errorMessage = "No transactions exist for this company";
     }
-    return { transactions, doesErrorExist, errorMessage };
+    return { transactions, remainingBalance, doesErrorExist, errorMessage };
 }

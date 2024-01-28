@@ -5,7 +5,7 @@ export default async function getCompanies() {
     let companies = [];
     let doesErrorExist = false;
     let errorMessage = "";
-    await fetch(`${SETTINGS.GET_COMPANIES_URI}`)
+    await fetch(`${SETTINGS.COMPANIES_API_URI}`)
         .then((response) => {
             doesErrorExist = !isStatusGood(response.status);
             return response.json();

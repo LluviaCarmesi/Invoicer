@@ -11,16 +11,6 @@ namespace Invoicer.Controllers
     public class TransactionsController : ControllerBase
     {
         // GET methods
-        [HttpGet("{companyID}")]
-        public IActionResult GetCompanyTransactions(string companyID)
-        {
-            CommonServiceRequest companyIDValidation = CommonValidation.CheckCompanyIDParameter(companyID);
-            if (!companyIDValidation.IsSuccessful)
-            {
-                return BadRequest(new { response = companyIDValidation.Result });
-            }
-            return TransactionsServices.GetTransactions("", "", companyID);
-        }
         [HttpGet("{transactionID}")]
         public IActionResult GetTransaction(string transactionID)
         {
@@ -42,18 +32,18 @@ namespace Invoicer.Controllers
             {
                 return BadRequest(new { response = transactionIDValidation.Result });
             }
-            Task<TransactionsServiceRequest> transactionModelValidation = TransactionsServicesValidation.CheckTransactionModel(Request);
+            Task<TransactionsServiceRequest> transactionModelValidation = TransactionsServicesValidation.CheckTransactionModelWithTransactionID(Request, int.Parse(transactionID));
             TransactionsServiceRequest transactionModelValidationResult = transactionModelValidation.Result;
             if (!transactionModelValidationResult.IsSuccessful)
             {
                 return BadRequest(new { response = transactionModelValidationResult.Result });
             }
-            CommonServiceRequest transactionAddValidation = TransactionsServices.EditTransaction(transactionModelValidationResult.Transaction);
-            if (!transactionAddValidation.IsSuccessful)
+            CommonServiceRequest transactionEditValidation = TransactionsServices.EditTransaction(transactionModelValidationResult.Transaction);
+            if (!transactionEditValidation.IsSuccessful)
             {
-                return BadRequest(new { response = transactionAddValidation.Result });
+                return BadRequest(new { response = transactionEditValidation.Result });
             }
-            return Ok(new { response = transactionAddValidation.Result });
+            return Ok(new { response = transactionEditValidation.Result });
         }
     }
 }

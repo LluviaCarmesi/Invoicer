@@ -4,7 +4,7 @@ import isStatusGood from "../utilities/IsStatusGood";
 export default async function editCompany(item, companyID) {
     let doesErrorExist = false;
     let errorMessage = "";
-    await fetch(`${SETTINGS.GET_COMPANIES_URI}${SETTINGS.EDIT_COMPANY_URI}/${companyID}`, {
+    await fetch(`${SETTINGS.COMPANIES_API_URI}${SETTINGS.EDIT_COMPANY_URI}/${companyID}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
