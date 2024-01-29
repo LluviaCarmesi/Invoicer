@@ -23,9 +23,9 @@ export class Home extends Component {
             errorCompanies: "",
             errorRemainingBalance: "",
             errorTransactions: "",
-            loadingMessageCompanies: "Loading Companies",
-            loadingMessageRemainingBalance: "Loading Balance",
-            loadingMessageTransactions: "Loading Transactions",
+            loadingMessageCompanies: ENUSStrings.LoadingCompaniesLabel,
+            loadingMessageRemainingBalance: ENUSStrings.LoadingRemainingBalanceLabel,
+            loadingMessageTransactions: ENUSStrings.LoadingTransactionsLabel,
             isLoadingCompanies: true,
             isLoadingTransactions: true
         };

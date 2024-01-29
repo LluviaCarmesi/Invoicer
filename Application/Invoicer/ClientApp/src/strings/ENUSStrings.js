@@ -5,6 +5,10 @@
     CloseLabel: "Close",
     LinkLabel: "Link",
     PrintLabel: "Print",
+    LoadingCompaniesLabel: "Loading Companies",
+    LoadingTransactionsLabel: "Loading Transactions",
+    LoadingTransactionLabel: "Loading Transaction",
+    LoadingRemainingBalanceLabel: "Loading Remaining Balance",
     // Home
     RemainingTransactonLabel: "Remaining Transaction",
     MakeInvoiceLabel: "Make Invoice",
