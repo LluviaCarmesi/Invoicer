@@ -15,6 +15,7 @@ export default class PrintTransaction extends Component {
             loadingMessageTransaction: ENUSStrings.LoadingTransactionLabel,
             isLoadingTransaction: true,
             isTransactionPayment: false,
+            errorTransaction: "",
             companyName: "",
             copmanyAddress: "",
             companyCity: "",
@@ -113,6 +114,17 @@ export default class PrintTransaction extends Component {
                 <div id="loading-transaction-container" hidden={!this.state.isLoadingTransaction}>
                     <span>{this.state.loadingMessageTransaction}</span>
                 </div>
+                <div hidden={!this.state.errorTransaction}>
+                    <span>{this.state.errorTransaction}</span>
+                </div>
+                {!this.state.errorTransaction &&
+                    <div>
+                        <div className="invoice-id">
+                            <span></span>
+                            <span>{this.state.currentTransactionID}</span>
+                        </div>
+                    </div>
+                }
             </div>
         );
     }
