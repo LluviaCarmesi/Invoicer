@@ -47,6 +47,7 @@
     TransactionSubmissionSuccessMessage: "Transaction was submitted successfully!",
     ViewTransactionLabel: "View Transaction",
     AddInvoiceDataLabel: "Add Invoice Row",
+    TransactionIsPaymentMessage: "The current transaction is a payment",
     // User Strings
     ChooseUserLabel: "Choose User",
     FirstNameLabel: "First Name",

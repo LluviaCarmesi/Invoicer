@@ -71,7 +71,8 @@ export default class PrintTransaction extends Component {
             if (transactionInformation.type === SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT) {
                 this.setState({
                     isTransactionPayment: true,
-                    isLoadingTransaction: false
+                    isLoadingTransaction: false,
+                    errorTransaction: ENUSStrings.TransactionIsPaymentMessage
                 })
                 return;
             }
@@ -109,23 +110,51 @@ export default class PrintTransaction extends Component {
     }
 
     render() {
-        return (
-            <div className="print-transaction-container">
-                <div id="loading-transaction-container" hidden={!this.state.isLoadingTransaction}>
-                    <span>{this.state.loadingMessageTransaction}</span>
-                </div>
-                <div hidden={!this.state.errorTransaction}>
-                    <span>{this.state.errorTransaction}</span>
-                </div>
-                {!this.state.errorTransaction &&
-                    <div>
-                        <div className="invoice-id">
-                            <span></span>
-                            <span>{this.state.currentTransactionID}</span>
-                        </div>
+        const createInvoiceDataRows = () => {
+            let rows = [];
+            for (let i = 0; i < this.state.invoiceData.length; i++) {
+                const currentInvoiceData = this.state.invoiceData[i];
+                rows.push(
+                    <tr key={i + 1}>
+                        <td>{currentInvoiceData.type}</td>
+                        <td>{currentInvoiceData.ticketNumber}</td>
+                        <td>{currentInvoiceData.total}</td>
+                    </tr>
+                );
+                return rows;
+            }
+
+            return (
+                <div className="print-transaction-container">
+                    <div id="loading-transaction-container" hidden={!this.state.isLoadingTransaction}>
+                        <span>{this.state.loadingMessageTransaction}</span>
                     </div>
-                }
-            </div>
-        );
+                    <div hidden={!this.state.errorTransaction}>
+                        <span>{this.state.errorTransaction}</span>
+                    </div>
+                    {!this.state.errorTransaction &&
+                        <div>
+                            <div className="invoice-id">
+                                <span></span>
+                                <span>{this.state.currentTransactionID}</span>
+                            </div>
+                            <div className="invoice-table">
+                                <table>
+                                    <thead>
+                                        <tr key={0}>
+                                            <th>{ENUSStrings.TypeLabel}</th>
+                                            <th>{ENUSStrings.TicketNumberLabel}</th>
+                                            <th>{ENUSStrings.TotalLabel}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {createInvoiceDataRows()}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            );
+        }
     }
-}
