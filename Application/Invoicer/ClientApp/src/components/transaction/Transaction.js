@@ -164,12 +164,15 @@ export default class Transaction extends Component {
             let currentPositionChange = 0;
             for (let i = 0; i < this.state.invoiceData.length; i++) {
                 if (
-                    !modifiedInvoiceData.total ||
-                    !modifiedInvoiceData.type ||
-                    !modifiedInvoiceData.ticketNumber
+                    !modifiedInvoiceData[i].total ||
+                    !modifiedInvoiceData[i].type ||
+                    !modifiedInvoiceData[i].ticketNumber
                 ) {
                     modifiedInvoiceData.splice(i - currentPositionChange, 1);
                     currentPositionChange++;
+                }
+                else {
+                    modifiedInvoiceData[i].total = parseFloat(modifiedInvoiceData[i].total);
                 }
             }
             return modifiedInvoiceData;
@@ -352,6 +355,7 @@ export default class Transaction extends Component {
             event.preventDefault();
             let currentInformation = submissionItem;
             currentInformation.invoiceData = cleanInvoiceData();
+            currentInformation.total = parseFloat(currentInformation.total);
             let isSuccessful = false;
             let errorMessage = "";
             if (!validateForm(true)) {
@@ -362,7 +366,7 @@ export default class Transaction extends Component {
                 isSuccessFailureMessageClosed: true
             });
             if (!this.state.currentTransactionID) {
-                const transactionAddition = await addTransaction(currentInformation, 1);
+                const transactionAddition = await addTransaction(currentInformation, this.state.currentCompanyID);
                 isSuccessful = !transactionAddition.doesErrorExist;
                 errorMessage = transactionAddition.errorMessage;
                 if (isSuccessful) {
@@ -376,7 +380,7 @@ export default class Transaction extends Component {
                 }
             }
             else {
-                const transactionAddition = await editTransaction(currentInformation, 1);
+                const transactionAddition = await editTransaction(currentInformation, this.state.currentTransactionID);
                 isSuccessful = !transactionAddition.doesErrorExist;
                 errorMessage = transactionAddition.errorMessage;
             }

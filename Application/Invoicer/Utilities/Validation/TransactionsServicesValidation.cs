@@ -273,6 +273,7 @@ namespace Invoicer.Utilities.Validation
                     InvoiceData currentInvoiceData = invoiceData[i];
                     if (currentInvoiceData.Total == decimal.MinValue || currentInvoiceData.Total == 0 || string.IsNullOrEmpty(currentInvoiceData.Type))
                     {
+                        Debug.WriteLine(currentInvoiceData.Total);
                         return false;
                     }
                 }

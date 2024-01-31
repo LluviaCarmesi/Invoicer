@@ -178,7 +178,7 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  has an issue in the data..
+        ///   Looks up a localized string similar to  has an issue in the data. There&apos;s possibly a zero in one of the rows..
         /// </summary>
         public static string HasAnIssueError {
             get {

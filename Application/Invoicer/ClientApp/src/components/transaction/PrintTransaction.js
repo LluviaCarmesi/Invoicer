@@ -121,40 +121,47 @@ export default class PrintTransaction extends Component {
                         <td>{currentInvoiceData.total}</td>
                     </tr>
                 );
-                return rows;
             }
-
-            return (
-                <div className="print-transaction-container">
-                    <div id="loading-transaction-container" hidden={!this.state.isLoadingTransaction}>
-                        <span>{this.state.loadingMessageTransaction}</span>
-                    </div>
-                    <div hidden={!this.state.errorTransaction}>
-                        <span>{this.state.errorTransaction}</span>
-                    </div>
-                    {!this.state.errorTransaction &&
-                        <div>
-                            <div className="invoice-id">
-                                <span></span>
-                                <span>{this.state.currentTransactionID}</span>
-                            </div>
-                            <div className="invoice-table">
-                                <table>
-                                    <thead>
-                                        <tr key={0}>
-                                            <th>{ENUSStrings.TypeLabel}</th>
-                                            <th>{ENUSStrings.TicketNumberLabel}</th>
-                                            <th>{ENUSStrings.TotalLabel}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {createInvoiceDataRows()}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    }
-                </div>
-            );
+            return rows;
         }
+
+        return (
+            <div className="print-transaction-container">
+                <div id="loading-transaction-container" hidden={!this.state.isLoadingTransaction}>
+                    <span>{this.state.loadingMessageTransaction}</span>
+                </div>
+                <div hidden={!this.state.errorTransaction}>
+                    <span>{this.state.errorTransaction}</span>
+                </div>
+                {!this.state.errorTransaction &&
+                    <div>
+                        <div className="invoice-id">
+                            <span></span>
+                            <span>{this.state.currentTransactionID}</span>
+                        </div>
+                        <div className="due-date-container">
+                            <span>{this.state.dueDate}</span>
+                        </div>
+                        <div className="invoice-table">
+                            <table>
+                                <thead>
+                                    <tr key={0}>
+                                        <th>{ENUSStrings.TypeLabel}</th>
+                                        <th>{ENUSStrings.TicketNumberLabel}</th>
+                                        <th>{ENUSStrings.TotalLabel}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {createInvoiceDataRows()}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="total-container">
+                            <span>{this.state.total}</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        );
     }
+}

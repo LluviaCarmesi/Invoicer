@@ -14,26 +14,45 @@ namespace Invoicer.Services
         internal static IActionResult GetTransaction(string transactionID)
         {
             Transaction transaction = new Transaction();
+            List<InvoiceData> invoiceData = new List<InvoiceData>();
             try
             {
                 mySqlConnection.Open();
-                MySqlCommand mySqlCommand;
-                mySqlCommand = new MySqlCommand($"SELECT {AppSettings.TRANSACTIONS_SELECT_COLUMNS} FROM {AppSettings.TRANSACTIONS_TABLE} WHERE id = {transactionID};", mySqlConnection);
-                MySqlDataReader reader = mySqlCommand.ExecuteReader();
-                while (reader.Read())
+                MySqlCommand mySqlGetTransactionCommand;
+                MySqlCommand mySqlGetInvoiceDataCommand;
+                mySqlGetTransactionCommand = new MySqlCommand($"SELECT {AppSettings.TRANSACTIONS_SELECT_COLUMNS} FROM {AppSettings.TRANSACTIONS_TABLE} WHERE id = {transactionID};", mySqlConnection);
+                mySqlGetInvoiceDataCommand = new MySqlCommand($"SELECT {AppSettings.INVOICE_DATA_SELECT_COLUMNS} FROM {AppSettings.INVOICE_DATA_TABLE} WHERE invoice_id = {transactionID};", mySqlConnection);
+                MySqlDataReader getTransactionReader = mySqlGetTransactionCommand.ExecuteReader();
+                while (getTransactionReader.Read())
                 {
                     transaction = new Transaction
                                 (
-                                    reader.GetInt32(0),
-                                    reader.GetInt32(1),
-                                    reader.GetString(2),
-                                    reader.GetDateTime(3),
-                                    reader.GetDateTime(4),
-                                    reader.GetDateTime(5),
-                                    reader.GetString(6),
-                                    reader.GetDecimal(7)
+                                    getTransactionReader.GetInt32(0),
+                                    getTransactionReader.GetInt32(1),
+                                    getTransactionReader.GetString(2),
+                                    getTransactionReader.GetDateTime(3),
+                                    getTransactionReader.GetDateTime(4),
+                                    getTransactionReader.GetDateTime(5),
+                                    getTransactionReader.GetString(6),
+                                    getTransactionReader.GetDecimal(7)
                                 );
                 }
+                getTransactionReader.Close();
+                MySqlDataReader getInvoiceDataReader = mySqlGetInvoiceDataCommand.ExecuteReader();
+                while (getInvoiceDataReader.Read())
+                {
+                    invoiceData.Add(
+                        new InvoiceData(
+                            getInvoiceDataReader.GetInt32(0),
+                            getInvoiceDataReader.GetInt32(1),
+                            getInvoiceDataReader.GetString(2),
+                            getInvoiceDataReader.GetString(3),
+                            getInvoiceDataReader.GetDecimal(4)
+                            )
+                        );
+                }
+                getInvoiceDataReader.Close();
+                transaction.InvoiceData = invoiceData;
             }
             catch (Exception error)
             {
@@ -48,7 +67,6 @@ namespace Invoicer.Services
         internal static IActionResult GetTransactions(string limitString, string offsetString, string companyID)
         {
             List<Transaction> transactions = new List<Transaction>();
-            decimal remainingBalance = 0;
             decimal invoiceTotal = 0;
             decimal paymentTotal = 0;
             try
@@ -106,7 +124,7 @@ namespace Invoicer.Services
                     paymentTotal += currentTransaction.Total;
                 }
             }
-            remainingBalance = invoiceTotal - paymentTotal;
+            decimal remainingBalance = invoiceTotal - paymentTotal;
 
             return new OkObjectResult(new TransactionsWithBalance(transactions, remainingBalance));
         }

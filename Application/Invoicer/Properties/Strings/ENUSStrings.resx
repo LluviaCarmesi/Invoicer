@@ -157,7 +157,7 @@
     <value>How can you forget the </value>
   </data>
   <data name="HasAnIssueError" xml:space="preserve">
-    <value> has an issue in the data.</value>
+    <value> has an issue in the data. There's possibly a zero in one of the rows.</value>
   </data>
   <data name="IDLabel" xml:space="preserve">
     <value>id</value>
