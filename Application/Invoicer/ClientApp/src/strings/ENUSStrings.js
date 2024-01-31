@@ -48,6 +48,7 @@
     ViewTransactionLabel: "View Transaction",
     AddInvoiceDataLabel: "Add Invoice Row",
     TransactionIsPaymentMessage: "The current transaction is a payment",
+    InvoiceIDLabel: "Invoice ID ",
     // User Strings
     ChooseUserLabel: "Choose User",
     FirstNameLabel: "First Name",

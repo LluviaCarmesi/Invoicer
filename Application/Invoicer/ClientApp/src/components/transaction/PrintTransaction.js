@@ -6,6 +6,7 @@ import checkQueryParameter from "../../utilities/CheckQueryParameter";
 import loadingMessage from "../../utilities/LoadingMessage";
 import getTransaction from "../../services/GetTransaction";
 import getCompany from "../../services/GetCompany";
+import "./PrintTransaction.css";
 
 export default class PrintTransaction extends Component {
     constructor(props) {
@@ -133,17 +134,18 @@ export default class PrintTransaction extends Component {
                 <div hidden={!this.state.errorTransaction}>
                     <span>{this.state.errorTransaction}</span>
                 </div>
-                {!this.state.errorTransaction &&
+                {!this.state.errorTransaction && !this.state.isLoadingTransaction &&
                     <div>
                         <div className="invoice-id">
-                            <span></span>
+                            <span>{ENUSStrings.InvoiceIDLabel}: </span>
                             <span>{this.state.currentTransactionID}</span>
                         </div>
                         <div className="due-date-container">
+                            <span>{ENUSStrings.DueDateLabel}: </span>
                             <span>{this.state.dueDate}</span>
                         </div>
-                        <div className="invoice-table">
-                            <table>
+                        <div className="invoice-table-container">
+                            <table className="invoice-table">
                                 <thead>
                                     <tr key={0}>
                                         <th>{ENUSStrings.TypeLabel}</th>
@@ -157,6 +159,7 @@ export default class PrintTransaction extends Component {
                             </table>
                         </div>
                         <div className="total-container">
+                            <span>{ENUSStrings.TotalLabel}: </span>
                             <span>{this.state.total}</span>
                         </div>
                     </div>

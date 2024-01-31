@@ -1,0 +1,16 @@
+﻿.invoice-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.invoice-table td, .invoice-table th {
+    border: 1px solid rgba(0, 0, 0, 1);
+    padding: 10px;
+    text-align: left;
+}
+
+.invoice-table th {
+    background-color: rgba(225,225,225, 1);
+    color: rgba(0, 0, 0, 1);
+    text-align: left;
+}
