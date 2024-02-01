@@ -52,3 +52,9 @@
 #total-number {
     font-weight: 700;
 }
+
+@media print {
+    .links-header {
+        display: none !important;
+    }
+}

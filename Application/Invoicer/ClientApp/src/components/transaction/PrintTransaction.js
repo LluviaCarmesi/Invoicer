@@ -18,7 +18,7 @@ export default class PrintTransaction extends Component {
             isTransactionPayment: false,
             errorTransaction: "",
             companyName: "",
-            copmanyAddress: "",
+            companyAddress: "",
             companyCity: "",
             companyCountry: "",
             companyZip: "",
@@ -38,7 +38,7 @@ export default class PrintTransaction extends Component {
     async loadCompany(companyID) {
         let company = {
             companyName: "",
-            copmanyAddress: "",
+            companyAddress: "",
             companyCity: "",
             companyCountry: "",
             companyZip: "",
@@ -83,7 +83,7 @@ export default class PrintTransaction extends Component {
         this.setState({
             currentTransactionID: transaction.id,
             companyName: companyInformation.companyName,
-            copmanyAddress: companyInformation.companyAddress,
+            companyAddress: companyInformation.companyAddress,
             companyCity: companyInformation.companyCity,
             companyCountry: companyInformation.Country,
             companyZip: companyInformation.Zip,
@@ -139,6 +139,9 @@ export default class PrintTransaction extends Component {
                         <div className="invoice-id-container">
                             <span>{ENUSStrings.InvoiceLabel}: </span>
                             <span id="id-number">{this.state.currentTransactionID}</span>
+                        </div>
+                        <div className="company-container">
+                            <span>{this.state.companyAddress}</span>
                         </div>
                         <div className="due-date-container">
                             <span>{ENUSStrings.DueDateLabel}: </span>
