@@ -1,4 +1,30 @@
-﻿.invoice-table {
+﻿.invoice-id-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.invoice-id-container span {
+    font-size: 30px;
+}
+
+#id-number {
+    font-weight: 700;
+}
+
+.due-date-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+#due-date {
+    font-weight: 700;
+}
+
+.invoice-table-container {
+    margin-bottom: 20px;
+}
+
+.invoice-table {
     border-collapse: collapse;
     width: 100%;
 }
@@ -13,4 +39,16 @@
     background-color: rgba(225,225,225, 1);
     color: rgba(0, 0, 0, 1);
     text-align: left;
+}
+
+.total-container {
+    text-align: right;
+}
+
+.total-container span {
+    font-size: 25px;
+}
+
+#total-number {
+    font-weight: 700;
 }

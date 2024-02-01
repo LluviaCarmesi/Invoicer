@@ -117,9 +117,9 @@ export default class PrintTransaction extends Component {
                 const currentInvoiceData = this.state.invoiceData[i];
                 rows.push(
                     <tr key={i + 1}>
-                        <td>{currentInvoiceData.type}</td>
-                        <td>{currentInvoiceData.ticketNumber}</td>
-                        <td>{currentInvoiceData.total}</td>
+                        <td><span>{currentInvoiceData.type}</span></td>
+                        <td><span>{currentInvoiceData.ticketNumber}</span></td>
+                        <td><span>{currentInvoiceData.total}</span></td>
                     </tr>
                 );
             }
@@ -136,21 +136,21 @@ export default class PrintTransaction extends Component {
                 </div>
                 {!this.state.errorTransaction && !this.state.isLoadingTransaction &&
                     <div>
-                        <div className="invoice-id">
-                            <span>{ENUSStrings.InvoiceIDLabel}: </span>
-                            <span>{this.state.currentTransactionID}</span>
+                        <div className="invoice-id-container">
+                            <span>{ENUSStrings.InvoiceLabel}: </span>
+                            <span id="id-number">{this.state.currentTransactionID}</span>
                         </div>
                         <div className="due-date-container">
                             <span>{ENUSStrings.DueDateLabel}: </span>
-                            <span>{this.state.dueDate}</span>
+                            <span id="due-date">{this.state.dueDate}</span>
                         </div>
                         <div className="invoice-table-container">
                             <table className="invoice-table">
                                 <thead>
                                     <tr key={0}>
-                                        <th>{ENUSStrings.TypeLabel}</th>
-                                        <th>{ENUSStrings.TicketNumberLabel}</th>
-                                        <th>{ENUSStrings.TotalLabel}</th>
+                                        <th><span>{ENUSStrings.TypeLabel}</span></th>
+                                        <th><span>{ENUSStrings.TicketNumberLabel}</span></th>
+                                        <th><span>{ENUSStrings.TotalLabel}</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -160,7 +160,7 @@ export default class PrintTransaction extends Component {
                         </div>
                         <div className="total-container">
                             <span>{ENUSStrings.TotalLabel}: </span>
-                            <span>{this.state.total}</span>
+                            <span id="total-number">{this.state.total}</span>
                         </div>
                     </div>
                 }
