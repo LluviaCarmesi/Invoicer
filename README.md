@@ -4,7 +4,7 @@ Used for invoicing needs. This is a personal project so that I can learn how to 
 
 ### TODO
 
-- Work on editing transaction/companies
+- Work on renaming companies to customers and making companies have separate customers
 - Finish Transactions Controller connection to db
 - Finish Companies Controller connection to db
 - Make buttons functional

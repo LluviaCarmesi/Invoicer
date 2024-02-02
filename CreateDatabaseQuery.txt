@@ -3,6 +3,16 @@ USE invoicer;
 CREATE TABLE companies (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(256) NOT NULL,
+  address VARCHAR(256) NOT NULL,
+  city VARCHAR(256) NOT NULL,
+  country VARCHAR(256) NOT NULL,
+  zip VARCHAR(256) NOT NULL,
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE customers (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(256) NOT NULL,
   phone VARCHAR(20) NOT NULL,
   email VARCHAR(256) DEFAULT NULL,
   address VARCHAR(256) NOT NULL,
@@ -11,14 +21,6 @@ CREATE TABLE companies (
   zip VARCHAR(256) NOT NULL,
   is_account_active BOOLEAN DEFAULT TRUE,
   PRIMARY KEY(id)
-);
-
-CREATE TABLE remaining_balance (
-  id INT NOT NULL AUTO_INCREMENT,
-  company_id INT NOT NULL,
-  total DECIMAL(8, 2) NOT NULL,
-  PRIMARY KEY (id),
-  CONSTRAINT remaining_balance_fk_company_id FOREIGN KEY (company_id) REFERENCES companies(id)
 );
 
 CREATE TABLE transactions (
