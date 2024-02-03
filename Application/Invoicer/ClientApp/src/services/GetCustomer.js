@@ -1,11 +1,11 @@
 ﻿import SETTINGS from "../AppSettings";
 import isStatusGood from "../utilities/IsStatusGood";
 
-export default async function getCompany(companyID) {
-    let company = {};
+export default async function getCustomer(customerID) {
+    let customer = {};
     let doesErrorExist = false;
     let errorMessage = "";
-    await fetch(`${SETTINGS.COMPANIES_API_URI}/${companyID}`)
+    await fetch(`${SETTINGS.CUSTOMERS_API_URI}/${customerID}`)
         .then((response) => {
             doesErrorExist = !isStatusGood(response.status);
             return response.json();
@@ -15,7 +15,7 @@ export default async function getCompany(companyID) {
                 errorMessage = result.response;
             }
             else {
-                company = result;
+                customer = result;
             }
         })
         .catch((error) => {
@@ -23,5 +23,5 @@ export default async function getCompany(companyID) {
             errorMessage = error;
             console.log(error);
         });
-    return { company, doesErrorExist, errorMessage };
+    return { customer, doesErrorExist, errorMessage };
 }

@@ -6,23 +6,23 @@ using System.Text;
 
 namespace Invoicer.Utilities.Validation
 {
-    public class CompaniesServicesValidation
+    public class CustomersServicesValidation
     {
-        public static async Task<CompaniesServiceRequest> CheckCompanyModel(HttpRequest request)
+        public static async Task<CustomersServiceRequest> CheckCustomerModel(HttpRequest request)
         {
-            Company company = new Company();
+            Customer customer = new Customer();
             bool isValid = true;
             string result = string.Empty;
             if (request.Body == null)
             {
                 isValid = false;
                 result = ENUSStrings.NoBodyError;
-                return new CompaniesServiceRequest(isValid, result, company);
+                return new CustomersServiceRequest(isValid, result, customer);
             }
 
             StreamReader reader = new StreamReader(request.Body, Encoding.UTF8);
             string requestBody = await reader.ReadToEndAsync();
-            Company requestData = JsonConvert.DeserializeObject<Company>(requestBody);
+            Customer requestData = JsonConvert.DeserializeObject<Customer>(requestBody);
 
             // name validation
             string name = requestData.Name;
@@ -33,7 +33,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Name = name;
+                customer.Name = name;
             }
 
             // phone validation
@@ -45,7 +45,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Phone = phone;
+                customer.Phone = phone;
             }
 
             // email validation
@@ -57,7 +57,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Email = email;
+                customer.Email = email;
             }
 
             // address validation
@@ -69,7 +69,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Address = address;
+                customer.Address = address;
             }
 
             // city validation
@@ -81,7 +81,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.City = city;
+                customer.City = city;
             }
 
             // country validation
@@ -93,7 +93,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Country = country;
+                customer.Country = country;
             }
 
             // zip validation
@@ -105,31 +105,31 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Zip = zip;
+                customer.Zip = zip;
             }
 
             //  is_account_active validation
             bool isAccountActive = requestData.IsActive;
-            company.IsActive = isAccountActive;
-            return new CompaniesServiceRequest(isValid, result, company);
+            customer.IsActive = isAccountActive;
+            return new CustomersServiceRequest(isValid, result, customer);
         }
 
-        public static async Task<CompaniesServiceRequest> CheckCompanyModel(HttpRequest request, int id)
+        public static async Task<CustomersServiceRequest> CheckCustomerModel(HttpRequest request, int id)
         {
-            Company company = new Company();
-            company.Id = id;
+            Customer customer = new Customer();
+            customer.Id = id;
             bool isValid = true;
             string result = string.Empty;
             if (request.Body == null)
             {
                 isValid = false;
                 result = ENUSStrings.NoBodyError;
-                return new CompaniesServiceRequest(isValid, result, company);
+                return new CustomersServiceRequest(isValid, result, customer);
             }
 
             StreamReader reader = new StreamReader(request.Body, Encoding.UTF8);
             string requestBody = await reader.ReadToEndAsync();
-            Company requestData = JsonConvert.DeserializeObject<Company>(requestBody);
+            Customer requestData = JsonConvert.DeserializeObject<Customer>(requestBody);
 
             // name validation
             string name = requestData.Name;
@@ -140,7 +140,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Name = name;
+                customer.Name = name;
             }
 
             // phone validation
@@ -152,7 +152,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Phone = phone;
+                customer.Phone = phone;
             }
 
             // email validation
@@ -164,7 +164,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Email = email;
+                customer.Email = email;
             }
 
             // address validation
@@ -176,7 +176,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Address = address;
+                customer.Address = address;
             }
 
             // city validation
@@ -188,7 +188,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.City = city;
+                customer.City = city;
             }
 
             // country validation
@@ -200,7 +200,7 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Country = country;
+                customer.Country = country;
             }
 
             // zip validation
@@ -212,13 +212,13 @@ namespace Invoicer.Utilities.Validation
             }
             else
             {
-                company.Zip = zip;
+                customer.Zip = zip;
             }
 
             //  is_account_active validation
             bool isAccountActive = requestData.IsActive;
-            company.IsActive = isAccountActive;
-            return new CompaniesServiceRequest(isValid, result, company);
+            customer.IsActive = isAccountActive;
+            return new CustomersServiceRequest(isValid, result, customer);
         }
     }
 }

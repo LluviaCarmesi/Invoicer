@@ -6,6 +6,7 @@
     LinkLabel: "Link",
     PrintLabel: "Print",
     LoadingCompaniesLabel: "Loading Companies",
+    LoadingCustomersLabel: "Loading Customers",
     LoadingTransactionsLabel: "Loading Transactions",
     LoadingTransactionLabel: "Loading Transaction",
     LoadingRemainingBalanceLabel: "Loading Remaining Balance",
@@ -14,24 +15,26 @@
     MakeInvoiceLabel: "Make Invoice",
     MakePaymentLabel: "Make Payment",
     AmountLabel: "Amount",
-    // Company Strings
-    CompanyNameLabel: "Company Name",
-    CompanyPhoneLabel: "Company Phone Number",
-    CompanyEmailLabel: "Company Email Address",
-    CompanyAddressLabel: "Company Address",
-    CompanyCityLabel: "Company City",
-    CompanyCountryLabel: "Company Country",
-    CompanyZipLabel: "Company Zip Code",
-    IsCompanyActiveLabel: "Is this company account active?",
-    SubmitCompanyLabel: "Submit Company Details",
-    CompanyIsSubmittedMessage: "Company is currently processing. Please wait",
-    CompanySubmissionFailedMessage: "Company submission failed. Please look at the error to the right and try submitting it again: ",
-    CompanySubmissionSuccessMessage: "Company was submitted successfully",
+    // Customer Strings
+    AddCustomerLabel: "Add a Customer",
+    EditCustomersLabel: "Edit Customers",
+    CustomerNameLabel: "Customer Name",
+    CustomerPhoneLabel: "Customer Phone Number",
+    CustomerEmailLabel: "Customer Email Address",
+    CustomerAddressLabel: "Customer Address",
+    CustomerCityLabel: "Customer City",
+    CustomerCountryLabel: "Customer Country",
+    CustomerZipLabel: "Customer Zip Code",
+    IsCustomerActiveLabel: "Is this Customer account active?",
+    SubmitCustomerLabel: "Submit Customer Details",
+    CustomerIsSubmittedMessage: "Customer is currently processing. Please wait",
+    CustomerSubmissionFailedMessage: "Customer submission failed. Please look at the error to the right and try submitting it again: ",
+    CustomerSubmissionSuccessMessage: "Customer was submitted successfully",
     // Transaction Strings
     RemoveLabel: "Remove",
     InvoiceLabel: "Invoice",
     PaymentLabel: "Payment",
-    ChooseCompanyLabel: "Choose a Company",
+    ChooseCustomerLabel: "Choose a Customer",
     ChooseTypeLabel: "Choose Type",
     CheckNumberLabel: "Check Number",
     CreatedDateLabel: "Created Date",
@@ -49,6 +52,8 @@
     AddInvoiceDataLabel: "Add Invoice Row",
     TransactionIsPaymentMessage: "The current transaction is a payment",
     // User Strings
+    AddUserLabel: "Add a User",
+    EditUsersLabel: "Edit Users",
     ChooseUserLabel: "Choose User",
     FirstNameLabel: "First Name",
     LastNameLabel: "Last Name",
@@ -65,7 +70,9 @@
     PositiveNumberErrorMessage: " must be a positive number",
     PhoneFormatErrorMessage: " must be a phone number",
     EmailFormatErrorMessage: " must be an email address",
-    DateFormatErrorMessage: " must be a date"
+    DateFormatErrorMessage: " must be a date",
+    NoTransactionsErrorMessage: "No transactions exist for this company",
+    NoCustomersErrorMessage: "There are no customers"
 };
 
 export default ENUSStrings;

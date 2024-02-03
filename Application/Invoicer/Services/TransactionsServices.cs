@@ -64,7 +64,7 @@ namespace Invoicer.Services
             }
             return new OkObjectResult(transaction);
         }
-        internal static IActionResult GetTransactions(string limitString, string offsetString, string companyID)
+        internal static IActionResult GetTransactions(string limitString, string offsetString, string customerID)
         {
             List<Transaction> transactions = new List<Transaction>();
             decimal invoiceTotal = 0;
@@ -75,15 +75,15 @@ namespace Invoicer.Services
                 MySqlCommand mySqlCommand;
                 if (!string.IsNullOrEmpty(offsetString) && !string.IsNullOrEmpty(limitString))
                 {
-                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.TRANSACTIONS_SELECT_COLUMNS} FROM {AppSettings.TRANSACTIONS_TABLE} WHERE company_id = {companyID} {AppSettings.ORDER_BY_ID_DESC} LIMIT {limitString} OFFSET {offsetString};", mySqlConnection);
+                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.TRANSACTIONS_SELECT_COLUMNS} FROM {AppSettings.TRANSACTIONS_TABLE} WHERE customer_id = {customerID} {AppSettings.ORDER_BY_ID_DESC} LIMIT {limitString} OFFSET {offsetString};", mySqlConnection);
                 }
                 else if (!string.IsNullOrEmpty(limitString))
                 {
-                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.TRANSACTIONS_SELECT_COLUMNS} FROM {AppSettings.TRANSACTIONS_TABLE} WHERE company_id = {companyID} {AppSettings.ORDER_BY_ID_DESC} LIMIT {limitString};", mySqlConnection);
+                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.TRANSACTIONS_SELECT_COLUMNS} FROM {AppSettings.TRANSACTIONS_TABLE} WHERE customer_id = {customerID} {AppSettings.ORDER_BY_ID_DESC} LIMIT {limitString};", mySqlConnection);
                 }
                 else
                 {
-                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.TRANSACTIONS_SELECT_COLUMNS} FROM {AppSettings.TRANSACTIONS_TABLE} WHERE company_id = {companyID} {AppSettings.ORDER_BY_ID_DESC};", mySqlConnection);
+                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.TRANSACTIONS_SELECT_COLUMNS} FROM {AppSettings.TRANSACTIONS_TABLE} WHERE customer_id = {customerID} {AppSettings.ORDER_BY_ID_DESC};", mySqlConnection);
                 }
                 MySqlDataReader reader = mySqlCommand.ExecuteReader();
                 while (reader.Read())
@@ -137,11 +137,11 @@ namespace Invoicer.Services
             MySqlCommand mySqlAddInvoiceDataCommand;
             int invoiceDataFails = 0;
             List<InvoiceData> invoiceDataNotAdded = new List<InvoiceData>();
-            mySqlAddTransactionCommand = new MySqlCommand($"INSERT INTO {AppSettings.TRANSACTIONS_TABLE} ({AppSettings.ADD_TRANSACTION_COLUMNS}) VALUES (@type, @company_id, @created_date, @due_date, @payment_date, @check_number, @total)", mySqlConnection);
+            mySqlAddTransactionCommand = new MySqlCommand($"INSERT INTO {AppSettings.TRANSACTIONS_TABLE} ({AppSettings.ADD_TRANSACTION_COLUMNS}) VALUES (@type, @customer_id, @created_date, @due_date, @payment_date, @check_number, @total)", mySqlConnection);
             try
             {
                 mySqlAddTransactionCommand.Parameters.Add("@type", MySqlDbType.VarChar).Value = transaction.Type;
-                mySqlAddTransactionCommand.Parameters.Add("@company_id", MySqlDbType.Int32).Value = transaction.CompanyID;
+                mySqlAddTransactionCommand.Parameters.Add("@customer_id", MySqlDbType.Int32).Value = transaction.CustomerID;
                 mySqlAddTransactionCommand.Parameters.Add("@created_date", MySqlDbType.DateTime).Value = transaction.CreatedDate;
                 mySqlAddTransactionCommand.Parameters.Add("@due_date", MySqlDbType.DateTime).Value = transaction.DueDate;
                 mySqlAddTransactionCommand.Parameters.Add("@payment_date", MySqlDbType.DateTime).Value = transaction.PaymentDate;
@@ -197,11 +197,11 @@ namespace Invoicer.Services
             MySqlCommand mySqlAddInvoiceDataCommand;
             int invoiceDataFails = 0;
             List<InvoiceData> invoiceDataNotAdded = new List<InvoiceData>();
-            mySqlAddTransactionCommand = new MySqlCommand($"UPDATE {AppSettings.TRANSACTIONS_TABLE} SET type = @type, company_id = @company_id, created_date = @created_date, due_date = @due_date, payment_date = @payment_date, check_number = @check_number, total = @total WHERE id = @id", mySqlConnection);
+            mySqlAddTransactionCommand = new MySqlCommand($"UPDATE {AppSettings.TRANSACTIONS_TABLE} SET type = @type, customer_id = @customer_id, created_date = @created_date, due_date = @due_date, payment_date = @payment_date, check_number = @check_number, total = @total WHERE id = @id", mySqlConnection);
             try
             {
                 mySqlAddTransactionCommand.Parameters.Add("@type", MySqlDbType.VarChar).Value = transaction.Type;
-                mySqlAddTransactionCommand.Parameters.Add("@company_id", MySqlDbType.Int32).Value = transaction.CompanyID;
+                mySqlAddTransactionCommand.Parameters.Add("@customer_id", MySqlDbType.Int32).Value = transaction.CustomerID;
                 mySqlAddTransactionCommand.Parameters.Add("@created_date", MySqlDbType.DateTime).Value = transaction.CreatedDate;
                 mySqlAddTransactionCommand.Parameters.Add("@due_date", MySqlDbType.DateTime).Value = transaction.DueDate;
                 mySqlAddTransactionCommand.Parameters.Add("@payment_date", MySqlDbType.DateTime).Value = transaction.PaymentDate;

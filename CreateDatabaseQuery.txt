@@ -26,14 +26,14 @@ CREATE TABLE customers (
 CREATE TABLE transactions (
   id INT NOT NULL AUTO_INCREMENT,
   type ENUM('invoice', 'payment'),
-  company_id INT NOT NULL,
+  customer_id INT NOT NULL,
   created_date DATETIME NOT NULL,
   due_date DATETIME DEFAULT NULL,
   payment_date DATETIME DEFAULT NULL,
   check_number VARCHAR(20) DEFAULT NULL,
   total DECIMAL(7,2) NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT invoices_fk_company_id FOREIGN KEY (company_id) REFERENCES companies(id)
+  CONSTRAINT invoices_fk_company_id FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
 CREATE TABLE invoice_data (
@@ -60,7 +60,7 @@ CREATE TABLE users (
 CREATE TABLE user_access (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT NOT NULL,
-  company_id INT NOT NULL,
+  customer_id INT NOT NULL,
   can_view BOOLEAN DEFAULT FALSE,
   can_create BOOLEAN DEFAULT FALSE,
   can_edit BOOLEAN DEFAULT FALSE,
@@ -68,5 +68,5 @@ CREATE TABLE user_access (
   can_provide_access BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (id),
   CONSTRAINT user_access_fk_user_id FOREIGN KEY (user_id) REFERENCES users(id),
-  CONSTRAINT user_access_fk_company_id FOREIGN KEY (company_id) REFERENCES companies(id)
+  CONSTRAINT user_access_fk_company_id FOREIGN KEY (customer_id) REFERENCES customers(id)
 );

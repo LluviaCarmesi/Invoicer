@@ -5,7 +5,7 @@ import formatDate from "../../utilities/FormatDate";
 import checkQueryParameter from "../../utilities/CheckQueryParameter";
 import loadingMessage from "../../utilities/LoadingMessage";
 import getTransaction from "../../services/GetTransaction";
-import getCompany from "../../services/GetCompany";
+import getCustomer from "../../services/GetCustomer";
 import "./PrintTransaction.css";
 
 export default class PrintTransaction extends Component {
@@ -17,11 +17,11 @@ export default class PrintTransaction extends Component {
             isLoadingTransaction: true,
             isTransactionPayment: false,
             errorTransaction: "",
-            companyName: "",
-            companyAddress: "",
-            companyCity: "",
-            companyCountry: "",
-            companyZip: "",
+            customerName: "",
+            customerAddress: "",
+            customerCity: "",
+            customerCountry: "",
+            customerZip: "",
             createdDate: null,
             paymentDate: null,
             dueDate: null,
@@ -35,27 +35,27 @@ export default class PrintTransaction extends Component {
         };
     }
 
-    async loadCompany(companyID) {
-        let company = {
-            companyName: "",
-            companyAddress: "",
-            companyCity: "",
-            companyCountry: "",
-            companyZip: "",
+    async loadCustomer(customerID) {
+        let customer = {
+            customerName: "",
+            customerAddress: "",
+            customerCity: "",
+            customerCountry: "",
+            customerZip: "",
         };
-        if (!!companyID) {
-            const companyInformation = await getCompany(companyID);
-            if (companyInformation.doesErrorExist) {
-                return company;
+        if (!!customerID) {
+            const customerInformationRequest = await getCustomer(customerID);
+            if (customerInformationRequest.doesErrorExist) {
+                return customer;
             }
-            const companyInformationCompany = companyInformation.company;
-            company.companyName = companyInformationCompany.name;
-            company.companyAddress = companyInformationCompany.address;
-            company.companyCity = companyInformationCompany.city;
-            company.companyCountry = companyInformationCompany.country;
-            company.companyZip = companyInformationCompany.zip;
+            const customerInformation = customerInformation.customer;
+            customer.customerName = customerInformationCustomer.name;
+            customer.customerAddress = customerInformationCustomer.address;
+            customer.customerCity = customerInformationCustomer.city;
+            customer.customerCountry = customerInformationCustomer.country;
+            customer.customerZip = customerInformationCustomer.zip;
         }
-        return company;
+        return customer;
     }
 
     async loadTransaction(transactionID) {
@@ -79,14 +79,14 @@ export default class PrintTransaction extends Component {
             }
             transaction = transactionInformation.transaction;
         }
-        const companyInformation = await this.loadCompany(transaction.companyID);
+        const customerInformation = await this.loadCustomer(transaction.customerID);
         this.setState({
             currentTransactionID: transaction.id,
-            companyName: companyInformation.companyName,
-            companyAddress: companyInformation.companyAddress,
-            companyCity: companyInformation.companyCity,
-            companyCountry: companyInformation.Country,
-            companyZip: companyInformation.Zip,
+            customerName: customerInformation.customerName,
+            customerAddress: customerInformation.customerAddress,
+            customerCity: customerInformation.customerCity,
+            customerCountry: customerInformation.Country,
+            customerZip: customerInformation.Zip,
             createdDate: new Date(transaction.createdDate),
             paymentDate: formatDate(new Date(transaction.paymentDate)),
             dueDate: formatDate(new Date(transaction.dueDate)),
@@ -140,8 +140,8 @@ export default class PrintTransaction extends Component {
                             <span>{ENUSStrings.InvoiceLabel}: </span>
                             <span id="id-number">{this.state.currentTransactionID}</span>
                         </div>
-                        <div className="company-container">
-                            <span>{this.state.companyAddress}</span>
+                        <div className="customer-container">
+                            <span>{this.state.customerAddress}</span>
                         </div>
                         <div className="due-date-container">
                             <span>{ENUSStrings.DueDateLabel}: </span>

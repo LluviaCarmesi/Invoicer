@@ -1,13 +1,14 @@
 ﻿import SETTINGS from "../AppSettings";
+import ENUSStrings from "../strings/ENUSStrings";
 import isStatusGood from "../utilities/IsStatusGood";
 
-export default async function getCompanyTransactions(companyID) {
+export default async function getCustomerTransactions(customerID) {
     let transactions = [];
     let remainingBalance = 0;
     let doesErrorExist = false;
     let errorMessage = "";
-    if (companyID !== 0) {
-        await fetch(`${SETTINGS.COMPANIES_API_URI}/${companyID}${SETTINGS.TRANSACTIONS_URI}`)
+    if (customerID !== 0) {
+        await fetch(`${SETTINGS.CUSTOMERS_API_URI}/${customerID}${SETTINGS.TRANSACTIONS_URI}`)
             .then((response) => {
                 doesErrorExist = !isStatusGood(response.status);
                 return response.json();
@@ -28,7 +29,7 @@ export default async function getCompanyTransactions(companyID) {
             });
     }
     if (transactions.length === 0 && !errorMessage) {
-        errorMessage = "No transactions exist for this company";
+        errorMessage = ENUSStrings.NoTransactionsErrorMessage;
     }
     return { transactions, remainingBalance, doesErrorExist, errorMessage };
 }

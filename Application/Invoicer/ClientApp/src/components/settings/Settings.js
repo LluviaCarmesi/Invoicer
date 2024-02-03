@@ -1,7 +1,8 @@
 ﻿import React, { Component } from 'react';
 import SETTINGS from '../../AppSettings';
+import ENUSStrings from '../../strings/ENUSStrings';
 import checkQueryParameter from '../../utilities/CheckQueryParameter';
-import CompanySettings from './CompanySettings';
+import CustomerSettings from './CustomerSettings';
 import "./Settings.css";
 import UserSettings from './UserSettings';
 export default class Settings extends Component {
@@ -30,27 +31,27 @@ export default class Settings extends Component {
                 <div className="settings-menu">
                     <h3>Companies</h3>
                     <span>
-                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_COMPANY}>Add a Company</a>
+                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_COMPANY}>{ENUSStrings.AddCustomerLabel}</a>
                     </span>
                     <span>
-                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_COMPANIES}>Edit Companies</a>
+                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_CUSTOMERS}>{ENUSStrings.EditCustomersLabel}</a>
                     </span>
                     <h3>Accounts</h3>
                     <span>
-                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_USER}>Add an Account</a>
+                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_USER}>{ENUSStrings.AddUserLabel}</a>
                     </span>
                     <span>
-                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_USERS}>Edit Accounts</a>
+                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_USERS}>{ENUSStrings.EditUsersLabel}</a>
                     </span>
                 </div>
                 <div className="settings-app">
                     {
                         this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_COMPANY &&
-                        <CompanySettings type={SETTINGS.NEW_EDIT_CHOICES.NEW} />
+                        <CustomerSettings type={SETTINGS.NEW_EDIT_CHOICES.NEW} />
                     }
                     {
                         this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_COMPANIES &&
-                        <CompanySettings type={SETTINGS.NEW_EDIT_CHOICES.EDIT} />
+                        <CustomerSettings type={SETTINGS.NEW_EDIT_CHOICES.EDIT} />
                     }
                     {
                         this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_USER &&

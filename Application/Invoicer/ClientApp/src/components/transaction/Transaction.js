@@ -1,14 +1,14 @@
 ﻿import React, { Component } from "react";
 import SETTINGS from "../../AppSettings";
 import "./Transaction.css";
-import getCompanies from "../../services/GetCompanies";
+import getCustomers from "../../services/GetCustomers";
 import checkQueryParameter from "../../utilities/CheckQueryParameter";
 import changeQueryParameter from "../../utilities/ChangeQueryParameter";
 import loadingMessage from "../../utilities/LoadingMessage";
 import ENUSStrings from "../../strings/ENUSStrings";
 import transactionFormValidation from "../../utilities/validation/TransactionFormValidation";
 import formatDate from "../../utilities/FormatDate";
-import createCompanyOptions from "../../utilities/CreateHTMLOptions";
+import createHTMLOptions from "../../utilities/CreateHTMLOptions";
 import isValueNumber from "../../utilities/validation/IsValueNumber";
 import addTransaction from "../../services/AddTransaction";
 import editTransaction from "../../services/EditTransaction";
@@ -20,15 +20,15 @@ export default class Transaction extends Component {
         const todaysDate = formatDate(new Date());
         this.state = {
             currentType: "invoice",
-            companies: [],
-            currentCompanyID: 0,
+            customers: [],
+            currentCustomerID: 0,
             currentTransactionID: 0,
-            loadingMessageCompanies: ENUSStrings.LoadingCompaniesLabel,
+            loadingMessageCustomers: ENUSStrings.LoadingCustomersLabel,
             loadingMessageTransaction: ENUSStrings.LoadingTransactionLabel,
-            isLoadingCompanies: true,
+            isLoadingCustomers: true,
             isLoadingTransaction: true,
             errorTransaction: "",
-            errorCompanies: "",
+            errorCustomers: "",
             createdDate: null,
             paymentDate: todaysDate,
             dueDate: todaysDate,
@@ -78,49 +78,49 @@ export default class Transaction extends Component {
         });
     }
 
-    async loadCompanies(transactionID, companyID) {
-        const companiesInformation = await getCompanies();
-        const filteredCompaniesByID = companiesInformation.companies.filter((company) => company.id === companyID);
-        let currentCompany = 0;
-        if (companiesInformation.doesErrorExist) {
+    async loadCustomers(transactionID, customerID) {
+        const customersInformation = await getCustomers();
+        const filteredCustomersByID = customersInformation.customers.filter((customer) => customer.id === customerID);
+        let currentCustomer = 0;
+        if (customersInformation.doesErrorExist) {
             this.setState({
-                errorCompanies: companiesInformation.errorMessage,
-                isLoadingCompanies: false,
+                errorCustomers: customersInformation.errorMessage,
+                isLoadingCustomers: false,
                 isLoadingTransaction: false
             });
             return;
         }
-        if (!!companyID && filteredCompaniesByID.length > 0) {
-            currentCompany = filteredCompaniesByID[0];
+        if (!!customerID && filteredCustomersByID.length > 0) {
+            currentCustomer = filteredCustomersByID[0];
         }
         else {
-            currentCompany = companiesInformation.companies.length > 0 ? companiesInformation.companies[0] : { id: 0, name: "" };
+            currentCustomer = customersInformation.customers.length > 0 ? customersInformation.customers[0] : { id: 0, name: "" };
         }
         if (!!transactionID) {
             this.loadTransaction(transactionID);
         }
         this.setState({
-            currentCompanyID: currentCompany.id,
-            companies: companiesInformation.companies,
-            isLoadingCompanies: false,
+            currentCustomerID: currentCustomer.id,
+            customer: customerInformation.customers,
+            isLoadingCustomers: false,
             isLoadingTransaction: !!transactionID ? true : false
         });
     }
 
     componentDidMount() {
-        loadingMessage("loading-companies-container", this.state.loadingMessageCompanies, this.state.loadingMessageCompanies);
+        loadingMessage("loading-customers-container", this.state.loadingMessageCustomers, this.state.loadingMessageCustomers);
         loadingMessage("loading-transaction-container", this.state.loadingMessageTransaction, this.state.loadingMessageTransaction);
         const idQueryParamValue = checkQueryParameter(SETTINGS.ID_QUERY_PARAMETER);
         const typeQueryParamValue = checkQueryParameter(SETTINGS.TYPE_QUERY_PARAMETER);
-        const companyIDQueryParamValue = checkQueryParameter(SETTINGS.COMPANY_ID_QUERY_PARAMETER);
+        const customerIDQueryParamValue = checkQueryParameter(SETTINGS.CUSTOMER_ID_QUERY_PARAMETER);
         const type = typeQueryParamValue === "payment" ? typeQueryParamValue : "invoice";
         const transactionID = isNaN(idQueryParamValue) ? 0 : parseInt(idQueryParamValue);
-        const companyID = isNaN(companyIDQueryParamValue) ? 0 : parseInt(companyIDQueryParamValue);
-        this.loadCompanies(transactionID, companyID);
+        const customerID = isNaN(customerIDQueryParamValue) ? 0 : parseInt(customerIDQueryParamValue);
+        this.loadCustomers(transactionID, customerID);
 
         this.setState({
             currentType: type,
-            currentCompanyID: companyID,
+            currentCustomerID: customerID,
         });
     }
 
@@ -130,7 +130,7 @@ export default class Transaction extends Component {
     }
     render() {
         const submissionItem = {
-            companyID: this.state.currentCompanyID,
+            customerID: this.state.currentCustomerID,
             type: this.state.currentType,
             createdDate: !!this.state.createdDate ? this.state.createdDate : new Date(),
             dueDate: this.state.dueDate,
@@ -140,11 +140,11 @@ export default class Transaction extends Component {
             total: this.state.total,
         };
 
-        const changeCompany = (value) => {
+        const changeCustomer = (value) => {
             this.setState({
-                currentCompanyID: value
+                currentCustomerID: value
             });
-            changeQueryParameter(SETTINGS.COMPANY_ID_QUERY_PARAMETER, value);
+            changeQueryParameter(SETTINGS.CUSTOMER_ID_QUERY_PARAMETER, value);
         };
 
         const calculateTotal = (currentInvoiceData) => {
@@ -366,7 +366,7 @@ export default class Transaction extends Component {
                 isSuccessFailureMessageClosed: true
             });
             if (!this.state.currentTransactionID) {
-                const transactionAddition = await addTransaction(currentInformation, this.state.currentCompanyID);
+                const transactionAddition = await addTransaction(currentInformation, this.state.currentCustomerID);
                 isSuccessful = !transactionAddition.doesErrorExist;
                 errorMessage = transactionAddition.errorMessage;
                 if (isSuccessful) {
@@ -399,11 +399,11 @@ export default class Transaction extends Component {
         return (
             <div className="transaction-container">
                 <div>
-                    <div id="loading-companies-container" hidden={!this.state.isLoadingCompanies}>
-                        <span>{this.state.loadingMessageCompanies}</span>
+                    <div id="loading-customers-container" hidden={!this.state.isLoadingCustomers}>
+                        <span>{this.state.loadingMessageCustomers}</span>
                     </div>
-                    <div hidden={!this.state.errorCompanies}>
-                        <span>{this.state.errorCompanies}</span>
+                    <div hidden={!this.state.errorCustomers}>
+                        <span>{this.state.errorCustomers}</span>
                     </div>
                     <div className="submission-loading-overlay" hidden={!this.state.isSubmissionButtonClicked}>
                         <span>{ENUSStrings.TransactionIsSubmittedMessage}</span>
@@ -418,23 +418,23 @@ export default class Transaction extends Component {
                         </div>
                         <button className="remove-button" onClick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
                     </div>
-                    {!this.state.errorCompanies && !this.state.isLoadingCompanies &&
-                        <div id="transaction-companies-container" className="field-whole-container">
+                    {!this.state.errorCustomers && !this.state.isLoadingCustomers &&
+                        <div id="transaction-customers-container" className="field-whole-container">
                             <div className="field-label-input-container">
-                                <span className="field-label">{ENUSStrings.ChooseCompanyLabel}</span>
+                                <span className="field-label">{ENUSStrings.ChooseCustomerLabel}</span>
                                 <select
-                                    id="company-dropdown"
-                                    onChange={(control) => changeCompany(control.target.value)}
-                                    title={ENUSStrings.ChooseCompanyLabel}
-                                    value={this.state.currentCompanyID}
+                                    id="customer-dropdown"
+                                    onChange={(control) => changeCustomer(control.target.value)}
+                                    title={ENUSStrings.ChooseCustomerLabel}
+                                    value={this.state.currentCustomerID}
                                 >
-                                    {createCompanyOptions(this.state.companies)}
+                                    {createHTMLOptions(this.state.customers)}
                                 </select>
                             </div>
                         </div>
                     }
                 </div>
-                <div className="info-container" hidden={!!this.state.errorCompanies}>
+                <div className="info-container" hidden={!!this.state.errorCustomers}>
                     <div id="loading-transaction-container" hidden={!this.state.isLoadingTransaction}>
                         <span>{this.state.loadingMessageTransaction}</span>
                     </div>

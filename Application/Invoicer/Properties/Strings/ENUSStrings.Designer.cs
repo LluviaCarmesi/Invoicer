@@ -151,6 +151,33 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The customer was successfully added.
+        /// </summary>
+        public static string CustomerAddedSuccessMessage {
+            get {
+                return ResourceManager.GetString("CustomerAddedSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The customer was successfully edited.
+        /// </summary>
+        public static string CustomerEditedSuccessMessage {
+            get {
+                return ResourceManager.GetString("CustomerEditedSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to customerID.
+        /// </summary>
+        public static string CustomerIDLabel {
+            get {
+                return ResourceManager.GetString("CustomerIDLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dueDate.
         /// </summary>
         public static string DueDatePropertyLabel {

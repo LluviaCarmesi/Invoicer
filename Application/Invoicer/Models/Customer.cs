@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Invoicer.Models
 {
-    public class Company
+    public class Customer
     {
         private int id = 0;
         private string name = string.Empty;
@@ -18,11 +18,11 @@ namespace Invoicer.Models
         private string zip = string.Empty;
         private bool isActive = true;
 
-        public Company()
+        public Customer()
         {
 
         }
-        public Company(string name, string phone, string email, string address, string city, string country, string zip)
+        public Customer(string name, string phone, string email, string address, string city, string country, string zip)
         {
             this.name = name;
             this.phone = phone;
@@ -32,7 +32,7 @@ namespace Invoicer.Models
             this.country = country;
             this.zip = zip;
         }
-        public Company(int id, string name, string phone, string email, string address, string city, string country, string zip)
+        public Customer(int id, string name, string phone, string email, string address, string city, string country, string zip)
         {
             this.id = id;
             this.name = name;

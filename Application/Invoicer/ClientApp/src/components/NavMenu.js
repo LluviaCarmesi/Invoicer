@@ -20,6 +20,10 @@ export class NavMenu extends Component {
         });
     }
 
+    componentDidMount() {
+
+    } 
+
     render() {
         return (
             <div className="links-header">

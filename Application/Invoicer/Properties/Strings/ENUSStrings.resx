@@ -147,6 +147,15 @@
   <data name="CreatedDatePropertyLabel" xml:space="preserve">
     <value>createdDate</value>
   </data>
+  <data name="CustomerAddedSuccessMessage" xml:space="preserve">
+    <value>The customer was successfully added</value>
+  </data>
+  <data name="CustomerEditedSuccessMessage" xml:space="preserve">
+    <value>The customer was successfully edited</value>
+  </data>
+  <data name="CustomerIDLabel" xml:space="preserve">
+    <value>customerID</value>
+  </data>
   <data name="DueDatePropertyLabel" xml:space="preserve">
     <value>dueDate</value>
   </data>

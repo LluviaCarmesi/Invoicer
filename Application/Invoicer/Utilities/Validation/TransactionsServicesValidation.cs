@@ -27,21 +27,21 @@ namespace Invoicer.Utilities.Validation
             string requestBody = await reader.ReadToEndAsync();
             Transaction requestData = JsonConvert.DeserializeObject<Transaction>(requestBody);
 
-            // company validation
-            int companyID = requestData.CompanyID;
-            if (companyID == int.MinValue)
+            // Customer validation
+            int customerID = requestData.CustomerID;
+            if (customerID == int.MinValue)
             {
                 isValid = false;
-                result = ENUSStrings.CompanyIDLabel + ENUSStrings.BlankError;
+                result = ENUSStrings.CustomerIDLabel + ENUSStrings.BlankError;
             }
-            else if (companyID == 0)
+            else if (customerID == 0)
             {
                 isValid = false;
-                result = ENUSStrings.CompanyIDLabel + ENUSStrings.ZeroError;
+                result = ENUSStrings.CustomerIDLabel + ENUSStrings.ZeroError;
             }
             else
             {
-                transaction.CompanyID = companyID;
+                transaction.CustomerID = customerID;
             }
 
             // type validation
@@ -138,10 +138,10 @@ namespace Invoicer.Utilities.Validation
             return new TransactionsServiceRequest(isValid, result, transaction);
         }
 
-        public static async Task<TransactionsServiceRequest> CheckTransactionModelWithCompanyID(HttpRequest request, int id)
+        public static async Task<TransactionsServiceRequest> CheckTransactionModelWithCustomerID(HttpRequest request, int id)
         {
             Transaction transaction = new Transaction();
-            transaction.CompanyID = id;
+            transaction.CustomerID = id;
             bool isValid = true;
             string result = string.Empty;
             if (request.Body == null)
@@ -283,32 +283,6 @@ namespace Invoicer.Utilities.Validation
             {
                 return false;
             }
-        }
-        public static CommonServiceRequest CheckLimitandOffsetParameters(HttpRequest request)
-        {
-            bool isValid = true;
-            string result = string.Empty;
-            if (request.Query[AppSettings.LIMIT_QUERY_PARAMETER] == "" && request.Query.ContainsKey(AppSettings.LIMIT_QUERY_PARAMETER))
-            {
-                isValid = false;
-                result = ENUSStrings.LimitLabel + ENUSStrings.BlankError;
-            }
-            else if (!int.TryParse(request.Query[AppSettings.LIMIT_QUERY_PARAMETER], out int limit) && request.Query.ContainsKey(AppSettings.LIMIT_QUERY_PARAMETER))
-            {
-                isValid = false;
-                result = ENUSStrings.LimitLabel + ENUSStrings.NumberError;
-            }
-            else if (request.Query[AppSettings.OFFSET_QUERY_PARAMETER] == "" && request.Query.ContainsKey(AppSettings.OFFSET_QUERY_PARAMETER) && request.Query.ContainsKey(AppSettings.LIMIT_QUERY_PARAMETER))
-            {
-                isValid = false;
-                result = ENUSStrings.OffsetLabel + ENUSStrings.BlankError;
-            }
-            else if (!int.TryParse(request.Query[AppSettings.OFFSET_QUERY_PARAMETER], out int offset) && request.Query.ContainsKey(AppSettings.OFFSET_QUERY_PARAMETER) && request.Query.ContainsKey(AppSettings.LIMIT_QUERY_PARAMETER))
-            {
-                isValid = false;
-                result = ENUSStrings.OffsetLabel + ENUSStrings.NumberError;
-            }
-            return new CommonServiceRequest(isValid, result);
         }
     }
 }

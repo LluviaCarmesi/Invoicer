@@ -1,10 +1,10 @@
 ﻿import SETTINGS from "../AppSettings";
 import isStatusGood from "../utilities/IsStatusGood";
 
-export default async function editCompany(item, companyID) {
+export default async function editCustomer(item, customerID) {
     let doesErrorExist = false;
     let errorMessage = "";
-    await fetch(`${SETTINGS.COMPANIES_API_URI}${SETTINGS.EDIT_COMPANY_URI}/${companyID}`, {
+    await fetch(`${SETTINGS.CUSTOMERS_API_URI}${SETTINGS.EDIT_CUSTOMER_URI}/${customerID}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
