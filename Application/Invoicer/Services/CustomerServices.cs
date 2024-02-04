@@ -46,7 +46,7 @@ namespace Invoicer.Services
         }
         internal static IActionResult GetCustomers(string limitNumber, string offsetNumber)
         {
-            List<Customer> customersList = new List<Customer>();
+            List<Customer> customers = new List<Customer>();
             try
             {
                 mySqlConnection.Open();
@@ -66,7 +66,7 @@ namespace Invoicer.Services
                 MySqlDataReader reader = mySqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    customersList.Add
+                    customers.Add
                         (
                             new Customer
                                 (
@@ -90,7 +90,7 @@ namespace Invoicer.Services
             {
                 mySqlConnection.Close();
             }
-            return new OkObjectResult(customersList);
+            return new OkObjectResult(customers);
         }
 
         // Posts
