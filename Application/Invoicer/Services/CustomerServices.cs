@@ -24,13 +24,14 @@ namespace Invoicer.Services
                     customer = new Customer
                         (
                             reader.GetInt32(0),
-                            reader.GetString(1),
+                            reader.GetInt32(1),
                             reader.GetString(2),
                             reader.GetString(3),
                             reader.GetString(4),
                             reader.GetString(5),
                             reader.GetString(6),
-                            reader.GetString(7)
+                            reader.GetString(7),
+                            reader.GetString(8)
                         );
                 }
             }
@@ -71,13 +72,14 @@ namespace Invoicer.Services
                             new Customer
                                 (
                                     reader.GetInt32(0),
-                                    reader.GetString(1),
+                                    reader.GetInt32(1),
                                     reader.GetString(2),
                                     reader.GetString(3),
                                     reader.GetString(4),
                                     reader.GetString(5),
                                     reader.GetString(6),
-                                    reader.GetString(7)
+                                    reader.GetString(7),
+                                    reader.GetString(8)
                                 )
                         );
                 }
@@ -100,9 +102,10 @@ namespace Invoicer.Services
             string result = string.Empty;
             mySqlConnection.Open();
             MySqlCommand mySqlCommand;
-            mySqlCommand = new MySqlCommand($"INSERT INTO {AppSettings.CUSTOMERS_TABLE} ({AppSettings.ADD_CUSTOMER_COLUMNS}) VALUES (@name, @phone, @email, @address, @city, @country, @zip, @is_account_active)", mySqlConnection);
+            mySqlCommand = new MySqlCommand($"INSERT INTO {AppSettings.CUSTOMERS_TABLE} ({AppSettings.ADD_CUSTOMER_COLUMNS}) VALUES (@companyID, @name, @phone, @email, @address, @city, @country, @zip, @is_account_active)", mySqlConnection);
             try
             {
+                mySqlCommand.Parameters.Add("@companyID", MySqlDbType.Int32).Value = customer.CompanyID;
                 mySqlCommand.Parameters.Add("@name", MySqlDbType.VarChar).Value = customer.Name;
                 mySqlCommand.Parameters.Add("@phone", MySqlDbType.VarChar).Value = customer.Phone;
                 mySqlCommand.Parameters.Add("@email", MySqlDbType.VarChar).Value = customer.Email;
@@ -134,10 +137,11 @@ namespace Invoicer.Services
             string result = string.Empty;
             mySqlConnection.Open();
             MySqlCommand mySqlCommand;
-            mySqlCommand = new MySqlCommand($"UPDATE {AppSettings.CUSTOMERS_TABLE} SET name = @name, phone = @phone, email = @email, address = @address, city = @city, country = @country, zip = @zip, is_account_active = @is_account_active WHERE id = @id", mySqlConnection);
+            mySqlCommand = new MySqlCommand($"UPDATE {AppSettings.CUSTOMERS_TABLE} SET company_id = @companyID, name = @name, phone = @phone, email = @email, address = @address, city = @city, country = @country, zip = @zip, is_account_active = @is_account_active WHERE id = @id", mySqlConnection);
             try
             {
                 mySqlCommand.Parameters.Add("@id", MySqlDbType.Int32).Value = customer.Id;
+                mySqlCommand.Parameters.Add("@companyID", MySqlDbType.Int32).Value = customer.CompanyID;
                 mySqlCommand.Parameters.Add("@name", MySqlDbType.VarChar).Value = customer.Name;
                 mySqlCommand.Parameters.Add("@phone", MySqlDbType.VarChar).Value = customer.Phone;
                 mySqlCommand.Parameters.Add("@email", MySqlDbType.VarChar).Value = customer.Email;

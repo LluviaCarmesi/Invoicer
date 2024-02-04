@@ -9,6 +9,7 @@ namespace Invoicer.Models
     public class Customer
     {
         private int id = 0;
+        private int companyID = 0;
         private string name = string.Empty;
         private string phone = string.Empty;
         private string email = string.Empty;
@@ -22,8 +23,9 @@ namespace Invoicer.Models
         {
 
         }
-        public Customer(string name, string phone, string email, string address, string city, string country, string zip)
+        public Customer(int companyID, string name, string phone, string email, string address, string city, string country, string zip)
         {
+            this.companyID = companyID;
             this.name = name;
             this.phone = phone;
             this.email = email;
@@ -32,9 +34,10 @@ namespace Invoicer.Models
             this.country = country;
             this.zip = zip;
         }
-        public Customer(int id, string name, string phone, string email, string address, string city, string country, string zip)
+        public Customer(int id, int companyID, string name, string phone, string email, string address, string city, string country, string zip)
         {
             this.id = id;
+            this.companyID = companyID;
             this.name = name;
             this.phone = phone;
             this.email = email;
@@ -52,6 +55,17 @@ namespace Invoicer.Models
             set
             {
                 id = value;
+            }
+        }
+        public int CompanyID
+        {
+            get
+            {
+                return companyID;
+            }
+            set
+            {
+                companyID = value;
             }
         }
         public string Name

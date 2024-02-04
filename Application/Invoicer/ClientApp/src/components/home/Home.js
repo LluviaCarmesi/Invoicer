@@ -154,72 +154,86 @@ export class Home extends Component {
         }
 
         const showRemainingBalance = () => {
-                return `$${this.state.remainingBalance}`;
+            return `$${this.state.remainingBalance}`;
         }
 
         return (
-            <div className="customer-container">
-                <div className="customer-top-container">
-                    <div className="customer-dropdown-container">
-                        <div id="loading-customers-container" hidden={!this.state.isLoadingCustomers}>
-                            <span>{this.state.loadingMessageCustomers}</span>
-                        </div>
-                        <div hidden={!this.state.errorCustomers}>
-                            <span>{this.state.errorCustomers}</span>
-                        </div>
-                        {!this.state.errorCustomers && !this.state.isLoadingCustomers &&
-                            <React.Fragment>
-                                <span>{ENUSStrings.ChooseCustomerLabel}</span>
-                                <select
-                                    id="customer-dropdown"
-                                    onChange={(control) => changeCustomer(control.target.value)}
-                                    title={ENUSStrings.ChooseCustomerLabel}
-                                >
-                                    {showCustomerOptions()}
-                                </select>
-                            </React.Fragment>
-                        }
+            <div>
+                <div className="company-container">
+                    <div className="company-dropdown-container">
+                        <span>{ENUSStrings.ChooseCustomerLabel}</span>
+                        <select
+                            id="customer-dropdown"
+                            onChange={(control) => changeCustomer(control.target.value)}
+                            title={ENUSStrings.ChooseCustomerLabel}
+                        >
+                            {showCustomerOptions()}
+                        </select>
                     </div>
-                    <div className="customer-info-container" hidden={!!this.state.errorCustomers}>
-                        <div className="remaining-balance-container">
-                            <div id="loading-remaining-balance-container" hidden={!this.state.isLoadingTransactions}>
-                                <span>{this.state.loadingMessageRemainingBalance}</span>
+                </div>
+                <div className="customer-container">
+                    <div className="customer-top-container">
+                        <div className="customer-dropdown-container">
+                            <div id="loading-customers-container" hidden={!this.state.isLoadingCustomers}>
+                                <span>{this.state.loadingMessageCustomers}</span>
                             </div>
-                            <div hidden={!this.state.errorRemainingBalance}>
-                                <span>{this.state.errorRemainingBalance}</span>
+                            <div hidden={!this.state.errorCustomers}>
+                                <span>{this.state.errorCustomers}</span>
                             </div>
-                            {!this.state.errorRemainingBalance && !this.state.isLoadingTransactions &&
+                            {!this.state.errorCustomers && !this.state.isLoadingCustomers &&
                                 <React.Fragment>
-                                    <span>{ENUSStrings.RemainingTransactonLabel}</span>
-                                    <span className="remaining-balance">{showRemainingBalance()}</span>
+                                    <span>{ENUSStrings.ChooseCustomerLabel}</span>
+                                    <select
+                                        id="customer-dropdown"
+                                        onChange={(control) => changeCustomer(control.target.value)}
+                                        title={ENUSStrings.ChooseCustomerLabel}
+                                    >
+                                        {showCustomerOptions()}
+                                    </select>
                                 </React.Fragment>
                             }
                         </div>
-                    </div>
-                </div>
-                <div className="transactions-container" hidden={!!this.state.errorCustomers}>
-                    <div className="transactions-actions-container">
-                        <div className="transactions-actions" hidden={this.state.isLoadingCustomers}>
-                            <span>
-                                <a href={`/transaction?type=invoice&customerID=${this.state.currentCustomerID}`}>{ENUSStrings.MakeInvoiceLabel}</a>
-                            </span>
-                            <span>
-                                <a href={`/transaction?type=payment&customerID=${this.state.currentCustomerID}`}>{ENUSStrings.MakePaymentLabel}</a>
-                            </span>
+                        <div className="customer-info-container" hidden={!!this.state.errorCustomers}>
+                            <div className="remaining-balance-container">
+                                <div id="loading-remaining-balance-container" hidden={!this.state.isLoadingTransactions}>
+                                    <span>{this.state.loadingMessageRemainingBalance}</span>
+                                </div>
+                                <div hidden={!this.state.errorRemainingBalance}>
+                                    <span>{this.state.errorRemainingBalance}</span>
+                                </div>
+                                {!this.state.errorRemainingBalance && !this.state.isLoadingTransactions &&
+                                    <React.Fragment>
+                                        <span>{ENUSStrings.RemainingTransactonLabel}</span>
+                                        <span className="remaining-balance">{showRemainingBalance()}</span>
+                                    </React.Fragment>
+                                }
+                            </div>
                         </div>
                     </div>
-                    <div className="transactions-info-container">
-                        <div id="loading-transactions-container" hidden={!this.state.isLoadingTransactions}>
-                            <span>{this.state.loadingMessageTransactions}</span>
+                    <div className="transactions-container" hidden={!!this.state.errorCustomers}>
+                        <div className="transactions-actions-container">
+                            <div className="transactions-actions" hidden={this.state.isLoadingCustomers}>
+                                <span>
+                                    <a href={`/transaction?type=invoice&customerID=${this.state.currentCustomerID}`}>{ENUSStrings.MakeInvoiceLabel}</a>
+                                </span>
+                                <span>
+                                    <a href={`/transaction?type=payment&customerID=${this.state.currentCustomerID}`}>{ENUSStrings.MakePaymentLabel}</a>
+                                </span>
+                            </div>
                         </div>
-                        <div hidden={!this.state.errorTransactions}>
-                            <span>{this.state.errorTransactions}</span>
+                        <div className="transactions-info-container">
+                            <div id="loading-transactions-container" hidden={!this.state.isLoadingTransactions}>
+                                <span>{this.state.loadingMessageTransactions}</span>
+                            </div>
+                            <div hidden={!this.state.errorTransactions}>
+                                <span>{this.state.errorTransactions}</span>
+                            </div>
+                            {!this.state.errorTransactions && !this.state.isLoadingTransactions &&
+                                <table className="transactions-table">
+                                    {showCustomerTransactions()}
+                                </table>
+                            }
                         </div>
-                        {!this.state.errorTransactions && !this.state.isLoadingTransactions &&
-                            <table className="transactions-table">
-                                {showCustomerTransactions()}
-                            </table>
-                        }
                     </div>
                 </div>
             </div>

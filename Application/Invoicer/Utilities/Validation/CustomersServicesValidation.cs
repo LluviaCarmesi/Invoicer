@@ -23,6 +23,23 @@ namespace Invoicer.Utilities.Validation
             StreamReader reader = new StreamReader(request.Body, Encoding.UTF8);
             string requestBody = await reader.ReadToEndAsync();
             Customer requestData = JsonConvert.DeserializeObject<Customer>(requestBody);
+            
+            // companyID validation
+            int companyID = requestData.CompanyID;
+            if (companyID == int.MinValue)
+            {
+                isValid = false;
+                result = ENUSStrings.CompanyIDLabel + ENUSStrings.BlankError;
+            }
+            else if (companyID == 0)
+            {
+                isValid = false;
+                result = ENUSStrings.CompanyIDLabel + ENUSStrings.ZeroError;
+            }
+            else
+            {
+                customer.CompanyID = companyID;
+            }
 
             // name validation
             string name = requestData.Name;
@@ -130,6 +147,23 @@ namespace Invoicer.Utilities.Validation
             StreamReader reader = new StreamReader(request.Body, Encoding.UTF8);
             string requestBody = await reader.ReadToEndAsync();
             Customer requestData = JsonConvert.DeserializeObject<Customer>(requestBody);
+
+            // companyID validation
+            int companyID = requestData.CompanyID;
+            if (companyID == int.MinValue)
+            {
+                isValid = false;
+                result = ENUSStrings.CompanyIDLabel + ENUSStrings.BlankError;
+            }
+            else if (companyID == 0)
+            {
+                isValid = false;
+                result = ENUSStrings.CompanyIDLabel + ENUSStrings.ZeroError;
+            }
+            else
+            {
+                customer.CompanyID = companyID;
+            }
 
             // name validation
             string name = requestData.Name;

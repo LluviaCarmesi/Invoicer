@@ -1,25 +1,23 @@
-﻿using Invoicer.Models;
-using Invoicer.Models.ServiceRequests;
+﻿using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
-using System.Threading.Tasks.Dataflow;
 
 namespace Invoicer.Utilities.Validation
 {
     public class CommonValidation
     {
-        public static CommonServiceRequest CheckCustomerIDParameter(string customerID)
+        public static CommonServiceRequest CheckIDParameter(string id, string label)
         {
             bool isValid = true;
             string result = string.Empty;
-            if (string.IsNullOrEmpty(customerID))
+            if (string.IsNullOrEmpty(id))
             {
                 isValid = false;
-                result = ENUSStrings.ForgotError + ENUSStrings.CustomerIDLabel;
+                result = ENUSStrings.ForgotError + label;
             }
-            else if (!int.TryParse(customerID, out int id))
+            else if (!int.TryParse(id, out int idInt))
             {
                 isValid = false;
-                result = ENUSStrings.CustomerIDLabel + ENUSStrings.NumberError;
+                result = label + ENUSStrings.NumberError;
             }
             return new CommonServiceRequest(isValid, result);
         }

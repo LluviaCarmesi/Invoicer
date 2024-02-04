@@ -2,6 +2,7 @@
 using Invoicer.Services;
 using Invoicer.Utilities.Validation;
 using Microsoft.AspNetCore.Mvc;
+using Invoicer.Properties.Strings;
 
 namespace Invoicer.Controllers
 {
@@ -19,7 +20,7 @@ namespace Invoicer.Controllers
         [HttpGet("{customerID}")]
         public IActionResult GetCustomer(string customerID)
         {
-            CommonServiceRequest customerIDValidation = CommonValidation.CheckCustomerIDParameter(customerID);
+            CommonServiceRequest customerIDValidation = CommonValidation.CheckIDParameter(customerID, ENUSStrings.CustomerIDLabel);
             if (!customerIDValidation.IsSuccessful)
             {
                 return BadRequest(new { response = customerIDValidation.Result });
@@ -31,7 +32,7 @@ namespace Invoicer.Controllers
         [HttpGet("{customerID}/transactions")]
         public IActionResult GetCustomerTransactions(string customerID)
         {
-            CommonServiceRequest customerIDValidation = CommonValidation.CheckCustomerIDParameter(customerID);
+            CommonServiceRequest customerIDValidation = CommonValidation.CheckIDParameter(customerID, ENUSStrings.CustomerIDLabel);
             CommonServiceRequest limitandOffsetValidation = CommonValidation.CheckLimitandOffsetParameters(Request);
             if (!customerIDValidation.IsSuccessful)
             {
@@ -65,7 +66,7 @@ namespace Invoicer.Controllers
         [HttpPost("{customerID}/add-transaction")]
         public IActionResult AddTransaction(string customerID)
         {
-            CommonServiceRequest customerIDValidation = CommonValidation.CheckCustomerIDParameter(customerID);
+            CommonServiceRequest customerIDValidation = CommonValidation.CheckIDParameter(customerID, ENUSStrings.CustomerIDLabel);
             if (!customerIDValidation.IsSuccessful)
             {
                 return BadRequest(new { response = customerIDValidation.Result });
@@ -89,7 +90,7 @@ namespace Invoicer.Controllers
         [HttpPut("edit-customer/{customerID}")]
         public IActionResult EditCustomer(string customerID)
         {
-            CommonServiceRequest customerIDValidation = CommonValidation.CheckCustomerIDParameter(customerID);
+            CommonServiceRequest customerIDValidation = CommonValidation.CheckIDParameter(customerID, ENUSStrings.CustomerIDLabel);
             if (!customerIDValidation.IsSuccessful)
             {
                 return BadRequest(new { response = customerIDValidation.Result });
