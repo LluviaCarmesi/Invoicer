@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wJqpZj+Ol+Q3gaIcb2jYOBdDNvIpsTOY+Tjzy8BeUsrLXLwQCMIWAtRL5ljkBxNx1cJ/9dhUHAEB5mY9cTNSVA==",
+  "dgSpecHash": "dDVITebYGfTAud71ErdQnY4xO3f53b78eECcoO8aLvnPJXsm6OBF0G2C43UWTV3cRZogmNbCX/fQowXtrI6IgA==",
   "success": true,
   "projectFilePath": "C:\\Users\\meradil\\Documents\\Development\\Personal\\Invoicer\\Application\\Invoicer\\Invoicer.csproj",
   "expectedPackageFiles": [
@@ -35,11 +35,7 @@
     "C:\\Users\\meradil\\.nuget\\packages\\system.text.json\\7.0.1\\system.text.json.7.0.1.nupkg.sha512",
     "C:\\Users\\meradil\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\meradil\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\meradil\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
-    "C:\\Users\\meradil\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.26\\microsoft.windowsdesktop.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\meradil\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.26\\microsoft.netcore.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\meradil\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.26\\microsoft.aspnetcore.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\meradil\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.26\\microsoft.netcore.app.host.win-x64.6.0.26.nupkg.sha512"
+    "C:\\Users\\meradil\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

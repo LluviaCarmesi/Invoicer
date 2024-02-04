@@ -77,7 +77,7 @@ export default class CustomerSettings extends Component {
         }
         this.setState({
             currentCustomerID: currentCustomerInformation.id,
-            companies: companiesInformation.companies,
+            customer: customersInformation.customers,
             name: currentCustomerInformation.name,
             phone: currentCustomerInformation.phone,
             email: currentCustomerInformation.email,
@@ -86,7 +86,7 @@ export default class CustomerSettings extends Component {
             country: currentCustomerInformation.country,
             zip: currentCustomerInformation.zip,
             isActive: currentCustomerInformation.isActive,
-            isLoadingCompanies: false
+            isLoadingCustomers: false
         });
     }
 
@@ -96,12 +96,12 @@ export default class CustomerSettings extends Component {
             currentType: type
         });
         if (type === SETTINGS.NEW_EDIT_CHOICES.EDIT) {
-            loadingMessage("loading-companies-container", this.state.loadingMessageCompanies, this.state.loadingMessageCompanies);
-            this.loadCompanies();
+            loadingMessage("loading-customers-container", this.state.loadingMessageCustomers, this.state.loadingMessageCustomers);
+            this.loadCustomers();
         }
         else {
             this.setState({
-                isLoadingCompanies: false,
+                isLoadingCustomers: false,
             });
         }
     }
@@ -124,7 +124,7 @@ export default class CustomerSettings extends Component {
 
         const changeCustomer = (value) => {
             const valueToInt = parseInt(value);
-            const customer = this.state.companies.filter((customer) => customer.id === valueToInt)[0];
+            const customer = this.state.customers.filter((customer) => customer.id === valueToInt)[0];
             this.setState({
                 currentCustomerID: valueToInt,
                 name: customer.name,
@@ -230,11 +230,11 @@ export default class CustomerSettings extends Component {
         return (
             <div className="customer-settings-container">
                 <React.Fragment>
-                    <div id="loading-companies-container" hidden={!this.state.isLoadingCompanies}>
-                        <span>{this.state.loadingMessageCompanies}</span>
+                    <div id="loading-customers-container" hidden={!this.state.isLoadingCustomers}>
+                        <span>{this.state.loadingMessageCustomers}</span>
                     </div>
-                    <div hidden={!this.state.errorCompanies}>
-                        <span>{this.state.errorCompanies}</span>
+                    <div hidden={!this.state.errorCustomers}>
+                        <span>{this.state.errorCustomers}</span>
                     </div>
                     <div className="submission-loading-overlay" hidden={!this.state.isSubmissionButtonClicked}>
                         <span>{ENUSStrings.CustomerIsSubmittedMessage}</span>
@@ -249,13 +249,13 @@ export default class CustomerSettings extends Component {
                         </div>
                         <button className="remove-button" onClick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
                     </div>
-                    {!this.state.isLoadingCompanies && !this.state.errorCompanies &&
+                    {!this.state.isLoadingCustomers && !this.state.errorCustomers &&
                         <form onSubmit={submitCustomerOnClick}>
                             <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.NEW}>Create a New Customer</h3>
                             <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.EDIT}>Edit a Customer</h3>
                             <div>
                                 {this.state.currentType === SETTINGS.NEW_EDIT_CHOICES.EDIT &&
-                                    <div id="customer-companies-container" className="field-whole-container">
+                                    <div id="customer-customers-container" className="field-whole-container">
                                         <div className="field-label-input-container">
                                             <span className="field-label">{ENUSStrings.ChooseCustomerLabel}</span>
                                             <select
@@ -264,7 +264,7 @@ export default class CustomerSettings extends Component {
                                                 title={ENUSStrings.ChooseCustomerLabel}
                                                 value={this.state.currentCustomerID}
                                             >
-                                                {createHTMLOptions(this.state.companies)}
+                                                {createHTMLOptions(this.state.customers)}
                                             </select>
                                         </div>
                                     </div>

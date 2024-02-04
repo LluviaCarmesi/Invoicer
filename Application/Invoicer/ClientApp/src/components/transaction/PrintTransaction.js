@@ -48,12 +48,12 @@ export default class PrintTransaction extends Component {
             if (customerInformationRequest.doesErrorExist) {
                 return customer;
             }
-            const customerInformation = customerInformation.customer;
-            customer.customerName = customerInformationCustomer.name;
-            customer.customerAddress = customerInformationCustomer.address;
-            customer.customerCity = customerInformationCustomer.city;
-            customer.customerCountry = customerInformationCustomer.country;
-            customer.customerZip = customerInformationCustomer.zip;
+            const customerInformation = customerInformationRequest.customer;
+            customer.customerName = customerInformation.name;
+            customer.customerAddress = customerInformation.address;
+            customer.customerCity = customerInformation.city;
+            customer.customerCountry = customerInformation.country;
+            customer.customerZip = customerInformation.zip;
         }
         return customer;
     }

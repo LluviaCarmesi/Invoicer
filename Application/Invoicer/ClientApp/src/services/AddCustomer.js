@@ -1,10 +1,10 @@
 ﻿import SETTINGS from "../AppSettings";
 import isStatusGood from "../utilities/IsStatusGood";
 
-export default async function addCompany(item) {
+export default async function addCustomer(item) {
     let doesErrorExist = false;
     let errorMessage = "";
-    await fetch(`${SETTINGS.COMPANIES_API_URI}${SETTINGS.ADD_COMPANY_URI}`, {
+    await fetch(`${SETTINGS.CUSTOMERS_API_URI}${SETTINGS.ADD_CUSTOMER_URI}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

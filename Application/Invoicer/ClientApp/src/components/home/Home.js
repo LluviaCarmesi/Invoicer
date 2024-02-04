@@ -89,7 +89,7 @@ export class Home extends Component {
 
         const showCustomerOptions = () => {
             let options = [];
-            for (let i = 0; i < this.state.customer.length; i++) {
+            for (let i = 0; i < this.state.customers.length; i++) {
                 const CurrentCustomer = this.state.customers[i];
                 options.push(<option key={CurrentCustomer.id} value={CurrentCustomer.id}>{CurrentCustomer.name}</option>);
             }

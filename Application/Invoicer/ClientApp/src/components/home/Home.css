@@ -1,4 +1,4 @@
-﻿.company-top-container {
+﻿.customer-top-container {
     display: flex;
     justify-content: space-evenly;
 }
@@ -7,12 +7,12 @@ select {
     font-size: 20px;
 }
 
-.company-dropdown-container span {
+.customer-dropdown-container span {
     display: block;
     margin-bottom: 10px;
 }
 
-.company-dropdown-container select {
+.customer-dropdown-container select {
     min-width: 200px;
 }
 

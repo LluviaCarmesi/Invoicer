@@ -31,7 +31,7 @@ export default class Settings extends Component {
                 <div className="settings-menu">
                     <h3>Companies</h3>
                     <span>
-                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_COMPANY}>{ENUSStrings.AddCustomerLabel}</a>
+                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_CUSTOMER}>{ENUSStrings.AddCustomerLabel}</a>
                     </span>
                     <span>
                         <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_CUSTOMERS}>{ENUSStrings.EditCustomersLabel}</a>
@@ -46,11 +46,11 @@ export default class Settings extends Component {
                 </div>
                 <div className="settings-app">
                     {
-                        this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_COMPANY &&
+                        this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_CUSTOMER &&
                         <CustomerSettings type={SETTINGS.NEW_EDIT_CHOICES.NEW} />
                     }
                     {
-                        this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_COMPANIES &&
+                        this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_CUSTOMERS &&
                         <CustomerSettings type={SETTINGS.NEW_EDIT_CHOICES.EDIT} />
                     }
                     {

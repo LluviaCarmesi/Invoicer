@@ -101,7 +101,7 @@ export default class Transaction extends Component {
         }
         this.setState({
             currentCustomerID: currentCustomer.id,
-            customer: customerInformation.customers,
+            customers: customersInformation.customers,
             isLoadingCustomers: false,
             isLoadingTransaction: !!transactionID ? true : false
         });

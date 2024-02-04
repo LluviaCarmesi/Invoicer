@@ -1,10 +1,10 @@
 ﻿import SETTINGS from "../AppSettings";
 import isStatusGood from "../utilities/IsStatusGood";
 
-export default async function addTransaction(item, companyID) {
+export default async function addTransaction(item, customerID) {
     let doesErrorExist = false;
     let errorMessage = "";
-    await fetch(`${SETTINGS.COMPANIES_API_URI}/${companyID}${SETTINGS.ADD_TRANSACTION_URI}`, {
+    await fetch(`${SETTINGS.CUSTOMERS_API_URI}/${customerID}${SETTINGS.ADD_TRANSACTION_URI}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
