@@ -4,7 +4,6 @@ Used for invoicing needs. This is a personal project so that I can learn how to 
 
 ### TODO
 
-- Work on renaming companies to customers and making companies have separate customers
-- Finish Transactions Controller connection to db
-- Finish Companies Controller connection to db
-- Make buttons functional
+- Work on making Companies dropdown for home and settings page
+- If company is selected on Home, load customers for that company
+- If company is selected on Customer Settings, allow customer to be submitted with that company
