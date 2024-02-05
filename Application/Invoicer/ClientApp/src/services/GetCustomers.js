@@ -25,6 +25,7 @@ export default async function getCustomers() {
             console.log(error);
         });
     if (customers.length === 0 && !errorMessage) {
+        doesErrorExist = true;
         errorMessage = ENUSStrings.NoCustomersErrorMessage;
     }
     return { customers, doesErrorExist, errorMessage };

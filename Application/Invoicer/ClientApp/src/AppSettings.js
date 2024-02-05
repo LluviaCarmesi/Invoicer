@@ -5,7 +5,9 @@
     //uris
     TRANSACTIONS_API_URI: "/api/transactions",
     CUSTOMERS_API_URI: "/api/customers",
+    COMPANIES_API_URI: "/api/companies",
     USERS_API_URI: "/api/users",
+    CUSTOMERS_URI: "/customers",
     TRANSACTIONS_URI: "/transactions",
     REMAINING_BALANCE_URI: "/remaining-balance",
     ADD_CUSTOMER_URI: "/add-customer",

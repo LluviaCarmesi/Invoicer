@@ -2,11 +2,11 @@
 import ENUSStrings from "../strings/ENUSStrings";
 import isStatusGood from "../utilities/IsStatusGood";
 
-export default async function getCompanies() {
-    let companies = [];
+export default async function getCompanyCustomers(companyID) {
+    let customers = [];
     let doesErrorExist = false;
     let errorMessage = "";
-    await fetch(`${SETTINGS.COMPANIES_API_URI}`)
+    await fetch(`${SETTINGS.COMPANIES_API_URI}/${companyID}${SETTINGS.CUSTOMERS_URI}`)
         .then((response) => {
             doesErrorExist = !isStatusGood(response.status);
             return response.json();
@@ -16,7 +16,7 @@ export default async function getCompanies() {
                 errorMessage = result.response;
             }
             else {
-                companies = result;
+                customers = result;
             }
         })
         .catch((error) => {
@@ -24,9 +24,9 @@ export default async function getCompanies() {
             errorMessage = error;
             console.log(error);
         });
-    if (companies.length === 0 && !errorMessage) {
+    if (customers.length === 0 && !errorMessage) {
         doesErrorExist = true;
-        errorMessage = ENUSStrings.NoCompaniesErrorMessage;
+        errorMessage = ENUSStrings.NoCompanyCustomersErrorMessage;
     }
-    return { companies, doesErrorExist, errorMessage };
+    return { customers, doesErrorExist, errorMessage };
 }

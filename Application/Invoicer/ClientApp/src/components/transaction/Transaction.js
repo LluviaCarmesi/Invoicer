@@ -80,8 +80,6 @@ export default class Transaction extends Component {
 
     async loadCustomers(transactionID, customerID) {
         const customersInformation = await getCustomers();
-        const filteredCustomersByID = customersInformation.customers.filter((customer) => customer.id === customerID);
-        let currentCustomer = 0;
         if (customersInformation.doesErrorExist) {
             this.setState({
                 errorCustomers: customersInformation.errorMessage,
@@ -90,6 +88,8 @@ export default class Transaction extends Component {
             });
             return;
         }
+        let currentCustomer = 0;
+        const filteredCustomersByID = customersInformation.customers.filter((customer) => customer.id === customerID);
         if (!!customerID && filteredCustomersByID.length > 0) {
             currentCustomer = filteredCustomersByID[0];
         }

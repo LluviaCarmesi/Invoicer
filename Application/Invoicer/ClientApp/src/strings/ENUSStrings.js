@@ -72,7 +72,9 @@
     EmailFormatErrorMessage: " must be an email address",
     DateFormatErrorMessage: " must be a date",
     NoTransactionsErrorMessage: "No transactions exist for this company",
-    NoCustomersErrorMessage: "There are no customers"
+    NoCustomersErrorMessage: "There are no customers",
+    NoCompanyCustomersErrorMessage: "There are no customers for this company",
+    NoCompaniesErrorMessage: "There are no companies"
 };
 
 export default ENUSStrings;

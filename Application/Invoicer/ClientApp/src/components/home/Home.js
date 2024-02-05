@@ -5,6 +5,9 @@ import getCustomerTransactions from "../../services/GetCustomerTransactions";
 import "./Home.css";
 import ENUSStrings from '../../strings/ENUSStrings';
 import SETTINGS from '../../AppSettings';
+import getCompanies from '../../services/GetCompanies';
+import getCompanyCustomers from '../../services/GetCompanyCustomers';
+import createHTMLOptions from '../../utilities/CreateHTMLOptions';
 
 async function getAccess() {
     await (() => { return true; });
@@ -15,28 +18,60 @@ export class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            currentCompanyID: 0,
             currentCustomerID: 0,
+            companies: [],
             customers: [],
             transactions: [],
             remainingBalance: 0.00,
+            errorCompanies: "",
             errorCustomers: "",
             errorRemainingBalance: "",
             errorTransactions: "",
-            loadingMessageCustomers: ENUSStrings.LoadingCustomersLabel,
-            loadingMessageRemainingBalance: ENUSStrings.LoadingRemainingBalanceLabel,
-            loadingMessageTransactions: ENUSStrings.LoadingTransactionsLabel,
+            loadingCompaniesMessage: ENUSStrings.LoadingCompaniesLabel,
+            loadingCustomersMessage: ENUSStrings.LoadingCustomersLabel,
+            loadingRemainingBalanceMessage: ENUSStrings.LoadingRemainingBalanceLabel,
+            loadingTransactionsMessage: ENUSStrings.LoadingTransactionsLabel,
+            isLoadingCompanies: true,
             isLoadingCustomers: true,
             isLoadingTransactions: true
         };
     }
 
-    async loadCustomers() {
-        const customersInformation = await getCustomers();
-        const firstCustomer = customersInformation.customers.length > 0 ? customersInformation.customers[0] : { id: 0 };
+    async loadCompanies() {
+        const companiesInformation = await getCompanies();
+        if (companiesInformation.doesErrorExist) {
+            this.setState({
+                errorCompanies: companiesInformation.errorMessage,
+                isLoadingCompanies: false,
+                isLoadingCustomers: false,
+                isLoadingTransactions: false
+            });
+            return;
+        }
+        const firstCompany = companiesInformation.companies[0];
+        this.setState({
+            companies: companiesInformation.companies,
+            currentCompanyID: firstCompany,
+            isLoadingCompanies: false,
+        });
+        this.loadCompanyCustomers(firstCompany);
+    }
+
+    async loadCompanyCustomers(companyID) {
+        const customersInformation = await getCompanyCustomers(companyID);
+        if (customersInformation.doesErrorExist) {
+            this.setState({
+                errorCustomers: customersInformation.errorMessage,
+                isLoadingCustomers: false,
+                isLoadingTransactions: false
+            });
+            return;
+        }
+        const firstCustomer = customersInformation.customers[0];
         this.setState({
             currentCustomerID: firstCustomer.id,
             customers: customersInformation.customers,
-            errorCustomers: customersInformation.errorMessage,
             isLoadingCustomers: false
         });
         this.loadCustomerTransactions(firstCustomer.id);
@@ -66,10 +101,11 @@ export class Home extends Component {
 
     componentDidMount() {
         if (getAccess()) {
-            loadingMessage("loading-customers-container", this.state.loadingMessageCustomers, this.state.loadingMessageCustomers);
-            loadingMessage("loading-remaining-balance-container", this.state.loadingMessageRemainingBalance, this.state.loadingMessageRemainingBalance);
-            loadingMessage("loading-transactions-container", this.state.loadingMessageTransactions, this.state.loadingMessageTransactions);
-            this.loadCustomers();
+            loadingMessage("loading-companies-container", this.state.loadingCompaniesMessage, this.state.loadingCompaniesMessage);
+            loadingMessage("loading-customers-container", this.state.loadingCustomersMessage, this.state.loadingCustomersMessage);
+            loadingMessage("loading-remaining-balance-container", this.state.loadingRemainingBalanceMessage, this.state.loadingRemainingBalanceMessage);
+            loadingMessage("loading-transactions-container", this.state.loadingTransactionsMessage, this.state.loadingTransactionsMessage);
+            this.loadCompanies();
         }
     };
 
@@ -79,21 +115,20 @@ export class Home extends Component {
     }
 
     render() {
+        const changeCompany = (value) => {
+            const valueToInt = parseInt(value);
+            this.loadCompanyCustomers(valueToInt);
+            this.setState({
+                currentCompanyID: parseInt(valueToInt)
+            });
+        }
+
         const changeCustomer = (value) => {
             const valueToInt = parseInt(value);
             this.loadCustomerTransactions(valueToInt);
             this.setState({
                 currentCustomerID: parseInt(valueToInt)
             });
-        }
-
-        const showCustomerOptions = () => {
-            let options = [];
-            for (let i = 0; i < this.state.customers.length; i++) {
-                const CurrentCustomer = this.state.customers[i];
-                options.push(<option key={CurrentCustomer.id} value={CurrentCustomer.id}>{CurrentCustomer.name}</option>);
-            }
-            return options;
         }
 
         const showCustomerTransactions = () => {
@@ -160,22 +195,32 @@ export class Home extends Component {
         return (
             <div>
                 <div className="company-container">
+                    <div id="loading-companies-container" hidden={!this.state.isLoadingCompanies}>
+                        <span>{this.state.loadingCompaniesMessage}</span>
+                    </div>
+                    <div hidden={!this.state.errorCompanies}>
+                        <span>{this.state.errorCompanies}</span>
+                    </div>
                     <div className="company-dropdown-container">
-                        <span>{ENUSStrings.ChooseCustomerLabel}</span>
-                        <select
-                            id="customer-dropdown"
-                            onChange={(control) => changeCustomer(control.target.value)}
-                            title={ENUSStrings.ChooseCustomerLabel}
-                        >
-                            {showCustomerOptions()}
-                        </select>
+                        {!this.state.errorCompanies && !this.state.isLoadingCompanies &&
+                            <React.Fragment>
+                                <span>{ENUSStrings.ChooseCompanyLabel}</span>
+                                <select
+                                    id="company-dropdown"
+                                    onChange={(control) => changeCompany(control.target.value)}
+                                    title={ENUSStrings.ChooseCompanyLabel}
+                                >
+                                    {createHTMLOptions(this.state.companies)}
+                                </select>
+                            </React.Fragment>
+                        }
                     </div>
                 </div>
                 <div className="customer-container">
                     <div className="customer-top-container">
-                        <div className="customer-dropdown-container">
+                        <div className="customer-dropdown-container" hidden={!!this.state.errorCompanies}>
                             <div id="loading-customers-container" hidden={!this.state.isLoadingCustomers}>
-                                <span>{this.state.loadingMessageCustomers}</span>
+                                <span>{this.state.loadingCustomersMessage}</span>
                             </div>
                             <div hidden={!this.state.errorCustomers}>
                                 <span>{this.state.errorCustomers}</span>
@@ -188,15 +233,15 @@ export class Home extends Component {
                                         onChange={(control) => changeCustomer(control.target.value)}
                                         title={ENUSStrings.ChooseCustomerLabel}
                                     >
-                                        {showCustomerOptions()}
+                                        {createHTMLOptions(this.state.customers)}
                                     </select>
                                 </React.Fragment>
                             }
                         </div>
-                        <div className="customer-info-container" hidden={!!this.state.errorCustomers}>
+                        <div className="customer-info-container" hidden={!!this.state.errorCustomers || this.state.errorCompanies}>
                             <div className="remaining-balance-container">
                                 <div id="loading-remaining-balance-container" hidden={!this.state.isLoadingTransactions}>
-                                    <span>{this.state.loadingMessageRemainingBalance}</span>
+                                    <span>{this.state.loadingRemainingBalanceMessage}</span>
                                 </div>
                                 <div hidden={!this.state.errorRemainingBalance}>
                                     <span>{this.state.errorRemainingBalance}</span>
@@ -210,7 +255,7 @@ export class Home extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="transactions-container" hidden={!!this.state.errorCustomers}>
+                    <div className="transactions-container" hidden={!!this.state.errorCustomers || this.state.errorCompanies}>
                         <div className="transactions-actions-container">
                             <div className="transactions-actions" hidden={this.state.isLoadingCustomers}>
                                 <span>
@@ -223,7 +268,7 @@ export class Home extends Component {
                         </div>
                         <div className="transactions-info-container">
                             <div id="loading-transactions-container" hidden={!this.state.isLoadingTransactions}>
-                                <span>{this.state.loadingMessageTransactions}</span>
+                                <span>{this.state.loadingTransactionsMessage}</span>
                             </div>
                             <div hidden={!this.state.errorTransactions}>
                                 <span>{this.state.errorTransactions}</span>

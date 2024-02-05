@@ -29,6 +29,7 @@ export default async function getCustomerTransactions(customerID) {
             });
     }
     if (transactions.length === 0 && !errorMessage) {
+        doesErrorExist = true;
         errorMessage = ENUSStrings.NoTransactionsErrorMessage;
     }
     return { transactions, remainingBalance, doesErrorExist, errorMessage };
