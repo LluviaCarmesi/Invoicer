@@ -15,7 +15,12 @@
     MakeInvoiceLabel: "Make Invoice",
     MakePaymentLabel: "Make Payment",
     AmountLabel: "Amount",
+    // Company Strings
+    CompaniesLabel: "Companies",
+    AddCompanyLabel: "Add a Company",
+    EditCompaniesLabel: "Edit Companies",
     // Customer Strings
+    CustomersLabel: "Customers",
     AddCustomerLabel: "Add a Customer",
     EditCustomersLabel: "Edit Customers",
     CustomerNameLabel: "Customer Name",
@@ -52,6 +57,7 @@
     AddInvoiceDataLabel: "Add Invoice Row",
     TransactionIsPaymentMessage: "The current transaction is a payment",
     // User Strings
+    UsersLabel: "Users",
     AddUserLabel: "Add a User",
     EditUsersLabel: "Edit Users",
     ChooseUserLabel: "Choose User",

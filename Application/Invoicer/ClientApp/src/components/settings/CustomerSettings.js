@@ -53,7 +53,7 @@ export default class CustomerSettings extends Component {
             country: "",
             zip: "",
             isActive: true
-        }; // use this when updating state
+        };
 
         const customersInformation = await getCustomers();
         if (customersInformation.doesErrorExist) {

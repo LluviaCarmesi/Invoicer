@@ -2,6 +2,7 @@
 import SETTINGS from '../../AppSettings';
 import ENUSStrings from '../../strings/ENUSStrings';
 import checkQueryParameter from '../../utilities/CheckQueryParameter';
+import CompanySettings from './CompanySettings';
 import CustomerSettings from './CustomerSettings';
 import "./Settings.css";
 import UserSettings from './UserSettings';
@@ -29,14 +30,21 @@ export default class Settings extends Component {
         return (
             <div className="settings-container">
                 <div className="settings-menu">
-                    <h3>Companies</h3>
+                    <h3>{ENUSStrings.CompaniesLabel}</h3>
+                    <span>
+                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_COMPANY}>{ENUSStrings.AddCompanyLabel}</a>
+                    </span>
+                    <span>
+                        <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_COMPANIES}>{ENUSStrings.EditCompaniesLabel}</a>
+                    </span>
+                    <h3>{ENUSStrings.CustomersLabel}</h3>
                     <span>
                         <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_CUSTOMER}>{ENUSStrings.AddCustomerLabel}</a>
                     </span>
                     <span>
                         <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_CUSTOMERS}>{ENUSStrings.EditCustomersLabel}</a>
                     </span>
-                    <h3>Accounts</h3>
+                    <h3>{ENUSStrings.UsersLabel}</h3>
                     <span>
                         <a href={"/settings?type=" + SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_USER}>{ENUSStrings.AddUserLabel}</a>
                     </span>
@@ -45,6 +53,14 @@ export default class Settings extends Component {
                     </span>
                 </div>
                 <div className="settings-app">
+                    {
+                        this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_COMPANY &&
+                        <CompanySettings type={SETTINGS.NEW_EDIT_CHOICES.NEW} />
+                    }
+                    {
+                        this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.EDIT_COMPANIES &&
+                        <CompanySettings type={SETTINGS.NEW_EDIT_CHOICES.EDIT} />
+                    }
                     {
                         this.state.currentSetting === SETTINGS.APPLICATION_SETTINGS_MENUS.ADD_CUSTOMER &&
                         <CustomerSettings type={SETTINGS.NEW_EDIT_CHOICES.NEW} />
