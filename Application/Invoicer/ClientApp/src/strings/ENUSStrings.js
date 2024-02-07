@@ -19,6 +19,11 @@
     CompaniesLabel: "Companies",
     AddCompanyLabel: "Add a Company",
     EditCompaniesLabel: "Edit Companies",
+    CompanyNameLabel: "Company Name",
+    CompanyAddressLabel: "Company Address",
+    CompanyCityLabel: "Company City",
+    CompanyCountryLabel: "Company Country",
+    CompanyZipLabel: "Company Zip",
     // Customer Strings
     CustomersLabel: "Customers",
     AddCustomerLabel: "Add a Customer",

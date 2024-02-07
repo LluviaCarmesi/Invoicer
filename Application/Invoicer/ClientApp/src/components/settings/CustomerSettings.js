@@ -139,7 +139,6 @@ export default class CustomerSettings extends Component {
         };
 
         const changeValue = (value, id) => {
-
             this.setState({
                 [id]: value
             });

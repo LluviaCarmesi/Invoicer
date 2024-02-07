@@ -10,6 +10,8 @@
     CUSTOMERS_URI: "/customers",
     TRANSACTIONS_URI: "/transactions",
     REMAINING_BALANCE_URI: "/remaining-balance",
+    ADD_COMPANY_URI: "/add-company",
+    EDIT_COMPANY_URI: "/edit-company",
     ADD_CUSTOMER_URI: "/add-customer",
     EDIT_CUSTOMER_URI: "/edit-customer",
     ADD_USER__URI: "/add-user",

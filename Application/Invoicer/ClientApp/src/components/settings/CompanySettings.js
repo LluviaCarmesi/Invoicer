@@ -1,5 +1,7 @@
 ﻿import React, { Component } from "react";
+import addCompany from "../../services/AddCompany";
 import getCompanies from "../../services/GetCompanies";
+import companyFormValidation from "../../utilities/validation/CompanyFormValidation";
 
 export default class CompanySettings extends Component {
     constructor(props) {
@@ -95,6 +97,104 @@ export default class CompanySettings extends Component {
         console.log(this.state);
     }
     render() {
+        const submissionItem = {
+            name: this.state.name,
+            address: this.state.address,
+            city: this.state.city,
+            country: this.state.country,
+            zip: this.state.zip
+        };
+
+        const changeCompany= (value) => {
+            const valueToInt = parseInt(value);
+            const company = this.state.companies.filter((company) => company.id === valueToInt)[0];
+            this.setState({
+                currentCompanyID: valueToInt,
+                name: company.name,
+                address: company.address,
+                city: company.city,
+                country: company.country,
+                zip: company.zip
+            });
+        };
+
+        const changeValue = (value, id) => {
+            this.setState({
+                [id]: value
+            });
+        };
+
+        const closeSuccessFailureMessage = () => {
+            this.setState({
+                isSuccessFailureMessageClosed: true
+            });
+        }
+
+        const validateForm = (isSubmissionAttempted) => {
+            const validation = companyFormValidation(submissionItem);
+            if (isSubmissionAttempted) {
+                this.setState({
+                    nameError: validation.errors.nameError,
+                    addressError: validation.errors.addressError,
+                    cityError: validation.errors.cityError,
+                    countryError: validation.errors.countryError,
+                    zipError: validation.errors.zipError,
+                    isSubmissionAttempted: true
+                });
+            }
+            else {
+                this.setState({
+                    nameError: validation.errors.nameError,
+                    addressError: validation.errors.addressError,
+                    cityError: validation.errors.cityError,
+                    countryError: validation.errors.countryError,
+                    zipError: validation.errors.zipError,
+                });
+            }
+            return validation.isValid;
+        }
+
+        const submitCustomerOnClick = async (event) => {
+            event.preventDefault();
+            let currentInformation = submissionItem;
+            let isSuccessful = false;
+            let errorMessage = "";
+            if (validateForm(true)) {
+                this.setState({
+                    isSubmissionButtonClicked: true,
+                    isSuccessFailureMessageClosed: true
+                });
+                if (!this.state.currentCompanyID) {
+                    const companyAddition = await addCompany(currentInformation);
+                    isSuccessful = !companyAddition.doesErrorExist;
+                    errorMessage = companyAddition.errorMessage;
+                    if (isSuccessful) {
+                        currentInformation.name = "";
+                        currentInformation.address = "";
+                        currentInformation.city = "";
+                        currentInformation.country = "";
+                        currentInformation.zip = "";
+                    }
+                }
+                else {
+                    const companyEdit= await editCompany(currentInformation, this.state.currentCustomerID);
+                    isSuccessful = !companyEdit.doesErrorExist;
+                    errorMessage = companyEdit.errorMessage;
+                }
+                this.setState({
+                    name: currentInformation.name,
+                    address: currentInformation.address,
+                    city: currentInformation.city,
+                    country: currentInformation.country,
+                    zip: currentInformation.zip,
+                    wasSubmissionSuccessful: isSuccessful,
+                    wasSubmissionFailure: !isSuccessful,
+                    submissionErrorMessage: errorMessage,
+                    isSuccessFailureMessageClosed: false,
+                    isSubmissionButtonClicked: false
+                });
+            }
+        };
 
         return (
             <div></div>
