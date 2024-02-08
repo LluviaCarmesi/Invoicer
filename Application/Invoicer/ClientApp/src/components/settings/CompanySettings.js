@@ -177,7 +177,7 @@ export default class CompanySettings extends Component {
                     }
                 }
                 else {
-                    const companyEdit= await editCompany(currentInformation, this.state.currentCustomerID);
+                    const companyEdit= await editCompany(currentInformation, this.state.currentCompanyID);
                     isSuccessful = !companyEdit.doesErrorExist;
                     errorMessage = companyEdit.errorMessage;
                 }
@@ -197,7 +197,146 @@ export default class CompanySettings extends Component {
         };
 
         return (
-            <div></div>
+            <div className="company-settings-container">
+                <React.Fragment>
+                    <div id="loading-companies-container" hidden={!this.state.isLoadingCompanies}>
+                        <span>{this.state.loadingMessageCustomers}</span>
+                    </div>
+                    <div hidden={!this.state.errorCustomers}>
+                        <span>{this.state.errorCustomers}</span>
+                    </div>
+                    <div className="submission-loading-overlay" hidden={!this.state.isSubmissionButtonClicked}>
+                        <span>{ENUSStrings.CustomerIsSubmittedMessage}</span>
+                    </div>
+                    <div hidden={this.state.isSuccessFailureMessageClosed}>
+                        <div className="error-background" hidden={!this.state.wasSubmissionFailure}>
+                            <span>{ENUSStrings.CustomerSubmissionFailedMessage}</span>
+                            <span>{this.state.submissionErrorMessage}</span>
+                        </div>
+                        <div className="success-background" hidden={!this.state.wasSubmissionSuccessful}>
+                            <span>{ENUSStrings.CustomerSubmissionSuccessMessage}</span>
+                        </div>
+                        <button className="remove-button" onClick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
+                    </div>
+                    {!this.state.isLoadingCustomers && !this.state.errorCustomers &&
+                        <form onSubmit={submitCustomerOnClick}>
+                            <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.NEW}>Create a New Customer</h3>
+                            <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.EDIT}>Edit a Customer</h3>
+                            <div>
+                                {this.state.currentType === SETTINGS.NEW_EDIT_CHOICES.EDIT &&
+                                    <div id="customer-customers-container" className="field-whole-container">
+                                        <div className="field-label-input-container">
+                                            <span className="field-label">{ENUSStrings.ChooseCustomerLabel}</span>
+                                            <select
+                                                id="customer-dropdown"
+                                                onChange={(control) => changeCustomer(control.target.value)}
+                                                title={ENUSStrings.ChooseCustomerLabel}
+                                                value={this.state.currentCustomerID}
+                                            >
+                                                {createHTMLOptions(this.state.customers)}
+                                            </select>
+                                        </div>
+                                    </div>
+                                }
+                                <div id="customer-name-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CustomerNameLabel}</span>
+                                        <input
+                                            id="name"
+                                            type="text"
+                                            title={ENUSStrings.CustomerNameLabel}
+                                            value={this.state.name}
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                submissionItem.name = control.target.value;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.nameError || !this.state.isSubmissionAttempted}>{this.state.nameError}</span>
+                                </div>
+                                <div id="customer-address-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CustomerAddressLabel}</span>
+                                        <input
+                                            id="address"
+                                            type="text"
+                                            title={ENUSStrings.CustomerAddressLabel}
+                                            value={this.state.address}
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                submissionItem.address = control.target.value;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.addressError || !this.state.isSubmissionAttempted}>{this.state.addressError}</span>
+                                </div>
+                                <div id="customer-city-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CustomerCityLabel}</span>
+                                        <input
+                                            id="city"
+                                            type="text"
+                                            title={ENUSStrings.CustomerCityLabel}
+                                            value={this.state.city}
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                submissionItem.city = control.target.value;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.cityError || !this.state.isSubmissionAttempted}>{this.state.cityError}</span>
+                                </div>
+                                <div id="customer-country-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CustomerCountryLabel}</span>
+                                        <input
+                                            id="country"
+                                            type="text"
+                                            title={ENUSStrings.CustomerCountryLabel}
+                                            value={this.state.country}
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                submissionItem.country = control.target.value;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.countryError || !this.state.isSubmissionAttempted}>{this.state.countryError}</span>
+                                </div>
+                                <div id="customer-zip-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CustomerZipLabel}</span>
+                                        <input
+                                            id="zip"
+                                            type="text"
+                                            title={ENUSStrings.CustomerZipLabel}
+                                            value={this.state.zip}
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                submissionItem.zip = control.target.value;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.zipError || !this.state.isSubmissionAttempted}>{this.state.zipError}</span>
+                                </div>
+                                <div className="buttons-container">
+                                    <button
+                                        className="primary-button"
+                                        type="submit"
+                                        title={ENUSStrings.SubmitCustomerLabel}
+                                    >
+                                        {ENUSStrings.SubmitCustomerLabel}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                </React.Fragment>
+            </div>
         );
     }
 }

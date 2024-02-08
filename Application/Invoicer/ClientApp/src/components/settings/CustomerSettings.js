@@ -204,9 +204,9 @@ export default class CustomerSettings extends Component {
                     }
                 }
                 else {
-                    const customerAddition = await editCustomer(currentInformation, this.state.currentCustomerID);
-                    isSuccessful = !customerAddition.doesErrorExist;
-                    errorMessage = customerAddition.errorMessage;
+                    const customerEdit = await editCustomer(currentInformation, this.state.currentCustomerID);
+                    isSuccessful = !customerEdit.doesErrorExist;
+                    errorMessage = customerEdit.errorMessage;
                 }
                 this.setState({
                     name: currentInformation.name,
@@ -387,7 +387,7 @@ export default class CustomerSettings extends Component {
                                     </div>
                                     <span className="field-error" hidden={!this.state.zipError || !this.state.isSubmissionAttempted}>{this.state.zipError}</span>
                                 </div>
-                                <div id="customer-zip-container" className="field-whole-container">
+                                <div id="customer-is-active-container" className="field-whole-container">
                                     <div className="field-label-input-container">
                                         <span className="field-label field-required">{ENUSStrings.IsCustomerActiveLabel}</span>
                                         <input
