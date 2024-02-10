@@ -59,11 +59,19 @@ export default class CustomerSettings extends Component {
             });
             return;
         }
-        this.setState({
-            companies: companiesInformation.companies,
-            currentCompanyID: companiesInformation.companies[0].id,
-            isLoadingCompanies: false,
-        });
+        if (type === SETTINGS.NEW_EDIT_CHOICES.EDIT) {
+            this.setState({
+                companies: companiesInformation.companies,
+                isLoadingCompanies: false,
+            });
+        }
+        else {
+            this.setState({
+                companies: companiesInformation.companies,
+                currentCompanyID: companiesInformation.companies[0].id,
+                isLoadingCompanies: false,
+            });
+        }
     }
 
     async loadCustomers() {

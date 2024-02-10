@@ -4,7 +4,7 @@
     FuelLabel: "Fuel",
     CloseLabel: "Close",
     LinkLabel: "Link",
-    PrintLabel: "Print",
+    PrintTransactionLabel: "Print this transaction",
     LoadingCompaniesLabel: "Loading Companies",
     LoadingCustomersLabel: "Loading Customers",
     LoadingTransactionsLabel: "Loading Transactions",
@@ -68,6 +68,7 @@
     ViewTransactionLabel: "View Transaction",
     AddInvoiceDataLabel: "Add Invoice Row",
     TransactionIsPaymentMessage: "The current transaction is a payment",
+    CreateTransactionLabel: "Create transaction for this company",
     // User Strings
     UsersLabel: "Users",
     AddUserLabel: "Add a User",
@@ -89,10 +90,11 @@
     PhoneFormatErrorMessage: " must be a phone number",
     EmailFormatErrorMessage: " must be an email address",
     DateFormatErrorMessage: " must be a date",
-    NoTransactionsErrorMessage: "No transactions exist for this company",
+    NoTransactionsErrorMessage: "No transactions exist for this customer",
     NoCustomersErrorMessage: "There are no customers",
-    NoCompanyCustomersErrorMessage: "There are no customers for this company",
-    NoCompaniesErrorMessage: "There are no companies"
+    NoCompanyCustomersErrorMessage: "There are no customers for this customer",
+    NoCompaniesErrorMessage: "There are no companies",
+    NoRemainingBalanceErrorMessage: "There is no remaining balance for this customer",
 };
 
 export default ENUSStrings;

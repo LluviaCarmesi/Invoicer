@@ -2,6 +2,16 @@
     font-size: 20px;
 }
 
+.create-transaction-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.create-transaction-container a {
+    color: rgba(0, 200, 255, 1)
+}
+
 .transaction-customer-dropdown-container span {
     display: block;
     margin-bottom: 20px;
@@ -17,6 +27,10 @@
 
 .transaction-information-table {
     margin-bottom: 20px;
+}
+
+#print-container {
+    margin-bottom: 50px;
 }
 
 #print-container a {

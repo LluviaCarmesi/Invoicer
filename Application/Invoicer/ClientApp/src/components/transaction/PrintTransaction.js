@@ -95,6 +95,11 @@ export default class PrintTransaction extends Component {
             invoiceData: transaction.invoiceData,
             isLoadingTransaction: false
         });
+        if (transaction.id !== 0) {
+            setTimeout(() => {
+                window.print();
+            }, 250);
+        }
     }
 
     componentDidMount() {

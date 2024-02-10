@@ -26,7 +26,6 @@ export class Home extends Component {
             remainingBalance: 0.00,
             errorCompanies: "",
             errorCustomers: "",
-            errorRemainingBalance: "",
             errorTransactions: "",
             loadingCompaniesMessage: ENUSStrings.LoadingCompaniesLabel,
             loadingCustomersMessage: ENUSStrings.LoadingCustomersLabel,
@@ -64,7 +63,7 @@ export class Home extends Component {
             this.setState({
                 errorCustomers: customersInformation.errorMessage,
                 isLoadingCustomers: false,
-                isLoadingTransactions: false
+                isLoadingTransactions: false,
             });
             return;
         }
@@ -72,6 +71,7 @@ export class Home extends Component {
         this.setState({
             currentCustomerID: firstCustomer.id,
             customers: customersInformation.customers,
+            errorCustomers: "",
             isLoadingCustomers: false
         });
         this.loadCustomerTransactions(firstCustomer.id);
@@ -95,7 +95,8 @@ export class Home extends Component {
         this.setState({
             remainingBalance: remainingBalance.toFixed(2),
             transactions: transactions,
-            isLoadingTransactions: false
+            isLoadingTransactions: false,
+            errorTransactions: ""
         });
     }
 
@@ -135,20 +136,20 @@ export class Home extends Component {
             let transactions = [];
             if (this.state.transactions.length > 0) {
                 transactions.push(
-                    <React.Fragment>
+                    <thead key="0">
                         <tr>
                             <th>{ENUSStrings.TypeLabel}</th>
                             <th>{ENUSStrings.AmountLabel}</th>
                             <th>{ENUSStrings.ViewTransactionLabel}</th>
                         </tr>
-                    </React.Fragment>
+                    </thead>
                 );
             }
             for (let i = 0; i < this.state.transactions.length; i++) {
                 const CurrentTransaction = this.state.transactions[i];
                 if (CurrentTransaction.type === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE) {
                     transactions.push(
-                        <React.Fragment>
+                        <tbody key={i + 1}>
                             <tr className="invoice-row">
                                 <td>{CurrentTransaction.type}</td>
                                 <td>{CurrentTransaction.total}</td>
@@ -162,12 +163,12 @@ export class Home extends Component {
                                     </a>
                                 </td>
                             </tr>
-                        </React.Fragment>
+                        </tbody>
                     );
                 }
                 else {
                     transactions.push(
-                        <React.Fragment>
+                        <tbody key={i + 1}>
                             <tr className="payment-row">
                                 <td>{CurrentTransaction.type}</td>
                                 <td>{CurrentTransaction.total}</td>
@@ -181,7 +182,7 @@ export class Home extends Component {
                                     </a>
                                 </td>
                             </tr>
-                        </React.Fragment>
+                        </tbody>
                     );
                 }
             }
@@ -243,10 +244,10 @@ export class Home extends Component {
                                 <div id="loading-remaining-balance-container" hidden={!this.state.isLoadingTransactions}>
                                     <span>{this.state.loadingRemainingBalanceMessage}</span>
                                 </div>
-                                <div hidden={!this.state.errorRemainingBalance}>
-                                    <span>{this.state.errorRemainingBalance}</span>
+                                <div hidden={!this.state.errorTransactions}>
+                                    <span>{ENUSStrings.NoRemainingBalanceErrorMessage}</span>
                                 </div>
-                                {!this.state.errorRemainingBalance && !this.state.isLoadingTransactions &&
+                                {!this.state.errorTransactions && !this.state.isLoadingTransactions &&
                                     <React.Fragment>
                                         <span>{ENUSStrings.RemainingTransactonLabel}</span>
                                         <span className="remaining-balance">{showRemainingBalance()}</span>

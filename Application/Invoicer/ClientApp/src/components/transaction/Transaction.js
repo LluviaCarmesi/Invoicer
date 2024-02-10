@@ -113,7 +113,7 @@ export default class Transaction extends Component {
         const idQueryParamValue = checkQueryParameter(SETTINGS.ID_QUERY_PARAMETER);
         const typeQueryParamValue = checkQueryParameter(SETTINGS.TYPE_QUERY_PARAMETER);
         const customerIDQueryParamValue = checkQueryParameter(SETTINGS.CUSTOMER_ID_QUERY_PARAMETER);
-        const type = typeQueryParamValue === "payment" ? typeQueryParamValue : "invoice";
+        const type = typeQueryParamValue === SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT ? typeQueryParamValue : SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE;
         const transactionID = isNaN(idQueryParamValue) ? 0 : parseInt(idQueryParamValue);
         const customerID = isNaN(customerIDQueryParamValue) ? 0 : parseInt(customerIDQueryParamValue);
         this.loadCustomers(transactionID, customerID);
@@ -418,6 +418,11 @@ export default class Transaction extends Component {
                         </div>
                         <button className="remove-button" onClick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
                     </div>
+                    <div className="create-transaction-container" hidden={this.state.currentTransactionID === 0}>
+                        <a href={`/transaction?type=${this.state.currentType}&customerID=${this.state.currentCustomerID}`}>
+                            <span>{ENUSStrings.CreateTransactionLabel}</span>
+                        </a>
+                    </div>
                     {!this.state.errorCustomers && !this.state.isLoadingCustomers &&
                         <div id="transaction-customers-container" className="field-whole-container">
                             <div className="field-label-input-container">
@@ -540,13 +545,12 @@ export default class Transaction extends Component {
                                 </div>
                                 <div id="print-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label"></span>
                                         <span><a
                                             href={`/print-transaction?id=${this.state.currentTransactionID}`}
                                             target="_blank"
                                             rel="noreferrer"
                                         >
-                                            {ENUSStrings.PrintLabel}</a>
+                                            {ENUSStrings.PrintTransactionLabel}</a>
                                         </span>
                                     </div>
                                 </div>

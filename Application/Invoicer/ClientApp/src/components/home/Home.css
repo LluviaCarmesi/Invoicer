@@ -1,4 +1,14 @@
-﻿.customer-top-container {
+﻿.company-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.company-container span {
+    margin-right: 20px;
+}
+
+.customer-top-container {
     display: flex;
     justify-content: space-evenly;
 }
