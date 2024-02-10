@@ -1,7 +1,12 @@
 ﻿import React, { Component } from "react";
 import addCompany from "../../services/AddCompany";
 import getCompanies from "../../services/GetCompanies";
+import ENUSStrings from "../../strings/ENUSStrings";
 import companyFormValidation from "../../utilities/validation/CompanyFormValidation";
+import SETTINGS from "../../AppSettings";
+import loadingMessage from "../../utilities/LoadingMessage";
+import createHTMLOptions from "../../utilities/CreateHTMLOptions";
+import editCompany from "../../services/EditCompany";
 
 export default class CompanySettings extends Component {
     constructor(props) {
@@ -44,7 +49,7 @@ export default class CompanySettings extends Component {
         const companiesInformation = await getCompanies();
         if (companiesInformation.doesErrorExist) {
             this.setState({
-                errorCustomers: companiesInformation.errorMessage,
+                errorCompanies: companiesInformation.errorMessage,
                 isLoadingCompanies: false
             });
             return;
@@ -63,7 +68,7 @@ export default class CompanySettings extends Component {
         }
         this.setState({
             currentCompanyID: currentCompanyInformation.id,
-            customer: companiesInformation.companies,
+            companies: companiesInformation.companies,
             name: currentCompanyInformation.name,
             phone: currentCompanyInformation.phone,
             email: currentCompanyInformation.email,
@@ -154,7 +159,7 @@ export default class CompanySettings extends Component {
             return validation.isValid;
         }
 
-        const submitCustomerOnClick = async (event) => {
+        const submitCompanyOnClick = async (event) => {
             event.preventDefault();
             let currentInformation = submissionItem;
             let isSuccessful = false;
@@ -200,51 +205,51 @@ export default class CompanySettings extends Component {
             <div className="company-settings-container">
                 <React.Fragment>
                     <div id="loading-companies-container" hidden={!this.state.isLoadingCompanies}>
-                        <span>{this.state.loadingMessageCustomers}</span>
+                        <span>{this.state.loadingMessageCompanies}</span>
                     </div>
-                    <div hidden={!this.state.errorCustomers}>
-                        <span>{this.state.errorCustomers}</span>
+                    <div hidden={!this.state.errorCompanies}>
+                        <span>{this.state.errorCompanies}</span>
                     </div>
                     <div className="submission-loading-overlay" hidden={!this.state.isSubmissionButtonClicked}>
-                        <span>{ENUSStrings.CustomerIsSubmittedMessage}</span>
+                        <span>{ENUSStrings.CompanyIsSubmittedMessage}</span>
                     </div>
                     <div hidden={this.state.isSuccessFailureMessageClosed}>
                         <div className="error-background" hidden={!this.state.wasSubmissionFailure}>
-                            <span>{ENUSStrings.CustomerSubmissionFailedMessage}</span>
+                            <span>{ENUSStrings.CompanySubmissionFailedMessage}</span>
                             <span>{this.state.submissionErrorMessage}</span>
                         </div>
                         <div className="success-background" hidden={!this.state.wasSubmissionSuccessful}>
-                            <span>{ENUSStrings.CustomerSubmissionSuccessMessage}</span>
+                            <span>{ENUSStrings.CompanySubmissionSuccessMessage}</span>
                         </div>
                         <button className="remove-button" onClick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
                     </div>
-                    {!this.state.isLoadingCustomers && !this.state.errorCustomers &&
-                        <form onSubmit={submitCustomerOnClick}>
-                            <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.NEW}>Create a New Customer</h3>
-                            <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.EDIT}>Edit a Customer</h3>
+                    {!this.state.isLoadingCompanies && !this.state.errorCompanies &&
+                        <form onSubmit={submitCompanyOnClick}>
+                            <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.NEW}>{ENUSStrings.CreateNewCompanyLabel}</h3>
+                            <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.EDIT}>{ENUSStrings.EditCompanyLabel}</h3>
                             <div>
                                 {this.state.currentType === SETTINGS.NEW_EDIT_CHOICES.EDIT &&
-                                    <div id="customer-customers-container" className="field-whole-container">
+                                    <div id="company-companies-container" className="field-whole-container">
                                         <div className="field-label-input-container">
-                                            <span className="field-label">{ENUSStrings.ChooseCustomerLabel}</span>
+                                            <span className="field-label">{ENUSStrings.ChooseCompanyLabel}</span>
                                             <select
-                                                id="customer-dropdown"
-                                                onChange={(control) => changeCustomer(control.target.value)}
-                                                title={ENUSStrings.ChooseCustomerLabel}
-                                                value={this.state.currentCustomerID}
+                                                id="company-dropdown"
+                                                onChange={(control) => changeCompany(control.target.value)}
+                                                title={ENUSStrings.ChooseCompanyLabel}
+                                                value={this.state.currentCompanyID}
                                             >
-                                                {createHTMLOptions(this.state.customers)}
+                                                {createHTMLOptions(this.state.companies)}
                                             </select>
                                         </div>
                                     </div>
                                 }
-                                <div id="customer-name-container" className="field-whole-container">
+                                <div id="company-name-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerNameLabel}</span>
+                                        <span className="field-label field-required">{ENUSStrings.CompanyNameLabel}</span>
                                         <input
                                             id="name"
                                             type="text"
-                                            title={ENUSStrings.CustomerNameLabel}
+                                            title={ENUSStrings.CompanyNameLabel}
                                             value={this.state.name}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -255,13 +260,13 @@ export default class CompanySettings extends Component {
                                     </div>
                                     <span className="field-error" hidden={!this.state.nameError || !this.state.isSubmissionAttempted}>{this.state.nameError}</span>
                                 </div>
-                                <div id="customer-address-container" className="field-whole-container">
+                                <div id="company-address-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerAddressLabel}</span>
+                                        <span className="field-label field-required">{ENUSStrings.CompanyAddressLabel}</span>
                                         <input
                                             id="address"
                                             type="text"
-                                            title={ENUSStrings.CustomerAddressLabel}
+                                            title={ENUSStrings.CompanyAddressLabel}
                                             value={this.state.address}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -272,13 +277,13 @@ export default class CompanySettings extends Component {
                                     </div>
                                     <span className="field-error" hidden={!this.state.addressError || !this.state.isSubmissionAttempted}>{this.state.addressError}</span>
                                 </div>
-                                <div id="customer-city-container" className="field-whole-container">
+                                <div id="company-city-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerCityLabel}</span>
+                                        <span className="field-label field-required">{ENUSStrings.CompanyCityLabel}</span>
                                         <input
                                             id="city"
                                             type="text"
-                                            title={ENUSStrings.CustomerCityLabel}
+                                            title={ENUSStrings.CompanyCityLabel}
                                             value={this.state.city}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -289,13 +294,13 @@ export default class CompanySettings extends Component {
                                     </div>
                                     <span className="field-error" hidden={!this.state.cityError || !this.state.isSubmissionAttempted}>{this.state.cityError}</span>
                                 </div>
-                                <div id="customer-country-container" className="field-whole-container">
+                                <div id="company-country-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerCountryLabel}</span>
+                                        <span className="field-label field-required">{ENUSStrings.CompanyCountryLabel}</span>
                                         <input
                                             id="country"
                                             type="text"
-                                            title={ENUSStrings.CustomerCountryLabel}
+                                            title={ENUSStrings.CompanyCountryLabel}
                                             value={this.state.country}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -306,13 +311,13 @@ export default class CompanySettings extends Component {
                                     </div>
                                     <span className="field-error" hidden={!this.state.countryError || !this.state.isSubmissionAttempted}>{this.state.countryError}</span>
                                 </div>
-                                <div id="customer-zip-container" className="field-whole-container">
+                                <div id="company-zip-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerZipLabel}</span>
+                                        <span className="field-label field-required">{ENUSStrings.CompanyZipLabel}</span>
                                         <input
                                             id="zip"
                                             type="text"
-                                            title={ENUSStrings.CustomerZipLabel}
+                                            title={ENUSStrings.CompanyZipLabel}
                                             value={this.state.zip}
                                             onChange={(control) => {
                                                 changeValue(control.target.value, control.target.id);
@@ -327,9 +332,9 @@ export default class CompanySettings extends Component {
                                     <button
                                         className="primary-button"
                                         type="submit"
-                                        title={ENUSStrings.SubmitCustomerLabel}
+                                        title={ENUSStrings.SubmitCompanyLabel}
                                     >
-                                        {ENUSStrings.SubmitCustomerLabel}
+                                        {ENUSStrings.SubmitCompanyLabel}
                                     </button>
                                 </div>
                             </div>

@@ -36,5 +36,25 @@ namespace Invoicer.Controllers
             }
             return new OkObjectResult(new { response = "Success" });
         }
+
+        // Post Methods
+        [HttpPost("add-company")]
+        public IActionResult AddCustomer()
+        {
+            Task<CompaniesServiceRequest> companyModelValidation = CompaniesServicesValidation.CheckCompanyModel(Request);
+            CompaniesServiceRequest companyModelValidationResult = companyModelValidation.Result;
+            if (!companyModelValidationResult.IsSuccessful)
+            {
+                return BadRequest(new { response = companyModelValidationResult.Result });
+            }
+            CommonServiceRequest companyAddValidation = CompaniesServices.AddCompany(companyModelValidationResult.company);
+            if (!companyAddValidation.IsSuccessful)
+            {
+                return BadRequest(new { response = companyAddValidation.Result });
+            }
+            return Ok(new { response = companyAddValidation.Result });
+        }
+
+        // Put Methods
     }
 }

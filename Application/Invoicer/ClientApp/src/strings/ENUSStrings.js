@@ -16,6 +16,8 @@
     MakePaymentLabel: "Make Payment",
     AmountLabel: "Amount",
     // Company Strings
+    CreateNewCompanyLabel: "Create a new Company",
+    EditCompanyLabel: "Edit a Company",
     CompaniesLabel: "Companies",
     AddCompanyLabel: "Add a Company",
     EditCompaniesLabel: "Edit Companies",
@@ -24,6 +26,8 @@
     CompanyCityLabel: "Company City",
     CompanyCountryLabel: "Company Country",
     CompanyZipLabel: "Company Zip",
+    ChooseCompanyLabel: "Choose a Company",
+    SubmitCompanyLabel: "Submit Company Details",
     // Customer Strings
     CustomersLabel: "Customers",
     AddCustomerLabel: "Add a Customer",

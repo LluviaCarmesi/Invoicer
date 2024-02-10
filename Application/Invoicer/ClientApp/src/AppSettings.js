@@ -32,6 +32,8 @@
         EDIT: "edit"
     },
     APPLICATION_SETTINGS_MENUS: {
+        ADD_COMPANY: "addCompany",
+        EDIT_COMPANIES: "editCompanies",
         ADD_CUSTOMER: "addCustomer",
         EDIT_CUSTOMERS: "editCustomers",
         ADD_USER: "addUser",

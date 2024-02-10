@@ -55,7 +55,7 @@ namespace Invoicer.Controllers
             {
                 return BadRequest(new { response = customerModelValidationResult.Result });
             }
-            CommonServiceRequest customerAddValidation = CustomerServices.AddCustomer(customerModelValidation.Result.Customer);
+            CommonServiceRequest customerAddValidation = CustomerServices.AddCustomer(customerModelValidationResult.customer);
             if (!customerAddValidation.IsSuccessful)
             {
                 return BadRequest(new { response = customerAddValidation.Result });
