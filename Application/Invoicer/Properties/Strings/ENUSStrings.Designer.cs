@@ -106,11 +106,29 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t add company for the following reason: .
+        /// </summary>
+        public static string CompanyAddedFailedMessage {
+            get {
+                return ResourceManager.GetString("CompanyAddedFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The company was successfully added.
         /// </summary>
         public static string CompanyAddedSuccessMessage {
             get {
                 return ResourceManager.GetString("CompanyAddedSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t edit company for the following reason: .
+        /// </summary>
+        public static string CompanyEditedFailedMessage {
+            get {
+                return ResourceManager.GetString("CompanyEditedFailedMessage", resourceCulture);
             }
         }
         
@@ -151,11 +169,29 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t add the customer for the following reason: .
+        /// </summary>
+        public static string CustomerAddedFailedMessage {
+            get {
+                return ResourceManager.GetString("CustomerAddedFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The customer was successfully added.
         /// </summary>
         public static string CustomerAddedSuccessMessage {
             get {
                 return ResourceManager.GetString("CustomerAddedSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t edit the customer for the following reason: .
+        /// </summary>
+        public static string CustomerEditedFailedMessage {
+            get {
+                return ResourceManager.GetString("CustomerEditedFailedMessage", resourceCulture);
             }
         }
         

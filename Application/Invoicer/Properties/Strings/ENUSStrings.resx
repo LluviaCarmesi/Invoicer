@@ -132,8 +132,14 @@
   <data name="CityPropertyLabel" xml:space="preserve">
     <value>city</value>
   </data>
+  <data name="CompanyAddedFailedMessage" xml:space="preserve">
+    <value>Couldn't add company for the following reason: </value>
+  </data>
   <data name="CompanyAddedSuccessMessage" xml:space="preserve">
     <value>The company was successfully added</value>
+  </data>
+  <data name="CompanyEditedFailedMessage" xml:space="preserve">
+    <value>Couldn't edit company for the following reason: </value>
   </data>
   <data name="CompanyEditedSuccessMessage" xml:space="preserve">
     <value>The company was successfully edited</value>
@@ -147,8 +153,14 @@
   <data name="CreatedDatePropertyLabel" xml:space="preserve">
     <value>createdDate</value>
   </data>
+  <data name="CustomerAddedFailedMessage" xml:space="preserve">
+    <value>Couldn't add the customer for the following reason: </value>
+  </data>
   <data name="CustomerAddedSuccessMessage" xml:space="preserve">
     <value>The customer was successfully added</value>
+  </data>
+  <data name="CustomerEditedFailedMessage" xml:space="preserve">
+    <value>Couldn't edit the customer for the following reason: </value>
   </data>
   <data name="CustomerEditedSuccessMessage" xml:space="preserve">
     <value>The customer was successfully edited</value>

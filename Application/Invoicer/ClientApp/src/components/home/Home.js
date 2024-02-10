@@ -52,10 +52,10 @@ export class Home extends Component {
         const firstCompany = companiesInformation.companies[0];
         this.setState({
             companies: companiesInformation.companies,
-            currentCompanyID: firstCompany,
+            currentCompanyID: firstCompany.id,
             isLoadingCompanies: false,
         });
-        this.loadCompanyCustomers(firstCompany);
+        this.loadCompanyCustomers(firstCompany.id);
     }
 
     async loadCompanyCustomers(companyID) {

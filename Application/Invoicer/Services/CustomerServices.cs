@@ -94,6 +94,55 @@ namespace Invoicer.Services
             }
             return new OkObjectResult(customers);
         }
+        internal static IActionResult GetCompanyCustomers(string limitNumber, string offsetNumber, string companyID)
+        {
+            List<Customer> customers = new List<Customer>();
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand mySqlCommand;
+                if (!string.IsNullOrEmpty(limitNumber))
+                {
+                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} WHERE company_id = {companyID} LIMIT {limitNumber}", mySqlConnection);
+                }
+                else if (!string.IsNullOrEmpty(offsetNumber) && !string.IsNullOrEmpty(limitNumber))
+                {
+                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} WHERE company_id = {companyID} LIMIT {limitNumber} OFFSET {offsetNumber}", mySqlConnection);
+                }
+                else
+                {
+                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} WHERE company_id = {companyID}", mySqlConnection);
+                }
+                MySqlDataReader reader = mySqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    customers.Add
+                        (
+                            new Customer
+                                (
+                                    reader.GetInt32(0),
+                                    reader.GetInt32(1),
+                                    reader.GetString(2),
+                                    reader.GetString(3),
+                                    reader.GetString(4),
+                                    reader.GetString(5),
+                                    reader.GetString(6),
+                                    reader.GetString(7),
+                                    reader.GetString(8)
+                                )
+                        );
+                }
+            }
+            catch (Exception error)
+            {
+                return new BadRequestObjectResult(error.Message);
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
+            return new OkObjectResult(customers);
+        }
 
         // Posts
         internal static CommonServiceRequest AddCustomer(Customer customer)
@@ -121,7 +170,7 @@ namespace Invoicer.Services
             }
             catch (Exception e)
             {
-                result = "Couldn't add customer for the following reason: " + e.Message;
+                result = ENUSStrings.CustomerAddedFailedMessage + e.Message;
                 isSuccessful = false;
             }
             finally
@@ -157,7 +206,7 @@ namespace Invoicer.Services
             }
             catch (Exception e)
             {
-                result = "Couldn't add customer for the following reason: " + e.Message;
+                result = ENUSStrings.CustomerEditedFailedMessage + e.Message;
                 isSuccessful = false;
             }
             finally

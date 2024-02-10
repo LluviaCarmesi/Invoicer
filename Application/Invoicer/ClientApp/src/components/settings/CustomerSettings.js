@@ -7,13 +7,16 @@ import customerFormValidation from '../../utilities/validation/CustomerFormValid
 import createHTMLOptions from "../../utilities/CreateHTMLOptions";
 import loadingMessage from '../../utilities/LoadingMessage';
 import editCustomer from "../../services/EditCustomer";
+import getCompanies from "../../services/GetCompanies";
 
 export default class CustomerSettings extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            companies: [],
             customers: [],
             currentType: "",
+            currentCompanyID: 0,
             currentCustomerID: 0,
             name: "",
             phone: "",
@@ -23,6 +26,7 @@ export default class CustomerSettings extends Component {
             country: "",
             zip: "",
             isActive: true,
+            companyIDError: "",
             nameError: "",
             phoneError: "",
             emailError: "",
@@ -30,9 +34,12 @@ export default class CustomerSettings extends Component {
             cityError: "",
             countryError: "",
             zipError: "",
+            isLoadingCompanies: true,
             isLoadingCustomers: true,
+            errorCompanies: "",
             errorCustomers: "",
-            loadingMessageCustomers: ENUSStrings.LoadingCustomersLabel,
+            loadingCompaniesMessage: ENUSStrings.LoadingCompaniesLabel,
+            loadingCustomersMessage: ENUSStrings.LoadingCustomersLabel,
             isSubmissionAttempted: false,
             wasSubmissionFailure: false,
             wasSubmissionSuccessful: false,
@@ -42,9 +49,27 @@ export default class CustomerSettings extends Component {
         };
     }
 
+    async loadCompanies(type) {
+        const companiesInformation = await getCompanies();
+        if (companiesInformation.doesErrorExist) {
+            this.setState({
+                errorCompanies: companiesInformation.errorMessage,
+                isLoadingCompanies: false,
+                isLoadingCustomers: false
+            });
+            return;
+        }
+        this.setState({
+            companies: companiesInformation.companies,
+            currentCompanyID: companiesInformation.companies[0].id,
+            isLoadingCompanies: false,
+        });
+    }
+
     async loadCustomers() {
         let currentCustomerInformation = {
             id: 0,
+            companyID: 0,
             name: "",
             phone: "",
             email: "",
@@ -66,6 +91,7 @@ export default class CustomerSettings extends Component {
         const currentCustomer = customersInformation.customers.length > 0 ? customersInformation.customers[0] : { id: 0 };
         if (!!currentCustomer.id) {
             currentCustomerInformation.id = currentCustomer.id;
+            currentCustomerInformation.companyID = currentCustomer.companyID;
             currentCustomerInformation.name = currentCustomer.name;
             currentCustomerInformation.phone = currentCustomer.phone;
             currentCustomerInformation.email = currentCustomer.email;
@@ -77,7 +103,8 @@ export default class CustomerSettings extends Component {
         }
         this.setState({
             currentCustomerID: currentCustomerInformation.id,
-            customer: customersInformation.customers,
+            currentCompanyID: currentCustomerInformation.companyID,
+            customers: customersInformation.customers,
             name: currentCustomerInformation.name,
             phone: currentCustomerInformation.phone,
             email: currentCustomerInformation.email,
@@ -95,13 +122,15 @@ export default class CustomerSettings extends Component {
         this.setState({
             currentType: type
         });
+        this.loadCompanies(type);
+        loadingMessage("loading-companies-container", this.state.loadingCompaniesMessage, this.state.loadingCompaniesMessage);
         if (type === SETTINGS.NEW_EDIT_CHOICES.EDIT) {
-            loadingMessage("loading-customers-container", this.state.loadingMessageCustomers, this.state.loadingMessageCustomers);
+            loadingMessage("loading-customers-container", this.state.loadingCustomersMessage, this.state.loadingCustomersMessage);
             this.loadCustomers();
         }
         else {
             this.setState({
-                isLoadingCustomers: false,
+                isLoadingCustomers: false
             });
         }
     }
@@ -112,6 +141,7 @@ export default class CustomerSettings extends Component {
     }
     render() {
         const submissionItem = {
+            companyID: this.state.currentCompanyID,
             name: this.state.name,
             phone: this.state.phone,
             email: this.state.email,
@@ -138,6 +168,13 @@ export default class CustomerSettings extends Component {
             });
         };
 
+        const changeCompany = (value) => {
+            const valueToInt = parseInt(value);
+            this.setState({
+                currentCompanyID: parseInt(valueToInt)
+            });
+        }
+
         const changeValue = (value, id) => {
             this.setState({
                 [id]: value
@@ -154,6 +191,7 @@ export default class CustomerSettings extends Component {
             const validation = customerFormValidation(submissionItem);
             if (isSubmissionAttempted) {
                 this.setState({
+                    companyIDError: validation.errors.companyIDError,
                     nameError: validation.errors.nameError,
                     phoneError: validation.errors.phoneError,
                     emailError: validation.errors.emailError,
@@ -166,6 +204,7 @@ export default class CustomerSettings extends Component {
             }
             else {
                 this.setState({
+                    companyIDError: validation.errors.companyIDError,
                     nameError: validation.errors.nameError,
                     phoneError: validation.errors.phoneError,
                     emailError: validation.errors.emailError,
@@ -209,6 +248,7 @@ export default class CustomerSettings extends Component {
                     errorMessage = customerEdit.errorMessage;
                 }
                 this.setState({
+                    currentCompanyID: currentInformation.companyID,
                     name: currentInformation.name,
                     phone: currentInformation.phone,
                     email: currentInformation.email,
@@ -230,10 +270,16 @@ export default class CustomerSettings extends Component {
             <div className="customer-settings-container">
                 <React.Fragment>
                     <div id="loading-customers-container" hidden={!this.state.isLoadingCustomers}>
-                        <span>{this.state.loadingMessageCustomers}</span>
+                        <span>{this.state.loadingCustomersMessage}</span>
                     </div>
                     <div hidden={!this.state.errorCustomers}>
                         <span>{this.state.errorCustomers}</span>
+                    </div>
+                    <div id="loading-companies-container" hidden={!this.state.isLoadingCompanies}>
+                        <span>{this.state.loadingCompaniesMessage}</span>
+                    </div>
+                    <div hidden={!this.state.errorCompanies}>
+                        <span>{this.state.errorCompanies}</span>
                     </div>
                     <div className="submission-loading-overlay" hidden={!this.state.isSubmissionButtonClicked}>
                         <span>{ENUSStrings.CustomerIsSubmittedMessage}</span>
@@ -248,7 +294,7 @@ export default class CustomerSettings extends Component {
                         </div>
                         <button className="remove-button" onClick={closeSuccessFailureMessage}>{ENUSStrings.CloseLabel}</button>
                     </div>
-                    {!this.state.isLoadingCustomers && !this.state.errorCustomers &&
+                    {!this.state.isLoadingCustomers && !this.state.errorCustomers && !this.state.isLoadingCompanies && !this.state.errorCompanies &&
                         <form onSubmit={submitCustomerOnClick}>
                             <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.NEW}>Create a New Customer</h3>
                             <h3 hidden={this.state.currentType !== SETTINGS.NEW_EDIT_CHOICES.EDIT}>Edit a Customer</h3>
@@ -268,6 +314,20 @@ export default class CustomerSettings extends Component {
                                         </div>
                                     </div>
                                 }
+                                <div id="company-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CompanyNameLabel}</span>
+                                        <select
+                                            id="company-dropdown"
+                                            onChange={(control) => changeCompany(control.target.value)}
+                                            title={ENUSStrings.ChooseCompanyLabel}
+                                            value={this.state.currentCompanyID}
+                                        >
+                                            {createHTMLOptions(this.state.companies)}
+                                        </select>
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.nameError || !this.state.isSubmissionAttempted}>{this.state.nameError}</span>
+                                </div>
                                 <div id="customer-name-container" className="field-whole-container">
                                     <div className="field-label-input-container">
                                         <span className="field-label field-required">{ENUSStrings.CustomerNameLabel}</span>

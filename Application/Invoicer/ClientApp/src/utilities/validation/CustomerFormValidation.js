@@ -5,6 +5,7 @@ import doErrorsExist from "./DoErrorsExist";
 export default function customerFormValidation(values) {
     let isValid = true;
     let errors = {
+        companyIDError: "",
         nameError: "",
         phoneError: "",
         emailError: "",
@@ -13,6 +14,9 @@ export default function customerFormValidation(values) {
         countryError: "",
         zipError: "",
     };
+    if (!values.companyID) {
+        errors.companyIDError = ENUSStrings.CompanyNameLabel + ENUSStrings.BlankErrorMessage;
+    }
     if (!values.name) {
         errors.nameError = ENUSStrings.CustomerNameLabel + ENUSStrings.BlankErrorMessage;
     }

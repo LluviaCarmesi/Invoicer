@@ -28,6 +28,9 @@
     CompanyZipLabel: "Company Zip",
     ChooseCompanyLabel: "Choose a Company",
     SubmitCompanyLabel: "Submit Company Details",
+    CompanyIsSubmittedMessage: "Company is currently processing. Please wait",
+    CompanySubmissionFailedMessage: "Company submission failed. Please look at the error to the right and try submitting it again: ",
+    CompanySubmissionSuccessMessage: "Company was submitted successfully",
     // Customer Strings
     CustomersLabel: "Customers",
     AddCustomerLabel: "Add a Customer",

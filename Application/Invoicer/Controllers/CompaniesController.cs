@@ -1,4 +1,5 @@
-﻿using Invoicer.Models.ServiceRequests;
+﻿using Invoicer.Models;
+using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
 using Invoicer.Services;
 using Invoicer.Utilities.Validation;
@@ -34,7 +35,7 @@ namespace Invoicer.Controllers
             {
                 return BadRequest(new { response = customerIDValidation.Result });
             }
-            return new OkObjectResult(new { response = "Success" });
+            return CustomerServices.GetCompanyCustomers(Request.Query[AppSettings.LIMIT_QUERY_PARAMETER], Request.Query[AppSettings.OFFSET_QUERY_PARAMETER], companyID);
         }
 
         // Post Methods
@@ -56,5 +57,26 @@ namespace Invoicer.Controllers
         }
 
         // Put Methods
+        [HttpPost("edit-company/{companyID}")]
+        public IActionResult EditCustomer(string companyID)
+        {
+            CommonServiceRequest companyIDValidation = CommonValidation.CheckIDParameter(companyID, ENUSStrings.CompanyIDLabel);
+            if (!companyIDValidation.IsSuccessful)
+            {
+                return BadRequest(new { response = companyIDValidation.Result });
+            }
+            Task<CompaniesServiceRequest> companyModelValidation = CompaniesServicesValidation.CheckCompanyModel(Request, int.Parse(companyID));
+            CompaniesServiceRequest companyModelValidationResult = companyModelValidation.Result;
+            if (!companyModelValidationResult.IsSuccessful)
+            {
+                return BadRequest(new { response = companyModelValidationResult.Result });
+            }
+            CommonServiceRequest companyEditValidation = CompaniesServices.EditCompany(companyModelValidationResult.company);
+            if (!companyEditValidation.IsSuccessful)
+            {
+                return BadRequest(new { response = companyEditValidation.Result });
+            }
+            return Ok(new { response = companyEditValidation.Result });
+        }
     }
 }
