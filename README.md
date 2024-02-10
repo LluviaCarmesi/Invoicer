@@ -4,6 +4,6 @@ Used for invoicing needs. This is a personal project so that I can learn how to 
 
 ### TODO
 
-- Work on making Companies dropdown for home and settings page
-- If company is selected on Home, load customers for that company
-- If company is selected on Customer Settings, allow customer to be submitted with that company
+- Add company to print transaction page
+- Test everything to make sure it works
+- Host on Raspberry Pi
