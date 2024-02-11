@@ -7,6 +7,7 @@ import loadingMessage from "../../utilities/LoadingMessage";
 import getTransaction from "../../services/GetTransaction";
 import getCustomer from "../../services/GetCustomer";
 import "./PrintTransaction.css";
+import getCompany from "../../services/GetCompany";
 
 export default class PrintTransaction extends Component {
     constructor(props) {
@@ -17,6 +18,11 @@ export default class PrintTransaction extends Component {
             isLoadingTransaction: true,
             isTransactionPayment: false,
             errorTransaction: "",
+            companyName: "",
+            companyAddress: "",
+            companyCity: "",
+            companyCountry: "",
+            companyZip: "",
             customerName: "",
             customerAddress: "",
             customerCity: "",
@@ -35,13 +41,37 @@ export default class PrintTransaction extends Component {
         };
     }
 
+    async loadCompany(companyID) {
+        let company = {
+            name: "",
+            address: "",
+            city: "",
+            country: "",
+            zip: "",
+        };
+        if (!!companyID) {
+            const companyInformationRequest = await getCompany(companyID);
+            if (companyInformationRequest.doesErrorExist) {
+                return company;
+            }
+            const companyInformation = companyInformationRequest.company;
+            company.name = companyInformation.name;
+            company.address = companyInformation.address;
+            company.city = companyInformation.city;
+            company.country = companyInformation.country;
+            company.zip = companyInformation.zip;
+        }
+        return company;
+    }
+
     async loadCustomer(customerID) {
         let customer = {
-            customerName: "",
-            customerAddress: "",
-            customerCity: "",
-            customerCountry: "",
-            customerZip: "",
+            companyID: 0,
+            name: "",
+            address: "",
+            city: "",
+            country: "",
+            zip: "",
         };
         if (!!customerID) {
             const customerInformationRequest = await getCustomer(customerID);
@@ -49,13 +79,16 @@ export default class PrintTransaction extends Component {
                 return customer;
             }
             const customerInformation = customerInformationRequest.customer;
-            customer.customerName = customerInformation.name;
-            customer.customerAddress = customerInformation.address;
-            customer.customerCity = customerInformation.city;
-            customer.customerCountry = customerInformation.country;
-            customer.customerZip = customerInformation.zip;
+            customer.companyID = customerInformation.companyID;
+            customer.name = customerInformation.name;
+            customer.address = customerInformation.address;
+            customer.city = customerInformation.city;
+            customer.country = customerInformation.country;
+            customer.zip = customerInformation.zip;
         }
-        return customer;
+        console.log(customer.companyID);
+        const company = await this.loadCompany(customer.companyID);
+        return { customer, company };
     }
 
     async loadTransaction(transactionID) {
@@ -79,14 +112,19 @@ export default class PrintTransaction extends Component {
             }
             transaction = transactionInformation.transaction;
         }
-        const customerInformation = await this.loadCustomer(transaction.customerID);
+        const customerCompanyInformation = await this.loadCustomer(transaction.customerID);
         this.setState({
             currentTransactionID: transaction.id,
-            customerName: customerInformation.customerName,
-            customerAddress: customerInformation.customerAddress,
-            customerCity: customerInformation.customerCity,
-            customerCountry: customerInformation.Country,
-            customerZip: customerInformation.Zip,
+            companyName: customerCompanyInformation.company.name,
+            companyAddress: customerCompanyInformation.company.address,
+            companyCity: customerCompanyInformation.company.city,
+            companyCountry: customerCompanyInformation.company.country,
+            companyZip: customerCompanyInformation.company.zip,
+            customerName: customerCompanyInformation.customer.name,
+            customerAddress: customerCompanyInformation.customer.address,
+            customerCity: customerCompanyInformation.customer.city,
+            customerCountry: customerCompanyInformation.customer.country,
+            customerZip: customerCompanyInformation.customer.zip,
             createdDate: new Date(transaction.createdDate),
             paymentDate: formatDate(new Date(transaction.paymentDate)),
             dueDate: formatDate(new Date(transaction.dueDate)),
