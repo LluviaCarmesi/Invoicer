@@ -1,9 +1,13 @@
-﻿.invoice-id-container {
+﻿.print-transaction-company-container span {
+    display: block;
+}
+
+.print-transaction-invoice-id-container {
     text-align: right;
     margin-bottom: 20px;
 }
 
-.invoice-id-container span {
+.print-transaction-invoice-id-container span {
     font-size: 30px;
 }
 
@@ -11,7 +15,7 @@
     font-weight: 700;
 }
 
-.due-date-container {
+.print-transaction-due-date-container {
     text-align: right;
     margin-bottom: 20px;
 }
@@ -20,7 +24,7 @@
     font-weight: 700;
 }
 
-.invoice-table-container {
+.print-transaction-invoice-table-container {
     margin-bottom: 20px;
 }
 
@@ -41,11 +45,11 @@
     text-align: left;
 }
 
-.total-container {
+.print-transaction-total-container {
     text-align: right;
 }
 
-.total-container span {
+.print-transaction-total-container span {
     font-size: 25px;
 }
 

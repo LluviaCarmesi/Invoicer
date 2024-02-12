@@ -179,18 +179,22 @@ export default class PrintTransaction extends Component {
                 </div>
                 {!this.state.errorTransaction && !this.state.isLoadingTransaction &&
                     <div>
-                        <div className="invoice-id-container">
+                        <div className="print-transaction-company-container">
+                            <span>{this.state.companyName}</span>
+                            <span>{this.state.companyAddress}</span>
+                        </div>
+                        <div className="print-transaction-invoice-id-container">
                             <span>{ENUSStrings.InvoiceLabel}: </span>
                             <span id="id-number">{this.state.currentTransactionID}</span>
                         </div>
-                        <div className="customer-container">
+                        <div className="print-transaction-customer-container">
                             <span>{this.state.customerAddress}</span>
                         </div>
-                        <div className="due-date-container">
+                        <div className="print-transaction-due-date-container">
                             <span>{ENUSStrings.DueDateLabel}: </span>
                             <span id="due-date">{this.state.dueDate}</span>
                         </div>
-                        <div className="invoice-table-container">
+                        <div className="print-transaction-invoice-table-container">
                             <table className="invoice-table">
                                 <thead>
                                     <tr key={0}>
@@ -204,7 +208,7 @@ export default class PrintTransaction extends Component {
                                 </tbody>
                             </table>
                         </div>
-                        <div className="total-container">
+                        <div className="print-transaction-total-container">
                             <span>{ENUSStrings.TotalLabel}: </span>
                             <span id="total-number">{this.state.total}</span>
                         </div>
