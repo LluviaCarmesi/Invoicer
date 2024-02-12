@@ -216,6 +216,9 @@
   <data name="PhonePropertyLabel" xml:space="preserve">
     <value>phone</value>
   </data>
+  <data name="StatePropertyLabel" xml:space="preserve">
+    <value>state</value>
+  </data>
   <data name="TotalPropertyLabel" xml:space="preserve">
     <value>total</value>
   </data>

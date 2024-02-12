@@ -182,6 +182,7 @@ export default class PrintTransaction extends Component {
                         <div className="print-transaction-company-container">
                             <span>{this.state.companyName}</span>
                             <span>{this.state.companyAddress}</span>
+                            <span>{this.state.companyCity}</span>
                         </div>
                         <div className="print-transaction-invoice-id-container">
                             <span>{ENUSStrings.InvoiceLabel}: </span>

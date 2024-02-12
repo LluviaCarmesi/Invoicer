@@ -358,6 +358,15 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to state.
+        /// </summary>
+        public static string StatePropertyLabel {
+            get {
+                return ResourceManager.GetString("StatePropertyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to total.
         /// </summary>
         public static string TotalPropertyLabel {
