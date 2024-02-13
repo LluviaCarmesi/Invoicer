@@ -2,24 +2,26 @@ USE invoicer;
 
 CREATE TABLE companies (
   id INT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(256) NOT NULL,
+  name VARCHAR(200) NOT NULL,
   address VARCHAR(256) NOT NULL,
-  city VARCHAR(256) NOT NULL,
-  country VARCHAR(256) NOT NULL,
-  zip VARCHAR(256) NOT NULL,
+  city VARCHAR(100) NOT NULL,
+  state VARCHAR(100) NOT NULL,
+  country VARCHAR(100) NOT NULL,
+  zip VARCHAR(50) NOT NULL,
   PRIMARY KEY(id)
 );
 
 CREATE TABLE customers (
   id INT NOT NULL AUTO_INCREMENT,
   company_id INT NOT NULL,
-  name VARCHAR(256) NOT NULL,
+  name VARCHAR(200) NOT NULL,
   phone VARCHAR(20) NOT NULL,
   email VARCHAR(256) DEFAULT NULL,
   address VARCHAR(256) NOT NULL,
-  city VARCHAR(256) NOT NULL,
-  country VARCHAR(256) NOT NULL,
-  zip VARCHAR(256) NOT NULL,
+  city VARCHAR(100) NOT NULL,
+  state VARCHAR(100) NOT NULL,
+  country VARCHAR(100) NOT NULL,
+  zip VARCHAR(50) NOT NULL,
   is_account_active BOOLEAN DEFAULT TRUE,
   PRIMARY KEY(id),
   CONSTRAINT customers_fk_company_id FOREIGN KEY (company_id) REFERENCES companies(id)
@@ -41,8 +43,8 @@ CREATE TABLE transactions (
 CREATE TABLE invoice_data (
   id INT NOT NULL AUTO_INCREMENT,
   invoice_id INT NOT NULL,
-  type VARCHAR(256) DEFAULT NULL,
-  ticket_number VARCHAR(256) DEFAULT NULL,
+  type VARCHAR(50) DEFAULT NULL,
+  ticket_number VARCHAR(50) DEFAULT NULL,
   total DECIMAL(6, 4) NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT invoice_data_fk_invoice_id FOREIGN KEY (invoice_id) REFERENCES transactions(id)
@@ -50,10 +52,10 @@ CREATE TABLE invoice_data (
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
-  first_name VARCHAR(256) NOT NULL,
-  last_name VARCHAR(256) NOT NULL,
-  email VARCHAR(256) NOT NULL,
-  username VARCHAR(256) NOT NULL,
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  username VARCHAR(100) NOT NULL,
   password VARCHAR(256) NOT NULL,
   phone VARCHAR(20) NOT NULL,
   PRIMARY KEY (id)

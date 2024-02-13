@@ -11,6 +11,7 @@ export default function customerFormValidation(values) {
         emailError: "",
         addressError: "",
         cityError: "",
+        stateError: "",
         countryError: "",
         zipError: "",
     };
@@ -35,6 +36,9 @@ export default function customerFormValidation(values) {
     }
     if (!values.city) {
         errors.cityError = ENUSStrings.CustomerCityLabel + ENUSStrings.BlankErrorMessage;
+    }
+    if (!values.state) {
+        errors.stateError = ENUSStrings.CustomerStateLabel + ENUSStrings.BlankErrorMessage;
     }
     if (!values.country) {
         errors.countryError = ENUSStrings.CustomerCountryLabel + ENUSStrings.BlankErrorMessage;

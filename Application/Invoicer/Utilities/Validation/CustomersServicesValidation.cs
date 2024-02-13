@@ -101,6 +101,18 @@ namespace Invoicer.Utilities.Validation
                 customer.City = city;
             }
 
+            // state validation
+            string state = requestData.State;
+            if (string.IsNullOrEmpty(state))
+            {
+                isValid = false;
+                result = ENUSStrings.StatePropertyLabel + ENUSStrings.BlankError;
+            }
+            else
+            {
+                customer.State = state;
+            }
+
             // country validation
             string country = requestData.Country;
             if (string.IsNullOrEmpty(country))
@@ -223,6 +235,18 @@ namespace Invoicer.Utilities.Validation
             else
             {
                 customer.City = city;
+            }
+
+            // state validation
+            string state = requestData.State;
+            if (string.IsNullOrEmpty(state))
+            {
+                isValid = false;
+                result = ENUSStrings.StatePropertyLabel + ENUSStrings.BlankError;
+            }
+            else
+            {
+                customer.State = state;
             }
 
             // country validation

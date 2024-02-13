@@ -30,7 +30,8 @@ namespace Invoicer.Services
                             reader.GetString(2),
                             reader.GetString(3),
                             reader.GetString(4),
-                            reader.GetString(5)
+                            reader.GetString(5),
+                            reader.GetString(6)
                             )
                         );
                 }
@@ -64,7 +65,8 @@ namespace Invoicer.Services
                             reader.GetString(2),
                             reader.GetString(3),
                             reader.GetString(4),
-                            reader.GetString(5)
+                            reader.GetString(5),
+                            reader.GetString(6)
                         );
                 }
             }
@@ -85,12 +87,13 @@ namespace Invoicer.Services
             string result = string.Empty;
             mySqlConnection.Open();
             MySqlCommand mySqlCommand;
-            mySqlCommand = new MySqlCommand($"INSERT INTO {AppSettings.COMPANIES_TABLE} ({AppSettings.ADD_COMPANIES_COLUMNS}) VALUES (@name, @address, @city, @country, @zip)", mySqlConnection);
+            mySqlCommand = new MySqlCommand($"INSERT INTO {AppSettings.COMPANIES_TABLE} ({AppSettings.ADD_COMPANIES_COLUMNS}) VALUES (@name, @address, @city, @state, @country, @zip)", mySqlConnection);
             try
             {
                 mySqlCommand.Parameters.Add("@name", MySqlDbType.VarChar).Value = company.Name;
                 mySqlCommand.Parameters.Add("@address", MySqlDbType.VarChar).Value = company.Address;
                 mySqlCommand.Parameters.Add("@city", MySqlDbType.VarChar).Value = company.City;
+                mySqlCommand.Parameters.Add("@state", MySqlDbType.VarChar).Value = company.State;
                 mySqlCommand.Parameters.Add("@country", MySqlDbType.VarChar).Value = company.Country;
                 mySqlCommand.Parameters.Add("@zip", MySqlDbType.VarChar).Value = company.Zip;
                 mySqlCommand.Connection = mySqlConnection;
@@ -116,13 +119,14 @@ namespace Invoicer.Services
             string result = string.Empty;
             mySqlConnection.Open();
             MySqlCommand mySqlCommand;
-            mySqlCommand = new MySqlCommand($"UPDATE {AppSettings.COMPANIES_TABLE} SET name = @name, address = @address, city = @city, country = @country, zip = @zip WHERE id = @id", mySqlConnection);
+            mySqlCommand = new MySqlCommand($"UPDATE {AppSettings.COMPANIES_TABLE} SET name = @name, address = @address, city = @city, state = @state, country = @country, zip = @zip WHERE id = @id", mySqlConnection);
             try
             {
                 mySqlCommand.Parameters.Add("@id", MySqlDbType.Int32).Value = company.Id;
                 mySqlCommand.Parameters.Add("@name", MySqlDbType.VarChar).Value = company.Name;
                 mySqlCommand.Parameters.Add("@address", MySqlDbType.VarChar).Value = company.Address;
                 mySqlCommand.Parameters.Add("@city", MySqlDbType.VarChar).Value = company.City;
+                mySqlCommand.Parameters.Add("@state", MySqlDbType.VarChar).Value = company.State;
                 mySqlCommand.Parameters.Add("@country", MySqlDbType.VarChar).Value = company.Country;
                 mySqlCommand.Parameters.Add("@zip", MySqlDbType.VarChar).Value = company.Zip;
                 mySqlCommand.Connection = mySqlConnection;

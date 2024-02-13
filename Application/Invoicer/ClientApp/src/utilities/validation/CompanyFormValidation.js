@@ -7,6 +7,7 @@ export default function companyFormValidation(values) {
         nameError: "",
         addressError: "",
         cityError: "",
+        stateError: "",
         countryError: "",
         zipError: "",
     };
@@ -18,6 +19,9 @@ export default function companyFormValidation(values) {
     }
     if (!values.city) {
         errors.cityError = ENUSStrings.CompanyCityLabel + ENUSStrings.BlankErrorMessage;
+    }
+    if (!values.state) {
+        errors.stateError = ENUSStrings.CompanyStateLabel + ENUSStrings.BlankErrorMessage;
     }
     if (!values.country) {
         errors.countryError = ENUSStrings.CompanyCountryLabel + ENUSStrings.BlankErrorMessage;
