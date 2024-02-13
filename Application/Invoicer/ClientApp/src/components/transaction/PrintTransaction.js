@@ -21,11 +21,13 @@ export default class PrintTransaction extends Component {
             companyName: "",
             companyAddress: "",
             companyCity: "",
+            companyState: "",
             companyCountry: "",
             companyZip: "",
             customerName: "",
             customerAddress: "",
             customerCity: "",
+            customerState: "",
             customerCountry: "",
             customerZip: "",
             createdDate: null,
@@ -46,6 +48,7 @@ export default class PrintTransaction extends Component {
             name: "",
             address: "",
             city: "",
+            state: "",
             country: "",
             zip: "",
         };
@@ -58,6 +61,7 @@ export default class PrintTransaction extends Component {
             company.name = companyInformation.name;
             company.address = companyInformation.address;
             company.city = companyInformation.city;
+            company.state = companyInformation.state;
             company.country = companyInformation.country;
             company.zip = companyInformation.zip;
         }
@@ -70,6 +74,7 @@ export default class PrintTransaction extends Component {
             name: "",
             address: "",
             city: "",
+            state: "",
             country: "",
             zip: "",
         };
@@ -83,6 +88,7 @@ export default class PrintTransaction extends Component {
             customer.name = customerInformation.name;
             customer.address = customerInformation.address;
             customer.city = customerInformation.city;
+            customer.state = customerInformation.state;
             customer.country = customerInformation.country;
             customer.zip = customerInformation.zip;
         }
@@ -118,11 +124,13 @@ export default class PrintTransaction extends Component {
             companyName: customerCompanyInformation.company.name,
             companyAddress: customerCompanyInformation.company.address,
             companyCity: customerCompanyInformation.company.city,
+            companyState: customerCompanyInformation.company.state,
             companyCountry: customerCompanyInformation.company.country,
             companyZip: customerCompanyInformation.company.zip,
             customerName: customerCompanyInformation.customer.name,
             customerAddress: customerCompanyInformation.customer.address,
             customerCity: customerCompanyInformation.customer.city,
+            customerState: customerCompanyInformation.customer.state,
             customerCountry: customerCompanyInformation.customer.country,
             customerZip: customerCompanyInformation.customer.zip,
             createdDate: new Date(transaction.createdDate),
@@ -182,14 +190,16 @@ export default class PrintTransaction extends Component {
                         <div className="print-transaction-company-container">
                             <span>{this.state.companyName}</span>
                             <span>{this.state.companyAddress}</span>
-                            <span>{this.state.companyCity}</span>
+                            <span>{this.state.companyState} {this.state.companyZip}</span>
                         </div>
                         <div className="print-transaction-invoice-id-container">
                             <span>{ENUSStrings.InvoiceLabel}: </span>
                             <span id="id-number">{this.state.currentTransactionID}</span>
                         </div>
                         <div className="print-transaction-customer-container">
+                            <span>{this.state.customerName}</span>
                             <span>{this.state.customerAddress}</span>
+                            <span>{this.state.customerCity}, {this.state.customerState} {this.state.customerZip}</span>
                         </div>
                         <div className="print-transaction-due-date-container">
                             <span>{ENUSStrings.DueDateLabel}: </span>

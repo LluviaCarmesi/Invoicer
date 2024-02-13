@@ -4,6 +4,4 @@ Used for invoicing needs. This is a personal project so that I can learn how to 
 
 ### TODO
 
-- Add company to print transaction page
-- Test everything to make sure it works
 - Host on Raspberry Pi

@@ -22,12 +22,12 @@ namespace Invoicer.Controllers
         public IActionResult GetCompany(string companyID)
         {
             Debug.WriteLine(companyID);
-            CommonServiceRequest customerIDValidation = CommonValidation.CheckIDParameter(companyID, ENUSStrings.CompanyIDLabel);
-            if (!customerIDValidation.IsSuccessful)
+            CommonServiceRequest companyIDValidation = CommonValidation.CheckIDParameter(companyID, ENUSStrings.CompanyIDLabel);
+            if (!companyIDValidation.IsSuccessful)
             {
-                return BadRequest(new { response = customerIDValidation.Result });
+                return BadRequest(new { response = companyIDValidation.Result });
             }
-            return CustomerServices.GetCustomer(companyID);
+            return CompaniesServices.GetCompany(companyID);
         }
         [HttpGet("{companyID}/customers")]
         public IActionResult GetCompanyCustomers(string companyID)
@@ -42,7 +42,7 @@ namespace Invoicer.Controllers
 
         // Post Methods
         [HttpPost("add-company")]
-        public IActionResult AddCustomer()
+        public IActionResult AddCompany()
         {
             Task<CompaniesServiceRequest> companyModelValidation = CompaniesServicesValidation.CheckCompanyModel(Request);
             CompaniesServiceRequest companyModelValidationResult = companyModelValidation.Result;
@@ -59,8 +59,9 @@ namespace Invoicer.Controllers
         }
 
         // Put Methods
+        [Route("edit-company/{companyID}")]
         [HttpPost("edit-company/{companyID}")]
-        public IActionResult EditCustomer(string companyID)
+        public IActionResult EditCompany(string companyID)
         {
             CommonServiceRequest companyIDValidation = CommonValidation.CheckIDParameter(companyID, ENUSStrings.CompanyIDLabel);
             if (!companyIDValidation.IsSuccessful)

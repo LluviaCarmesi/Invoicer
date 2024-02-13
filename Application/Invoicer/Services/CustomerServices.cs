@@ -190,7 +190,7 @@ namespace Invoicer.Services
             string result = string.Empty;
             mySqlConnection.Open();
             MySqlCommand mySqlCommand;
-            mySqlCommand = new MySqlCommand($"UPDATE {AppSettings.CUSTOMERS_TABLE}SET company_id = @companyID, name = @name, phone = @phone, email = @email, address = @address, city = @city, state = @state, country = @country, zip = @zip, is_account_active = @is_account_active WHERE id = @id", mySqlConnection);
+            mySqlCommand = new MySqlCommand($"UPDATE {AppSettings.CUSTOMERS_TABLE} SET company_id = @companyID, name = @name, phone = @phone, email = @email, address = @address, city = @city, state = @state, country = @country, zip = @zip, is_account_active = @is_account_active WHERE id = @id", mySqlConnection);
             try
             {
                 mySqlCommand.Parameters.Add("@id", MySqlDbType.Int32).Value = customer.Id;

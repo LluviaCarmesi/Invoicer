@@ -18,11 +18,13 @@ export default class CompanySettings extends Component {
             name: "",
             address: "",
             city: "",
+            state: "",
             country: "",
             zip: "",
             nameError: "",
             addressError: "",
             cityError: "",
+            stateError: "",
             countryError: "",
             zipError: "",
             isLoadingCompanies: true,
@@ -43,6 +45,7 @@ export default class CompanySettings extends Component {
             name: "",
             address: "",
             city: "",
+            state: "",
             country: "",
             zip: "",
         }
@@ -58,10 +61,9 @@ export default class CompanySettings extends Component {
         if (!!currentCompany.id) {
             currentCompanyInformation.id = currentCompany.id;
             currentCompanyInformation.name = currentCompany.name;
-            currentCompanyInformation.phone = currentCompany.phone;
-            currentCompanyInformation.email = currentCompany.email;
             currentCompanyInformation.address = currentCompany.address;
             currentCompanyInformation.city = currentCompany.city;
+            currentCompanyInformation.state = currentCompany.state;
             currentCompanyInformation.country = currentCompany.country;
             currentCompanyInformation.zip = currentCompany.zip;
             currentCompanyInformation.isActive = currentCompany.isActive;
@@ -70,10 +72,9 @@ export default class CompanySettings extends Component {
             currentCompanyID: currentCompanyInformation.id,
             companies: companiesInformation.companies,
             name: currentCompanyInformation.name,
-            phone: currentCompanyInformation.phone,
-            email: currentCompanyInformation.email,
             address: currentCompanyInformation.address,
             city: currentCompanyInformation.city,
+            state: currentCompanyInformation.state,
             country: currentCompanyInformation.country,
             zip: currentCompanyInformation.zip,
             isActive: currentCompanyInformation.isActive,
@@ -106,11 +107,12 @@ export default class CompanySettings extends Component {
             name: this.state.name,
             address: this.state.address,
             city: this.state.city,
+            state: this.state.state,
             country: this.state.country,
             zip: this.state.zip
         };
 
-        const changeCompany= (value) => {
+        const changeCompany = (value) => {
             const valueToInt = parseInt(value);
             const company = this.state.companies.filter((company) => company.id === valueToInt)[0];
             this.setState({
@@ -118,6 +120,7 @@ export default class CompanySettings extends Component {
                 name: company.name,
                 address: company.address,
                 city: company.city,
+                state: company.state,
                 country: company.country,
                 zip: company.zip
             });
@@ -142,6 +145,7 @@ export default class CompanySettings extends Component {
                     nameError: validation.errors.nameError,
                     addressError: validation.errors.addressError,
                     cityError: validation.errors.cityError,
+                    stateError: validation.errors.stateError,
                     countryError: validation.errors.countryError,
                     zipError: validation.errors.zipError,
                     isSubmissionAttempted: true
@@ -152,6 +156,7 @@ export default class CompanySettings extends Component {
                     nameError: validation.errors.nameError,
                     addressError: validation.errors.addressError,
                     cityError: validation.errors.cityError,
+                    stateError: validation.errors.stateError,
                     countryError: validation.errors.countryError,
                     zipError: validation.errors.zipError,
                 });
@@ -177,6 +182,7 @@ export default class CompanySettings extends Component {
                         currentInformation.name = "";
                         currentInformation.address = "";
                         currentInformation.city = "";
+                        currentInformation.state = "";
                         currentInformation.country = "";
                         currentInformation.zip = "";
                     }
@@ -190,6 +196,7 @@ export default class CompanySettings extends Component {
                     name: currentInformation.name,
                     address: currentInformation.address,
                     city: currentInformation.city,
+                    state: currentInformation.state,
                     country: currentInformation.country,
                     zip: currentInformation.zip,
                     wasSubmissionSuccessful: isSuccessful,
@@ -293,6 +300,24 @@ export default class CompanySettings extends Component {
                                         />
                                     </div>
                                     <span className="field-error" hidden={!this.state.cityError || !this.state.isSubmissionAttempted}>{this.state.cityError}</span>
+                                </div>
+
+                                <div id="company-state-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CompanyStateLabel}</span>
+                                        <input
+                                            id="state"
+                                            type="text"
+                                            title={ENUSStrings.CompanyStateLabel}
+                                            value={this.state.state}
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                submissionItem.state = control.target.value;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.stateError || !this.state.isSubmissionAttempted}>{this.state.stateError}</span>
                                 </div>
                                 <div id="company-country-container" className="field-whole-container">
                                     <div className="field-label-input-container">

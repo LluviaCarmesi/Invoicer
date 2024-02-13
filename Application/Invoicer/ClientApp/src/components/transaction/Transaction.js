@@ -543,7 +543,7 @@ export default class Transaction extends Component {
                                         </React.Fragment>
                                     }
                                 </div>
-                                <div id="print-container">
+                                <div id="print-container" hidden={!this.state.currentTransactionID}>
                                     <div className="field-label-input-container">
                                         <span><a
                                             href={`/print-transaction?id=${this.state.currentTransactionID}`}

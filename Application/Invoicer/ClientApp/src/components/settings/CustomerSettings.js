@@ -23,6 +23,7 @@ export default class CustomerSettings extends Component {
             email: "",
             address: "",
             city: "",
+            state: "",
             country: "",
             zip: "",
             isActive: true,
@@ -32,6 +33,7 @@ export default class CustomerSettings extends Component {
             emailError: "",
             addressError: "",
             cityError: "",
+            stateError: "",
             countryError: "",
             zipError: "",
             isLoadingCompanies: true,
@@ -83,6 +85,7 @@ export default class CustomerSettings extends Component {
             email: "",
             address: "",
             city: "",
+            state: "",
             country: "",
             zip: "",
             isActive: true
@@ -105,6 +108,7 @@ export default class CustomerSettings extends Component {
             currentCustomerInformation.email = currentCustomer.email;
             currentCustomerInformation.address = currentCustomer.address;
             currentCustomerInformation.city = currentCustomer.city;
+            currentCustomerInformation.state = currentCustomer.state;
             currentCustomerInformation.country = currentCustomer.country;
             currentCustomerInformation.zip = currentCustomer.zip;
             currentCustomerInformation.isActive = currentCustomer.isActive;
@@ -118,6 +122,7 @@ export default class CustomerSettings extends Component {
             email: currentCustomerInformation.email,
             address: currentCustomerInformation.address,
             city: currentCustomerInformation.city,
+            state: currentCustomerInformation.state,
             country: currentCustomerInformation.country,
             zip: currentCustomerInformation.zip,
             isActive: currentCustomerInformation.isActive,
@@ -155,6 +160,7 @@ export default class CustomerSettings extends Component {
             email: this.state.email,
             address: this.state.address,
             city: this.state.city,
+            state: this.state.state,
             country: this.state.country,
             zip: this.state.zip,
             isActive: this.state.isActive
@@ -170,6 +176,7 @@ export default class CustomerSettings extends Component {
                 email: customer.email,
                 address: customer.address,
                 city: customer.city,
+                state: customer.state,
                 country: customer.country,
                 zip: customer.zip,
                 isActive: customer.isActive
@@ -205,6 +212,7 @@ export default class CustomerSettings extends Component {
                     emailError: validation.errors.emailError,
                     addressError: validation.errors.addressError,
                     cityError: validation.errors.cityError,
+                    stateError: validation.errors.stateError,
                     countryError: validation.errors.countryError,
                     zipError: validation.errors.zipError,
                     isSubmissionAttempted: true
@@ -218,6 +226,7 @@ export default class CustomerSettings extends Component {
                     emailError: validation.errors.emailError,
                     addressError: validation.errors.addressError,
                     cityError: validation.errors.cityError,
+                    stateError: validation.errors.stateError,
                     countryError: validation.errors.countryError,
                     zipError: validation.errors.zipError,
                 });
@@ -245,6 +254,7 @@ export default class CustomerSettings extends Component {
                         currentInformation.email = "";
                         currentInformation.address = "";
                         currentInformation.city = "";
+                        currentInformation.state = "";
                         currentInformation.country = "";
                         currentInformation.zip = "";
                         currentInformation.isActive = true;
@@ -262,6 +272,7 @@ export default class CustomerSettings extends Component {
                     email: currentInformation.email,
                     address: currentInformation.address,
                     city: currentInformation.city,
+                    state: currentInformation.state,
                     country: currentInformation.country,
                     zip: currentInformation.zip,
                     isActive: currentInformation.isActive,
@@ -420,6 +431,23 @@ export default class CustomerSettings extends Component {
                                         />
                                     </div>
                                     <span className="field-error" hidden={!this.state.cityError || !this.state.isSubmissionAttempted}>{this.state.cityError}</span>
+                                </div>
+                                <div id="customer-state-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.CustomerStateLabel}</span>
+                                        <input
+                                            id="state"
+                                            type="text"
+                                            title={ENUSStrings.CustomerStateLabel}
+                                            value={this.state.state}
+                                            onChange={(control) => {
+                                                changeValue(control.target.value, control.target.id);
+                                                submissionItem.state = control.target.value;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="field-error" hidden={!this.state.stateError || !this.state.isSubmissionAttempted}>{this.state.stateError}</span>
                                 </div>
                                 <div id="customer-country-container" className="field-whole-container">
                                     <div className="field-label-input-container">
