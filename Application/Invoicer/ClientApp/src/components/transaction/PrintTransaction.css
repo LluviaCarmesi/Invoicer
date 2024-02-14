@@ -19,17 +19,17 @@
     display: block;
 }
 
-.print-transaction-due-date-container {
+.print-transaction-due-date-container, .print-transaction-terms-container {
     text-align: right;
     margin-bottom: 20px;
 }
 
-#due-date {
+#due-date, #due-message {
     font-weight: 700;
 }
 
 .print-transaction-invoice-table-container {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .invoice-table {
@@ -50,11 +50,17 @@
 }
 
 .print-transaction-total-container {
+    display: flex;
     text-align: right;
+    justify-content: space-between;
 }
 
 .print-transaction-total-container span {
     font-size: 25px;
+}
+
+#thank-you-message {
+    font-size: 18px;
 }
 
 #total-number {

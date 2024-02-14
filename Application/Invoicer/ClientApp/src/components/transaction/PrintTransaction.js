@@ -92,7 +92,6 @@ export default class PrintTransaction extends Component {
             customer.country = customerInformation.country;
             customer.zip = customerInformation.zip;
         }
-        console.log(customer.companyID);
         const company = await this.loadCompany(customer.companyID);
         return { customer, company };
     }
@@ -156,11 +155,6 @@ export default class PrintTransaction extends Component {
         this.loadTransaction(transactionID);
     }
 
-    componentDidUpdate(previousProps, previousState) {
-        console.log(previousState);
-        console.log(this.state);
-    }
-
     render() {
         const createInvoiceDataRows = () => {
             let rows = [];
@@ -201,6 +195,10 @@ export default class PrintTransaction extends Component {
                             <span>{this.state.customerAddress}</span>
                             <span>{this.state.customerCity}, {this.state.customerState} {this.state.customerZip}</span>
                         </div>
+                        <div className="print-transaction-terms-container">
+                            <span>{ENUSStrings.TermsLabel}: </span>
+                            <span id="due-message">{ENUSStrings.DueOnReceiptLabel}</span>
+                        </div>
                         <div className="print-transaction-due-date-container">
                             <span>{ENUSStrings.DueDateLabel}: </span>
                             <span id="due-date">{this.state.dueDate}</span>
@@ -220,8 +218,13 @@ export default class PrintTransaction extends Component {
                             </table>
                         </div>
                         <div className="print-transaction-total-container">
-                            <span>{ENUSStrings.TotalLabel}: </span>
-                            <span id="total-number">{this.state.total}</span>
+                            <div>
+                                <span id="thank-you-message">{ENUSStrings.ThankYouLabel}</span>
+                            </div>
+                            <div>
+                                <span>{ENUSStrings.TotalLabel}: </span>
+                                <span id="total-number">{this.state.total}</span>
+                            </div>
                         </div>
                     </div>
                 }

@@ -71,6 +71,9 @@
     AddInvoiceDataLabel: "Add Invoice Row",
     TransactionIsPaymentMessage: "The current transaction is a payment",
     CreateTransactionLabel: "Create transaction for this company",
+    ThankYouLabel: "Thank you for your business.",
+    TermsLabel: "Terms",
+    DueOnReceiptLabel: "Due on receipt",
     // User Strings
     UsersLabel: "Users",
     AddUserLabel: "Add a User",
