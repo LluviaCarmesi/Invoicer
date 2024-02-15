@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Invoicer.Services;
-using Invoicer.Models;
-using Invoicer.Utilities.Validation;
 
 namespace Invoicer.Controllers
 {

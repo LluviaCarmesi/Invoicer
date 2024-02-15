@@ -3,7 +3,6 @@ using Invoicer.Models;
 using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
 using Newtonsoft.Json;
-using System.Diagnostics;
 using System.Text;
 
 namespace Invoicer.Utilities.Validation
@@ -120,7 +119,6 @@ namespace Invoicer.Utilities.Validation
             }
             // total validation
             decimal total = requestData.Total;
-            Debug.WriteLine(total);
             if (total == decimal.MinValue)
             {
                 isValid = false;
@@ -231,7 +229,6 @@ namespace Invoicer.Utilities.Validation
             }
             // total validation
             decimal total = requestData.Total;
-            Debug.WriteLine(total);
             if (total == decimal.MinValue)
             {
                 isValid = false;
@@ -273,7 +270,6 @@ namespace Invoicer.Utilities.Validation
                     InvoiceData currentInvoiceData = invoiceData[i];
                     if (currentInvoiceData.Total == decimal.MinValue || currentInvoiceData.Total == 0 || string.IsNullOrEmpty(currentInvoiceData.Type))
                     {
-                        Debug.WriteLine(currentInvoiceData.Total);
                         return false;
                     }
                 }

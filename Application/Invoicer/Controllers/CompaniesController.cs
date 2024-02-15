@@ -1,10 +1,8 @@
-﻿using Invoicer.Models;
-using Invoicer.Models.ServiceRequests;
+﻿using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
 using Invoicer.Services;
 using Invoicer.Utilities.Validation;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace Invoicer.Controllers
 {
@@ -21,7 +19,6 @@ namespace Invoicer.Controllers
         [HttpGet("{companyID}")]
         public IActionResult GetCompany(string companyID)
         {
-            Debug.WriteLine(companyID);
             CommonServiceRequest companyIDValidation = CommonValidation.CheckIDParameter(companyID, ENUSStrings.CompanyIDLabel);
             if (!companyIDValidation.IsSuccessful)
             {
