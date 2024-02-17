@@ -4,7 +4,7 @@ using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
 using Invoicer.Utilities.NewFolder;
 using Microsoft.AspNetCore.Mvc;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace Invoicer.Services
 {

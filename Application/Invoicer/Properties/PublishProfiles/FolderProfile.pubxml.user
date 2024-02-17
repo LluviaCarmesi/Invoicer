@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\ProgrammingProjects\Invoicer\Application\Invoicer\bin\Release\net8.0\publish\</_PublishTargetUrl>
+    <History>True|2024-02-16T22:20:35.7932676Z;True|2024-02-16T17:08:58.3238932-05:00;True|2024-02-16T17:01:15.9992995-05:00;True|2024-02-15T18:20:21.6618721-05:00;False|2024-02-15T18:19:49.3272852-05:00;True|2024-02-15T16:59:44.8130518-05:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

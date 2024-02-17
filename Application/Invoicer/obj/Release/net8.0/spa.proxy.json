@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44475",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}
