@@ -156,8 +156,6 @@ export class Home extends Component {
                                 <td>
                                     <a
                                         href={`/transaction?id=${CurrentTransaction.id}&type=invoice&customerID=${this.state.currentCustomerID}`}
-                                        target="_blank"
-                                        rel="noreferrer"
                                     >
                                         {ENUSStrings.ViewTransactionLabel}
                                     </a>
@@ -175,8 +173,6 @@ export class Home extends Component {
                                 <td>
                                     <a
                                         href={`/transaction?id=${CurrentTransaction.id}&type=payment&customerID=${this.state.currentCustomerID}`}
-                                        target="_blank"
-                                        rel="noreferrer"
                                     >
                                         {ENUSStrings.ViewTransactionLabel}
                                     </a>
@@ -211,7 +207,7 @@ export class Home extends Component {
                                     onChange={(control) => changeCompany(control.target.value)}
                                     title={ENUSStrings.ChooseCompanyLabel}
                                 >
-                                    {createHTMLOptions(this.state.companies)}
+                                    {createHTMLOptions(this.state.companies, "city")}
                                 </select>
                             </React.Fragment>
                         }

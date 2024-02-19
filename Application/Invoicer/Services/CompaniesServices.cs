@@ -3,6 +3,8 @@ using Invoicer.Models.ServiceRequests;
 using Invoicer.Properties.Strings;
 using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
+using System.Reflection.PortableExecutable;
+using System.Text;
 
 namespace Invoicer.Services
 {
@@ -56,7 +58,7 @@ namespace Invoicer.Services
                 MySqlCommand mySqlCommand;
                 mySqlCommand = new MySqlCommand($"SELECT {AppSettings.COMPANIES_SELECT_COLUMNS} FROM {AppSettings.COMPANIES_TABLE} WHERE id = {companyID}", mySqlConnection);
                 MySqlDataReader reader = mySqlCommand.ExecuteReader();
-                while(reader.Read())
+                while (reader.Read())
                 {
                     company = new Company
                         (
@@ -79,6 +81,112 @@ namespace Invoicer.Services
                 mySqlConnection.Close();
             }
             return new OkObjectResult(company);
+        }
+        internal static CompaniesCustomersTransactionsServiceRequest GetCompaniesCustomersTransactions()
+        {
+            string result = string.Empty;
+            bool isSuccessful = true;
+            List<CompaniesCustomersTransactions> companiesCustomersTransactions = new List<CompaniesCustomersTransactions>();
+            List<Company> companies = new List<Company>();
+            List<Customer> customers = new List<Customer>();
+            List<Transaction> transactions = new List<Transaction>();
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand mySqlGetCompaniesCommand;
+                mySqlGetCompaniesCommand = new MySqlCommand($"SELECT {AppSettings.COMPANIES_SELECT_COLUMNS} FROM {AppSettings.COMPANIES_TABLE}", mySqlConnection);
+                MySqlDataReader getCompaniesReader = mySqlGetCompaniesCommand.ExecuteReader();
+                while (getCompaniesReader.Read())
+                {
+                    companies.Add
+                        (
+                        new Company
+                            (
+                            getCompaniesReader.GetInt32(0),
+                            getCompaniesReader.GetString(1),
+                            getCompaniesReader.GetString(2),
+                            getCompaniesReader.GetString(3),
+                            getCompaniesReader.GetString(4),
+                            getCompaniesReader.GetString(5),
+                            getCompaniesReader.GetString(6)
+                            )
+                        );
+                }
+                getCompaniesReader.Close();
+                MySqlCommand mySqlGetCustomersCommand;
+                mySqlGetCustomersCommand = new MySqlCommand($"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE}", mySqlConnection);
+                MySqlDataReader getCustomersReader = mySqlGetCustomersCommand.ExecuteReader();
+                while (getCustomersReader.Read())
+                {
+                    customers.Add
+                    (
+                        new Customer
+                        (
+                            getCustomersReader.GetInt32(0),
+                            getCustomersReader.GetInt32(1),
+                            getCustomersReader.GetString(2),
+                            getCustomersReader.GetString(3),
+                            getCustomersReader.GetString(4),
+                            getCustomersReader.GetString(5),
+                            getCustomersReader.GetString(6),
+                            getCustomersReader.GetString(7),
+                            getCustomersReader.GetString(8),
+                            getCustomersReader.GetString(9)
+                        )
+                );
+                }
+                getCustomersReader.Close();
+                MySqlCommand mySqlGetTransactionsCommand;
+                mySqlGetTransactionsCommand = new MySqlCommand($"SELECT {AppSettings.TRANSACTIONS_SELECT_COLUMNS} FROM {AppSettings.TRANSACTIONS_TABLE}", mySqlConnection);
+                MySqlDataReader getTransactionsReader = mySqlGetTransactionsCommand.ExecuteReader();
+                while (getTransactionsReader.Read())
+                {
+                    transactions.Add
+                    (
+                        new Transaction
+                        (
+                            getTransactionsReader.GetInt32(0),
+                            getTransactionsReader.GetInt32(1),
+                            getTransactionsReader.GetString(2),
+                            getTransactionsReader.GetDateTime(3),
+                            getTransactionsReader.GetDateTime(4),
+                            getTransactionsReader.GetDateTime(5),
+                            getTransactionsReader.GetString(6),
+                            getTransactionsReader.GetDecimal(7)
+                        )
+                    );
+                }
+                for (int i = 0; i < transactions.Count; i++)
+                {
+                    Transaction currentTransaction = transactions[i];
+                    companiesCustomersTransactions.Add(
+                        new CompaniesCustomersTransactions(
+                                customers.Where(customer => customer.Id == currentTransaction.CustomerID).ToList()[0].CompanyID,
+                                companies.Where(company => company.Id == customers.Where(customer => customer.Id == currentTransaction.CustomerID).ToList()[0].CompanyID).ToList()[0].Name,
+                                currentTransaction.CustomerID,
+                                customers.Where(customer => customer.Id == currentTransaction.CustomerID).ToList()[0].Name,
+                                customers.Where(customer => customer.Id == currentTransaction.CustomerID).ToList()[0].Email,
+                                customers.Where(customer => customer.Id == currentTransaction.CustomerID).ToList()[0].Phone,
+                                currentTransaction.Id,
+                                currentTransaction.Type,
+                                currentTransaction.CreatedDate,
+                                currentTransaction.DueDate,
+                                currentTransaction.PaymentDate,
+                                currentTransaction.Total
+                            )
+                        );
+                }
+            }
+            catch (Exception e)
+            {
+                result = ENUSStrings.CompaniesCustomersTransactionsExportFailedMessage + e.Message;
+                isSuccessful = false;
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
+            return new CompaniesCustomersTransactionsServiceRequest(isSuccessful, result, companiesCustomersTransactions);
         }
         // Posts
         internal static CommonServiceRequest AddCompany(Company company)

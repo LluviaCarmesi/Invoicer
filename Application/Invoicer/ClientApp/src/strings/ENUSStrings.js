@@ -1,5 +1,8 @@
 ﻿const ENUSStrings = {
     // General
+    HomeLabel: "Home",
+    SettingsLabel: "Settings",
+    DownloadAllTransactionsLabel: "Download all transactions",
     TypeLabel: "Type",
     FuelLabel: "Fuel",
     CloseLabel: "Close",

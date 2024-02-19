@@ -245,7 +245,7 @@ export default class CompanySettings extends Component {
                                                 title={ENUSStrings.ChooseCompanyLabel}
                                                 value={this.state.currentCompanyID}
                                             >
-                                                {createHTMLOptions(this.state.companies)}
+                                                {createHTMLOptions(this.state.companies, "city")}
                                             </select>
                                         </div>
                                     </div>

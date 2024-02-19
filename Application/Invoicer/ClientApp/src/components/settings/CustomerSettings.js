@@ -342,7 +342,7 @@ export default class CustomerSettings extends Component {
                                             title={ENUSStrings.ChooseCompanyLabel}
                                             value={this.state.currentCompanyID}
                                         >
-                                            {createHTMLOptions(this.state.companies)}
+                                            {createHTMLOptions(this.state.companies, "city")}
                                         </select>
                                     </div>
                                     <span className="field-error" hidden={!this.state.nameError || !this.state.isSubmissionAttempted}>{this.state.nameError}</span>

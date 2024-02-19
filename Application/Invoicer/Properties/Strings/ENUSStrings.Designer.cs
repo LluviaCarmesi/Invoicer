@@ -106,6 +106,15 @@ namespace Invoicer.Properties.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The transactions for the companies customers couldn&apos;t be exported for the following reason: .
+        /// </summary>
+        public static string CompaniesCustomersTransactionsExportFailedMessage {
+            get {
+                return ResourceManager.GetString("CompaniesCustomersTransactionsExportFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Couldn&apos;t add company for the following reason: .
         /// </summary>
         public static string CompanyAddedFailedMessage {

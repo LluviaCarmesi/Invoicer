@@ -316,8 +316,9 @@ export default class Transaction extends Component {
             });
         };
 
+        
+
         const changeValueToDecimal = (value, id) => {
-            console.log(parseFloat(value).toFixed(2))
             this.setState({
                 [id]: parseFloat(value).toFixed(2)
             })
@@ -533,9 +534,12 @@ export default class Transaction extends Component {
                                                     title={ENUSStrings.TotalLabel}
                                                     value={this.state.total}
                                                     onChange={(control) => {
-                                                        changeValueToDecimal(control.target.value, control.target.id);
+                                                        changeValue(parseFloat(control.target.value), control.target.id);
                                                         submissionItem.total = control.target.value;
                                                         validateForm();
+                                                    }}
+                                                    onBlur={(control) => {
+                                                        changeValueToDecimal(control.target.value, control.target.id);
                                                     }}
                                                 />
                                             </div>

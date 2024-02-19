@@ -52,6 +52,7 @@ CREATE TABLE invoice_data (
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
+  is_admin BOOLEAN DEFAULT FALSE,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL,

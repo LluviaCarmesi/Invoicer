@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import ENUSStrings from '../strings/ENUSStrings';
 
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
@@ -20,19 +21,18 @@ export class NavMenu extends Component {
         });
     }
 
-    componentDidMount() {
-
-    } 
-
     render() {
         return (
             <div className="links-header">
                 <div className="links-container">
                     <span>
-                        <Link to="/">Home</Link>
+                        <Link to="/">{ENUSStrings.HomeLabel}</Link>
                     </span>
                     <span>
-                        <Link to="/settings">Settings</Link>
+                        <Link to="/settings">{ENUSStrings.SettingsLabel}</Link>
+                    </span>
+                    <span>
+                        <Link target="_blank" to="/api/companies/export-all-companies-customers-transactions">{ENUSStrings.DownloadAllTransactionsLabel}</Link>
                     </span>
                 </div>
             </div>
