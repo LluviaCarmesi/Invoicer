@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import loadingMessage from "../../utilities/LoadingMessage";
-import getCustomers from "../../services/GetCustomers";
 import getCustomerTransactions from "../../services/GetCustomerTransactions";
 import "./Home.css";
 import ENUSStrings from '../../strings/ENUSStrings';
@@ -8,6 +7,8 @@ import SETTINGS from '../../AppSettings';
 import getCompanies from '../../services/GetCompanies';
 import getCompanyCustomers from '../../services/GetCompanyCustomers';
 import createHTMLOptions from '../../utilities/CreateHTMLOptions';
+import setCookie from "../../utilities/SetCookie";
+import getCookie from '../../utilities/GetCookie';
 
 async function getAccess() {
     await (() => { return true; });
@@ -48,9 +49,12 @@ export class Home extends Component {
             });
             return;
         }
-        const firstCompany = companiesInformation.companies[0];
+        const companiesReturned = companiesInformation.companies;
+        const currentCompanyCookie = getCookie("currentCompany");
+        const filteredCompanyWithCookie = !!currentCompanyCookie && companiesReturned.length > 0 ? companiesReturned.filter(company => company.id === parseInt(currentCompanyCookie)) : [];
+        const firstCompany = filteredCompanyWithCookie.length === 1 ? filteredCompanyWithCookie[0] : companiesReturned[0];
         this.setState({
-            companies: companiesInformation.companies,
+            companies: companiesReturned,
             currentCompanyID: firstCompany.id,
             isLoadingCompanies: false,
         });
@@ -119,6 +123,7 @@ export class Home extends Component {
         const changeCompany = (value) => {
             const valueToInt = parseInt(value);
             this.loadCompanyCustomers(valueToInt);
+            setCookie("currentCompany", valueToInt);
             this.setState({
                 currentCompanyID: parseInt(valueToInt)
             });
@@ -206,6 +211,7 @@ export class Home extends Component {
                                     id="company-dropdown"
                                     onChange={(control) => changeCompany(control.target.value)}
                                     title={ENUSStrings.ChooseCompanyLabel}
+                                    value={this.state.currentCompanyID}
                                 >
                                     {createHTMLOptions(this.state.companies, "city")}
                                 </select>

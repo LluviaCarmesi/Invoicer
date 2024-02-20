@@ -28,6 +28,5 @@ export default async function getCompanyCustomers(companyID) {
         doesErrorExist = true;
         errorMessage = ENUSStrings.NoCompanyCustomersErrorMessage;
     }
-    console.log(customers)
     return { customers, doesErrorExist, errorMessage };
 }
