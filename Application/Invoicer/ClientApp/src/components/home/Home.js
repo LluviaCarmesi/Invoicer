@@ -50,9 +50,10 @@ export class Home extends Component {
             return;
         }
         const companiesReturned = companiesInformation.companies;
-        const currentCompanyCookie = getCookie("currentCompany");
+        const currentCompanyCookie = getCookie(SETTINGS.COOKIE_KEYS.CURRENT_COMPANY);
         const filteredCompanyWithCookie = !!currentCompanyCookie && companiesReturned.length > 0 ? companiesReturned.filter(company => company.id === parseInt(currentCompanyCookie)) : [];
         const firstCompany = filteredCompanyWithCookie.length === 1 ? filteredCompanyWithCookie[0] : companiesReturned[0];
+        setCookie(SETTINGS.COOKIE_KEYS.CURRENT_COMPANY, firstCompany.id);
         this.setState({
             companies: companiesReturned,
             currentCompanyID: firstCompany.id,
@@ -123,7 +124,7 @@ export class Home extends Component {
         const changeCompany = (value) => {
             const valueToInt = parseInt(value);
             this.loadCompanyCustomers(valueToInt);
-            setCookie("currentCompany", valueToInt);
+            setCookie(SETTINGS.COOKIE_KEYS.CURRENT_COMPANY, valueToInt);
             this.setState({
                 currentCompanyID: parseInt(valueToInt)
             });
