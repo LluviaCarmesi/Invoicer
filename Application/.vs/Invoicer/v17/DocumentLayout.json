@@ -7,8 +7,8 @@
       "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\components\\home\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\services\\getcompanycustomers.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\services\\getcompanycustomers.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\appsettings.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\appsettings.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\services\\getcustomers.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
@@ -19,16 +19,16 @@
       "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\services\\getcompanies.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\appsettings.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\appsettings.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\components\\settings\\customersettings.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\components\\settings\\customersettings.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\services\\getcompanycustomers.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\services\\getcompanycustomers.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\utilities\\getcookie.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\utilities\\getcookie.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\components\\settings\\customersettings.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\components\\settings\\customersettings.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\utilities\\setcookie.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
@@ -360,7 +360,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "GetCompanyCustomers.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\GetCompanyCustomers.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\GetCompanyCustomers.js",
@@ -427,7 +427,7 @@
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\home\\Home.js",
               "ToolTip": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\home\\Home.js",
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\components\\home\\Home.js",
-              "ViewState": "AQIAACUAAAAAAAAAAAAowEIAAAAyAAAA",
+              "ViewState": "AQIAAIIAAAAAAAAAAAAowKMAAABmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-01-07T13:41:17.37Z",
               "EditorCaption": ""
@@ -454,8 +454,7 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\components\\settings\\CompanySettings.js",
               "ViewState": "AQIAAMcAAAAAAAAAAIBJwPcAAABeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-01-07T13:41:17.276Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-07T13:41:17.276Z"
             },
             {
               "$type": "Document",
@@ -467,25 +466,24 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\components\\Layout.js",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-01-07T13:41:17.573Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-07T13:41:17.573Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "CustomerSettings.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\settings\\CustomerSettings.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\settings\\CustomerSettings.js",
               "ToolTip": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\settings\\CustomerSettings.js",
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\components\\settings\\CustomerSettings.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADYAAAAvAAAA",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAAAF0AAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-02-19T20:13:58.474Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "GetCookie.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\utilities\\GetCookie.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\utilities\\GetCookie.js",
@@ -493,18 +491,17 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\utilities\\GetCookie.js",
               "ViewState": "AQIAAAAAAAAAAAAAAAAqwAcAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-02-20T00:32:20.875Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-20T00:32:20.875Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "AppSettings.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\AppSettings.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\AppSettings.js",
               "ToolTip": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\AppSettings.js",
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\AppSettings.js",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAUwDAAAAAqAAAA",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAUwDEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-01-07T13:41:17.042Z",
               "EditorCaption": ""
@@ -517,7 +514,7 @@
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\GetCustomers.js",
               "ToolTip": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\GetCustomers.js",
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\services\\GetCustomers.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAzAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-02-20T03:37:16.874Z",
               "EditorCaption": ""
@@ -530,7 +527,7 @@
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\GetCompanies.js",
               "ToolTip": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\GetCompanies.js",
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\services\\GetCompanies.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAARAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-01-07T13:41:17.276Z",
               "EditorCaption": ""
@@ -557,8 +554,7 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\utilities\\SetCookie.js",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAABPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-02-20T00:29:39.846Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-20T00:29:39.846Z"
             },
             {
               "$type": "Document",
@@ -582,8 +578,7 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\components\\NavMenu.css",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-02-19T20:42:09.613Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-19T20:42:09.613Z"
             },
             {
               "$type": "Document",
@@ -607,8 +602,7 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\components\\NavMenu.js",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-01-07T13:41:17.573Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-07T13:41:17.573Z"
             },
             {
               "$type": "Document",
@@ -620,8 +614,7 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\strings\\ENUSStrings.js",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-01-07T13:41:17.417Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-07T13:41:17.417Z"
             },
             {
               "$type": "Document",
@@ -645,8 +638,7 @@
               "RelativeToolTip": "Invoicer\\Controllers\\CompaniesController.cs",
               "ViewState": "AQIAACsAAAAAAAAAAAAwwCwAAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-01-07T13:41:17.464Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-07T13:41:17.464Z"
             },
             {
               "$type": "Document",
@@ -658,8 +650,7 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\components\\Layout.css",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-01-07T13:41:17.292Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-07T13:41:17.292Z"
             },
             {
               "$type": "Document",
@@ -671,8 +662,7 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\services\\AddTransaction.js",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-02-19T20:17:02.418Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-19T20:17:02.418Z"
             },
             {
               "$type": "Document",

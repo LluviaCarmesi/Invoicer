@@ -47,7 +47,7 @@
         ALL_COMPANIES: "allCompanies",
         ALL_CUSTOMERS: "allCustomers",
         CURRENT_COMPANY: "currentCompany",
-        CURRENT_CUSTOMER: "currentCustomer",
+        ALL_CHOSEN_CUSTOMERS: "allChosenCustomers",
         USERNAME: "username",
         SESSION_TOKEN: "sessionToken"
     }

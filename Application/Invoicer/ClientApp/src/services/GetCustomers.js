@@ -1,8 +1,8 @@
 ﻿import SETTINGS from "../AppSettings";
 import ENUSStrings from "../strings/ENUSStrings";
 import getCookie from "../utilities/GetCookie";
-import isStatusGood from "../utilities/IsStatusGood";
 import setCookie from "../utilities/SetCookie";
+import isStatusGood from "../utilities/IsStatusGood";
 
 export default async function getCustomers() {
     let customers = [];

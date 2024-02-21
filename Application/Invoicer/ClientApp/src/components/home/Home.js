@@ -9,6 +9,7 @@ import getCompanyCustomers from '../../services/GetCompanyCustomers';
 import createHTMLOptions from '../../utilities/CreateHTMLOptions';
 import setCookie from "../../utilities/SetCookie";
 import getCookie from '../../utilities/GetCookie';
+import getCustomers from '../../services/GetCustomers';
 
 async function getAccess() {
     await (() => { return true; });
@@ -60,6 +61,27 @@ export class Home extends Component {
             isLoadingCompanies: false,
         });
         this.loadCompanyCustomers(firstCompany.id);
+    }
+
+    async loadAllCustomers(companies) {
+        let currentCustomerID = 0;
+
+        const customersInformation = await getCustomers();
+        if (customersInformation.doesErrorExist) {
+            this.setState({
+                errorCustomers: customersInformation.errorMessage,
+                isLoadingCustomers: false
+            });
+            return;
+        }
+        const customersReturned = customersInformation.customers;
+        const currentCustomerCookie = getCookie(SETTINGS.COOKIE_KEYS.CURRENT_CUSTOMER);
+        const filteredCustomerWithCookie = !!currentCustomerCookie && customersReturned.length > 0 ? customersReturned.filter(customer => customer.id === parseInt(currentCustomerCookie)) : [];
+        const currentCustomer = filteredCustomerWithCookie.length === 1 ? customersReturned[0].id : 0;
+        if (!!currentCustomer.id) {
+            currentCustomerID = currentCustomer
+        }
+        return currentCustomerID;
     }
 
     async loadCompanyCustomers(companyID) {
@@ -133,6 +155,15 @@ export class Home extends Component {
         const changeCustomer = (value) => {
             const valueToInt = parseInt(value);
             this.loadCustomerTransactions(valueToInt);
+            let allChosenCustomers = [{
+                companyID: this.state.currentCompanyID,
+                customerID: this.state.currentCustomerID
+            }];
+            let allChosenCustomersCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_CHOSEN_CUSTOMERS);
+            if (!!allChosenCustomersCookie) {
+                allChosenCustomers = JSON.parse(allChosenCustomersCookie).push(allChosenCustomers[0]);
+            }
+            setCookie(SETTINGS.COOKIE_KEYS.ALL_CHOSEN_CUSTOMERS, JSON.stringify(allChosenCustomers));
             this.setState({
                 currentCustomerID: parseInt(valueToInt)
             });
