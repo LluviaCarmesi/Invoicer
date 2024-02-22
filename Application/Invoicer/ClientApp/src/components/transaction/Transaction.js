@@ -13,6 +13,8 @@ import isValueNumber from "../../utilities/validation/IsValueNumber";
 import addTransaction from "../../services/AddTransaction";
 import editTransaction from "../../services/EditTransaction";
 import getTransaction from "../../services/GetTransaction";
+import getCookie from "../../utilities/GetCookie";
+import setCookie from "../../utilities/SetCookie";
 
 export default class Transaction extends Component {
     constructor(props) {
@@ -53,32 +55,23 @@ export default class Transaction extends Component {
     }
 
     async loadTransaction(transactionID) {
-        let transaction = {};
+        let transactionResult = {
+            errorTransaction: "",
+            transaction: null
+        };
+
         if (!!transactionID) {
             const transactionInformation = await getTransaction(transactionID);
             if (transactionInformation.doesErrorExist) {
-                this.setState({
-                    errorTransaction: transactionInformation.errorMessage,
-                    isLoadingTransaction: false
-                })
-                return;
+                transactionResult.errorMessage = transactionInformation.errorMessage;
+                return transactionResult;
             }
-            transaction = transactionInformation.transaction;
+            transactionResult.transaction = transactionInformation.transaction;
         }
-        this.setState({
-            currentTransactionID: transaction.id,
-            currentType: transaction.type,
-            createdDate: new Date(transaction.createdDate),
-            paymentDate: formatDate(new Date(transaction.paymentDate)),
-            dueDate: formatDate(new Date(transaction.dueDate)),
-            checkNumber: transaction.checkNumber,
-            total: transaction.total,
-            invoiceData: transaction.invoiceData,
-            isLoadingTransaction: false
-        });
+        return transactionResult;
     }
 
-    async loadCustomers(transactionID, customerID) {
+    async loadCustomers(customerID, transactionID) {
         const customersInformation = await getCustomers();
         if (customersInformation.doesErrorExist) {
             this.setState({
@@ -88,22 +81,30 @@ export default class Transaction extends Component {
             });
             return;
         }
-        let currentCustomer = 0;
-        const filteredCustomersByID = customersInformation.customers.filter((customer) => customer.id === customerID);
-        if (!!customerID && filteredCustomersByID.length > 0) {
-            currentCustomer = filteredCustomersByID[0];
+        const customersReturned = customersInformation.customers;
+        const currentCustomerCookie = getCookie(SETTINGS.COOKIE_KEYS.CHOSEN_CUSTOMER);
+        let filteredCustomerByID = [];
+        if (!!customerID) {
+            filteredCustomerByID = customersReturned.filter((customer) => customer.id === customerID);
         }
-        else {
-            currentCustomer = customersInformation.customers.length > 0 ? customersInformation.customers[0] : { id: 0, name: "" };
+        else if (!!currentCustomerCookie) {
+            filteredCustomerByID = customersReturned.filter((customer) => customer.id === parseInt(currentCustomerCookie));
         }
-        if (!!transactionID) {
-            this.loadTransaction(transactionID);
-        }
+        const currentCustomer = filteredCustomerByID.length === 1 ? filteredCustomerByID[0] : customersReturned[0];
+
         this.setState({
             currentCustomerID: currentCustomer.id,
-            customers: customersInformation.customers,
+            customers: customersReturned,
+            currentTransactionID: transaction.id,
+            currentType: transaction.type,
+            createdDate: new Date(transaction.createdDate),
+            paymentDate: formatDate(new Date(transaction.paymentDate)),
+            dueDate: formatDate(new Date(transaction.dueDate)),
+            checkNumber: transaction.checkNumber,
+            total: transaction.total,
+            invoiceData: transaction.invoiceData,
             isLoadingCustomers: false,
-            isLoadingTransaction: !!transactionID ? true : false
+            isLoadingTransaction: false
         });
     }
 
@@ -116,7 +117,7 @@ export default class Transaction extends Component {
         const type = typeQueryParamValue === SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT ? typeQueryParamValue : SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE;
         const transactionID = isNaN(idQueryParamValue) ? 0 : parseInt(idQueryParamValue);
         const customerID = isNaN(customerIDQueryParamValue) ? 0 : parseInt(customerIDQueryParamValue);
-        this.loadCustomers(transactionID, customerID);
+        this.loadCustomers(customerID, transactionID);
 
         this.setState({
             currentType: type,
@@ -141,8 +142,10 @@ export default class Transaction extends Component {
         };
 
         const changeCustomer = (value) => {
+            const valueToInt = parseInt(value);
+            setCookie(SETTINGS.COOKIE_KEYS.CHOSEN_CUSTOMER, valueToInt);
             this.setState({
-                currentCustomerID: value
+                currentCustomerID: valueToInt
             });
             changeQueryParameter(SETTINGS.CUSTOMER_ID_QUERY_PARAMETER, value);
         };
@@ -316,7 +319,7 @@ export default class Transaction extends Component {
             });
         };
 
-        
+
 
         const changeValueToDecimal = (value, id) => {
             this.setState({

@@ -7,7 +7,7 @@ This project is complete and I got it successfully running on the Raspberry pi u
 ### Enhancements
 
 - When editing a company, show the new name of the company in the dropdown and also save attributes locally
-- Save selected company locally so that the user doesn't have to keep switching back when refreshing
+- In Transactions, make the loadCustomers function load the transaction and set the state directly
 - Add option to delete company and all data associated with it.
 - Add option to delete customer and all data associated with it.
 - Add user login and access functionality

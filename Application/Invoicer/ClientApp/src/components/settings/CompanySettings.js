@@ -7,6 +7,8 @@ import SETTINGS from "../../AppSettings";
 import loadingMessage from "../../utilities/LoadingMessage";
 import createHTMLOptions from "../../utilities/CreateHTMLOptions";
 import editCompany from "../../services/EditCompany";
+import getCookie from "../../utilities/GetCookie";
+import setCookie from "../../utilities/SetCookie";
 
 export default class CompanySettings extends Component {
     constructor(props) {
@@ -57,17 +59,19 @@ export default class CompanySettings extends Component {
             });
             return;
         }
-        const currentCompany = companiesInformation.companies.length > 0 ? companiesInformation.companies[0] : { id: 0 };
-        if (!!currentCompany.id) {
-            currentCompanyInformation.id = currentCompany.id;
-            currentCompanyInformation.name = currentCompany.name;
-            currentCompanyInformation.address = currentCompany.address;
-            currentCompanyInformation.city = currentCompany.city;
-            currentCompanyInformation.state = currentCompany.state;
-            currentCompanyInformation.country = currentCompany.country;
-            currentCompanyInformation.zip = currentCompany.zip;
-            currentCompanyInformation.isActive = currentCompany.isActive;
-        }
+        const companiesReturned = companiesInformation.companies;
+        const currentCompanyCookie = getCookie(SETTINGS.COOKIE_KEYS.CHOSEN_COMPANY);
+        const filteredCompanyWithCookie = !!currentCompanyCookie ?
+            companiesReturned.filter(company => company.id === parseInt(currentCompanyCookie)) : [];
+        const currentCompany = filteredCompanyWithCookie.length === 1 ? filteredCompanyWithCookie[0] : companiesReturned[0];
+        currentCompanyInformation.id = currentCompany.id;
+        currentCompanyInformation.name = currentCompany.name;
+        currentCompanyInformation.address = currentCompany.address;
+        currentCompanyInformation.city = currentCompany.city;
+        currentCompanyInformation.state = currentCompany.state;
+        currentCompanyInformation.country = currentCompany.country;
+        currentCompanyInformation.zip = currentCompany.zip;
+        currentCompanyInformation.isActive = currentCompany.isActive;
         this.setState({
             currentCompanyID: currentCompanyInformation.id,
             companies: companiesInformation.companies,
@@ -114,6 +118,7 @@ export default class CompanySettings extends Component {
 
         const changeCompany = (value) => {
             const valueToInt = parseInt(value);
+            setCookie(SETTINGS.COOKIE_KEYS.CHOSEN_COMPANY, valueToInt);
             const company = this.state.companies.filter((company) => company.id === valueToInt)[0];
             this.setState({
                 currentCompanyID: valueToInt,
@@ -188,7 +193,7 @@ export default class CompanySettings extends Component {
                     }
                 }
                 else {
-                    const companyEdit= await editCompany(currentInformation, this.state.currentCompanyID);
+                    const companyEdit = await editCompany(currentInformation, this.state.currentCompanyID);
                     isSuccessful = !companyEdit.doesErrorExist;
                     errorMessage = companyEdit.errorMessage;
                 }

@@ -8,6 +8,8 @@ import createHTMLOptions from "../../utilities/CreateHTMLOptions";
 import loadingMessage from '../../utilities/LoadingMessage';
 import editCustomer from "../../services/EditCustomer";
 import getCompanies from "../../services/GetCompanies";
+import getCookie from "../../utilities/GetCookie";
+import setCookie from "../../utilities/SetCookie";
 
 export default class CustomerSettings extends Component {
     constructor(props) {
@@ -99,20 +101,23 @@ export default class CustomerSettings extends Component {
             });
             return;
         }
-        const currentCustomer = customersInformation.customers.length > 0 ? customersInformation.customers[0] : { id: 0 };
-        if (!!currentCustomer.id) {
-            currentCustomerInformation.id = currentCustomer.id;
-            currentCustomerInformation.companyID = currentCustomer.companyID;
-            currentCustomerInformation.name = currentCustomer.name;
-            currentCustomerInformation.phone = currentCustomer.phone;
-            currentCustomerInformation.email = currentCustomer.email;
-            currentCustomerInformation.address = currentCustomer.address;
-            currentCustomerInformation.city = currentCustomer.city;
-            currentCustomerInformation.state = currentCustomer.state;
-            currentCustomerInformation.country = currentCustomer.country;
-            currentCustomerInformation.zip = currentCustomer.zip;
-            currentCustomerInformation.isActive = currentCustomer.isActive;
-        }
+        const customersReturned = customersInformation.customers;
+        const currentCustomerCookie = getCookie(SETTINGS.COOKIE_KEYS.CHOSEN_CUSTOMER);
+        const filteredCustomerWithCookie = !!currentCustomerCookie ?
+            customersReturned.filter(customer => customer.id === parseInt(currentCustomerCookie)) : []; 
+        const currentCustomer = filteredCustomerWithCookie.length === 1 ? filteredCustomerWithCookie[0] : customersReturned[0];
+        console.log(currentCustomer);
+        currentCustomerInformation.id = currentCustomer.id;
+        currentCustomerInformation.companyID = currentCustomer.companyID;
+        currentCustomerInformation.name = currentCustomer.name;
+        currentCustomerInformation.phone = currentCustomer.phone;
+        currentCustomerInformation.email = currentCustomer.email;
+        currentCustomerInformation.address = currentCustomer.address;
+        currentCustomerInformation.city = currentCustomer.city;
+        currentCustomerInformation.state = currentCustomer.state;
+        currentCustomerInformation.country = currentCustomer.country;
+        currentCustomerInformation.zip = currentCustomer.zip;
+        currentCustomerInformation.isActive = currentCustomer.isActive;
         this.setState({
             currentCustomerID: currentCustomerInformation.id,
             currentCompanyID: currentCustomerInformation.companyID,
@@ -168,6 +173,7 @@ export default class CustomerSettings extends Component {
 
         const changeCustomer = (value) => {
             const valueToInt = parseInt(value);
+            setCookie(SETTINGS.COOKIE_KEYS.CHOSEN_CUSTOMER, valueToInt);
             const customer = this.state.customers.filter((customer) => customer.id === valueToInt)[0];
             this.setState({
                 currentCustomerID: valueToInt,

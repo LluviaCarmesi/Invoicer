@@ -46,8 +46,11 @@
     COOKIE_KEYS: {
         ALL_COMPANIES: "allCompanies",
         ALL_CUSTOMERS: "allCustomers",
-        CURRENT_COMPANY: "currentCompany",
-        ALL_CHOSEN_CUSTOMERS: "allChosenCustomers",
+        ALL_USERS: "allUsers",
+        CHOSEN_COMPANY: "chosenCompany",
+        CHOSEN_CUSTOMER: "chosenCustomer",
+        CHOSEN_USER: "chosenUser",
+        CHOSEN_CUSTOMERS_FROM_COMPANIES: "chosenCustomersFromCompanies",
         USERNAME: "username",
         SESSION_TOKEN: "sessionToken"
     }

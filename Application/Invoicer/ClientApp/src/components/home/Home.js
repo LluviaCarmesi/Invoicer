@@ -51,10 +51,10 @@ export class Home extends Component {
             return;
         }
         const companiesReturned = companiesInformation.companies;
-        const currentCompanyCookie = getCookie(SETTINGS.COOKIE_KEYS.CURRENT_COMPANY);
-        const filteredCompanyWithCookie = !!currentCompanyCookie && companiesReturned.length > 0 ? companiesReturned.filter(company => company.id === parseInt(currentCompanyCookie)) : [];
-        const firstCompany = filteredCompanyWithCookie.length === 1 ? filteredCompanyWithCookie[0] : companiesReturned[0];
-        setCookie(SETTINGS.COOKIE_KEYS.CURRENT_COMPANY, firstCompany.id);
+        const currentCompanyCookie = getCookie(SETTINGS.COOKIE_KEYS.CHOSEN_COMPANY);
+        const filteredCompanyWithCookie = !!currentCompanyCookie ?
+            companiesReturned.filter(company => company.id === parseInt(currentCompanyCookie)) : [];
+        const firstCompany = filteredCompanyWithCookie.length === 1 ? filteredCompanyWithCookie[0] :companiesReturned[0];
         const allCustomers = await this.loadAllCustomers(firstCompany.id);
         this.setState({
             companies: companiesReturned,
@@ -78,7 +78,7 @@ export class Home extends Component {
             return { currentCustomerID, errorMessage };
         }
         const customersReturned = customersInformation.customers;
-        const chosenCustomerCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_CHOSEN_CUSTOMERS);
+        const chosenCustomerCookie = getCookie(SETTINGS.COOKIE_KEYS.CHOSEN_CUSTOMERS_FROM_COMPANIES);
         let filteredCustomerWithCookie = [];
         if (!!chosenCustomerCookie) {
             const chosenCustomerCookieParsed = JSON.parse(chosenCustomerCookie);
@@ -90,8 +90,7 @@ export class Home extends Component {
                     customer => customer.id === parseInt(currentCompanyChosenCustomerCookie.customerID)
                 )[0] : [];
         }
-        const currentCustomer = !!filteredCustomerWithCookie ? filteredCustomerWithCookie.id :
-            customersReturned.length > 0 ? customersReturned[0].id : 0;
+        const currentCustomer = !!filteredCustomerWithCookie ? filteredCustomerWithCookie.id : customersReturned[0].id;
         if (!!currentCustomer) {
             currentCustomerID = currentCustomer
         }
@@ -162,7 +161,7 @@ export class Home extends Component {
         const changeCompany = (value) => {
             const valueToInt = parseInt(value);
             this.loadCompanyCustomers(valueToInt);
-            setCookie(SETTINGS.COOKIE_KEYS.CURRENT_COMPANY, valueToInt);
+            setCookie(SETTINGS.COOKIE_KEYS.CHOSEN_COMPANY, valueToInt);
             this.setState({
                 currentCompanyID: parseInt(valueToInt)
             });
@@ -175,7 +174,7 @@ export class Home extends Component {
                 companyID: this.state.currentCompanyID,
                 customerID: valueToInt
             }];
-            let allChosenCustomersCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_CHOSEN_CUSTOMERS);
+            let allChosenCustomersCookie = getCookie(SETTINGS.COOKIE_KEYS.CHOSEN_CUSTOMERS_FROM_COMPANIES);
             if (!!allChosenCustomersCookie) {
                 let currentAllChosenCustomers = JSON.parse(allChosenCustomersCookie);
                 currentAllChosenCustomers = currentAllChosenCustomers.filter(
@@ -184,7 +183,7 @@ export class Home extends Component {
                 currentAllChosenCustomers.push(allChosenCustomers[0]);
                 allChosenCustomers = currentAllChosenCustomers;
             }
-            setCookie(SETTINGS.COOKIE_KEYS.ALL_CHOSEN_CUSTOMERS, JSON.stringify(allChosenCustomers));
+            setCookie(SETTINGS.COOKIE_KEYS.CHOSEN_CUSTOMERS_FROM_COMPANIES, JSON.stringify(allChosenCustomers));
             this.setState({
                 currentCustomerID: parseInt(valueToInt)
             });
