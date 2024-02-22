@@ -32,7 +32,8 @@ namespace Invoicer.Services
                             reader.GetString(6),
                             reader.GetString(7),
                             reader.GetString(8),
-                            reader.GetString(9)
+                            reader.GetString(9),
+                            reader.GetBoolean(10)
                         );
                 }
             }
@@ -81,7 +82,8 @@ namespace Invoicer.Services
                                     reader.GetString(6),
                                     reader.GetString(7),
                                     reader.GetString(8),
-                                    reader.GetString(9)
+                                    reader.GetString(9),
+                                    reader.GetBoolean(10)
                                 )
                         );
                 }
@@ -131,7 +133,8 @@ namespace Invoicer.Services
                                     reader.GetString(6),
                                     reader.GetString(7),
                                     reader.GetString(8),
-                                    reader.GetString(9)
+                                    reader.GetString(9),
+                                    reader.GetBoolean(10)
                                 )
                         );
                 }
@@ -154,7 +157,7 @@ namespace Invoicer.Services
             string result = string.Empty;
             mySqlConnection.Open();
             MySqlCommand mySqlCommand;
-            mySqlCommand = new MySqlCommand($"INSERT INTO {AppSettings.CUSTOMERS_TABLE} ({AppSettings.ADD_CUSTOMER_COLUMNS}) VALUES (@companyID, @name, @phone, @email, @address, @city, @state, @country, @zip, @is_account_active)", mySqlConnection);
+            mySqlCommand = new MySqlCommand($"INSERT INTO {AppSettings.CUSTOMERS_TABLE} ({AppSettings.ADD_CUSTOMER_COLUMNS}) VALUES (@companyID, @name, @phone, @email, @address, @city, @state, @country, @zip, @is_active)", mySqlConnection);
             try
             {
                 mySqlCommand.Parameters.Add("@companyID", MySqlDbType.Int32).Value = customer.CompanyID;
@@ -166,7 +169,7 @@ namespace Invoicer.Services
                 mySqlCommand.Parameters.Add("@state", MySqlDbType.VarChar).Value = customer.State;
                 mySqlCommand.Parameters.Add("@country", MySqlDbType.VarChar).Value = customer.Country;
                 mySqlCommand.Parameters.Add("@zip", MySqlDbType.VarChar).Value = customer.Zip;
-                mySqlCommand.Parameters.Add("@is_account_active", MySqlDbType.Bit).Value = customer.IsActive;
+                mySqlCommand.Parameters.Add("@is_active", MySqlDbType.Bit).Value = customer.IsActive;
                 mySqlCommand.Connection = mySqlConnection;
                 mySqlCommand.ExecuteNonQuery();
                 isSuccessful = true;

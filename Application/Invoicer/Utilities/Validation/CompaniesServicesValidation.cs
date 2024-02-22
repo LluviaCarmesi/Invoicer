@@ -96,6 +96,9 @@ namespace Invoicer.Utilities.Validation
                 company.Zip = zip;
             }
 
+            //  is_active validation
+            bool isActive = requestData.IsActive;
+            company.IsActive = isActive;
             return new CompaniesServiceRequest(isValid, result, company);
         }
 
@@ -188,6 +191,9 @@ namespace Invoicer.Utilities.Validation
                 company.Zip = zip;
             }
 
+            //  is_active validation
+            bool isActive = requestData.IsActive;
+            company.IsActive = isActive;
             return new CompaniesServiceRequest(isValid, result, company);
         }
     }

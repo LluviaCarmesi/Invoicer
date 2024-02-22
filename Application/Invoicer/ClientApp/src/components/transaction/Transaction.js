@@ -55,23 +55,43 @@ export default class Transaction extends Component {
     }
 
     async loadTransaction(transactionID) {
-        let transactionResult = {
+        let transaction = {
             errorTransaction: "",
-            transaction: null
+            customerID: 0,
+            id: 0,
+            type: "",
+            createdDate: new Date(),
+            paymentDate: formatDate(new Date()),
+            dueDate: formatDate(new Date()),
+            checkNumber: "",
+            total: 0.00,
+            invoiceData: [{
+                type: "fuel",
+                ticketNumber: "",
+                total: "0"
+            }],
         };
 
         if (!!transactionID) {
             const transactionInformation = await getTransaction(transactionID);
             if (transactionInformation.doesErrorExist) {
-                transactionResult.errorMessage = transactionInformation.errorMessage;
-                return transactionResult;
+                transaction.errorTransaction = transactionInformation.errorMessage;
+                return transaction;
             }
-            transactionResult.transaction = transactionInformation.transaction;
+            transaction.customerID = transactionInformation.transaction.customerID;
+            transaction.id = transactionInformation.transaction.id;
+            transaction.type = transactionInformation.transaction.type;
+            transaction.createdDate = new Date(transactionInformation.transaction.createdDate);
+            transaction.paymentDate = formatDate(new Date(transactionInformation.transaction.paymentDate));
+            transaction.dueDate = formatDate(new Date(transactionInformation.transaction.dueDate));
+            transaction.checkNumber = transactionInformation.transaction.checkNumber;
+            transaction.total = transactionInformation.transaction.total;
+            transaction.invoiceData = transactionInformation.transaction.invoiceData;
         }
-        return transactionResult;
+        return transaction;
     }
 
-    async loadCustomers(customerID, transactionID) {
+    async loadCustomers(customerID, transactionID, type) {
         const customersInformation = await getCustomers();
         if (customersInformation.doesErrorExist) {
             this.setState({
@@ -91,18 +111,19 @@ export default class Transaction extends Component {
             filteredCustomerByID = customersReturned.filter((customer) => customer.id === parseInt(currentCustomerCookie));
         }
         const currentCustomer = filteredCustomerByID.length === 1 ? filteredCustomerByID[0] : customersReturned[0];
-
+        const transaction = await this.loadTransaction(transactionID);
         this.setState({
-            currentCustomerID: currentCustomer.id,
+            currentCustomerID: !!transaction.customerID ? transaction.customerID : currentCustomer.id,
             customers: customersReturned,
             currentTransactionID: transaction.id,
-            currentType: transaction.type,
-            createdDate: new Date(transaction.createdDate),
-            paymentDate: formatDate(new Date(transaction.paymentDate)),
-            dueDate: formatDate(new Date(transaction.dueDate)),
+            currentType: !!transaction.type ? transaction.type : type,
+            createdDate: transaction.createdDate,
+            paymentDate: transaction.paymentDate,
+            dueDate: transaction.dueDate,
             checkNumber: transaction.checkNumber,
             total: transaction.total,
             invoiceData: transaction.invoiceData,
+            errorTransaction: transaction.errorTransaction,
             isLoadingCustomers: false,
             isLoadingTransaction: false
         });
@@ -117,12 +138,7 @@ export default class Transaction extends Component {
         const type = typeQueryParamValue === SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT ? typeQueryParamValue : SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE;
         const transactionID = isNaN(idQueryParamValue) ? 0 : parseInt(idQueryParamValue);
         const customerID = isNaN(customerIDQueryParamValue) ? 0 : parseInt(customerIDQueryParamValue);
-        this.loadCustomers(customerID, transactionID);
-
-        this.setState({
-            currentType: type,
-            currentCustomerID: customerID,
-        });
+        this.loadCustomers(customerID, transactionID, type);
     }
 
     componentDidUpdate(previousProps, previousState) {
@@ -453,7 +469,7 @@ export default class Transaction extends Component {
                     {!this.state.isLoadingTransaction && !this.state.errorTransaction &&
                         <React.Fragment>
                             <form onSubmit={submitTransactionOnClick}>
-                                <div id="transaction-due-date-container" className="field-whole-container" hidden={!this.state.createdDate}>
+                                <div id="transaction-due-date-container" className="field-whole-container" hidden={!this.state.currentTransactionID}>
                                     <div className="field-label-input-container">
                                         <span className="field-label">{ENUSStrings.CreatedDateLabel}</span>
                                         <span>{formatDate(this.state.createdDate)}</span>

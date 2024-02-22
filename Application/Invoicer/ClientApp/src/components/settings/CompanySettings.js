@@ -23,6 +23,7 @@ export default class CompanySettings extends Component {
             state: "",
             country: "",
             zip: "",
+            isActive: true,
             nameError: "",
             addressError: "",
             cityError: "",
@@ -113,7 +114,8 @@ export default class CompanySettings extends Component {
             city: this.state.city,
             state: this.state.state,
             country: this.state.country,
-            zip: this.state.zip
+            zip: this.state.zip,
+            isActive: this.state.isActive
         };
 
         const changeCompany = (value) => {
@@ -190,6 +192,7 @@ export default class CompanySettings extends Component {
                         currentInformation.state = "";
                         currentInformation.country = "";
                         currentInformation.zip = "";
+                        currentInformation.isActive = true;
                     }
                 }
                 else {
@@ -204,6 +207,7 @@ export default class CompanySettings extends Component {
                     state: currentInformation.state,
                     country: currentInformation.country,
                     zip: currentInformation.zip,
+                    isActive: currentInformation.isActive,
                     wasSubmissionSuccessful: isSuccessful,
                     wasSubmissionFailure: !isSuccessful,
                     submissionErrorMessage: errorMessage,
@@ -357,6 +361,22 @@ export default class CompanySettings extends Component {
                                         />
                                     </div>
                                     <span className="field-error" hidden={!this.state.zipError || !this.state.isSubmissionAttempted}>{this.state.zipError}</span>
+                                </div>
+                                <div id="company-is-active-container" className="field-whole-container">
+                                    <div className="field-label-input-container">
+                                        <span className="field-label field-required">{ENUSStrings.IsCompanyActiveLabel}</span>
+                                        <input
+                                            id="isActive"
+                                            type="checkbox"
+                                            title={ENUSStrings.IsCompanyActiveLabel}
+                                            checked={this.state.isActive}
+                                            onChange={(control) => {
+                                                changeValue(control.target.checked, control.target.id);
+                                                submissionItem.isActive = control.target.checked;
+                                                validateForm();
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                                 <div className="buttons-container">
                                     <button

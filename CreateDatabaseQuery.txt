@@ -8,6 +8,7 @@ CREATE TABLE companies (
   state VARCHAR(100) NOT NULL,
   country VARCHAR(100) NOT NULL,
   zip VARCHAR(50) NOT NULL,
+  is_active BOOLEAN DEFAULT TRUE,
   PRIMARY KEY(id)
 );
 
@@ -22,7 +23,7 @@ CREATE TABLE customers (
   state VARCHAR(100) NOT NULL,
   country VARCHAR(100) NOT NULL,
   zip VARCHAR(50) NOT NULL,
-  is_account_active BOOLEAN DEFAULT TRUE,
+  is_active BOOLEAN DEFAULT TRUE,
   PRIMARY KEY(id),
   CONSTRAINT customers_fk_company_id FOREIGN KEY (company_id) REFERENCES companies(id)
 );
@@ -59,6 +60,7 @@ CREATE TABLE users (
   username VARCHAR(100) NOT NULL,
   password VARCHAR(256) NOT NULL,
   phone VARCHAR(20) NOT NULL,
+  is_active BOOLEAN DEFAULT TRUE,
   PRIMARY KEY (id)
 );
 

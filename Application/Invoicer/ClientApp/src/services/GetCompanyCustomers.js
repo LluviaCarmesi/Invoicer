@@ -12,24 +12,26 @@ export default async function getCompanyCustomers(companyID) {
         const allCustomers = JSON.parse(allCustomersCookie);
         customers = allCustomers.filter(customer => customer.companyID === companyID);
     }
-    await fetch(`${SETTINGS.COMPANIES_API_URI}/${companyID}${SETTINGS.CUSTOMERS_URI}`)
-        .then((response) => {
-            doesErrorExist = !isStatusGood(response.status);
-            return response.json();
-        })
-        .then((result) => {
-            if (doesErrorExist) {
-                errorMessage = result.response;
-            }
-            else {
-                customers = result;
-            }
-        })
-        .catch((error) => {
-            doesErrorExist = true;
-            errorMessage = error;
-            console.log(error);
-        });
+    else {
+        await fetch(`${SETTINGS.COMPANIES_API_URI}/${companyID}${SETTINGS.CUSTOMERS_URI}`)
+            .then((response) => {
+                doesErrorExist = !isStatusGood(response.status);
+                return response.json();
+            })
+            .then((result) => {
+                if (doesErrorExist) {
+                    errorMessage = result.response;
+                }
+                else {
+                    customers = result;
+                }
+            })
+            .catch((error) => {
+                doesErrorExist = true;
+                errorMessage = error;
+                console.log(error);
+            });
+    }
     if (customers.length === 0 && !errorMessage) {
         doesErrorExist = true;
         errorMessage = ENUSStrings.NoCompanyCustomersErrorMessage;

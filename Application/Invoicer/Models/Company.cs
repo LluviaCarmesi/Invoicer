@@ -9,12 +9,12 @@
         private string state = string.Empty;
         private string country = string.Empty;
         private string zip = string.Empty;
-
+        private bool isActive = true;
         public Company()
         {
 
         }
-        public Company(string name, string address, string city, string state, string country, string zip)
+        public Company(string name, string address, string city, string state, string country, string zip, bool isActive)
         {
             this.name = name;
             this.address = address;
@@ -22,8 +22,9 @@
             this.state = state;
             this.country = country;
             this.zip = zip;
+            this.isActive = isActive;
         }
-        public Company(int id, string name, string address, string city, string state, string country, string zip)
+        public Company(int id, string name, string address, string city, string state, string country, string zip, bool isActive)
         {
             this.id = id;
             this.name = name;
@@ -32,6 +33,7 @@
             this.state = state;
             this.country = country;
             this.zip = zip;
+            this.isActive = isActive;
         }
 
         public int Id
@@ -109,6 +111,17 @@
             set
             {
                 zip = value;
+            }
+        }
+        public bool IsActive
+        {
+            get
+            {
+                return isActive;
+            }
+            set
+            {
+                isActive = value;
             }
         }
     }

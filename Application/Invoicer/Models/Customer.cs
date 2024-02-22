@@ -24,7 +24,7 @@ namespace Invoicer.Models
         {
 
         }
-        public Customer(int companyID, string name, string phone, string email, string address, string city, string state, string country, string zip)
+        public Customer(int companyID, string name, string phone, string email, string address, string city, string state, string country, string zip, bool isActive)
         {
             this.companyID = companyID;
             this.name = name;
@@ -35,8 +35,9 @@ namespace Invoicer.Models
             this.state = state;
             this.country = country;
             this.zip = zip;
+            this.isActive = isActive;
         }
-        public Customer(int id, int companyID, string name, string phone, string email, string address, string city, string state, string country, string zip)
+        public Customer(int id, int companyID, string name, string phone, string email, string address, string city, string state, string country, string zip, bool isActive)
         {
             this.id = id;
             this.companyID = companyID;
@@ -48,6 +49,7 @@ namespace Invoicer.Models
             this.state = state;
             this.country = country;
             this.zip = zip;
+            this.isActive = isActive;
         }
         public int Id
         {

@@ -9,7 +9,7 @@ export default async function getCompanies() {
     let doesErrorExist = false;
     let errorMessage = "";
     const allCompaniesCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_COMPANIES);
-    if (allCompaniesCookie) {
+    if (!!allCompaniesCookie) {
         companies = JSON.parse(allCompaniesCookie);
     }
     else {
@@ -24,7 +24,7 @@ export default async function getCompanies() {
                 }
                 else {
                     companies = result;
-                    setCookie(SETTINGS.COOKIE_KEYS.ALL_COMPANIES, JSON.stringify(companies), 20);
+                    setCookie(SETTINGS.COOKIE_KEYS.ALL_COMPANIES, JSON.stringify(companies), 2);
                 }
             })
             .catch((error) => {

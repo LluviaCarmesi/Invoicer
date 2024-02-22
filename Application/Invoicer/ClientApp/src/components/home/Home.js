@@ -73,6 +73,7 @@ export class Home extends Component {
         let currentCustomerID = 0;
         let errorMessage = "";
         const customersInformation = await getCustomers();
+        console.log(customersInformation);
         if (customersInformation.doesErrorExist) {
             errorMessage = customersInformation.errorMessage;
             return { currentCustomerID, errorMessage };

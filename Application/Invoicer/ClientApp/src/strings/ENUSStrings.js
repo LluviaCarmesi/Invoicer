@@ -30,6 +30,7 @@
     CompanyStateLabel: "Company State",
     CompanyCountryLabel: "Company Country",
     CompanyZipLabel: "Company Zip",
+    IsCompanyActiveLabel: "Is this Company account active?",
     ChooseCompanyLabel: "Choose a Company",
     SubmitCompanyLabel: "Submit Company Details",
     CompanyIsSubmittedMessage: "Company is currently processing. Please wait",

@@ -137,9 +137,9 @@ namespace Invoicer.Utilities.Validation
                 customer.Zip = zip;
             }
 
-            //  is_account_active validation
-            bool isAccountActive = requestData.IsActive;
-            customer.IsActive = isAccountActive;
+            //  is_active validation
+            bool isActive = requestData.IsActive;
+            customer.IsActive = isActive;
             return new CustomersServiceRequest(isValid, result, customer);
         }
 
@@ -273,9 +273,9 @@ namespace Invoicer.Utilities.Validation
                 customer.Zip = zip;
             }
 
-            //  is_account_active validation
-            bool isAccountActive = requestData.IsActive;
-            customer.IsActive = isAccountActive;
+            //  is_active validation
+            bool isActive = requestData.IsActive;
+            customer.IsActive = isActive;
             return new CustomersServiceRequest(isValid, result, customer);
         }
     }

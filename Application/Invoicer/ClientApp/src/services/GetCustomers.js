@@ -24,7 +24,7 @@ export default async function getCustomers() {
                 }
                 else {
                     customers = result;
-                    setCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS, JSON.stringify(customers), 20);
+                    setCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS, JSON.stringify(customers), 2);
                 }
             })
             .catch((error) => {
