@@ -16,7 +16,11 @@ namespace Invoicer.Controllers
         {
             return CustomerServices.GetCustomers(string.Empty, string.Empty);
         }
-
+        [HttpGet("active")]
+        public IActionResult GetActiveCustomers()
+        {
+            return CustomerServices.GetCustomers(string.Empty, string.Empty);
+        }
         [HttpGet("{customerID}")]
         public IActionResult GetCustomer(string customerID)
         {

@@ -271,6 +271,14 @@ export default class CustomerSettings extends Component {
                     isSuccessful = !customerEdit.doesErrorExist;
                     errorMessage = customerEdit.errorMessage;
                 }
+                const allCustomersCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS);
+                if (!!allCustomersCookie) {
+                    let allCustomers = JSON.parse(allCustomersCookie);
+                    allCustomers = allCustomers.filter(customer => customer.id === this.state.currentCustomerID);
+                    currentInformation.id = this.state.currentCustomerID;
+                    allCustomers.push(currentInformation);
+                    setCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS, JSON.stringify(allCustomers), 2);
+                }
                 this.setState({
                     currentCompanyID: currentInformation.companyID,
                     name: currentInformation.name,

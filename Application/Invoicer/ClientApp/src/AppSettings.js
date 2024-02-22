@@ -6,6 +6,7 @@
     TRANSACTIONS_API_URI: "/api/transactions",
     CUSTOMERS_API_URI: "/api/customers",
     COMPANIES_API_URI: "/api/companies",
+    ACTIVE_API_URI: "/active",
     USERS_API_URI: "/api/users",
     CUSTOMERS_URI: "/customers",
     TRANSACTIONS_URI: "/transactions",

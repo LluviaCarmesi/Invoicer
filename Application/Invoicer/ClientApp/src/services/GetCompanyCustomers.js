@@ -10,7 +10,7 @@ export default async function getCompanyCustomers(companyID) {
     const allCustomersCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS);
     if (!!allCustomersCookie) {
         const allCustomers = JSON.parse(allCustomersCookie);
-        customers = allCustomers.filter(customer => customer.companyID === companyID);
+        customers = allCustomers.filter(customer => customer.companyID === companyID && customer.isActive);
     }
     else {
         await fetch(`${SETTINGS.COMPANIES_API_URI}/${companyID}${SETTINGS.CUSTOMERS_URI}`)

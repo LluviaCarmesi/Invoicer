@@ -47,6 +47,55 @@ namespace Invoicer.Services
             }
             return new OkObjectResult(customer);
         }
+        internal static IActionResult GetActiveCustomers(string limitNumber, string offsetNumber)
+        {
+            List<Customer> customers = new List<Customer>();
+            try
+            {
+                mySqlConnection.Open();
+                MySqlCommand mySqlCommand;
+                string mySqlCommandString = $"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} WHERE is_active = 1";
+                if (!string.IsNullOrEmpty(limitNumber))
+                {
+                    mySqlCommandString += $" LIMIT {limitNumber}";
+                }
+                else if (!string.IsNullOrEmpty(offsetNumber) && !string.IsNullOrEmpty(limitNumber))
+                {
+                    mySqlCommandString += $" LIMIT {limitNumber} OFFSET {offsetNumber}";
+                }
+                mySqlCommand = new MySqlCommand(mySqlCommandString, mySqlConnection);
+                MySqlDataReader reader = mySqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    customers.Add
+                        (
+                            new Customer
+                                (
+                                    reader.GetInt32(0),
+                                    reader.GetInt32(1),
+                                    reader.GetString(2),
+                                    reader.GetString(3),
+                                    reader.GetString(4),
+                                    reader.GetString(5),
+                                    reader.GetString(6),
+                                    reader.GetString(7),
+                                    reader.GetString(8),
+                                    reader.GetString(9),
+                                    reader.GetBoolean(10)
+                                )
+                        );
+                }
+            }
+            catch (Exception error)
+            {
+                return new BadRequestObjectResult(error.Message);
+            }
+            finally
+            {
+                mySqlConnection.Close();
+            }
+            return new OkObjectResult(customers);
+        }
         internal static IActionResult GetCustomers(string limitNumber, string offsetNumber)
         {
             List<Customer> customers = new List<Customer>();
@@ -54,18 +103,16 @@ namespace Invoicer.Services
             {
                 mySqlConnection.Open();
                 MySqlCommand mySqlCommand;
+                string mySqlCommandString = $"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE}";
                 if (!string.IsNullOrEmpty(limitNumber))
                 {
-                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} LIMIT {limitNumber}", mySqlConnection);
+                    mySqlCommandString += $" LIMIT {limitNumber}";
                 }
                 else if (!string.IsNullOrEmpty(offsetNumber) && !string.IsNullOrEmpty(limitNumber))
                 {
-                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} LIMIT {limitNumber} OFFSET {offsetNumber}", mySqlConnection);
+                    mySqlCommandString += $" LIMIT {limitNumber} OFFSET {offsetNumber}";
                 }
-                else
-                {
-                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE}", mySqlConnection);
-                }
+                mySqlCommand = new MySqlCommand(mySqlCommandString, mySqlConnection);
                 MySqlDataReader reader = mySqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
@@ -105,18 +152,16 @@ namespace Invoicer.Services
             {
                 mySqlConnection.Open();
                 MySqlCommand mySqlCommand;
+                string mySqlCommandString = $"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} company_id = {companyID} AND is_active = 1";
                 if (!string.IsNullOrEmpty(limitNumber))
                 {
-                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} WHERE company_id = {companyID} LIMIT {limitNumber}", mySqlConnection);
+                    mySqlCommandString += $" LIMIT {limitNumber}";
                 }
                 else if (!string.IsNullOrEmpty(offsetNumber) && !string.IsNullOrEmpty(limitNumber))
                 {
-                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} WHERE company_id = {companyID} LIMIT {limitNumber} OFFSET {offsetNumber}", mySqlConnection);
+                    mySqlCommandString += $" LIMIT {limitNumber} OFFSET {offsetNumber}";
                 }
-                else
-                {
-                    mySqlCommand = new MySqlCommand($"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} WHERE company_id = {companyID}", mySqlConnection);
-                }
+                mySqlCommand = new MySqlCommand(mySqlCommandString, mySqlConnection);
                 MySqlDataReader reader = mySqlCommand.ExecuteReader();
                 while (reader.Read())
                 {

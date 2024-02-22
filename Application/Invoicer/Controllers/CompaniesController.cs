@@ -10,13 +10,18 @@ namespace Invoicer.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CompaniesController: ControllerBase
+    public class CompaniesController : ControllerBase
     {
         // Get Methods
         [HttpGet]
         public IActionResult GetCompanies()
         {
             return CompaniesServices.GetCompanies();
+        }
+        [HttpGet("active")]
+        public IActionResult GetActiveCompanies()
+        {
+            return CompaniesServices.GetActiveCompanies();
         }
         [HttpGet("{companyID}")]
         public IActionResult GetCompany(string companyID)
@@ -96,7 +101,7 @@ namespace Invoicer.Controllers
 
         // Put Methods
         [Route("edit-company/{companyID}")]
-        [HttpPost("edit-company/{companyID}")]
+        [HttpPut("edit-company/{companyID}")]
         public IActionResult EditCompany(string companyID)
         {
             CommonServiceRequest companyIDValidation = CommonValidation.CheckIDParameter(companyID, ENUSStrings.CompanyIDLabel);
