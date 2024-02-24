@@ -82,8 +82,12 @@ export default class Transaction extends Component {
             transaction.id = transactionInformation.transaction.id;
             transaction.type = transactionInformation.transaction.type;
             transaction.createdDate = new Date(transactionInformation.transaction.createdDate);
-            transaction.paymentDate = formatDate(new Date(transactionInformation.transaction.paymentDate));
-            transaction.dueDate = formatDate(new Date(transactionInformation.transaction.dueDate));
+            transaction.paymentDate = transaction.type === SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT ?
+                formatDate(new Date(transactionInformation.transaction.paymentDate)) :
+                formatDate(new Date(transactionInformation.transaction.dueDate));
+            transaction.dueDate = transaction.type === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE ?
+                formatDate(new Date(transactionInformation.transaction.dueDate)) :
+                formatDate(new Date(transactionInformation.transaction.paymentDate));
             transaction.checkNumber = transactionInformation.transaction.checkNumber;
             transaction.total = transactionInformation.transaction.total;
             transaction.invoiceData = transactionInformation.transaction.invoiceData;
@@ -445,7 +449,7 @@ export default class Transaction extends Component {
                     </div>
                     {!this.state.errorCustomers && !this.state.isLoadingCustomers &&
                         <div id="transaction-customers-container" className="field-whole-container">
-                            <div className="field-label-input-container">
+                            <div className="transaction-field-label-input-container">
                                 <span className="field-label">{ENUSStrings.ChooseCustomerLabel}</span>
                                 <select
                                     id="customer-dropdown"
@@ -470,13 +474,13 @@ export default class Transaction extends Component {
                         <React.Fragment>
                             <form onSubmit={submitTransactionOnClick}>
                                 <div id="transaction-due-date-container" className="field-whole-container" hidden={!this.state.currentTransactionID}>
-                                    <div className="field-label-input-container">
+                                    <div className="transaction-field-label-input-container">
                                         <span className="field-label">{ENUSStrings.CreatedDateLabel}</span>
                                         <span>{formatDate(this.state.createdDate)}</span>
                                     </div>
                                 </div>
                                 <div id="transaction-type-container" className="field-whole-container">
-                                    <div className="field-label-input-container">
+                                    <div className="transaction-field-label-input-container">
                                         <span className="field-label field-required">{ENUSStrings.ChooseTypeLabel}</span>
                                         <select
                                             id="type-dropdown"
@@ -490,7 +494,7 @@ export default class Transaction extends Component {
                                     </div>
                                 </div>
                                 <div id="transaction-due-date-container" className="field-whole-container" hidden={this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT}>
-                                    <div className="field-label-input-container">
+                                    <div className="transaction-field-label-input-container">
                                         <span className="field-label">{ENUSStrings.DueDateLabel}</span>
                                         <input
                                             type="date"
@@ -505,7 +509,7 @@ export default class Transaction extends Component {
                                     </span>
                                 </div>
                                 <div id="transaction-due-payment-date-container" className="field-whole-container" hidden={this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE}>
-                                    <div className="field-label-input-container">
+                                    <div className="transaction-field-label-input-container">
                                         <span className="field-label">{ENUSStrings.PaymentDateLabel}</span>
                                         <input
                                             type="date"
@@ -520,7 +524,7 @@ export default class Transaction extends Component {
                                     </span>
                                 </div>
                                 <div id="transaction-check-number-container" className="field-whole-container" hidden={this.state.currentType !== "payment"} >
-                                    <div className="field-label-input-container">
+                                    <div className="transaction-field-label-input-container">
                                         <span className="field-label field-required">{ENUSStrings.CheckNumberLabel}</span>
                                         <input
                                             type="text"
@@ -538,14 +542,14 @@ export default class Transaction extends Component {
                                 </div>
                                 <div id="transaction-total-container" className="field-whole-container" >
                                     {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE &&
-                                        <div className="field-label-input-container">
+                                        <div className="transaction-field-label-input-container">
                                             <span className="field-label"></span>
                                             <span className="total">{ENUSStrings.TransactionTotalLabel} <b>{this.state.total}</b></span>
                                         </div>
                                     }
                                     {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT &&
                                         <React.Fragment>
-                                            <div className="field-label-input-container">
+                                            <div className="transaction-field-label-input-container">
                                                 <span className="field-label field-required">{ENUSStrings.TotalLabel}</span>
                                                 <input
                                                     type="number"
@@ -567,7 +571,7 @@ export default class Transaction extends Component {
                                     }
                                 </div>
                                 <div id="print-container" hidden={!this.state.currentTransactionID}>
-                                    <div className="field-label-input-container">
+                                    <div className="transaction-field-label-input-container">
                                         <span><a
                                             href={`/print-transaction?id=${this.state.currentTransactionID}`}
                                             target="_blank"
@@ -579,8 +583,8 @@ export default class Transaction extends Component {
                                 </div>
                                 {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE &&
                                     <div id="transaction-invoice-data-container" className="field-whole-container" >
-                                        <div className="field-label-input-container">
-                                            <table>
+                                        <div className="transaction-field-label-input-container">
+                                            <table className="invoice-data-table">
                                                 <thead>
                                                     <tr key={0}>
                                                         <th>{ENUSStrings.TypeLabel}</th>

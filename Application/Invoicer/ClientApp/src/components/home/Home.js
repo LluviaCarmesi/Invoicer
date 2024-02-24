@@ -85,9 +85,10 @@ export class Home extends Component {
             filteredCustomerWithCookie = !!currentCompanyChosenCustomerCookie && customersReturned.length > 0 ?
                 customersReturned.filter(
                     customer => customer.id === parseInt(currentCompanyChosenCustomerCookie.customerID)
-                )[0] : [];
+                )[0] : { id: 0 };
+;
         }
-        const currentCustomer = !!filteredCustomerWithCookie ? filteredCustomerWithCookie.id : customersReturned[0].id;
+        const currentCustomer = !!filteredCustomerWithCookie.id ? filteredCustomerWithCookie.id : customersReturned[0].id;
         this.setState({
             currentCustomerID: currentCustomer,
             customers: customersInformation.customers,

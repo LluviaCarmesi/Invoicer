@@ -19,3 +19,12 @@
     margin:20px;
     min-width:50%;
 }
+
+@media only screen and (max-width: 900px) {
+    .field-label-input-container input {
+        max-width: 200px;
+    }
+    .field-label-input-container select {
+        max-width: 200px;
+    }
+}

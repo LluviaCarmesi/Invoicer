@@ -17,6 +17,16 @@
     margin-bottom: 20px;
 }
 
+.transaction-field-label-input-container {
+    font-size: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+    .transaction-field-label-input-container input {
+        font-size: 20px;
+    }
+
 #due-payment-date {
     font-size: 20px;
 }
@@ -25,8 +35,13 @@
     padding: 20px 0px;
 }
 
-.transaction-information-table {
-    margin-bottom: 20px;
+.invoice-data-table th, .invoice-data-table td {
+    text-align: center;
+    padding: 10px;
+}
+
+.invoice-data-table .remove-button {
+    margin-left: 10px;
 }
 
 #print-container {
@@ -41,18 +56,41 @@
     margin-right: 100px;
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 900px) {
     .buttons-container {
         text-align: center !important;
+        margin-right: 0px;
     }
 
-    .field-label-input-container input {
-        max-width: 125px;
+    .invoice-data-table .remove-button {
+        margin-left: 5px;
     }
-    .field-label-input-container select {
-        width: 125px !important;
+
+    .transaction-field-label-input-container input {
+        max-width: 75px;
     }
-    .field-label-input-container span:nth-child(1) {
+
+    .transaction-field-label-input-container {
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .transaction-field-label-input-container span:nth-child(1) {
         margin-bottom: 10px;
+    }
+
+    .transaction-field-label-input-container input {
+        font-size: 18px;
+    }
+
+    #transaction-invoice-data-container select {
+        max-width: 75px;
+    }
+
+    .invoice-data-table th, .invoice-data-table td {
+        text-align: center;
+        padding: 0px;
     }
 }

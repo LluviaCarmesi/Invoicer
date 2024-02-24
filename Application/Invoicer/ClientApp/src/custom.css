@@ -44,7 +44,7 @@ span {
 }
 
 select {
-    min-width: 200px;
+    min-width: 100px;
 }
 
 input[type="date"] {
@@ -123,6 +123,11 @@ a:hover {
         flex-direction: column;
         align-items: center;
     }
+
+    .field-label-input-container span:nth-child(1) {
+        margin-bottom: 10px;
+    }
+
     .field-label-input-container input {
         font-size: 18px;
     }

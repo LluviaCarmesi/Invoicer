@@ -87,10 +87,10 @@ select {
     border: solid 2px black;
 }
 
-.transactions-table th, td {
-        text-align: center;
-        padding: 10px;
-    }
+.transactions-table th, .transactions-table td {
+    text-align: center;
+    padding: 10px;
+}
 
 .transactions tr:nth-child(even) {
     background-color: #D6EEEE;
