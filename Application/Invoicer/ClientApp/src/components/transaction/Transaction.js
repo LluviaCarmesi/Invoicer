@@ -540,7 +540,7 @@ export default class Transaction extends Component {
                                     {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE &&
                                         <div className="field-label-input-container">
                                             <span className="field-label"></span>
-                                            <span className="total">{ENUSStrings.TransactionTotalLabel} {this.state.total}</span>
+                                            <span className="total">{ENUSStrings.TransactionTotalLabel} <b>{this.state.total}</b></span>
                                         </div>
                                     }
                                     {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT &&

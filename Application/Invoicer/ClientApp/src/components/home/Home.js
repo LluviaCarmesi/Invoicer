@@ -175,7 +175,7 @@ export class Home extends Component {
                         <tr>
                             <th>{ENUSStrings.TypeLabel}</th>
                             <th>{ENUSStrings.AmountLabel}</th>
-                            <th>{ENUSStrings.ViewTransactionLabel}</th>
+                            <th>{ENUSStrings.LinkLabel}</th>
                         </tr>
                     </thead>
                 );
@@ -192,7 +192,7 @@ export class Home extends Component {
                                     <a
                                         href={`/transaction?id=${CurrentTransaction.id}&type=invoice&customerID=${this.state.currentCustomerID}`}
                                     >
-                                        {ENUSStrings.ViewTransactionLabel}
+                                        {ENUSStrings.ViewLabel}
                                     </a>
                                 </td>
                             </tr>
@@ -209,7 +209,7 @@ export class Home extends Component {
                                     <a
                                         href={`/transaction?id=${CurrentTransaction.id}&type=payment&customerID=${this.state.currentCustomerID}`}
                                     >
-                                        {ENUSStrings.ViewTransactionLabel}
+                                        {ENUSStrings.ViewLabel}
                                     </a>
                                 </td>
                             </tr>

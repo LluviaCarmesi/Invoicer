@@ -152,7 +152,7 @@ namespace Invoicer.Services
             {
                 mySqlConnection.Open();
                 MySqlCommand mySqlCommand;
-                string mySqlCommandString = $"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} company_id = {companyID} AND is_active = 1";
+                string mySqlCommandString = $"SELECT {AppSettings.CUSTOMERS_SELECT_COLUMNS} FROM {AppSettings.CUSTOMERS_TABLE} WHERE company_id = {companyID} AND is_active = 1";
                 if (!string.IsNullOrEmpty(limitNumber))
                 {
                     mySqlCommandString += $" LIMIT {limitNumber}";

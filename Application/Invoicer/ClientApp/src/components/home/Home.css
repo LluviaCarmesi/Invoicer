@@ -96,5 +96,35 @@ select {
     background-color: #D6EEEE;
 }
 
-@media (max-width: 500px) {
+@media only screen and (max-width: 600px) {
+    .company-dropdown-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .company-dropdown-container span {
+        margin-bottom: 10px;
+    }
+
+    .customer-dropdown-container {
+        margin-bottom: 20px;
+    }
+    .customer-top-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .remaining-balance-container span {
+        display: inline;
+        margin-bottom: 10px;
+    }
+
+    .transactions-actions {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .transactions-actions span:nth-child(1) {
+            margin-bottom: 10px;
+        }
 }

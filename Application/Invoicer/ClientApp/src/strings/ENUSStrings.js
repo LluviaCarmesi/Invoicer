@@ -13,6 +13,7 @@
     LoadingTransactionsLabel: "Loading Transactions",
     LoadingTransactionLabel: "Loading Transaction",
     LoadingRemainingBalanceLabel: "Loading Remaining Balance",
+    ViewLabel: "View",
     // Home
     RemainingTransactonLabel: "Remaining Transaction",
     MakeInvoiceLabel: "Make Invoice",
@@ -71,7 +72,6 @@
     TransactionSubmissionFailedMessage: "Transaction submission failed. Please look at the error to the right and try submitting it again: ",
     TransactionSubmissionInvoiceDataFailedMessage: "Some invoice data couldn't be submitted. Please see specific ones below.",
     TransactionSubmissionSuccessMessage: "Transaction was submitted successfully!",
-    ViewTransactionLabel: "View Transaction",
     AddInvoiceDataLabel: "Add Invoice Row",
     TransactionIsPaymentMessage: "The current transaction is a payment",
     CreateTransactionLabel: "Create transaction for this company",
