@@ -39,7 +39,7 @@ namespace Invoicer.Services
             }
             catch (Exception error)
             {
-                return new BadRequestObjectResult(error.Message);
+                return new BadRequestObjectResult(new { response = error.Message });
             }
             finally
             {
@@ -88,7 +88,7 @@ namespace Invoicer.Services
             }
             catch (Exception error)
             {
-                return new BadRequestObjectResult(error.Message);
+                return new BadRequestObjectResult(new { response = error.Message });
             }
             finally
             {
@@ -137,7 +137,7 @@ namespace Invoicer.Services
             }
             catch (Exception error)
             {
-                return new BadRequestObjectResult(error.Message);
+                return new BadRequestObjectResult(new { response = error.Message });
             }
             finally
             {
@@ -186,7 +186,7 @@ namespace Invoicer.Services
             }
             catch (Exception error)
             {
-                return new BadRequestObjectResult(error.Message);
+                return new BadRequestObjectResult(new { response = error.Message });
             }
             finally
             {
@@ -238,7 +238,7 @@ namespace Invoicer.Services
             string result = string.Empty;
             mySqlConnection.Open();
             MySqlCommand mySqlCommand;
-            mySqlCommand = new MySqlCommand($"UPDATE {AppSettings.CUSTOMERS_TABLE} SET company_id = @companyID, name = @name, phone = @phone, email = @email, address = @address, city = @city, state = @state, country = @country, zip = @zip, is_account_active = @is_account_active WHERE id = @id", mySqlConnection);
+            mySqlCommand = new MySqlCommand($"UPDATE {AppSettings.CUSTOMERS_TABLE} SET company_id = @companyID, name = @name, phone = @phone, email = @email, address = @address, city = @city, state = @state, country = @country, zip = @zip, is_active = @is_active WHERE id = @id", mySqlConnection);
             try
             {
                 mySqlCommand.Parameters.Add("@id", MySqlDbType.Int32).Value = customer.Id;
@@ -251,7 +251,7 @@ namespace Invoicer.Services
                 mySqlCommand.Parameters.Add("@state", MySqlDbType.VarChar).Value = customer.State;
                 mySqlCommand.Parameters.Add("@country", MySqlDbType.VarChar).Value = customer.Country;
                 mySqlCommand.Parameters.Add("@zip", MySqlDbType.VarChar).Value = customer.Zip;
-                mySqlCommand.Parameters.Add("@is_account_active", MySqlDbType.Bit).Value = customer.IsActive;
+                mySqlCommand.Parameters.Add("@is_active", MySqlDbType.Bit).Value = customer.IsActive;
                 mySqlCommand.Connection = mySqlConnection;
                 mySqlCommand.ExecuteNonQuery();
                 isSuccessful = true;

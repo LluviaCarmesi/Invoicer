@@ -4,6 +4,7 @@ import isStatusGood from "../utilities/IsStatusGood";
 export default async function editCustomer(item, customerID) {
     let doesErrorExist = false;
     let errorMessage = "";
+    let result = "";
     await fetch(`${SETTINGS.CUSTOMERS_API_URI}${SETTINGS.EDIT_CUSTOMER_URI}/${customerID}`, {
         method: "PUT",
         headers: {
@@ -16,6 +17,7 @@ export default async function editCustomer(item, customerID) {
             return response.json();
         })
         .then((result) => {
+            result = result.response;
             if (doesErrorExist) {
                 errorMessage = result.response;
             }

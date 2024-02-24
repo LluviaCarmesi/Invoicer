@@ -176,6 +176,7 @@ export default class CompanySettings extends Component {
             let currentInformation = submissionItem;
             let isSuccessful = false;
             let errorMessage = "";
+            let currentCompanies = [];
             if (validateForm(true)) {
                 this.setState({
                     isSubmissionButtonClicked: true,
@@ -185,7 +186,22 @@ export default class CompanySettings extends Component {
                     const companyAddition = await addCompany(currentInformation);
                     isSuccessful = !companyAddition.doesErrorExist;
                     errorMessage = companyAddition.errorMessage;
-                    if (isSuccessful) {
+                }
+                else {
+                    const companyEdit = await editCompany(currentInformation, this.state.currentCompanyID);
+                    isSuccessful = !companyEdit.doesErrorExist;
+                    errorMessage = companyEdit.errorMessage;
+                }
+                if (isSuccessful) {
+                    const allCompaniesCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_COMPANIES);
+                    if (!!allCompaniesCookie) {
+                        let allCompanies = JSON.parse(allCompaniesCookie);
+                        allCompanies = allCompanies.filter(company => company.id !== this.state.currentCompanyID);
+                        currentInformation.id = this.state.currentCompanyID;
+                        allCompanies.push(currentInformation);
+                        setCookie(SETTINGS.COOKIE_KEYS.ALL_COMPANIES, JSON.stringify(allCompanies), 1);
+                    }
+                    if (!this.state.currentCompanyID) {
                         currentInformation.name = "";
                         currentInformation.address = "";
                         currentInformation.city = "";
@@ -194,13 +210,14 @@ export default class CompanySettings extends Component {
                         currentInformation.zip = "";
                         currentInformation.isActive = true;
                     }
-                }
-                else {
-                    const companyEdit = await editCompany(currentInformation, this.state.currentCompanyID);
-                    isSuccessful = !companyEdit.doesErrorExist;
-                    errorMessage = companyEdit.errorMessage;
+                    currentCompanies = !this.state.currentCompanyID ? await getCompanies(true) : await getCompanies();
+                    if (currentCompanies.doesErrorExist) {
+                        isSuccessful = false;
+                        errorMessage = currentCompanies.errorMessage;
+                    }
                 }
                 this.setState({
+                    companies: currentCompanies.companies,
                     name: currentInformation.name,
                     address: currentInformation.address,
                     city: currentInformation.city,

@@ -4,12 +4,12 @@ import getCookie from "../utilities/GetCookie";
 import setCookie from "../utilities/SetCookie";
 import isStatusGood from "../utilities/IsStatusGood";
 
-export default async function getCustomers() {
+export default async function getCustomers(canAvoidCookie) {
     let customers = [];
     let doesErrorExist = false;
     let errorMessage = "";
     const allCustomersCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS);
-    if (!!allCustomersCookie) {
+    if (!!allCustomersCookie && !canAvoidCookie) {
         customers = JSON.parse(allCustomersCookie);
     }
     else {

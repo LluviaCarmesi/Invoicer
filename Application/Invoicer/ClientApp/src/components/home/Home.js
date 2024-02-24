@@ -54,51 +54,17 @@ export class Home extends Component {
         const currentCompanyCookie = getCookie(SETTINGS.COOKIE_KEYS.CHOSEN_COMPANY);
         const filteredCompanyWithCookie = !!currentCompanyCookie ?
             companiesReturned.filter(company => company.id === parseInt(currentCompanyCookie)) : [];
-        const firstCompany = filteredCompanyWithCookie.length === 1 ? filteredCompanyWithCookie[0] :companiesReturned[0];
-        const allCustomers = await this.loadAllCustomers(firstCompany.id);
+        const firstCompany = filteredCompanyWithCookie.length === 1 ? filteredCompanyWithCookie[0] : companiesReturned[0];
         this.setState({
             companies: companiesReturned,
             currentCompanyID: firstCompany.id,
-            currentCustomerID: allCustomers.currentCustomerID,
             isLoadingCompanies: false,
-            errorCustomers: allCustomers.errorMessage,
             isLoadingCustomers: false
         });
-        if (!allCustomers.errorMessage) {
-            this.loadCompanyCustomers(firstCompany.id, allCustomers.currentCustomerID);
-        }
+        this.loadCompanyCustomers(firstCompany.id);
     }
 
-    async loadAllCustomers(currentCompanyID) {
-        let currentCustomerID = 0;
-        let errorMessage = "";
-        const customersInformation = await getCustomers();
-        console.log(customersInformation);
-        if (customersInformation.doesErrorExist) {
-            errorMessage = customersInformation.errorMessage;
-            return { currentCustomerID, errorMessage };
-        }
-        const customersReturned = customersInformation.customers;
-        const chosenCustomerCookie = getCookie(SETTINGS.COOKIE_KEYS.CHOSEN_CUSTOMERS_FROM_COMPANIES);
-        let filteredCustomerWithCookie = [];
-        if (!!chosenCustomerCookie) {
-            const chosenCustomerCookieParsed = JSON.parse(chosenCustomerCookie);
-            const currentCompanyChosenCustomerCookie = chosenCustomerCookieParsed.filter(
-                chosenCustomer => chosenCustomer.companyID === currentCompanyID
-            )[0];
-            filteredCustomerWithCookie = !!currentCompanyChosenCustomerCookie && customersReturned.length > 0 ?
-                customersReturned.filter(
-                    customer => customer.id === parseInt(currentCompanyChosenCustomerCookie.customerID)
-                )[0] : [];
-        }
-        const currentCustomer = !!filteredCustomerWithCookie ? filteredCustomerWithCookie.id : customersReturned[0].id;
-        if (!!currentCustomer) {
-            currentCustomerID = currentCustomer
-        }
-        return { currentCustomerID, errorMessage };
-    }
-
-    async loadCompanyCustomers(companyID, currentCustomerID) {
+    async loadCompanyCustomers(companyID) {
         const customersInformation = await getCompanyCustomers(companyID);
         if (customersInformation.doesErrorExist) {
             this.setState({
@@ -108,16 +74,27 @@ export class Home extends Component {
             });
             return;
         }
-        const firstCustomer = !!currentCustomerID ? customersInformation.customers.filter(
-            customer => customer.id === currentCustomerID
-        )[0] : customersInformation.customers[0];
+        const customersReturned = customersInformation.customers;
+        const chosenCustomerCookie = getCookie(SETTINGS.COOKIE_KEYS.CHOSEN_CUSTOMERS_FROM_COMPANIES);
+        let filteredCustomerWithCookie = [];
+        if (!!chosenCustomerCookie) {
+            const chosenCustomerCookieParsed = JSON.parse(chosenCustomerCookie);
+            const currentCompanyChosenCustomerCookie = chosenCustomerCookieParsed.filter(
+                chosenCustomer => chosenCustomer.companyID === companyID
+            )[0];
+            filteredCustomerWithCookie = !!currentCompanyChosenCustomerCookie && customersReturned.length > 0 ?
+                customersReturned.filter(
+                    customer => customer.id === parseInt(currentCompanyChosenCustomerCookie.customerID)
+                )[0] : [];
+        }
+        const currentCustomer = !!filteredCustomerWithCookie ? filteredCustomerWithCookie.id : customersReturned[0].id;
         this.setState({
-            currentCustomerID: firstCustomer.id,
+            currentCustomerID: currentCustomer,
             customers: customersInformation.customers,
             errorCustomers: "",
             isLoadingCustomers: false
         });
-        this.loadCustomerTransactions(firstCustomer.id);
+        this.loadCustomerTransactions(currentCustomer);
     }
 
     async loadCustomerTransactions(customerID) {

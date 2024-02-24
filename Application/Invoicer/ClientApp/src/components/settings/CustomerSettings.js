@@ -104,7 +104,7 @@ export default class CustomerSettings extends Component {
         const customersReturned = customersInformation.customers;
         const currentCustomerCookie = getCookie(SETTINGS.COOKIE_KEYS.CHOSEN_CUSTOMER);
         const filteredCustomerWithCookie = !!currentCustomerCookie ?
-            customersReturned.filter(customer => customer.id === parseInt(currentCustomerCookie)) : []; 
+            customersReturned.filter(customer => customer.id === parseInt(currentCustomerCookie)) : [];
         const currentCustomer = filteredCustomerWithCookie.length === 1 ? filteredCustomerWithCookie[0] : customersReturned[0];
         console.log(currentCustomer);
         currentCustomerInformation.id = currentCustomer.id;
@@ -177,6 +177,7 @@ export default class CustomerSettings extends Component {
             const customer = this.state.customers.filter((customer) => customer.id === valueToInt)[0];
             this.setState({
                 currentCustomerID: valueToInt,
+                currentCompanyID: customer.companyID,
                 name: customer.name,
                 phone: customer.phone,
                 email: customer.email,
@@ -245,6 +246,7 @@ export default class CustomerSettings extends Component {
             let currentInformation = submissionItem;
             let isSuccessful = false;
             let errorMessage = "";
+            let currentCustomers = [];
             if (validateForm(true)) {
                 this.setState({
                     isSubmissionButtonClicked: true,
@@ -254,7 +256,22 @@ export default class CustomerSettings extends Component {
                     const customerAddition = await addCustomer(currentInformation);
                     isSuccessful = !customerAddition.doesErrorExist;
                     errorMessage = customerAddition.errorMessage;
-                    if (isSuccessful) {
+                }
+                else {
+                    const customerEdit = await editCustomer(currentInformation, this.state.currentCustomerID);
+                    isSuccessful = !customerEdit.doesErrorExist;
+                    errorMessage = customerEdit.errorMessage;
+                }
+                if (isSuccessful) {
+                    const allCustomersCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS);
+                    if (!!allCustomersCookie) {
+                        let allCustomers = JSON.parse(allCustomersCookie);
+                        allCustomers = allCustomers.filter(customer => customer.id !== this.state.currentCustomerID);
+                        currentInformation.id = this.state.currentCustomerID;
+                        allCustomers.push(currentInformation);
+                        setCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS, JSON.stringify(allCustomers), 1);
+                    }
+                    if (!this.state.currentCustomerID) {
                         currentInformation.name = "";
                         currentInformation.phone = "";
                         currentInformation.email = "";
@@ -265,21 +282,14 @@ export default class CustomerSettings extends Component {
                         currentInformation.zip = "";
                         currentInformation.isActive = true;
                     }
-                }
-                else {
-                    const customerEdit = await editCustomer(currentInformation, this.state.currentCustomerID);
-                    isSuccessful = !customerEdit.doesErrorExist;
-                    errorMessage = customerEdit.errorMessage;
-                }
-                const allCustomersCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS);
-                if (!!allCustomersCookie) {
-                    let allCustomers = JSON.parse(allCustomersCookie);
-                    allCustomers = allCustomers.filter(customer => customer.id === this.state.currentCustomerID);
-                    currentInformation.id = this.state.currentCustomerID;
-                    allCustomers.push(currentInformation);
-                    setCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS, JSON.stringify(allCustomers), 2);
+                    currentCustomers = !this.state.currentCompanyID ? await getCustomers(true) : await getCustomers();
+                    if (currentCustomers.doesErrorExist) {
+                        isSuccessful = false;
+                        errorMessage = currentCustomers.errorMessage;
+                    }
                 }
                 this.setState({
+                    customers: currentCustomers.customers,
                     currentCompanyID: currentInformation.companyID,
                     name: currentInformation.name,
                     phone: currentInformation.phone,

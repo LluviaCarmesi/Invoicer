@@ -3,14 +3,16 @@ import ENUSStrings from "../strings/ENUSStrings";
 import isStatusGood from "../utilities/IsStatusGood";
 import getCookie from "../utilities/GetCookie";
 
-export default async function getCompanyCustomers(companyID) {
+export default async function getCompanyCustomers(companyID, canAvoidCookie) {
     let customers = [];
     let doesErrorExist = false;
     let errorMessage = "";
     const allCustomersCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS);
-    if (!!allCustomersCookie) {
+    if (!!allCustomersCookie && !canAvoidCookie) {
         const allCustomers = JSON.parse(allCustomersCookie);
         customers = allCustomers.filter(customer => customer.companyID === companyID && customer.isActive);
+        console.log(customers);
+        console.log(allCustomers);
     }
     else {
         await fetch(`${SETTINGS.COMPANIES_API_URI}/${companyID}${SETTINGS.CUSTOMERS_URI}`)
