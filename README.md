@@ -8,4 +8,3 @@ This project is complete and I got it successfully running on the Raspberry Pi 4
 
 - Add user login and access functionality
 - Add option to hide user and all data associated with it.
-- Make the site mobile-friendly
