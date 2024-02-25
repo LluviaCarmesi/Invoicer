@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Invoicer.csproj": {}
+    "C:\\Users\\meradil\\Documents\\Development\\Personal\\Invoicer\\Application\\Invoicer\\Invoicer.csproj": {}
   },
   "projects": {
-    "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Invoicer.csproj": {
+    "C:\\Users\\meradil\\Documents\\Development\\Personal\\Invoicer\\Application\\Invoicer\\Invoicer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Invoicer.csproj",
+        "projectUniqueName": "C:\\Users\\meradil\\Documents\\Development\\Personal\\Invoicer\\Application\\Invoicer\\Invoicer.csproj",
         "projectName": "Invoicer",
-        "projectPath": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Invoicer.csproj",
-        "packagesPath": "C:\\Users\\Sbasa\\.nuget\\packages\\",
-        "outputPath": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\obj\\",
+        "projectPath": "C:\\Users\\meradil\\Documents\\Development\\Personal\\Invoicer\\Application\\Invoicer\\Invoicer.csproj",
+        "packagesPath": "C:\\Users\\meradil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\meradil\\Documents\\Development\\Personal\\Invoicer\\Application\\Invoicer\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Sbasa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\meradil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,11 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -81,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -225,6 +225,7 @@ export default class CompanySettings extends Component {
                     country: currentInformation.country,
                     zip: currentInformation.zip,
                     isActive: currentInformation.isActive,
+                    isSubmissionAttempted: !isSuccessful,
                     wasSubmissionSuccessful: isSuccessful,
                     wasSubmissionFailure: !isSuccessful,
                     submissionErrorMessage: errorMessage,

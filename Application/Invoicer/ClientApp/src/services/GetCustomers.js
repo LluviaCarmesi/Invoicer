@@ -10,6 +10,7 @@ export default async function getCustomers(canAvoidCookie) {
     let errorMessage = "";
     const allCustomersCookie = getCookie(SETTINGS.COOKIE_KEYS.ALL_CUSTOMERS);
     if (!!allCustomersCookie && !canAvoidCookie) {
+        console.log(allCustomersCookie);
         customers = JSON.parse(allCustomersCookie);
     }
     else {

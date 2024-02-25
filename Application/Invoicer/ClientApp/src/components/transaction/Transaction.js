@@ -187,9 +187,8 @@ export default class Transaction extends Component {
             let currentPositionChange = 0;
             for (let i = 0; i < this.state.invoiceData.length; i++) {
                 if (
-                    !modifiedInvoiceData[i].total ||
-                    !modifiedInvoiceData[i].type ||
-                    !modifiedInvoiceData[i].ticketNumber
+                    modifiedInvoiceData[i].total === "0" ||
+                    !modifiedInvoiceData[i].type
                 ) {
                     modifiedInvoiceData.splice(i - currentPositionChange, 1);
                     currentPositionChange++;

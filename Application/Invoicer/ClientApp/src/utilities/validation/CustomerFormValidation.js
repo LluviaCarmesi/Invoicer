@@ -27,7 +27,9 @@ export default function customerFormValidation(values) {
     else if (!values.phone.match(SETTINGS.PHONE_REG_EXPRESSION)) {
         errors.phoneError = ENUSStrings.CustomerPhoneLabel + ENUSStrings.PhoneFormatErrorMessage;
     }
-    if (!values.email) { }
+    if (!values.email) {
+        errors.emailError = ENUSStrings.CustomerEmailLabel + ENUSStrings.BlankErrorMessage;
+    }
     else if (!values.email.match(SETTINGS.EMAIL_REG_EXPRESSION)) {
         errors.emailError = ENUSStrings.CustomerEmailLabel + ENUSStrings.EmailFormatErrorMessage
     }

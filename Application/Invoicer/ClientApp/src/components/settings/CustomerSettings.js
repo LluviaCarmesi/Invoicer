@@ -282,12 +282,13 @@ export default class CustomerSettings extends Component {
                         currentInformation.zip = "";
                         currentInformation.isActive = true;
                     }
-                    currentCustomers = !this.state.currentCompanyID ? await getCustomers(true) : await getCustomers();
+                    currentCustomers = !this.state.currentCustomerID ? await getCustomers(true) : await getCustomers();
                     if (currentCustomers.doesErrorExist) {
                         isSuccessful = false;
                         errorMessage = currentCustomers.errorMessage;
                     }
                 }
+                console.log(currentCustomers);
                 this.setState({
                     customers: currentCustomers.customers,
                     currentCompanyID: currentInformation.companyID,
@@ -300,6 +301,7 @@ export default class CustomerSettings extends Component {
                     country: currentInformation.country,
                     zip: currentInformation.zip,
                     isActive: currentInformation.isActive,
+                    isSubmissionAttempted: !isSuccessful,
                     wasSubmissionSuccessful: isSuccessful,
                     wasSubmissionFailure: !isSuccessful,
                     submissionErrorMessage: errorMessage,
@@ -407,7 +409,7 @@ export default class CustomerSettings extends Component {
                                 </div>
                                 <div id="customer-email-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label">{ENUSStrings.CustomerEmailLabel}</span>
+                                        <span className="field-label field-required">{ENUSStrings.CustomerEmailLabel}</span>
                                         <input
                                             id="email"
                                             type="text"
