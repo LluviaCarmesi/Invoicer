@@ -5,6 +5,7 @@ using Invoicer.Properties.Strings;
 using Invoicer.Utilities.NewFolder;
 using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
+using System.Diagnostics;
 
 namespace Invoicer.Services
 {
@@ -211,7 +212,7 @@ namespace Invoicer.Services
                 mySqlAddTransactionCommand.Connection = mySqlConnection;
                 mySqlAddTransactionCommand.ExecuteNonQuery();
 
-                mySqlDeleteInvoiceDataCommand = new MySqlCommand($"DELETE FROM ${AppSettings.INVOICE_DATA_TABLE} WHERE invoice_id = @invoice_id", mySqlConnection);
+                mySqlDeleteInvoiceDataCommand = new MySqlCommand($"DELETE FROM {AppSettings.INVOICE_DATA_TABLE} WHERE invoice_id = @invoice_id", mySqlConnection);
                 mySqlDeleteInvoiceDataCommand.Parameters.Add("@invoice_id", MySqlDbType.Int32).Value = transaction.Id;
                 mySqlDeleteInvoiceDataCommand.ExecuteNonQuery();
 
@@ -220,17 +221,19 @@ namespace Invoicer.Services
                     for (int i = 0; i < transaction.InvoiceData.Count; i++)
                     {
                         InvoiceData currentInvoiceData = transaction.InvoiceData[i];
+                        Debug.WriteLine(currentInvoiceData.Total);
                         try
                         {
                             mySqlAddInvoiceDataCommand = new MySqlCommand($"INSERT INTO {AppSettings.INVOICE_DATA_TABLE} ({AppSettings.ADD_INVOICE_DATA_COLUMNS}) VALUES (@invoice_id, @type, @ticket_number, @total)", mySqlConnection);
-                            mySqlAddInvoiceDataCommand.Parameters.Add("@invoice_id", MySqlDbType.Int32).Value = mySqlAddTransactionCommand.LastInsertedId;
+                            mySqlAddInvoiceDataCommand.Parameters.Add("@invoice_id", MySqlDbType.Int32).Value = transaction.Id;
                             mySqlAddInvoiceDataCommand.Parameters.Add("@type", MySqlDbType.VarChar).Value = currentInvoiceData.Type;
                             mySqlAddInvoiceDataCommand.Parameters.Add("@ticket_number", MySqlDbType.VarChar).Value = currentInvoiceData.TicketNumber;
                             mySqlAddInvoiceDataCommand.Parameters.Add("@total", MySqlDbType.Decimal).Value = currentInvoiceData.Total;
                             mySqlAddInvoiceDataCommand.ExecuteNonQuery();
                         }
-                        catch
+                        catch (Exception e)
                         {
+                            Debug.WriteLine(e.Message);
                             invoiceDataFails++;
                             invoiceDataNotAdded.Add(transaction.InvoiceData[i]);
                         }
