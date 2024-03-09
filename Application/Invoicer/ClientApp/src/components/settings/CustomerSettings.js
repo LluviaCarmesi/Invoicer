@@ -33,11 +33,6 @@ export default class CustomerSettings extends Component {
             nameError: "",
             phoneError: "",
             emailError: "",
-            addressError: "",
-            cityError: "",
-            stateError: "",
-            countryError: "",
-            zipError: "",
             isLoadingCompanies: true,
             isLoadingCustomers: true,
             errorCompanies: "",
@@ -217,11 +212,6 @@ export default class CustomerSettings extends Component {
                     nameError: validation.errors.nameError,
                     phoneError: validation.errors.phoneError,
                     emailError: validation.errors.emailError,
-                    addressError: validation.errors.addressError,
-                    cityError: validation.errors.cityError,
-                    stateError: validation.errors.stateError,
-                    countryError: validation.errors.countryError,
-                    zipError: validation.errors.zipError,
                     isSubmissionAttempted: true
                 });
             }
@@ -231,11 +221,6 @@ export default class CustomerSettings extends Component {
                     nameError: validation.errors.nameError,
                     phoneError: validation.errors.phoneError,
                     emailError: validation.errors.emailError,
-                    addressError: validation.errors.addressError,
-                    cityError: validation.errors.cityError,
-                    stateError: validation.errors.stateError,
-                    countryError: validation.errors.countryError,
-                    zipError: validation.errors.zipError,
                 });
             }
             return validation.isValid;
@@ -392,7 +377,7 @@ export default class CustomerSettings extends Component {
                                 </div>
                                 <div id="customer-phone-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerPhoneLabel}</span>
+                                        <span className="field-label">{ENUSStrings.CustomerPhoneLabel}</span>
                                         <input
                                             id="phone"
                                             type="text"
@@ -409,7 +394,7 @@ export default class CustomerSettings extends Component {
                                 </div>
                                 <div id="customer-email-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerEmailLabel}</span>
+                                        <span className="field-label">{ENUSStrings.CustomerEmailLabel}</span>
                                         <input
                                             id="email"
                                             type="text"
@@ -426,7 +411,7 @@ export default class CustomerSettings extends Component {
                                 </div>
                                 <div id="customer-address-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerAddressLabel}</span>
+                                        <span className="field-label">{ENUSStrings.CustomerAddressLabel}</span>
                                         <input
                                             id="address"
                                             type="text"
@@ -439,11 +424,10 @@ export default class CustomerSettings extends Component {
                                             }}
                                         />
                                     </div>
-                                    <span className="field-error" hidden={!this.state.addressError || !this.state.isSubmissionAttempted}>{this.state.addressError}</span>
                                 </div>
                                 <div id="customer-city-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerCityLabel}</span>
+                                        <span className="field-label">{ENUSStrings.CustomerCityLabel}</span>
                                         <input
                                             id="city"
                                             type="text"
@@ -456,11 +440,10 @@ export default class CustomerSettings extends Component {
                                             }}
                                         />
                                     </div>
-                                    <span className="field-error" hidden={!this.state.cityError || !this.state.isSubmissionAttempted}>{this.state.cityError}</span>
                                 </div>
                                 <div id="customer-state-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerStateLabel}</span>
+                                        <span className="field-label">{ENUSStrings.CustomerStateLabel}</span>
                                         <input
                                             id="state"
                                             type="text"
@@ -473,11 +456,10 @@ export default class CustomerSettings extends Component {
                                             }}
                                         />
                                     </div>
-                                    <span className="field-error" hidden={!this.state.stateError || !this.state.isSubmissionAttempted}>{this.state.stateError}</span>
                                 </div>
                                 <div id="customer-country-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerCountryLabel}</span>
+                                        <span className="field-label">{ENUSStrings.CustomerCountryLabel}</span>
                                         <input
                                             id="country"
                                             type="text"
@@ -490,11 +472,10 @@ export default class CustomerSettings extends Component {
                                             }}
                                         />
                                     </div>
-                                    <span className="field-error" hidden={!this.state.countryError || !this.state.isSubmissionAttempted}>{this.state.countryError}</span>
                                 </div>
                                 <div id="customer-zip-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CustomerZipLabel}</span>
+                                        <span className="field-label">{ENUSStrings.CustomerZipLabel}</span>
                                         <input
                                             id="zip"
                                             type="text"
@@ -507,11 +488,10 @@ export default class CustomerSettings extends Component {
                                             }}
                                         />
                                     </div>
-                                    <span className="field-error" hidden={!this.state.zipError || !this.state.isSubmissionAttempted}>{this.state.zipError}</span>
                                 </div>
                                 <div id="customer-is-active-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.IsCustomerActiveLabel}</span>
+                                        <span className="field-label">{ENUSStrings.IsCustomerActiveLabel}</span>
                                         <input
                                             id="isActive"
                                             type="checkbox"

@@ -382,7 +382,7 @@ export default class CompanySettings extends Component {
                                 </div>
                                 <div id="company-is-active-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.IsCompanyActiveLabel}</span>
+                                        <span className="field-label">{ENUSStrings.IsCompanyActiveLabel}</span>
                                         <input
                                             id="isActive"
                                             type="checkbox"

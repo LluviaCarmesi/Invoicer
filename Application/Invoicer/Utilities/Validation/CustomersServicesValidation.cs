@@ -23,7 +23,7 @@ namespace Invoicer.Utilities.Validation
             StreamReader reader = new StreamReader(request.Body, Encoding.UTF8);
             string requestBody = await reader.ReadToEndAsync();
             Customer requestData = JsonConvert.DeserializeObject<Customer>(requestBody);
-            
+
             // companyID validation
             int companyID = requestData.CompanyID;
             if (companyID == int.MinValue)
@@ -57,85 +57,57 @@ namespace Invoicer.Utilities.Validation
             string phone = requestData.Phone;
             if (string.IsNullOrEmpty(phone))
             {
-                isValid = false;
-                result = ENUSStrings.PhonePropertyLabel + ENUSStrings.BlankError;
+                phone = string.Empty;
             }
-            else
-            {
-                customer.Phone = phone;
-            }
+            customer.Phone = phone;
 
             // email validation
             string email = requestData.Email;
             if (string.IsNullOrEmpty(email))
             {
-                isValid = false;
-                result = ENUSStrings.EmailPropertyLabel + ENUSStrings.BlankError;
+                email = string.Empty;
             }
-            else
-            {
-                customer.Email = email;
-            }
+            customer.Email = email;
 
             // address validation
             string address = requestData.Address;
             if (string.IsNullOrEmpty(address))
             {
-                isValid = false;
-                result = ENUSStrings.AddressPropertyLabel + ENUSStrings.BlankError;
+                address = string.Empty;
             }
-            else
-            {
-                customer.Address = address;
-            }
+            customer.Address = address;
 
             // city validation
             string city = requestData.City;
             if (string.IsNullOrEmpty(city))
             {
-                isValid = false;
-                result = ENUSStrings.CityPropertyLabel + ENUSStrings.BlankError;
+                city = string.Empty;
             }
-            else
-            {
-                customer.City = city;
-            }
+            customer.City = city;
 
             // state validation
             string state = requestData.State;
             if (string.IsNullOrEmpty(state))
             {
-                isValid = false;
-                result = ENUSStrings.StatePropertyLabel + ENUSStrings.BlankError;
+                state = string.Empty;
             }
-            else
-            {
-                customer.State = state;
-            }
+            customer.State = state;
 
             // country validation
             string country = requestData.Country;
             if (string.IsNullOrEmpty(country))
             {
-                isValid = false;
-                result = ENUSStrings.CountryPropertyLabel + ENUSStrings.BlankError;
+                country = string.Empty;
             }
-            else
-            {
-                customer.Country = country;
-            }
+            customer.Country = country;
 
             // zip validation
             string zip = requestData.Zip;
             if (string.IsNullOrEmpty(zip))
             {
-                isValid = false;
-                result = ENUSStrings.ZipPropertyLabel + ENUSStrings.BlankError;
+                zip = string.Empty;
             }
-            else
-            {
-                customer.Zip = zip;
-            }
+            customer.Zip = zip;
 
             //  is_active validation
             bool isActive = requestData.IsActive;
@@ -193,85 +165,57 @@ namespace Invoicer.Utilities.Validation
             string phone = requestData.Phone;
             if (string.IsNullOrEmpty(phone))
             {
-                isValid = false;
-                result = ENUSStrings.PhonePropertyLabel + ENUSStrings.BlankError;
+                phone = string.Empty;
             }
-            else
-            {
-                customer.Phone = phone;
-            }
+            customer.Phone = phone;
 
             // email validation
             string email = requestData.Email;
             if (string.IsNullOrEmpty(email))
             {
-                isValid = false;
-                result = ENUSStrings.EmailPropertyLabel + ENUSStrings.BlankError;
+                email = string.Empty;
             }
-            else
-            {
-                customer.Email = email;
-            }
+            customer.Email = email;
 
             // address validation
             string address = requestData.Address;
             if (string.IsNullOrEmpty(address))
             {
-                isValid = false;
-                result = ENUSStrings.AddressPropertyLabel + ENUSStrings.BlankError;
+                address = string.Empty;
             }
-            else
-            {
-                customer.Address = address;
-            }
+            customer.Address = address;
 
             // city validation
             string city = requestData.City;
             if (string.IsNullOrEmpty(city))
             {
-                isValid = false;
-                result = ENUSStrings.CityPropertyLabel + ENUSStrings.BlankError;
+                city = string.Empty;
             }
-            else
-            {
-                customer.City = city;
-            }
+            customer.City = city;
 
             // state validation
             string state = requestData.State;
             if (string.IsNullOrEmpty(state))
             {
-                isValid = false;
-                result = ENUSStrings.StatePropertyLabel + ENUSStrings.BlankError;
+                state = string.Empty;
             }
-            else
-            {
-                customer.State = state;
-            }
+            customer.State = state;
 
             // country validation
             string country = requestData.Country;
             if (string.IsNullOrEmpty(country))
             {
-                isValid = false;
-                result = ENUSStrings.CountryPropertyLabel + ENUSStrings.BlankError;
+                country = string.Empty;
             }
-            else
-            {
-                customer.Country = country;
-            }
+            customer.Country = country;
 
             // zip validation
             string zip = requestData.Zip;
             if (string.IsNullOrEmpty(zip))
             {
-                isValid = false;
-                result = ENUSStrings.ZipPropertyLabel + ENUSStrings.BlankError;
+                zip = string.Empty;
             }
-            else
-            {
-                customer.Zip = zip;
-            }
+            customer.Zip = zip;
 
             //  is_active validation
             bool isActive = requestData.IsActive;

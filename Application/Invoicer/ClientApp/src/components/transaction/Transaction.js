@@ -38,7 +38,6 @@ export default class Transaction extends Component {
             total: "0",
             dueDateError: "",
             paymentDateError: "",
-            checkNumberError: "",
             totalError: "",
             invoiceData: [{
                 type: "fuel",
@@ -358,7 +357,6 @@ export default class Transaction extends Component {
                 this.setState({
                     dueDateError: validation.errors.dueDateError,
                     paymentDateError: validation.errors.paymentDateError,
-                    checkNumberError: validation.errors.checkNumberError,
                     totalError: validation.errors.totalError,
                     isSubmissionAttempted: isSubmissionAttempted
                 });
@@ -367,7 +365,6 @@ export default class Transaction extends Component {
                 this.setState({
                     dueDateError: validation.errors.dueDateError,
                     paymentDateError: validation.errors.paymentDateError,
-                    checkNumberError: validation.errors.checkNumberError,
                     totalError: validation.errors.totalError
                 });
             }
@@ -524,7 +521,7 @@ export default class Transaction extends Component {
                                 </div>
                                 <div id="transaction-check-number-container" className="field-whole-container" hidden={this.state.currentType !== "payment"} >
                                     <div className="transaction-field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.CheckNumberLabel}</span>
+                                        <span className="field-label">{ENUSStrings.CheckNumberLabel}</span>
                                         <input
                                             type="text"
                                             id="checkNumber"
@@ -537,7 +534,6 @@ export default class Transaction extends Component {
                                             }}
                                         />
                                     </div>
-                                    <span className="field-error" hidden={!this.state.checkNumberError || !this.state.isSubmissionAttempted}>{this.state.checkNumberError}</span>
                                 </div>
                                 <div id="transaction-total-container" className="field-whole-container" >
                                     {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE &&

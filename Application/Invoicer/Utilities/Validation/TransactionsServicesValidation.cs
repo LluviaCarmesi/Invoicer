@@ -109,13 +109,9 @@ namespace Invoicer.Utilities.Validation
 
                 if (string.IsNullOrEmpty(checkNumber))
                 {
-                    isValid = false;
-                    result = ENUSStrings.CheckNumberPropertyLabel + ENUSStrings.BlankError;
+                    checkNumber = string.Empty;
                 }
-                else
-                {
-                    transaction.CheckNumber = checkNumber;
-                }
+                transaction.CheckNumber = checkNumber;
             }
             // total validation
             decimal total = requestData.Total;
@@ -219,13 +215,9 @@ namespace Invoicer.Utilities.Validation
 
                 if (string.IsNullOrEmpty(checkNumber))
                 {
-                    isValid = false;
-                    result = ENUSStrings.CheckNumberPropertyLabel + ENUSStrings.BlankError;
+                    checkNumber = string.Empty;
                 }
-                else
-                {
-                    transaction.CheckNumber = checkNumber;
-                }
+                transaction.CheckNumber = checkNumber;
             }
             // total validation
             decimal total = requestData.Total;
