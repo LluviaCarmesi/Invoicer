@@ -149,8 +149,6 @@ export default class CustomerSettings extends Component {
     }
 
     componentDidUpdate(previousProps, previousState) {
-        console.log(previousState);
-        console.log(this.state);
     }
     render() {
         const submissionItem = {
@@ -273,7 +271,6 @@ export default class CustomerSettings extends Component {
                         errorMessage = currentCustomers.errorMessage;
                     }
                 }
-                console.log(currentCustomers);
                 this.setState({
                     customers: currentCustomers.customers,
                     currentCompanyID: currentInformation.companyID,

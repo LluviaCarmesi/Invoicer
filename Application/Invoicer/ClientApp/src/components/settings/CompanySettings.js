@@ -104,8 +104,6 @@ export default class CompanySettings extends Component {
     }
 
     componentDidUpdate(previousProps, previousState) {
-        console.log(previousState);
-        console.log(this.state);
     }
     render() {
         const submissionItem = {
@@ -129,7 +127,8 @@ export default class CompanySettings extends Component {
                 city: company.city,
                 state: company.state,
                 country: company.country,
-                zip: company.zip
+                zip: company.zip,
+                isActive: company.isActive
             });
         };
 

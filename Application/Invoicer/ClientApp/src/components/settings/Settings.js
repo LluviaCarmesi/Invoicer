@@ -22,8 +22,6 @@ export default class Settings extends Component {
     }
 
     componentDidUpdate(previousProps, previousState) {
-        console.log(previousState);
-        console.log(this.state);
     }
     render() {
 
