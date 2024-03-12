@@ -18,6 +18,6 @@ C:\Users\meradil\Documents\Development\Personal\Invoicer\Application\Invoicer\bi
 C:\Users\meradil\Documents\Development\Personal\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\css\main.d0f47218.css.map
 C:\Users\meradil\Documents\Development\Personal\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\787.6c3048c9.chunk.js
 C:\Users\meradil\Documents\Development\Personal\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\787.6c3048c9.chunk.js.map
-C:\Users\meradil\Documents\Development\Personal\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.224b4531.js
-C:\Users\meradil\Documents\Development\Personal\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.224b4531.js.LICENSE.txt
-C:\Users\meradil\Documents\Development\Personal\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.224b4531.js.map
+C:\Users\meradil\Documents\Development\Personal\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.fcb1d2bd.js
+C:\Users\meradil\Documents\Development\Personal\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.fcb1d2bd.js.LICENSE.txt
+C:\Users\meradil\Documents\Development\Personal\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.fcb1d2bd.js.map

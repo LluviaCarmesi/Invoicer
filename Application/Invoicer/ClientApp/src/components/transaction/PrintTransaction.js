@@ -193,7 +193,7 @@ export default class PrintTransaction extends Component {
                         <div className="print-transaction-customer-container">
                             <span>{this.state.customerName}</span>
                             <span>{this.state.customerAddress}</span>
-                            <span>{this.state.customerCity}, {this.state.customerState} {this.state.customerZip}</span>
+                            <span>{(!!this.state.customerCity ? this.state.customerCity + "," : "")} {this.state.customerState} {this.state.customerZip}</span>
                         </div>
                         <div className="print-transaction-terms-container">
                             <span>{ENUSStrings.TermsLabel}: </span>
