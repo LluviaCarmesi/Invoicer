@@ -3,6 +3,7 @@
     HomeLabel: "Home",
     SettingsLabel: "Settings",
     DownloadAllTransactionsLabel: "Download all transactions",
+    DownloadSQLQueryLabel: "Download SQL Query",
     TypeLabel: "Type",
     FuelLabel: "Fuel",
     CloseLabel: "Close",

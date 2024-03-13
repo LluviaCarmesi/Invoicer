@@ -61,7 +61,7 @@ namespace Invoicer.Controllers
             for (int i = 0; i < companiesCustomersTransactionsServiceRequest.CompaniesCustomersTransactions.Count; i++)
             {
                 CompaniesCustomersTransactions currentIteration = companiesCustomersTransactionsServiceRequest.CompaniesCustomersTransactions[i];
-                CSV.AppendLine($"" +
+                CSV.AppendLine(
                     $"{currentIteration.CompanyID}," +
                     $"{currentIteration.CompanyName}," +
                     $"{currentIteration.CustomerID}," +
@@ -79,6 +79,161 @@ namespace Invoicer.Controllers
             byte[] buffer = Encoding.UTF8.GetBytes(CSV.ToString());
             DateTime todaysDate = DateTime.UtcNow;
             return File(buffer, "text/csv", $"companies_customers_transactions{todaysDate.ToShortDateString()}.csv");
+        }
+        [Route("export-sql-query-to-build-db")]
+        [HttpGet("export-sql-query-to-build-db")]
+        public IActionResult ExportSQLQueryToBuildDB()
+        {
+            CompaniesCustomersTransactionsListsServiceRequest companiesCustomersTransactionsListsServiceRequest =
+                CompaniesServices.GetCompaniesCustomersTransactionsLists();
+            if (!companiesCustomersTransactionsListsServiceRequest.IsSuccessful)
+            {
+                return BadRequest(new { response = companiesCustomersTransactionsListsServiceRequest.Result });
+            }
+            StringBuilder TXT = new StringBuilder();
+
+            for (int i = 0; i < companiesCustomersTransactionsListsServiceRequest.CompaniesCustomersTransactionsLists.Count; i++)
+            {
+                CompaniesCustomersTransactionsLists companiesCustomersTransactionsLists = companiesCustomersTransactionsListsServiceRequest.CompaniesCustomersTransactionsLists[i];
+                TXT.AppendLine(
+                    "INSERT INTO companies\r\n" +
+                    "(\r\n    name,\r\n    address,\r\n    city,\r\n    " +
+                    "state,\r\n    country,\r\n    zip,\r\n    is_active\r\n" +
+                    ")\r\nVALUES"
+                    );
+                for (int j = 0; j < companiesCustomersTransactionsLists.Companies.Count; j++)
+                {
+                    Company company = companiesCustomersTransactionsLists.Companies[j];
+                    if (j + 1 == companiesCustomersTransactionsLists.Companies.Count)
+                    {
+                        TXT.AppendLine(
+                            $"(\"{company.Name}\"," +
+                            $"\"{company.Address}\"," +
+                            $"\"{company.City}\"," +
+                            $"\"{company.State}\"," +
+                            $"\"{company.Country}\"," +
+                            $"\"{company.Zip}\"," +
+                            $"{company.IsActive});\r\n"
+                            );
+                    }
+                    else
+                    {
+                        TXT.AppendLine(
+                            $"(\"{company.Name}\"," +
+                            $"\"{company.Address}\"," +
+                            $"\"{company.City}\"," +
+                            $"\"{company.State}\"," +
+                            $"\"{company.Country}\"," +
+                            $"\"{company.Zip}\"," +
+                            $"{company.IsActive}),"
+                            );
+                    }
+                }
+                TXT.AppendLine(
+                    "INSERT INTO customers\r\n" +
+                    "(\r\n    company_id,\r\n    name,\r\n    phone,\r\n    " +
+                    "email,\r\n    address,\r\n    city,\r\n    state,\r\n    " +
+                    "country,\r\n    zip,\r\n    is_active\r\n)\r\nVALUES"
+                    );
+                for (int j = 0; j < companiesCustomersTransactionsLists.Customers.Count; j++)
+                {
+                    Customer customer = companiesCustomersTransactionsLists.Customers[j];
+                    if (j + 1 == companiesCustomersTransactionsLists.Customers.Count)
+                    {
+                        TXT.AppendLine(
+                            $"({customer.CompanyID}," +
+                            $"\"{customer.Name}\"," +
+                            $"\"{customer.Phone}\"," +
+                            $"\"{customer.Email}\"," +
+                            $"\"{customer.Address}\"," +
+                            $"\"{customer.City}\"," +
+                            $"\"{customer.State}\"," +
+                            $"\"{customer.Country}\"," +
+                            $"\"{customer.Zip}\"," +
+                            $"{customer.IsActive})\r\n"
+                            );
+                    }
+                    else
+                    {
+                        TXT.AppendLine(
+                            $"({customer.CompanyID}," +
+                            $"\"{customer.Name}\"," +
+                            $"\"{customer.Phone}\"," +
+                            $"\"{customer.Email}\"," +
+                            $"\"{customer.Address}\"," +
+                            $"\"{customer.City}\"," +
+                            $"\"{customer.State}\"," +
+                            $"\"{customer.Country}\"," +
+                            $"\"{customer.Zip}\"," +
+                            $"{customer.IsActive}),"
+                            );
+                    }
+                }
+                TXT.AppendLine(
+                    "INSERT INTO transactions\r\n" +
+                    "(\r\n    type,\r\n    customer_id,\r\n    created_date,\r\n" +
+                    "due_date,\r\n    payment_date,\r\n    check_number,\r\n" +
+                    "total\r\n)\r\nVALUES"
+                    );
+                for (int j = 0; j < companiesCustomersTransactionsLists.Transactions.Count; j++)
+                {
+                    Transaction transaction = companiesCustomersTransactionsLists.Transactions[j];
+                    if (j + 1 == companiesCustomersTransactionsLists.Transactions.Count)
+                    {
+                        TXT.AppendLine(
+                            $"\"{transaction.Type}\"," +
+                            $"{transaction.CustomerID}," +
+                            $"\"{transaction.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")}\"," +
+                            $"\"{transaction.DueDate.ToString("yyyy-MM-dd HH:mm:ss")}\"," +
+                            $"\"{transaction.PaymentDate.ToString("yyyy-MM-dd HH:mm:ss")}\"," +
+                            $"\"{transaction.CheckNumber}\"," +
+                            $"{transaction.Total});\r\n"
+                            );
+                    }
+                    else
+                    {
+                        TXT.AppendLine(
+                            $"\"{transaction.Type}\"," +
+                            $"{transaction.CustomerID}," +
+                            $"\"{transaction.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")}\"," +
+                            $"\"{transaction.DueDate.ToString("yyyy-MM-dd HH:mm:ss")}\"," +
+                            $"\"{transaction.PaymentDate.ToString("yyyy-MM-dd HH:mm:ss")}\"," +
+                            $"\"{transaction.CheckNumber}\"," +
+                            $"{transaction.Total}),"
+                            );
+                    }
+                }
+                TXT.AppendLine(
+                    "INSERT INTO invoice_data\r\n" +
+                    "(\r\n    invoice_id,\r\n    type,\r\n    ticket_number,\r\n    " +
+                    "total\r\n)\r\nVALUES"
+                    );
+                for (int j = 0; j <companiesCustomersTransactionsLists.InvoiceDatas.Count; j++)
+                {
+                    InvoiceData invoiceData = companiesCustomersTransactionsLists.InvoiceDatas[j];
+                    if (j+1 == companiesCustomersTransactionsLists.InvoiceDatas.Count)
+                    {
+                        TXT.AppendLine(
+                            $"{invoiceData.InvoiceID}," +
+                            $"\"{invoiceData.Type}\"," +
+                            $"\"{invoiceData.TicketNumber}\"," +
+                            $"{invoiceData.Total});\r\n"
+                            );
+                    }
+                    else
+                    {
+                        TXT.AppendLine(
+                            $"{invoiceData.InvoiceID}," +
+                            $"\"{invoiceData.Type}\"," +
+                            $"\"{invoiceData.TicketNumber}\"," +
+                            $"{invoiceData.Total}),"
+                            );
+                    }
+                }
+            }
+            byte[] buffer = Encoding.UTF8.GetBytes(TXT.ToString());
+            DateTime todaysDate = DateTime.UtcNow;
+            return File(buffer, "text/csv", $"sql_query_to_build_db{todaysDate.ToShortDateString()}.txt");
         }
 
         // Post Methods

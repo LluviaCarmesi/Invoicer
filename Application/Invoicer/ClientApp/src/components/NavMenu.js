@@ -34,6 +34,9 @@ export class NavMenu extends Component {
                     <span>
                         <Link target="_blank" to="/api/companies/export-all-companies-customers-transactions">{ENUSStrings.DownloadAllTransactionsLabel}</Link>
                     </span>
+                    <span>
+                        <Link target="_blank" to="/api/companies/export-sql-query-to-build-db">{ENUSStrings.DownloadSQLQueryLabel}</Link>
+                    </span>
                 </div>
             </div>
         );

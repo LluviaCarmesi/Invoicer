@@ -135,6 +135,9 @@
   <data name="CompaniesCustomersTransactionsExportFailedMessage" xml:space="preserve">
     <value>The transactions for the companies customers couldn't be exported for the following reason: </value>
   </data>
+  <data name="CompaniesCustomersTransactionsListsExportFailedMessage" xml:space="preserve">
+    <value>The companies, customers, and transactions couldn't be exported for the following reason: </value>
+  </data>
   <data name="CompanyAddedFailedMessage" xml:space="preserve">
     <value>Couldn't add company for the following reason: </value>
   </data>
