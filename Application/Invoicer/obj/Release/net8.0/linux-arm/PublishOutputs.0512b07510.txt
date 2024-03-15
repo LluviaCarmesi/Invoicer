@@ -18,6 +18,6 @@ C:\ProgrammingProjects\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-ar
 C:\ProgrammingProjects\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\css\main.d0f47218.css.map
 C:\ProgrammingProjects\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\787.6c3048c9.chunk.js
 C:\ProgrammingProjects\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\787.6c3048c9.chunk.js.map
-C:\ProgrammingProjects\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.2c3ee12d.js
-C:\ProgrammingProjects\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.2c3ee12d.js.LICENSE.txt
-C:\ProgrammingProjects\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.2c3ee12d.js.map
+C:\ProgrammingProjects\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.d4ced262.js
+C:\ProgrammingProjects\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.d4ced262.js.LICENSE.txt
+C:\ProgrammingProjects\Invoicer\Application\Invoicer\bin\Release\net8.0\linux-arm\publish\wwwroot\static\js\main.d4ced262.js.map

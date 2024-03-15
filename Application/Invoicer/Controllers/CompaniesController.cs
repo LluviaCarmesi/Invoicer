@@ -150,7 +150,7 @@ namespace Invoicer.Controllers
                             $"\"{customer.State}\"," +
                             $"\"{customer.Country}\"," +
                             $"\"{customer.Zip}\"," +
-                            $"{customer.IsActive})\r\n"
+                            $"{customer.IsActive});\r\n"
                             );
                     }
                     else
@@ -172,8 +172,8 @@ namespace Invoicer.Controllers
                 TXT.AppendLine(
                     "INSERT INTO transactions\r\n" +
                     "(\r\n    type,\r\n    customer_id,\r\n    created_date,\r\n" +
-                    "due_date,\r\n    payment_date,\r\n    check_number,\r\n" +
-                    "total\r\n)\r\nVALUES"
+                    "    due_date,\r\n    payment_date,\r\n    check_number,\r\n" +
+                    "    total\r\n)\r\nVALUES"
                     );
                 for (int j = 0; j < companiesCustomersTransactionsLists.Transactions.Count; j++)
                 {
@@ -181,7 +181,7 @@ namespace Invoicer.Controllers
                     if (j + 1 == companiesCustomersTransactionsLists.Transactions.Count)
                     {
                         TXT.AppendLine(
-                            $"\"{transaction.Type}\"," +
+                            $"(\"{transaction.Type}\"," +
                             $"{transaction.CustomerID}," +
                             $"\"{transaction.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")}\"," +
                             $"\"{transaction.DueDate.ToString("yyyy-MM-dd HH:mm:ss")}\"," +
@@ -193,7 +193,7 @@ namespace Invoicer.Controllers
                     else
                     {
                         TXT.AppendLine(
-                            $"\"{transaction.Type}\"," +
+                            $"(\"{transaction.Type}\"," +
                             $"{transaction.CustomerID}," +
                             $"\"{transaction.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")}\"," +
                             $"\"{transaction.DueDate.ToString("yyyy-MM-dd HH:mm:ss")}\"," +
@@ -214,7 +214,7 @@ namespace Invoicer.Controllers
                     if (j+1 == companiesCustomersTransactionsLists.InvoiceDatas.Count)
                     {
                         TXT.AppendLine(
-                            $"{invoiceData.InvoiceID}," +
+                            $"({invoiceData.InvoiceID}," +
                             $"\"{invoiceData.Type}\"," +
                             $"\"{invoiceData.TicketNumber}\"," +
                             $"{invoiceData.Total});\r\n"
@@ -223,7 +223,7 @@ namespace Invoicer.Controllers
                     else
                     {
                         TXT.AppendLine(
-                            $"{invoiceData.InvoiceID}," +
+                            $"({invoiceData.InvoiceID}," +
                             $"\"{invoiceData.Type}\"," +
                             $"\"{invoiceData.TicketNumber}\"," +
                             $"{invoiceData.Total}),"
