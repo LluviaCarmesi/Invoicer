@@ -6,7 +6,7 @@ namespace Invoicer.Utilities.NewFolder
     {
         public static string ConstructInvoiceDataErrors(List<InvoiceData> invoiceDataNotAdded)
         {
-            string error = invoiceDataNotAdded.Count + " invoice data couldn't be added. They are below";
+            string error = invoiceDataNotAdded.Count + " invoice data couldn't be added. They are below\n";
             for (int i = 0; i < invoiceDataNotAdded.Count; i++)
             {
                 InvoiceData currentInvoiceData = invoiceDataNotAdded[i];

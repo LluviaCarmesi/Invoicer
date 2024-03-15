@@ -36,7 +36,7 @@ CREATE TABLE transactions (
   due_date DATETIME DEFAULT NULL,
   payment_date DATETIME DEFAULT NULL,
   check_number VARCHAR(20) DEFAULT NULL,
-  total DECIMAL(7,2) NOT NULL,
+  total DECIMAL(9,2) NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT transactions_fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
@@ -46,7 +46,7 @@ CREATE TABLE invoice_data (
   invoice_id INT NOT NULL,
   type VARCHAR(50) DEFAULT NULL,
   ticket_number VARCHAR(50) DEFAULT NULL,
-  total DECIMAL(6, 4) NOT NULL,
+  total DECIMAL(8, 3) NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT invoice_data_fk_invoice_id FOREIGN KEY (invoice_id) REFERENCES transactions(id)
 );

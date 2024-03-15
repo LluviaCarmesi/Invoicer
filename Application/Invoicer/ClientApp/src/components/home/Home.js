@@ -4,12 +4,11 @@ import getCustomerTransactions from "../../services/GetCustomerTransactions";
 import "./Home.css";
 import ENUSStrings from '../../strings/ENUSStrings';
 import SETTINGS from '../../AppSettings';
-import getCompanies from '../../services/GetCompanies';
 import getCompanyCustomers from '../../services/GetCompanyCustomers';
 import createHTMLOptions from '../../utilities/CreateHTMLOptions';
 import setCookie from "../../utilities/SetCookie";
 import getCookie from '../../utilities/GetCookie';
-import getCustomers from '../../services/GetCustomers';
+import getActiveCompanies from '../../services/GetActiveCompanies';
 
 async function getAccess() {
     await (() => { return true; });
@@ -40,7 +39,7 @@ export class Home extends Component {
     }
 
     async loadCompanies() {
-        const companiesInformation = await getCompanies();
+        const companiesInformation = await getActiveCompanies();
         if (companiesInformation.doesErrorExist) {
             this.setState({
                 errorCompanies: companiesInformation.errorMessage,
@@ -132,8 +131,6 @@ export class Home extends Component {
     };
 
     componentDidUpdate(previousProps, previousState) {
-        console.log(previousState);
-        console.log(this.state);
     }
 
     render() {

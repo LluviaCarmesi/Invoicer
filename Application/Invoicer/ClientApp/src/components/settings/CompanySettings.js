@@ -104,8 +104,6 @@ export default class CompanySettings extends Component {
     }
 
     componentDidUpdate(previousProps, previousState) {
-        console.log(previousState);
-        console.log(this.state);
     }
     render() {
         const submissionItem = {
@@ -129,7 +127,8 @@ export default class CompanySettings extends Component {
                 city: company.city,
                 state: company.state,
                 country: company.country,
-                zip: company.zip
+                zip: company.zip,
+                isActive: company.isActive
             });
         };
 
@@ -225,6 +224,7 @@ export default class CompanySettings extends Component {
                     country: currentInformation.country,
                     zip: currentInformation.zip,
                     isActive: currentInformation.isActive,
+                    isSubmissionAttempted: !isSuccessful,
                     wasSubmissionSuccessful: isSuccessful,
                     wasSubmissionFailure: !isSuccessful,
                     submissionErrorMessage: errorMessage,
@@ -381,7 +381,7 @@ export default class CompanySettings extends Component {
                                 </div>
                                 <div id="company-is-active-container" className="field-whole-container">
                                     <div className="field-label-input-container">
-                                        <span className="field-label field-required">{ENUSStrings.IsCompanyActiveLabel}</span>
+                                        <span className="field-label">{ENUSStrings.IsCompanyActiveLabel}</span>
                                         <input
                                             id="isActive"
                                             type="checkbox"

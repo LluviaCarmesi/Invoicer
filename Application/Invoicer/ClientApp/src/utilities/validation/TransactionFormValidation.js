@@ -8,7 +8,6 @@ export default function transactionFormValidation(values) {
     let errors = {
         dueDateError: "",
         paymentDateError: "",
-        checkNumberError: "",
         totalError: "",
     };
     if (values.type === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE) {
@@ -17,9 +16,6 @@ export default function transactionFormValidation(values) {
         }
     }
     else {
-        if (!values.checkNumber) {
-            errors.checkNumberError = ENUSStrings.CheckNumberLabel + ENUSStrings.BlankErrorMessage;
-        }
         if (!values.paymentDate) {
             errors.paymentDateError = ENUSStrings.PaymentDateLabel + ENUSStrings.BlankErrorMessage;
         }
