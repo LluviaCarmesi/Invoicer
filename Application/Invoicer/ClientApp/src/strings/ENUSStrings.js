@@ -16,7 +16,7 @@
     LoadingRemainingBalanceLabel: "Loading Remaining Balance",
     ViewLabel: "View",
     // Home
-    RemainingTransactonLabel: "Remaining Transaction",
+    RemainingBalanceLabel: "Remaining Balance",
     MakeInvoiceLabel: "Make Invoice",
     MakePaymentLabel: "Make Payment",
     AmountLabel: "Amount",

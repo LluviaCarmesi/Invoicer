@@ -9,6 +9,7 @@ import createHTMLOptions from '../../utilities/CreateHTMLOptions';
 import setCookie from "../../utilities/SetCookie";
 import getCookie from '../../utilities/GetCookie';
 import getActiveCompanies from '../../services/GetActiveCompanies';
+import formatDate from '../../utilities/FormatDate';
 
 async function getAccess() {
     await (() => { return true; });
@@ -171,6 +172,8 @@ export class Home extends Component {
                 transactions.push(
                     <thead key="0">
                         <tr>
+                            <th>{ENUSStrings.InvoiceLabel}</th>
+                            <th>{ENUSStrings.CreatedDateLabel}</th>
                             <th>{ENUSStrings.TypeLabel}</th>
                             <th>{ENUSStrings.AmountLabel}</th>
                             <th>{ENUSStrings.LinkLabel}</th>
@@ -184,6 +187,8 @@ export class Home extends Component {
                     transactions.push(
                         <tbody key={i + 1}>
                             <tr className="invoice-row">
+                                <td>{CurrentTransaction.id}</td>
+                                <td>{formatDate(new Date(CurrentTransaction.createdDate))}</td>
                                 <td>{CurrentTransaction.type}</td>
                                 <td>{CurrentTransaction.total}</td>
                                 <td>
@@ -201,6 +206,8 @@ export class Home extends Component {
                     transactions.push(
                         <tbody key={i + 1}>
                             <tr className="payment-row">
+                                <td>{CurrentTransaction.id}</td>
+                                <td>{formatDate(new Date(CurrentTransaction.createdDate))}</td>
                                 <td>{CurrentTransaction.type}</td>
                                 <td>{CurrentTransaction.total}</td>
                                 <td>
@@ -280,7 +287,7 @@ export class Home extends Component {
                                 </div>
                                 {!this.state.errorTransactions && !this.state.isLoadingTransactions &&
                                     <React.Fragment>
-                                        <span>{ENUSStrings.RemainingTransactonLabel}</span>
+                                        <span>{ENUSStrings.RemainingBalanceLabel}</span>
                                         <span className="remaining-balance">{showRemainingBalance()}</span>
                                     </React.Fragment>
                                 }
