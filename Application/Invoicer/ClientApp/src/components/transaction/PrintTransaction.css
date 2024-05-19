@@ -15,6 +15,10 @@
     font-weight: 700;
 }
 
+.print-transaction-customer-container {
+    margin-bottom: 50px;
+}
+
 .print-transaction-customer-container span {
     display: block;
 }
