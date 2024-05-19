@@ -8,6 +8,7 @@ import getTransaction from "../../services/GetTransaction";
 import getCustomer from "../../services/GetCustomer";
 import "./PrintTransaction.css";
 import getCompany from "../../services/GetCompany";
+import formatCurrency from "../../utilities/FormatCurrency";
 
 export default class PrintTransaction extends Component {
     constructor(props) {
@@ -164,7 +165,7 @@ export default class PrintTransaction extends Component {
                     <tr key={i + 1}>
                         <td><span>{currentInvoiceData.type}</span></td>
                         <td><span>{currentInvoiceData.ticketNumber}</span></td>
-                        <td><span>{currentInvoiceData.total}</span></td>
+                        <td><span>{formatCurrency(currentInvoiceData.total, "")}</span></td>
                     </tr>
                 );
             }
@@ -223,7 +224,7 @@ export default class PrintTransaction extends Component {
                             </div>
                             <div>
                                 <span>{ENUSStrings.TotalLabel}: </span>
-                                <span id="total-number">{this.state.total}</span>
+                                <span id="total-number">{formatCurrency(this.state.total, "")}</span>
                             </div>
                         </div>
                     </div>

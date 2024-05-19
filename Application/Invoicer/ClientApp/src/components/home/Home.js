@@ -10,6 +10,7 @@ import setCookie from "../../utilities/SetCookie";
 import getCookie from '../../utilities/GetCookie';
 import getActiveCompanies from '../../services/GetActiveCompanies';
 import formatDate from '../../utilities/FormatDate';
+import formatCurrency from "../../utilities/FormatCurrency";
 
 async function getAccess() {
     await (() => { return true; });
@@ -190,7 +191,7 @@ export class Home extends Component {
                                 <td>{CurrentTransaction.id}</td>
                                 <td>{formatDate(new Date(CurrentTransaction.createdDate))}</td>
                                 <td>{CurrentTransaction.type}</td>
-                                <td>{CurrentTransaction.total}</td>
+                                <td>{formatCurrency(CurrentTransaction.total, "")}</td>
                                 <td>
                                     <a
                                         href={`/transaction?id=${CurrentTransaction.id}&type=invoice&customerID=${this.state.currentCustomerID}`}
