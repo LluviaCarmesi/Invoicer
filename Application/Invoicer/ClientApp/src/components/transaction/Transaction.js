@@ -15,6 +15,7 @@ import editTransaction from "../../services/EditTransaction";
 import getTransaction from "../../services/GetTransaction";
 import getCookie from "../../utilities/GetCookie";
 import setCookie from "../../utilities/SetCookie";
+import formatCurrency from "../../utilities/FormatCurrency";
 
 export default class Transaction extends Component {
     constructor(props) {
@@ -35,7 +36,8 @@ export default class Transaction extends Component {
             paymentDate: todaysDate,
             dueDate: todaysDate,
             checkNumber: "",
-            total: "0",
+            total: 0.00,
+            totalString: "0.00",
             dueDateError: "",
             paymentDateError: "",
             totalError: "",
@@ -64,6 +66,7 @@ export default class Transaction extends Component {
             dueDate: formatDate(new Date()),
             checkNumber: "",
             total: 0.00,
+            totalString: "0.00",
             invoiceData: [{
                 type: "fuel",
                 ticketNumber: "",
@@ -89,6 +92,7 @@ export default class Transaction extends Component {
                 formatDate(new Date(transactionInformation.transaction.paymentDate));
             transaction.checkNumber = transactionInformation.transaction.checkNumber;
             transaction.total = transactionInformation.transaction.total;
+            transaction.totalString = formatCurrency(transaction.total, "");
             transaction.invoiceData = transactionInformation.transaction.invoiceData;
         }
         return transaction;
@@ -125,6 +129,7 @@ export default class Transaction extends Component {
             dueDate: transaction.dueDate,
             checkNumber: transaction.checkNumber,
             total: transaction.total,
+            totalString: transaction.totalString,
             invoiceData: transaction.invoiceData,
             errorTransaction: transaction.errorTransaction,
             isLoadingCustomers: false,
@@ -240,7 +245,8 @@ export default class Transaction extends Component {
             }
             this.setState({
                 invoiceData: currentInvoiceData,
-                total: currentTotal
+                total: currentTotal,
+                totalString: formatCurrency(currentTotal)
             });
         }
 
@@ -537,7 +543,7 @@ export default class Transaction extends Component {
                                     {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.INVOICE &&
                                         <div className="transaction-field-label-input-container">
                                             <span className="field-label"></span>
-                                            <span className="total">{ENUSStrings.TransactionTotalLabel} <b>{this.state.total}</b></span>
+                                            <span className="total">{ENUSStrings.TransactionTotalLabel} <b>{this.state.totalString}</b></span>
                                         </div>
                                     }
                                     {this.state.currentType === SETTINGS.TRANSACTION_TYPE_CHOICES.PAYMENT &&

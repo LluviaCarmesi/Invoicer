@@ -1,25 +1,25 @@
 {
   "version": 2,
 <<<<<<< HEAD
-  "dgSpecHash": "yb0cNAXN0J729x7f7qzxU1usn6NdAL0MyW0ejAneYLuoNO9B2+66VWcJ1K1eK5HX2iBHrjgQiN7p1Uxc9aHpVg==",
+  "dgSpecHash": "HfqIylX9m0wQldiE8JLVB0s4NYext57zA8E/Oj7jZG02OtUtCLanX4T7DgYWPjpsc0TPldxG0X6mX89W/ljZsg==",
 =======
-  "dgSpecHash": "sDGQPpjm/dpoVkQ6775iD8rGklCMQZzcLHpXYB6XzyeV9ng8/kRn3aLBQ5Xe70JqttdD5CKY6KWIE3aQr6xNeQ==",
->>>>>>> 6aa6ee641029e2f1f4ced62eb55da1732516844b
+  "dgSpecHash": "f5z7gZdrBpwArdRpIrrU1oa1hF2Nk4FTIlfW3DVlGxjP+rOj+NHWAkjAap/+8otfNGTrL1LqHnKU44k5ApmEbQ==",
+>>>>>>> b9189b88be48b5a3d6074b51385dcfa091deda8b
   "success": true,
-  "projectFilePath": "C:\\Users\\meradil\\Documents\\Development\\Personal\\Invoicer\\Application\\Invoicer\\Invoicer.csproj",
+  "projectFilePath": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Invoicer.csproj",
   "expectedPackageFiles": [
 <<<<<<< HEAD
-    "C:\\Users\\Sbasa\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\6.0.11\\microsoft.aspnetcore.spaproxy.6.0.11.nupkg.sha512",
-    "C:\\Users\\Sbasa\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.1\\microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
-    "C:\\Users\\Sbasa\\.nuget\\packages\\mysqlconnector\\2.3.5\\mysqlconnector.2.3.5.nupkg.sha512",
-    "C:\\Users\\Sbasa\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
-    "C:\\Users\\Sbasa\\.nuget\\packages\\microsoft.netcore.app.host.linux-arm\\8.0.2\\microsoft.netcore.app.host.linux-arm.8.0.2.nupkg.sha512"
-=======
     "C:\\Users\\meradil\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\6.0.11\\microsoft.aspnetcore.spaproxy.6.0.11.nupkg.sha512",
     "C:\\Users\\meradil\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.1\\microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
     "C:\\Users\\meradil\\.nuget\\packages\\mysqlconnector\\2.3.5\\mysqlconnector.2.3.5.nupkg.sha512",
-    "C:\\Users\\meradil\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
->>>>>>> 6aa6ee641029e2f1f4ced62eb55da1732516844b
+    "C:\\Users\\meradil\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\meradil\\.nuget\\packages\\microsoft.netcore.app.host.linux-arm\\8.0.1\\microsoft.netcore.app.host.linux-arm.8.0.1.nupkg.sha512"
+=======
+    "C:\\Users\\Sbasa\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\6.0.11\\microsoft.aspnetcore.spaproxy.6.0.11.nupkg.sha512",
+    "C:\\Users\\Sbasa\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.1\\microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
+    "C:\\Users\\Sbasa\\.nuget\\packages\\mysqlconnector\\2.3.5\\mysqlconnector.2.3.5.nupkg.sha512",
+    "C:\\Users\\Sbasa\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+>>>>>>> b9189b88be48b5a3d6074b51385dcfa091deda8b
   ],
   "logs": []
 }
