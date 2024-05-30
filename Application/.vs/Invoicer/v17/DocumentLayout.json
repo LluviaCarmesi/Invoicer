@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\ProgrammingProjects\\Invoicer\\Application\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\appsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\appsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\components\\home\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\components\\home\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\components\\transaction\\printtransaction.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\components\\transaction\\printtransaction.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\components\\transaction\\printtransaction.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\components\\transaction\\printtransaction.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\components\\transaction\\printtransaction.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\components\\transaction\\printtransaction.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\models\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\models\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\appsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\appsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\components\\home\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\clientapp\\src\\components\\home\\home.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\clientapp\\src\\components\\transaction\\transaction.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
@@ -149,10 +153,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\models\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|solutionrelative:invoicer\\models\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{28401F2B-1AF7-43E0-B395-618E1361B130}|Invoicer\\Invoicer.csproj|c:\\programmingprojects\\invoicer\\application\\invoicer\\models\\servicerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -392,7 +392,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 14,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -400,33 +400,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "PrintTransaction.css",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\transaction\\PrintTransaction.css",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\transaction\\PrintTransaction.css",
               "ToolTip": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\transaction\\PrintTransaction.css",
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\components\\transaction\\PrintTransaction.css",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2024-03-22T01:52:56.242Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "PrintTransaction.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\transaction\\PrintTransaction.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\transaction\\PrintTransaction.js",
               "ToolTip": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\transaction\\PrintTransaction.js",
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\components\\transaction\\PrintTransaction.js",
-              "ViewState": "AQIAAJ8AAAAAAAAAAAAAAL0AAABFAAAA",
+              "ViewState": "AQIAAJ8AAAAAAAAAAAAAAMEAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-03-22T01:50:50.55Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "CompaniesController.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Controllers\\CompaniesController.cs",
               "RelativeDocumentMoniker": "Invoicer\\Controllers\\CompaniesController.cs",
@@ -438,7 +438,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "ENUSStrings.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\strings\\ENUSStrings.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\strings\\ENUSStrings.js",
@@ -446,12 +446,11 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\strings\\ENUSStrings.js",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-01-07T13:41:17.417Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-07T13:41:17.417Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Home.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\home\\Home.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\home\\Home.js",
@@ -459,12 +458,11 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\components\\home\\Home.js",
               "ViewState": "AQIAAJgAAAAAAAAAAAAkwK4AAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-01-07T13:41:17.37Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-07T13:41:17.37Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "custom.css",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\custom.css",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\custom.css",
@@ -476,7 +474,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Home.css",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\home\\Home.css",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\home\\Home.css",
@@ -488,7 +486,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "CustomersServicesValidation.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Utilities\\Validation\\CustomersServicesValidation.cs",
               "RelativeDocumentMoniker": "Invoicer\\Utilities\\Validation\\CustomersServicesValidation.cs",
@@ -500,7 +498,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "TransactionsServicesValidation.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Utilities\\Validation\\TransactionsServicesValidation.cs",
               "RelativeDocumentMoniker": "Invoicer\\Utilities\\Validation\\TransactionsServicesValidation.cs",
@@ -512,7 +510,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Transaction.css",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\transaction\\Transaction.css",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\transaction\\Transaction.css",
@@ -524,7 +522,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "Settings.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\settings\\Settings.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\settings\\Settings.js",
@@ -536,7 +534,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Settings.css",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\settings\\Settings.css",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\settings\\Settings.css",
@@ -548,7 +546,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "TransactionsController.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Controllers\\TransactionsController.cs",
               "RelativeDocumentMoniker": "Invoicer\\Controllers\\TransactionsController.cs",
@@ -560,20 +558,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "AppSettings.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\AppSettings.cs",
               "RelativeDocumentMoniker": "Invoicer\\AppSettings.cs",
               "ToolTip": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\AppSettings.cs",
               "RelativeToolTip": "Invoicer\\AppSettings.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAB6AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAABsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-07T13:41:17.448Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 2,
+              "Title": "Transaction.cs",
+              "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Models\\Transaction.cs",
+              "RelativeDocumentMoniker": "Invoicer\\Models\\Transaction.cs",
+              "ToolTip": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Models\\Transaction.cs",
+              "RelativeToolTip": "Invoicer\\Models\\Transaction.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-01-07T13:41:17.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "CustomersController.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Controllers\\CustomersController.cs",
               "RelativeDocumentMoniker": "Invoicer\\Controllers\\CustomersController.cs",
@@ -585,7 +596,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Transaction.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\transaction\\Transaction.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\transaction\\Transaction.js",
@@ -593,12 +604,11 @@
               "RelativeToolTip": "Invoicer\\ClientApp\\src\\components\\transaction\\Transaction.js",
               "ViewState": "AQIAANkBAAAAAAAAAAAowPgBAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-01-07T13:41:17.37Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-07T13:41:17.37Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "CompaniesServices.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Services\\CompaniesServices.cs",
               "RelativeDocumentMoniker": "Invoicer\\Services\\CompaniesServices.cs",
@@ -610,7 +620,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "CustomerServices.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Services\\CustomerServices.cs",
               "RelativeDocumentMoniker": "Invoicer\\Services\\CustomerServices.cs",
@@ -622,7 +632,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "CompaniesServicesValidation.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Utilities\\Validation\\CompaniesServicesValidation.cs",
               "RelativeDocumentMoniker": "Invoicer\\Utilities\\Validation\\CompaniesServicesValidation.cs",
@@ -634,7 +644,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "CompanySettings.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\settings\\CompanySettings.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\settings\\CompanySettings.js",
@@ -646,7 +656,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "GetCustomer.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\GetCustomer.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\GetCustomer.js",
@@ -658,7 +668,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "CustomerSettings.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\components\\settings\\CustomerSettings.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\components\\settings\\CustomerSettings.js",
@@ -670,7 +680,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "GetCompanyCustomers.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\GetCompanyCustomers.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\GetCompanyCustomers.js",
@@ -682,7 +692,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "GetCompanies.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\GetCompanies.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\GetCompanies.js",
@@ -694,7 +704,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "GetActiveCompanies.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\GetActiveCompanies.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\GetActiveCompanies.js",
@@ -706,7 +716,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "CustomerFormValidation.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\utilities\\validation\\CustomerFormValidation.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\utilities\\validation\\CustomerFormValidation.js",
@@ -718,7 +728,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "EditCustomer.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\EditCustomer.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\EditCustomer.js",
@@ -730,7 +740,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "GetCompany.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\GetCompany.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\GetCompany.js",
@@ -742,7 +752,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "GetCustomerTransactions.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\GetCustomerTransactions.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\GetCustomerTransactions.js",
@@ -754,7 +764,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "GetCustomers.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\GetCustomers.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\GetCustomers.js",
@@ -766,7 +776,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "AddCompany.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\AddCompany.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\AddCompany.js",
@@ -778,7 +788,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "EditCompany.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\services\\EditCompany.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\services\\EditCompany.js",
@@ -790,7 +800,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "CompanyFormValidation.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\utilities\\validation\\CompanyFormValidation.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\utilities\\validation\\CompanyFormValidation.js",
@@ -802,7 +812,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "Company.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Models\\Company.cs",
               "RelativeDocumentMoniker": "Invoicer\\Models\\Company.cs",
@@ -814,7 +824,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "AppSettings.js",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\ClientApp\\src\\AppSettings.js",
               "RelativeDocumentMoniker": "Invoicer\\ClientApp\\src\\AppSettings.js",
@@ -826,7 +836,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Program.cs",
               "RelativeDocumentMoniker": "Invoicer\\Program.cs",
@@ -835,18 +845,6 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-17T16:52:16.322Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "Transaction.cs",
-              "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Models\\Transaction.cs",
-              "RelativeDocumentMoniker": "Invoicer\\Models\\Transaction.cs",
-              "ToolTip": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Models\\Transaction.cs",
-              "RelativeToolTip": "Invoicer\\Models\\Transaction.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-01-07T13:41:17.354Z"
             },
             {
               "$type": "Document",
@@ -862,7 +860,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "Customer.cs",
               "DocumentMoniker": "C:\\ProgrammingProjects\\Invoicer\\Application\\Invoicer\\Models\\Customer.cs",
               "RelativeDocumentMoniker": "Invoicer\\Models\\Customer.cs",
